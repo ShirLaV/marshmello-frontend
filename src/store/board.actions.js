@@ -32,15 +32,15 @@ export function loadBoard(boardId) {
 }
 
 export function onRemoveBoard(boardId) {
-    return async (dispatch) => {
+    return async(dispatch) => {
         try {
             await boardService.remove(boardId)
             console.log('Deleted Succesfully!');
             dispatch({
-                type: 'REMOVE_BOARD',
-                boardId
-            })
-            // showSuccessMsg('Board removed')
+                    type: 'REMOVE_BOARD',
+                    boardId
+                })
+                // showSuccessMsg('Board removed')
         } catch (err) {
             // showErrorMsg('Cannot remove board')
             console.log('Cannot remove board', err)
@@ -48,15 +48,15 @@ export function onRemoveBoard(boardId) {
     }
 }
 export function onAddBoard(board) {
-    return async (dispatch) => {
+    return async(dispatch) => {
         try {
             const savedBoard = await boardService.save(board)
             console.log('Added Board', savedBoard);
             dispatch({
-                type: 'ADD_BOARD',
-                board: savedBoard
-            })
-            // showSuccessMsg('Board added')
+                    type: 'ADD_BOARD',
+                    board: savedBoard
+                })
+                // showSuccessMsg('Board added')
         } catch (err) {
             // showErrorMsg('Cannot add board')
             console.log('Cannot add board', err)
@@ -64,14 +64,23 @@ export function onAddBoard(board) {
     }
 }
 
-export function onUpdateCard(action, card, board) {
-
+export function onUpdateCard(action, card, groupId, board) {
+    let newCard = null;
     switch (action.type) {
-
+        case 'UPDATE_CARD_COLOR':
+            card.style.bgColor = action.color
+            break
+        case 'ADD_CARD':
+            newCard = action.newCard
+            break
     }
-    const group = []
 
-    onUpdateBoard({ type: 'UPDATE_GROUP', group }, board)
+    const group = board.groups.find(group => group.id === groupId);
+    const groupToUpdate = {...group, cards: group.cards }
+    if (!newCard) groupToUpdate.cards.map(currCard => currCard.id === card.id ? card : currCard)
+    else groupToUpdate.cards = (groupToUpdate.cards) ? [...groupToUpdate.cards, newCard] : [newCard]
+    const groupAction = { type: 'UPDATE_GROUP', group: groupToUpdate }
+    return onUpdateBoard(groupAction, board)
 }
 
 export function onUpdateBoard(action, board) {

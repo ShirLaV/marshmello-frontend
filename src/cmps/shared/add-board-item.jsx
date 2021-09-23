@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 // import { toyService } from '../services/toy.service.js';
 // import { UserMsg } from '../cmps/user-msg.jsx';
 
-import { onUpdateBoard } from '../../store/board.actions.js';
+import { onUpdateBoard, onUpdateCard } from '../../store/board.actions.js';
 // import { setUserMsg } from '../store/user.actions.js';
 
 import { GrClose } from 'react-icons/gr';
@@ -37,20 +37,25 @@ class _AddBoardItem extends React.Component {
     const { newItem } = this.state;
     newItem.id = utilService.makeId();
     if (this.props.type === 'group') {
-      const action={type: 'ADD_GROUP', group: newItem}
+      const action = { type: 'ADD_GROUP', group: newItem };
       this.props.onUpdateBoard(action, this.props.board);
+    }
+    else if (this.props.type === 'card') {
+      const newCard = newItem;
+      const action = { type: 'ADD_CARD', newCard };
+      this.props.onUpdateCard(action, newCard, this.props.groupId, this.props.board);
     }
   };
 
   render() {
     const { title } = this.state.newItem;
     const { onToggleAddPop, type } = this.props;
-    const type = this.props.type==='group' ? this.props.type : 'list'
+    const renderedType = this.props.type === 'card' ? this.props.type : 'list';
     return (
       <section className=''>
         <form onSubmit={this.onAddItem}>
           <textarea
-            placeholder={`Enter a title for this ${type}`}
+            placeholder={`Enter a title for this ${renderedType}`}
             ref={(input) => {
               this.textInput = input;
             }}
@@ -59,7 +64,7 @@ class _AddBoardItem extends React.Component {
             onChange={this.handleChange}
           />
           <div className='form-btns'>
-            <button type='submit'>Add {type}</button>
+            <button type='submit'>Add {renderedType}</button>
             <button onClick={onToggleAddPop}>
               <GrClose />
             </button>
@@ -78,6 +83,7 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
   onUpdateBoard,
+  onUpdateCard,
 };
 
 export const AddBoardItem = connect(
