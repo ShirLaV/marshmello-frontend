@@ -1,0 +1,72 @@
+.card-edit {
+    min-height: rem(600px);
+    width: rem(768px);
+    display: block;
+    margin: auto;
+
+    .card-edit-bg {
+        min-height: rem(116px);
+        height: rem(116px);
+        padding: 0;
+        width: 100%;
+    }
+
+    .card-edit-header {
+        min-height: rem(32px);
+    }
+
+    .clean-input {
+        border: none;
+        outline: none;
+        width: rem(656px);
+        height: rem(33.333px);
+        border-radius: rem(3px);
+        font-size: rem(20px);
+        transition: border .1s;
+
+        &:focus {
+            border: 2px solid black;
+        }
+    }
+
+    .card-description {}
+
+    .card-edit-title {
+        display: flex;
+        gap: rem(10px);
+        margin: 12px 40px 8px 56px;
+    }
+
+    .description-textarea {
+        width: rem(500px);
+        border: none;
+        outline: none;
+        background-color: #eaecf0;
+        cursor: pointer;
+        margin: 12px 40px 8px 56px;
+
+        &.open {
+            background-color: #fff;
+            outline: 2px solid black;
+            cursor: text;
+        }
+    }
+
+    .description-btns {
+        display: flex;
+        gap: rem(10px);
+
+        button {
+            cursor: pointer;
+        }
+    }
+
+    .list-name-container {
+        color: #5e6c84;
+        .list-name {
+            text-decoration: underline;
+        }
+
+    }
+
+}
