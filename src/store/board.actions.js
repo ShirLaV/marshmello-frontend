@@ -1,7 +1,6 @@
 import { boardService } from "../services/board.service.js";
 // import { userService } from "../services/user.service.js";
-// import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
-​
+// import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js';
 export function loadBoards(filterBy) {
     return async(dispatch) => {
         try {
@@ -15,7 +14,23 @@ export function loadBoards(filterBy) {
             console.log('Cannot load boards', err)
         }
     }
-}​
+}
+
+export function loadBoard(boardId) {
+    return async(dispatch) => {
+        try {
+            const board = await boardService.getById(boardId)
+            dispatch({
+                type: 'SET_CURR_BOARD',
+                board
+            })
+        } catch (err) {
+            // showErrorMsg('Cannot load boards')
+            console.log('Cannot load board', err)
+        }
+    }
+}
+
 export function onRemoveBoard(boardId) {
     return async(dispatch) => {
         try {
@@ -31,7 +46,7 @@ export function onRemoveBoard(boardId) {
             console.log('Cannot remove board', err)
         }
     }
-}​
+}
 export function onAddBoard(board) {
     return async(dispatch) => {
         try {
@@ -47,7 +62,7 @@ export function onAddBoard(board) {
             console.log('Cannot add board', err)
         }
     }
-}​
+}
 export function onEditBoard(boardToSave) {
     return async(dispatch) => {
         try {
@@ -64,11 +79,10 @@ export function onEditBoard(boardToSave) {
         }
     }
 }
-// ​
+//
 // export function onUpdateFilter(filterBy) {
 //     return (dispatch) => {
 //         const action = { type: 'UPDATE_FILTER', filterBy }
 //         dispatch(action)
 //     }
 // }
-​
