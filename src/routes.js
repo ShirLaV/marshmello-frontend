@@ -1,6 +1,7 @@
 import { HomePage } from './pages/home-page.jsx'
 import { BoardApp } from './pages/board-app.jsx'
 import { BoardDetails } from './pages/board-details.jsx'
+// import { OverlayScreen } from './cmps/overlay-screen.jsx'
 
 // Routes accesible from the main navigation (in AppHeader)
 const routes = [{
