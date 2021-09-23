@@ -63,22 +63,53 @@ export function onAddBoard(board) {
         }
     }
 }
-export function onEditBoard(boardToSave) {
-    return async (dispatch) => {
+export function onUpdateBoard(action, board) {
+    return async(dispatch) => {
+
+        const boardToSave = _getUpdatedBoard(action, board)
+        dispatch({
+            type: 'UPDATE_BOARD',
+            board: boardToSave
+        })
+
+        console.log('Updated Board:', boardToSave);
         try {
-            const savedBoard = await boardService.save(boardToSave)
-            console.log('Updated Board:', savedBoard);
-            dispatch({
-                type: 'UPDATE_BOARD',
-                board: savedBoard
-            })
-            // showSuccessMsg('Board updated')
+            await boardService.save(boardToSave)
+                // showSuccessMsg('Board updated')
         } catch (err) {
             // showErrorMsg('Cannot update board')
             console.log('Cannot save board', err)
         }
     }
 }
+
+function _getUpdatedBoard(action, board) {
+    const boardToSave = {...board }
+    switch (action.type) {
+        case 'ADD_GROUP':
+            boardToSave.groups = [...boardToSave.groups, action.group]
+            break
+    }
+    return boardToSave;
+}
+// export function onEditBoard(boardToSave) {
+
+//     return async(dispatch) => {
+
+//         try {
+//             const savedBoard = await boardService.save(boardToSave)
+//             console.log('Updated Board:', savedBoard);
+//             dispatch({
+//                     type: 'UPDATE_BOARD',
+//                     board: savedBoard
+//                 })
+//                 // showSuccessMsg('Board updated')
+//         } catch (err) {
+//             // showErrorMsg('Cannot update board')
+//             console.log('Cannot save board', err)
+//         }
+//     }
+// }
 //
 // export function onUpdateFilter(filterBy) {
 //     return (dispatch) => {

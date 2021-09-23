@@ -1,0 +1,11 @@
+.group-list-container {
+    .add-boarditem-btn {
+        align-self: flex-start;
+        width: 250px;
+        text-align: start;
+        background-color: rgb(191, 186, 186);
+        &.add-boarditem-btn:hover {
+            background-color: #beb5b5;
+        }
+    }
+}
