@@ -45,12 +45,12 @@ class _AddBoardItem extends React.Component {
   render() {
     const { title } = this.state.newItem;
     const { onToggleAddPop, type } = this.props;
-    const type = this.props.type==='group' ? this.props.type : 'list'
+    const renderedType = this.props.type==='group' ? this.props.type : 'list'
     return (
       <section className=''>
         <form onSubmit={this.onAddItem}>
           <textarea
-            placeholder={`Enter a title for this ${type}`}
+            placeholder={`Enter a title for this ${renderedType}`}
             ref={(input) => {
               this.textInput = input;
             }}
@@ -59,7 +59,7 @@ class _AddBoardItem extends React.Component {
             onChange={this.handleChange}
           />
           <div className='form-btns'>
-            <button type='submit'>Add {type}</button>
+            <button type='submit'>Add {renderedType}</button>
             <button onClick={onToggleAddPop}>
               <GrClose />
             </button>
