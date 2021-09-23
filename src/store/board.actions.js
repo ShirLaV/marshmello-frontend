@@ -63,15 +63,24 @@ export function onAddBoard(board) {
         }
     }
 }
+
+export function onUpdateCard(action, card, board) {
+
+    switch (action.type) {
+
+    }
+    const group = []
+
+    onUpdateBoard({ type: 'UPDATE_GROUP', group }, board)
+}
+
 export function onUpdateBoard(action, board) {
     return async(dispatch) => {
-
         const boardToSave = _getUpdatedBoard(action, board)
         dispatch({
             type: 'UPDATE_BOARD',
             board: boardToSave
         })
-
         console.log('Updated Board:', boardToSave);
         try {
             await boardService.save(boardToSave)
@@ -88,7 +97,10 @@ function _getUpdatedBoard(action, board) {
     switch (action.type) {
         case 'ADD_GROUP':
             boardToSave.groups = [...boardToSave.groups, action.group]
-            break
+            break;
+        case 'UPDATE_GROUP':
+            boardToSave.groups = boardToSave.groups.map(currGroup => currGroup.id === action.group.id ? action.group : currGroup)
+
     }
     return boardToSave;
 }
