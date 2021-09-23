@@ -1,5 +1,13 @@
 .group-preview {
-    border: 1px solid black;
+    border-radius: 5px;
     width: 300px;
     padding: 20px;
+    background-color: white;
+    .add-boarditem-btn {
+        text-align: start;
+        width: 90%;
+        &.add-boarditem-btn:hover {
+            background-color: rgb(190, 181, 181);
+        }
+    }
 }

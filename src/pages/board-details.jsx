@@ -16,7 +16,7 @@ class _BoardDetails extends Component {
       const {board} = this.props;
       if(!board) return <div>Loading...</div>
     return (
-      <div>
+      <div className="board-details">
           <div className="board-header"></div>
         <h1>{board.title}</h1>
         <GroupList groups={board.groups}/>
