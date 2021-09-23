@@ -32,15 +32,15 @@ export function loadBoard(boardId) {
 }
 
 export function onRemoveBoard(boardId) {
-    return async(dispatch) => {
+    return async (dispatch) => {
         try {
             await boardService.remove(boardId)
             console.log('Deleted Succesfully!');
             dispatch({
-                    type: 'REMOVE_BOARD',
-                    boardId
-                })
-                // showSuccessMsg('Board removed')
+                type: 'REMOVE_BOARD',
+                boardId
+            })
+            // showSuccessMsg('Board removed')
         } catch (err) {
             // showErrorMsg('Cannot remove board')
             console.log('Cannot remove board', err)
@@ -48,15 +48,15 @@ export function onRemoveBoard(boardId) {
     }
 }
 export function onAddBoard(board) {
-    return async(dispatch) => {
+    return async (dispatch) => {
         try {
             const savedBoard = await boardService.save(board)
             console.log('Added Board', savedBoard);
             dispatch({
-                    type: 'ADD_BOARD',
-                    board: savedBoard
-                })
-                // showSuccessMsg('Board added')
+                type: 'ADD_BOARD',
+                board: savedBoard
+            })
+            // showSuccessMsg('Board added')
         } catch (err) {
             // showErrorMsg('Cannot add board')
             console.log('Cannot add board', err)

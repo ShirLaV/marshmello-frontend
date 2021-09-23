@@ -1,5 +1,5 @@
 import { HomePage } from './pages/home-page.jsx'
-import { BoardApp } from './pages/board-app.jsx'
+import { BoardSelect } from './pages/boards-select.jsx'
 import { BoardDetails } from './pages/board-details.jsx'
 // import { OverlayScreen } from './cmps/overlay-screen.jsx'
 // import { CardEdit } from './cmps/card-edit.jsx'
@@ -8,11 +8,11 @@ import { BoardDetails } from './pages/board-details.jsx'
 const routes = [{
         path: '/',
         component: HomePage,
-        label: 'Home 🏠',
+        label: 'Home',
     },
     {
         path: '/board',
-        component: BoardApp,
+        component: BoardSelect,
         label: 'Boards'
     },
     {

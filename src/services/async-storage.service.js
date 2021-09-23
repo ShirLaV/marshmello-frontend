@@ -9,9 +9,10 @@ export const storageService = {
 
 
 const gBoards = require('../data/board.json');
+const gUsers = require('../data/user.json');
 
-function query(entityType, delay = 1200) {
-    var entities = JSON.parse(localStorage.getItem(entityType)) || gBoards;
+function query(entityType, delay = 500) {
+    var entities = JSON.parse(localStorage.getItem(entityType)) || (entityType === 'board') ? gBoards : gUsers;
 
     return new Promise((resolve, reject) => {
             setTimeout(() => {
@@ -21,6 +22,18 @@ function query(entityType, delay = 1200) {
         })
         // return Promise.resolve(entities)
 }
+
+// function queryUsers(entityType, delay = 500) {
+//     var entities = JSON.parse(localStorage.getItem(entityType)) || gUsers;
+
+//     return new Promise((resolve, reject) => {
+//             setTimeout(() => {
+//                 // reject('OOOOPs')
+//                 resolve(entities)
+//             }, delay)
+//         })
+//         // return Promise.resolve(entities)
+// }
 
 
 function get(entityType, entityId) {

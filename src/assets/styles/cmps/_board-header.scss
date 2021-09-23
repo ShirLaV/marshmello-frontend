@@ -1,0 +1,29 @@
+.board-header {
+  padding: 0;
+  background-color: rgba(126, 26, 126, 0.404);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .left-btns {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    
+    .user-previews {
+        display: flex;
+        align-items: center;
+        
+        .user-pic-container {
+            border-radius: 50%;
+            width: 30px;
+        }
+    }
+}
+
+.right-btns {
+    display: flex;
+    gap: 10px;
+    // align-items: center;
+  }
+}
