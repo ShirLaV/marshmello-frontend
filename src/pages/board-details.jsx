@@ -17,6 +17,7 @@ class _BoardDetails extends Component {
       if(!board) return <div>Loading...</div>
     return (
       <div>
+          <div className="board-header"></div>
         <h1>{board.title}</h1>
         <GroupList groups={board.groups}/>
         {/* <pre>{JSON.stringify(board, null, 2)}</pre> */}
