@@ -1,5 +1,5 @@
 import { HomePage } from './pages/home-page.jsx'
-import { BoardApp } from './pages/board-app.jsx'
+import { BoardSelect } from './pages/boards-select.jsx'
 import { BoardDetails } from './pages/board-details.jsx'
 
 // Routes accesible from the main navigation (in AppHeader)
@@ -10,7 +10,7 @@ const routes = [{
     },
     {
         path: '/board',
-        component: BoardApp,
+        component: BoardSelect,
         label: 'Boards'
     },
     {

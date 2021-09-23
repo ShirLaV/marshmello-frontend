@@ -23,20 +23,7 @@ class _AppHeader extends React.Component {
         const { user } = this.props
         return (
             <header className="app-header">
-                <nav>
-                    {routes.map(route => <NavLink exact key={route.path} to={route.path}>{route.label}</NavLink>)}
-                    {user && <span className="user-info">
-                            <Link to={`user/${user._id}`}>
-                                {user.fullname}
-                                <span className="score">{user.score?.toLocaleString()}</span>
-                            </Link>
-                        <button onClick={this.onLogout}>Logout</button>
-                    </span>}
-                    {!user && <section className="user-info">
-                        <LoginSignup onLogin={this.onLogin} onSignup={this.onSignup} />
-                    </section>}
-                </nav>
-                <h1>My App</h1>
+                Header
             </header>
         )
     }

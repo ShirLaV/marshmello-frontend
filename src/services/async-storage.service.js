@@ -10,7 +10,7 @@ export const storageService = {
 
 const gBoards = require('../data/board.json');
 
-function query(entityType, delay = 1200) {
+function query(entityType, delay = 500) {
     var entities = JSON.parse(localStorage.getItem(entityType)) || gBoards;
 
     return new Promise((resolve, reject) => {
