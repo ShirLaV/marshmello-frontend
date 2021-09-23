@@ -1,9 +1,8 @@
 import { boardService } from "../services/board.service.js";
 // import { userService } from "../services/user.service.js";
-// import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js'
-
-export function loadBoards(filterBy = {}) {
-    return async (dispatch) => {
+// import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js';
+export function loadBoards(filterBy) {
+    return async(dispatch) => {
         try {
             const boards = await boardService.query(filterBy)
             dispatch({
@@ -13,6 +12,21 @@ export function loadBoards(filterBy = {}) {
         } catch (err) {
             // showErrorMsg('Cannot load boards')
             console.log('Cannot load boards', err)
+        }
+    }
+}
+
+export function loadBoard(boardId) {
+    return async(dispatch) => {
+        try {
+            const board = await boardService.getById(boardId)
+            dispatch({
+                type: 'SET_CURR_BOARD',
+                board
+            })
+        } catch (err) {
+            // showErrorMsg('Cannot load boards')
+            console.log('Cannot load board', err)
         }
     }
 }

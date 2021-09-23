@@ -9,12 +9,18 @@
 @import "basics/base";
 @import "basics/links";
 @import "basics/forms";
+@import "basics/buttons";
 // Pages
 // @import "pages/about-us";
 // @import "pages/home-page";
 // @import "pages/car-app";
 // @import "pages/review-app";
+
 // Components
-// @import "cmps/app-header";
+@import "cmps/group-preview";
+@import "cmps/board-preview";
+@import "cmps/board-list";
+@import "cmps/app-header";
+@import "cmps/board-header";
 // @import "cmps/app-footer";
 // @import "cmps/user-msg";

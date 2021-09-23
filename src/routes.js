@@ -6,7 +6,7 @@ import { BoardDetails } from './pages/board-details.jsx'
 const routes = [{
         path: '/',
         component: HomePage,
-        label: 'Home 🏠',
+        label: 'Home',
     },
     {
         path: '/board',

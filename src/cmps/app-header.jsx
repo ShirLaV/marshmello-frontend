@@ -1,12 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
+import { CgHome } from 'react-icons/cg';
+import { AiOutlinePlus, AiOutlineBell } from 'react-icons/ai';
+import { SiTrello } from 'react-icons/si';
 
-import routes from '../routes'
+
+// import routes from '../routes'
 
 
 import { onLogin, onLogout, onSignup, loadUsers, removeUser } from '../store/user.actions.js'
-import { LoginSignup } from './login-signup.jsx'
 
 class _AppHeader extends React.Component {
     onLogin = (credentials) => {
@@ -23,7 +26,19 @@ class _AppHeader extends React.Component {
         const { user } = this.props
         return (
             <header className="app-header">
-                Header
+                <nav className="nav-links">
+                    <div className="left-links">
+                        <NavLink to="/"><button className="nav-button"><CgHome /></button></NavLink>
+                        <NavLink to="/board"><button className="nav-button"><SiTrello /> Boards</button></NavLink>
+                        {/* <NavLink to="/board/:boardId"><button className="nav-button">Board</button></NavLink> */}
+                    </div>
+                    <NavLink className="logo" to="/board"><SiTrello /> <span> Marshmello </span></NavLink>
+                    <div className="right-links">
+                        <button className="nav-button"><AiOutlinePlus /></button>
+                        <button className="nav-button"><AiOutlineBell /></button>
+                        <button className="nav-button">User</button>
+                    </div>
+                </nav>
             </header>
         )
     }
@@ -31,10 +46,8 @@ class _AppHeader extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        users: state.userModule.users,
+        boards: state.boardModule.boards,
         user: state.userModule.user,
-        count: state.userModule.count,
-        // isLoading: state.systemModule.isLoading
     }
 }
 const mapDispatchToProps = {

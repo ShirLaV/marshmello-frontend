@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { BoardList } from '../cmps/board-list'
 import { BoardPreview } from '../cmps/board-preview'
 import { loadBoards } from '../store/board.actions'
 
@@ -19,9 +20,7 @@ class _BoardSelect extends React.Component {
         return (
             <div className="boards-select">
                 <h2>Workspace</h2>
-                {boards.map(board => 
-                    <BoardPreview key={board._id} board={board} />
-                    )}
+                <BoardList boards={boards} />
             </div>
         )
     }

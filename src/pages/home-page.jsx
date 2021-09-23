@@ -15,15 +15,7 @@ class _HomePage extends React.Component {
         const { count } = this.props
         return (
             <section>
-                <h2>
-                    Count {count}
-                    <button onClick={() => {
-                        this.changeCount(1)
-                    }}>+</button>
-                    <button onClick={() => {
-                        this.changeCount(10)
-                    }}>+10</button>
-                </h2 >
+                <h2>Home Page!</h2>
             </section >
         )
     }
