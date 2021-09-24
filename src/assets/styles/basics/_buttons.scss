@@ -3,10 +3,17 @@
     font-size: rem(16px);
     color: white;
     border-radius: 3px;
-    
     transition: all 0.3s;
-
     &:hover {
         background-color: rgba(182, 181, 181, 0.205);
+    }
+}
+
+.add-boarditem-btn {
+    text-align: start;
+    padding: 0;
+    font-size: 1rem;
+    &.add-boarditem-btn:hover {
+        background-color: rgba(145, 141, 141, 0.165);
     }
 }

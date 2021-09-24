@@ -6,7 +6,6 @@ import routes from './routes'
 
 import {AppHeader} from './cmps/app-header'
 import {CardDetails} from './pages/card-details'
-import { BoardHeader } from './cmps/board-header'
 
 export class RootCmp extends React.Component {
 
@@ -14,7 +13,7 @@ export class RootCmp extends React.Component {
         return (
             <div>
                 <AppHeader />
-                <BoardHeader />
+                
                 <main>
                     <Switch>
                         {routes.map(route=> <Route key={route.path} exact component={route.component} path={route.path} /> )}

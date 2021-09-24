@@ -1,13 +1,23 @@
 .group-preview {
     border-radius: 5px;
-    width: 300px;
-    padding: 20px;
-    background-color: white;
+    width: 250px;
+    padding: 0 8px;
+    background-color: #EBECF0;
+    .group-header {
+        height: 40px;
+    }
+    p {
+        margin: 0;
+    }
+    .card-list {
+        width: 100%;
+    }
     .add-boarditem-btn {
-        text-align: start;
-        width: 90%;
-        &.add-boarditem-btn:hover {
-            background-color: rgb(190, 181, 181);
-        }
+        background-color: inherit;
+        align-self: center;
+        height: unset;
+    }
+    .group-footer {
+        min-height: 40px;
     }
 }

@@ -7,7 +7,9 @@
             "fullname": "Abi Abambi",
             "imgUrl": "http://some-img"
         },
-        "style": {},
+        "style": {
+            "imgUrl": "https://www.travelanddestinations.com/wp-content/uploads/2019/11/Beach-Destinations-in-Asia.jpg"
+        },
         "labels": [{
             "id": "l101",
             "title": "Done",

@@ -26,6 +26,8 @@ export class GroupList extends Component {
             })}
           </ul>
         )}
+        <div className="add-group-container">
+
         {!isAddPopOpen && (
           <button className='add-boarditem-btn' onClick={this.onToggleAddPop}>
             <AiOutlinePlus />
@@ -34,10 +36,11 @@ export class GroupList extends Component {
         )}
         {isAddPopOpen && (
           <AddBoardItem
-            onToggleAddPop={this.onToggleAddPop}
-            type={'group'}
+          onToggleAddPop={this.onToggleAddPop}
+          type={'group'}
           />
-        )}
+          )}
+          </div>
       </section>
     );
   }

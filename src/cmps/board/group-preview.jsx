@@ -12,17 +12,13 @@ export class GroupPreview extends Component {
     isAddPopOpen: false,
   };
 
-
   onToggleAddPop = () => {
     this.setState({isAddPopOpen: !this.state.isAddPopOpen})  
   };
 
-
-
   render() {
     const { group } = this.props;
     const { isAddPopOpen } = this.state;
-    // console.log('group in group-preview', group)
     return (
       <div className='group-preview'>
         <div className='group-header flex space-between align-center'>

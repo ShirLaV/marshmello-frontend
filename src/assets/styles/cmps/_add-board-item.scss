@@ -1,0 +1,12 @@
+.add-board-item {
+    background-color: #EBECF0;
+    .form-btns {
+        button:first-child {
+            background-color: #0079BF;
+            border-radius: 5px;
+            color: white;
+            height: 30px;
+            width: 80px;
+        }
+    }
+}

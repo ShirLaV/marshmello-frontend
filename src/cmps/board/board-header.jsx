@@ -5,7 +5,7 @@ import { HiDotsHorizontal } from 'react-icons/hi'
 import { connect } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
 
-import { loadUsers } from '../store/user.actions.js'
+import { loadUsers } from '../../store/user.actions.js'
 
 class _BoardHeader extends React.Component {
 
@@ -14,12 +14,12 @@ class _BoardHeader extends React.Component {
     }
 
     render() {
-        const { users } = this.props
+        const { users, title } = this.props
         console.log('Users: ', users);
         return (
             <section className="board-header">
                 <div className="left-btns">
-                    <button className="board-title nav-button">Hard Coded Board</button>
+                    <button className="board-title nav-button">{title}</button>
                     <button className="starred-btn nav-button"><AiOutlineStar /></button> |
                     <div className="user-previews">
                         {users.map(user =>

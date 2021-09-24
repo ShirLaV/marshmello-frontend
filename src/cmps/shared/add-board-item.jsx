@@ -52,7 +52,7 @@ class _AddBoardItem extends React.Component {
     const { onToggleAddPop, type } = this.props;
     const renderedType = this.props.type === 'card' ? this.props.type : 'list';
     return (
-      <section className=''>
+      <section className='add-board-item'>
         <form onSubmit={this.onAddItem}>
           <textarea
             placeholder={`Enter a title for this ${renderedType}`}

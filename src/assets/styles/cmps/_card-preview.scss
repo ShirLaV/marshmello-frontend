@@ -1,9 +1,16 @@
 .card-preview {
-    border-bottom: 1px solid rgba(78, 69, 69, 0.529);
+    background-color: white;
+    border-bottom: 1px solid #B2B9C5;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    width: 100%;
+    min-height: 20px;
     .hover-edit-btn {
         display: none;
     }
     &.card-preview:hover {
+        background-color: #F4F5F7;
+        cursor: pointer;
         .hover-edit-btn {
             display: block;
         }
