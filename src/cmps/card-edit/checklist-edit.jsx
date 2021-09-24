@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { ProgressBar } from './progress-bar'
 import { connect } from 'react-redux'
-import { onUpdateCard1 } from '../../store/board.actions'
+import { onUpdateCard } from '../../store/board.actions'
 
 
 export class _ChecklistEdit extends Component {
@@ -11,14 +11,15 @@ export class _ChecklistEdit extends Component {
 
     getTodoPercentage = (todos) => {
         const doneTodos = todos.filter(todo => todo.isDone)
-        const percentage = (doneTodos.length / todos.length) * 100
-        this.setState({ percentage })
+        return (doneTodos.length / todos.length) * 100
     }
 
     handleChange = ({ target: { name, checked } }) => {
         const { params, board } = this.props
         const action = { ...params, isChecked: checked }
-        this.props.onUpdateCard1(action, name, board)
+        this.props.onUpdateCard(action, name, board)
+        const percentage = this.getTodoPercentage(this.props.checklist.todos)
+        this.setState({ percentage })
     }
 
     render() {
@@ -26,7 +27,7 @@ export class _ChecklistEdit extends Component {
         const { percentage } = this.state
         return (
             <section className="checklist-preview flex column">
-                <div className="flex">
+                <div className="flex align-center">
                     <span>{percentage}%</span>
                     <ProgressBar completed={percentage} />
                 </div>
@@ -48,8 +49,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    onUpdateCard1,
-    // loadBoard
+    onUpdateCard,
 }
 
 export const ChecklistEdit = connect(mapStateToProps, mapDispatchToProps)(_ChecklistEdit);
