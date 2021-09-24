@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { onUpdateCard1, loadBoard } from '../store/board.actions'
+import { onUpdateCard, loadBoard } from '../store/board.actions'
 import { CgCreditCard } from 'react-icons/cg'
 import { IoMdList } from 'react-icons/io'
 import { MdFormatListBulleted } from 'react-icons/md'
@@ -44,7 +44,7 @@ class _CardEdit extends Component {
     handlePropertyChange = ({ target: { name, value } }) => {
         let dataParams = this.props.match.params
         const action = { ...dataParams, [name]: value }
-        this.props.onUpdateCard1(action, name, board)
+        this.props.onUpdateCard(action, name, board)
     }
 
     render() {
@@ -219,7 +219,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    onUpdateCard1,
+    onUpdateCard,
     loadBoard
 }
 
