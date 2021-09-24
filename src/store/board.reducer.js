@@ -2,6 +2,7 @@ const initialState = {
     boards: [],
     currBoard: {},
     lastRemovedBoard: null,
+    isAddingBoard: false
 }
 
 export function boardReducer(state = initialState, action) {
@@ -18,6 +19,9 @@ export function boardReducer(state = initialState, action) {
             const lastRemovedBoard = state.boards.find(board => board._id === action.boardId)
             boards = state.boards.filter(board => board._id !== action.boardId)
             newState = {...state, boards, lastRemovedBoard }
+            break
+        case 'SET_ADDING_BOARD':
+            newState = {...state, isAddingBoard: action.isAddingBoard }
             break
         case 'ADD_BOARD':
             newState = {...state, boards: [...state.boards, action.board] }

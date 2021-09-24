@@ -34,7 +34,17 @@ function save(board) {
     if (board._id) {
         return storageService.put(STORAGE_KEY, board)
     } else {
-        return storageService.post(STORAGE_KEY, board)
+        const boardToSave = {
+            title: board.title,
+            createdAt: Date.now(),
+            style: (board.style) ? board.style : {},
+            isStarred: false,
+            createdBy: userService.getMiniUser(),
+            groups: [],
+            labels: [],
+            members: [userService.getMiniUser()]
+        }
+        return storageService.post(STORAGE_KEY, boardToSave)
     }
 }
 
