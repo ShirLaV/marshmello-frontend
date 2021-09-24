@@ -62,11 +62,12 @@
     }
     .card-preview-footer {
         padding: 0 5px;
-        gap: 5px;
+        gap: 8px;
         .due-date-box {
             gap: 5px;
             padding: 0 5px;
             border-radius: 5px;
+            color: white;
             .check-icon {
                 display: none;
             }
@@ -79,6 +80,9 @@
                     align-items: center;
                 }
             }
+        }
+        .checklist-box {
+            gap: 5px;
         }
         .card-members-list {
             padding: 5px;

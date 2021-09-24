@@ -6,6 +6,7 @@ import { GrTextAlignFull } from 'react-icons/gr';
 import { GrCheckbox } from 'react-icons/gr';
 import { GrCheckboxSelected } from 'react-icons/gr';
 import { FiClock } from 'react-icons/fi';
+import { BsCheckBox } from 'react-icons/bs';
 
 import { onUpdateCard } from '../../store/board.actions.js';
 import { MemberAvatar } from '../shared/member-avatar.jsx';
@@ -54,6 +55,18 @@ class _CardPreview extends Component {
       'isComplete',
       this.props.board
     );
+  };
+
+  getChecklistStr = (checklists) => {
+    let todosCount = 0;
+    let doneTodosCount = 0;
+    checklists.forEach((checklist) => {
+      todosCount++;
+      checklist.todos.forEach((todo) => {
+        if (todo.isDone) doneTodosCount++;
+      });
+    });
+    return doneTodosCount + '/' + todosCount;
   };
 
   render() {
@@ -124,6 +137,14 @@ class _CardPreview extends Component {
           {card.description && (
             <GrTextAlignFull title={'This card has a description'} />
           )}
+
+          {card.checklists && (
+            <div className='checklist-box flex align-center'>
+              <BsCheckBox />
+              <span>{this.getChecklistStr(card.checklists)}</span>
+            </div>
+          )}
+
           {card.members && (
             <div className='card-members-list flex'>
               {card.members.map((member) => (
