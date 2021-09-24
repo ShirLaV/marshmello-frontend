@@ -25,10 +25,7 @@ class _BoardHeader extends React.Component {
                     <button className={'starred-btn nav-button'}><AiOutlineStar /></button> |
                     <div className="user-previews">
                         {board.members.map(member =>
-                            // <div key={user._id} className="user-pic-container">
-                            //     <img src={user.imgUrl} />
-                            // </div>
-                            <MemberAvatar member={member} />
+                            <MemberAvatar key={member._id} member={member} />
                         )}
                         <button className="invite-btn nav-button">Invite</button>
                     </div>
