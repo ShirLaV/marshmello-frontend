@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { BoardHeader } from '../cmps/board-header.jsx';
 
 import { GroupList } from '../cmps/board/group-list.jsx';
 import { loadBoard } from '../store/board.actions.js';
@@ -13,13 +14,14 @@ class _BoardDetails extends Component {
     this.props.loadBoard(boardId);
   };
   render() {
-      const {board} = this.props;
-      if(!board) return <div>Loading...</div>
+    const { board } = this.props;
+    if (!board) return <div>Loading...</div>
     return (
       <div className="board-details">
-          <div className="board-header"></div>
+        <BoardHeader board={board} />
+        <div className="board-header"></div>
         <h1>{board.title}</h1>
-        <GroupList groups={board.groups}/>
+        <GroupList groups={board.groups} />
         {/* <pre>{JSON.stringify(board, null, 2)}</pre> */}
       </div>
     );

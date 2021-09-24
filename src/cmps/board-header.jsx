@@ -6,6 +6,8 @@ import { connect } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
 
 import { loadUsers } from '../store/user.actions.js'
+import { loadBoard } from '../store/board.actions'
+import { OverlayScreen } from './overlay-screen.jsx'
 
 class _BoardHeader extends React.Component {
 
@@ -14,16 +16,17 @@ class _BoardHeader extends React.Component {
     }
 
     render() {
-        const { users } = this.props
+        const { users, board } = this.props
+        console.log('Board: ', board);
         console.log('Users: ', users);
         return (
             <section className="board-header">
                 <div className="left-btns">
-                    <button className="board-title nav-button">Hard Coded Board</button>
-                    <button className="starred-btn nav-button"><AiOutlineStar /></button> |
+                    <button className="board-title nav-button">{board.title}</button>
+                    <button className={'starred-btn nav-button'}><AiOutlineStar /></button> |
                     <div className="user-previews">
                         {users.map(user =>
-                            <div className="user-pic-container">
+                            <div key={user._id} className="user-pic-container">
                                 <img src={user.imgUrl} />
                             </div>
                         )}
@@ -47,7 +50,8 @@ function mapStateToProps(state) {
     }
 }
 const mapDispatchToProps = {
-    loadUsers
+    loadUsers,
+    loadBoard
 }
 
 
