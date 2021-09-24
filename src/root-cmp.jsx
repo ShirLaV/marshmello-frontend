@@ -4,9 +4,10 @@ import { Switch, Route } from 'react-router'
 
 import routes from './routes'
 
-import {AppHeader} from './cmps/app-header'
-import {CardDetails} from './pages/card-details'
+import { AppHeader } from './cmps/app-header'
+import { CardDetails } from './pages/card-details'
 import { BoardHeader } from './cmps/board-header'
+import { CardEdit } from './cmps/card-edit'
 
 export class RootCmp extends React.Component {
 
@@ -17,8 +18,8 @@ export class RootCmp extends React.Component {
                 <BoardHeader />
                 <main>
                     <Switch>
-                        {routes.map(route=> <Route key={route.path} exact component={route.component} path={route.path} /> )}
-                        <Route path="/:cardId" component={CardDetails} />
+                        <Route path="/board/:boardId/:groupId/:cardId" component={CardEdit} />
+                        {routes.map(route => <Route key={route.path} exact component={route.component} path={route.path} />)}
                     </Switch>
                 </main>
             </div>
