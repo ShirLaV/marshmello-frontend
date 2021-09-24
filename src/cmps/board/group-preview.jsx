@@ -17,7 +17,7 @@ export class GroupPreview extends Component {
   };
 
   render() {
-    const { group } = this.props;
+    const { group, openCardEdit } = this.props;
     const { isAddPopOpen } = this.state;
     return (
       <div className='group-preview'>
@@ -30,7 +30,7 @@ export class GroupPreview extends Component {
         {group.cards && (
           <ul className='card-list clean-list'>
             {group.cards.map((card) => {
-              return <CardPreview key={card.id} card={card} />;
+              return <CardPreview key={card.id} card={card} groupId={group.id} openCardEdit={openCardEdit}/>;
             })}
           </ul>
         )}

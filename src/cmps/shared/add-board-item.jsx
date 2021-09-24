@@ -49,7 +49,7 @@ class _AddBoardItem extends React.Component {
 
   render() {
     const { title } = this.state.newItem;
-    const { onToggleAddPop, type } = this.props;
+    const { onToggleAddPop } = this.props;
     const renderedType = this.props.type === 'card' ? this.props.type : 'list';
     return (
       <section className='add-board-item'>
@@ -63,9 +63,9 @@ class _AddBoardItem extends React.Component {
             name='title'
             onChange={this.handleChange}
           />
-          <div className='form-btns'>
+          <div className='form-btns flex align-center'>
             <button type='submit'>Add {renderedType}</button>
-            <button onClick={onToggleAddPop}>
+            <button onClick={onToggleAddPop} className="flex align-center">
               <GrClose />
             </button>
           </div>

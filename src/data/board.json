@@ -36,6 +36,7 @@
                     "id": "c104",
                     "title": "Help me",
                     "description": "description",
+                    "isComplete": true,
                     "comments": [{
                         "id": "ZdPnm",
                         "txt": "also @yaronb please CR this",
