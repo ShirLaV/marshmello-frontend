@@ -15,14 +15,14 @@ export class GroupList extends Component {
   };
 
   render() {
-    const {groups} = this.props
+    const {groups, openCardEdit} = this.props
     const {isAddPopOpen}=this.state
     return (
       <section className='group-list-container flex'>
         {groups && (
           <ul className='group-list clean-list flex'>
             {groups.map((group) => {
-              return <GroupPreview key={group.id} group={group} />;
+              return <GroupPreview key={group.id} group={group} openCardEdit={openCardEdit}/>;
             })}
           </ul>
         )}

@@ -39,6 +39,9 @@ class _BoardDetails extends Component {
         },
       });
   };
+  openCardEdit=(boardId, groupId, cardId)=>{
+    this.props.history.push(`/board/${boardId}/${groupId}/${cardId}`)
+  }
   render() {
     const { board } = this.props;
     if (Object.keys(board).length === 0) return <div>Loading...</div>;
@@ -49,7 +52,7 @@ class _BoardDetails extends Component {
         style={ boardStyle }
       >
         <BoardHeader />
-        <GroupList groups={board.groups} />
+        <GroupList groups={board.groups} openCardEdit={this.openCardEdit} />
       </div>
     );
   }
