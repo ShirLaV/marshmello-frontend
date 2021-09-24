@@ -56,4 +56,23 @@
             }
         }
     }
+    .card-preview-footer {
+        .due-date-box {
+            .check-icon {
+                display: none;
+            }
+            &.due-date-box:hover {
+                .clock-icon {
+                    display: none;
+                }
+                .check-icon {
+                    display: inline-block;
+                }
+            }
+        }
+        .card-members-list {
+            flex: 1 1;
+            justify-content: flex-end;
+        }
+    }
 }
