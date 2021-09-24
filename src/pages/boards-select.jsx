@@ -13,14 +13,23 @@ class _BoardSelect extends React.Component {
         this.props.loadBoards()
     }
 
+    getStarredBoards = () => {
+        return this.props.boards.filter(board => board.isStarred)
+    }
 
     render() {
         const { boards } = this.props
         console.log('Boards: ', boards);
         return (
             <div className="boards-select">
+                <div className="starred-boards">
+                <h2>Starred Boards</h2>
+                <BoardList boards={this.getStarredBoards()} />
+                </div>
+                <div className="workspace">
                 <h2>Workspace</h2>
                 <BoardList boards={boards} />
+                </div>
             </div>
         )
     }

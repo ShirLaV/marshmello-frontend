@@ -35,20 +35,20 @@ class _BoardDetails extends Component {
       this.setState({
         boardStyle: {
           ...this.state.boardStyle,
-          backgroundImg: `url:("${style.imgUrl}")`,
+          backgroundImage: `url("${style.imgUrl}")`,
         },
       });
   };
   render() {
     const { board } = this.props;
-    console.log('state:', this.state);
     if (Object.keys(board).length === 0) return <div>Loading...</div>;
-    const members = board.members ? board.members : null;
     const { boardStyle } = this.state;
     return (
-      <div className='board-details' style={boardStyle}>
-        <BoardHeader title={board.title} members={members} />
-
+      <div
+        className='board-details'
+        style={ boardStyle }
+      >
+        <BoardHeader />
         <GroupList groups={board.groups} />
       </div>
     );

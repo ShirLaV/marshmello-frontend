@@ -29,8 +29,6 @@
         }
     }
 
-    .card-description {}
-
     .card-edit-title {
         display: flex;
         gap: rem(10px);
@@ -63,8 +61,66 @@
 
     .list-name-container {
         color: #5e6c84;
+        margin: 12px 40px 8px 56px;
+
         .list-name {
             text-decoration: underline;
+        }
+
+    }
+
+    .members-labels-container {
+        display: flex;
+        gap: rem(10px);
+        margin: 12px 40px 8px 56px;
+
+        .members-container,
+        .lebels-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .members,
+        .labels {
+            display: flex;
+            gap: rem(5px);
+        }
+
+        .card-member {
+            border-radius: 50%;
+            height: rem(30px);
+            width: rem(30px);
+            cursor: pointer;
+
+            &.add-member {
+                color: #42526e;
+                background-color: #091e420a;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            img {
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+            }
+        }
+
+        .card-label {
+            border-radius: rem(3px);
+            padding: 0 rem(12px);
+            color: #fff;
+            cursor: pointer;
+            &.add-label {
+                // height: rem(16px);
+                // width: rem(16px);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #42526e;
+                background-color: #091e420a;
+            }
         }
 
     }

@@ -14,16 +14,17 @@ class _BoardHeader extends React.Component {
     }
 
     render() {
-        const { users, title } = this.props
+        const { users, board } = this.props
+        console.log('Board: ', board);
         console.log('Users: ', users);
         return (
             <section className="board-header">
                 <div className="left-btns">
-                    <button className="board-title nav-button">{title}</button>
-                    <button className="starred-btn nav-button"><AiOutlineStar /></button> |
+                    <button className="board-title nav-button">{board.title}</button>
+                    <button className={'starred-btn nav-button'}><AiOutlineStar /></button> |
                     <div className="user-previews">
                         {users.map(user =>
-                            <div className="user-pic-container">
+                            <div key={user._id} className="user-pic-container">
                                 <img src={user.imgUrl} />
                             </div>
                         )}
@@ -41,13 +42,13 @@ class _BoardHeader extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        boards: state.boardModule.boards,
-        currBoard: state.boardModule.currBoard,
+        board: state.boardModule.currBoard,
         users: state.userModule.users,
     }
 }
 const mapDispatchToProps = {
-    loadUsers
+    loadUsers,
+
 }
 
 

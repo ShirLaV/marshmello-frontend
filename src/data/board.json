@@ -2,19 +2,24 @@
         "_id": "b101",
         "title": "Robot dev proj",
         "createdAt": 1589983468418,
+        "isStarred": false,
         "createdBy": {
             "_id": "u101",
             "fullname": "Abi Abambi",
             "imgUrl": "http://some-img"
         },
-        "style": {
-            "imgUrl": "https://www.travelanddestinations.com/wp-content/uploads/2019/11/Beach-Destinations-in-Asia.jpg"
-        },
+        "style": { "imgUrl": "https://images.pexels.com/photos/1914982/pexels-photo-1914982.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" },
         "labels": [{
-            "id": "l101",
-            "title": "Done",
-            "color": "#61bd4f"
-        }],
+                "id": "l101",
+                "title": "Done",
+                "color": "#61bd4f"
+            },
+            {
+                "id": "l102",
+                "title": "Important",
+                "color": "#eb5a46"
+            }
+        ],
         "members": [{
             "_id": "u101",
             "fullname": "Tal Tarablus",
@@ -91,12 +96,13 @@
         "_id": "b102",
         "title": "Marshmello",
         "createdAt": 1589983468418,
+        "isStarred": true,
         "createdBy": {
             "_id": "u101",
             "fullname": "Abi Abambi",
             "imgUrl": "http://some-img"
         },
-        "style": {},
+        "style": { "bgColor": "#26de81" },
         "labels": [{
             "id": "l102",
             "title": "Done",
