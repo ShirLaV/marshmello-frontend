@@ -81,24 +81,12 @@ export function onAddCard(newCard, groupId, board) {
     return onUpdateBoard(groupAction, board)
 }
 
-// export function onUpdateCard(action, card, groupId, board) {
-//     let newCard = null;
-//     switch (action.type) {
-//         case 'UPDATE_CARD_COLOR':
-//             card.style.bgColor = action.color
-//             break
-//         case 'ADD_CARD':
-//             newCard = action.newCard
-//             break
-//     }
-
-//     const group = board.groups.find(group => group.id === groupId);
-//     const groupToUpdate = { ...group, cards: group.cards }
-//     if (!newCard) groupToUpdate.cards.map(currCard => currCard.id === card.id ? card : currCard)
-//     else groupToUpdate.cards = (groupToUpdate.cards) ? [...groupToUpdate.cards, newCard] : [newCard]
-//     const groupAction = { type: 'UPDATE_GROUP', group: groupToUpdate }
-//     return onUpdateBoard(groupAction, board)
-// }
+export function onRemoveCard(cardId, groupId, board) {
+    const group = board.groups.find(group => group.id === groupId)
+    group.cards = [...group.cards.filter(card => card.id !== cardId)]
+    const groupAction = { type: 'UPDATE_GROUP', group }
+    return onUpdateBoard(groupAction, board)
+}
 
 export function onUpdateCard(action, name, board) {
     const { boardId, groupId, cardId, isChecked } = action
@@ -145,27 +133,13 @@ function _getUpdatedBoard(action, board) {
         case 'UPDATE_GROUP':
             boardToSave.groups = [...boardToSave.groups.map(currGroup => currGroup.id === action.group.id ? action.group : currGroup)]
             break
+        case 'REMOVE_GROUP':
+            boardToSave.groups = [...boardToSave.groups.filter(currGroup => currGroup.id !== action.group.id)]
+            break
     }
     return boardToSave;
 }
-// export function onEditBoard(boardToSave) {
 
-//     return async(dispatch) => {
-
-//         try {
-//             const savedBoard = await boardService.save(boardToSave)
-//             console.log('Updated Board:', savedBoard);
-//             dispatch({
-//                     type: 'UPDATE_BOARD',
-//                     board: savedBoard
-//                 })
-//                 // showSuccessMsg('Board updated')
-//         } catch (err) {
-//             // showErrorMsg('Cannot update board')
-//             console.log('Cannot save board', err)
-//         }
-//     }
-// }
 //
 // export function onUpdateFilter(filterBy) {
 //     return (dispatch) => {

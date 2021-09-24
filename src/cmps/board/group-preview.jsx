@@ -22,7 +22,7 @@ export class GroupPreview extends Component {
     return (
       <div className='group-preview'>
         <div className='group-header flex space-between align-center'>
-          <p>{group.title}</p>
+          <h4>{group.title}</h4>
           <button>
             <BsThreeDots />
           </button>

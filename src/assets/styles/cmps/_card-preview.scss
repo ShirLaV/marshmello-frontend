@@ -7,12 +7,16 @@
     border-radius: 5px;
     width: 100%;
     min-height: 20px;
+    p {
+        padding: 0 5px;
+    }
     .card-preview-header {
         height: 30px;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
     }
     .label-bar-list {
+        padding: 0 5px;
         gap: 5px;
         .label-bar {
             margin: 5px 0;
@@ -57,8 +61,10 @@
         }
     }
     .card-preview-footer {
+        padding: 0 5px;
         gap: 5px;
         .due-date-box {
+            gap: 5px;
             padding: 0 5px;
             border-radius: 5px;
             .check-icon {
@@ -75,6 +81,7 @@
             }
         }
         .card-members-list {
+            padding: 5px;
             flex: 1 1;
             justify-content: flex-end;
         }
