@@ -84,11 +84,20 @@ export function onUpdateCard(action, card, groupId, board) {
 }
 
 export function onUpdateCard1(action, name, board) {
-    const { boardId, groupId, cardId } = action
-    // const board = {...(await boardService.getById(boardId))}
+    const { boardId, groupId, cardId, isChecked } = action
     const group = board.groups.find(group => group.id === groupId)
     const card = group.cards.find(card => card.id === cardId)
-    card[name] = action[name]
+    if (typeof isChecked === "boolean") {
+        card.checklists.map(checklist => (
+            checklist.todos.map(todo => {
+                if (todo.id === name) todo.isDone = isChecked
+            })
+        ))
+        console.log(card.checklists);
+    }
+    else { // for not nested properties
+        card[name] = action[name]
+    }
     const groupAction = { type: 'UPDATE_GROUP', group }
     return onUpdateBoard(groupAction, board)
 }
