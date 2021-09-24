@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
 
 import { loadUsers } from '../../store/user.actions.js'
+import { MemberAvatar } from '../shared/member-avatar.jsx'
 
 class _BoardHeader extends React.Component {
 
@@ -23,10 +24,11 @@ class _BoardHeader extends React.Component {
                     <button className="board-title nav-button">{board.title}</button>
                     <button className={'starred-btn nav-button'}><AiOutlineStar /></button> |
                     <div className="user-previews">
-                        {users.map(user =>
-                            <div key={user._id} className="user-pic-container">
-                                <img src={user.imgUrl} />
-                            </div>
+                        {board.members.map(member =>
+                            // <div key={user._id} className="user-pic-container">
+                            //     <img src={user.imgUrl} />
+                            // </div>
+                            <MemberAvatar member={member} />
                         )}
                         <button className="invite-btn nav-button">Invite</button>
                     </div>

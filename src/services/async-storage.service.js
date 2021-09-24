@@ -12,15 +12,18 @@ const gBoards = require('../data/board.json');
 const gUsers = require('../data/user.json');
 
 function query(entityType, delay = 500) {
-    var entities = JSON.parse(localStorage.getItem(entityType)) || (entityType === 'board') ? gBoards : gUsers;
-
+    var entities = JSON.parse(localStorage.getItem(entityType))
+    if (!entities) {
+        entities = (entityType === 'board') ? gBoards : gUsers;
+        _save(entityType,entities)
+    }
     return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                // reject('OOOOPs')
-                resolve(entities)
-            }, delay)
-        })
-        // return Promise.resolve(entities)
+        setTimeout(() => {
+            // reject('OOOOPs')
+            resolve(entities)
+        }, delay)
+    })
+    // return Promise.resolve(entities)
 }
 
 // function queryUsers(entityType, delay = 500) {
@@ -87,7 +90,7 @@ function _makeId(length = 5) {
 function postMany(entityType, newEntities) {
     return query(entityType)
         .then(entities => {
-            newEntities = newEntities.map(entity => ({...entity, _id: _makeId() }))
+            newEntities = newEntities.map(entity => ({ ...entity, _id: _makeId() }))
             entities.push(...newEntities)
             _save(entityType, entities)
             return entities

@@ -45,7 +45,8 @@ async function update(user) {
 
 async function login(userCred) {
     const users = await storageService.query('user')
-    const user = users.find(user => user.username === userCred.username)
+    console.log('users: ', users)
+    const user = users.find(user => user.username.toLocaleLowerCase() === userCred.username.toLocaleLowerCase())
     return _saveLocalUser(user)
 
     // const user = await httpService.post('auth/login', userCred)
@@ -84,9 +85,9 @@ function getLoggedinUser() {
 }
 
 
-// (async () => {
-//     await userService.login({ username: 'rick' })
-// })();
+(async () => {
+    await login({ username: 'rick@sanchez.com' })
+})();
 //     await userService.signup({fullname: 'Master Adminov', username: 'admin', password:'123', score: 10000, isAdmin: true})
 //     await userService.signup({fullname: 'Muki G', username: 'muki', password:'123', score: 10000})
 
