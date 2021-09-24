@@ -15,6 +15,11 @@
         "id": "l101",
         "title": "Done",
         "color": "#61bd4f"
+      },
+      {
+          "id": "l102",
+          "title": "Important",
+          "color": "#eb5a46"
       }
     ],
     "members": [

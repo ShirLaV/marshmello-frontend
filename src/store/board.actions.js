@@ -82,6 +82,15 @@ export function onUpdateCard(action, card, groupId, board) {
     const groupAction = { type: 'UPDATE_GROUP', group: groupToUpdate }
     return onUpdateBoard(groupAction, board)
 }
+export function onUpdateCard1(action, name, board) {
+    const { boardId, groupId, cardId } = action 
+    // const board = {...(await boardService.getById(boardId))}
+    const group = board.groups.find(group => group.id === groupId)
+    const card = group.cards.find(card => card.id === cardId)
+    card[name] = action[name]
+    const groupAction = { type: 'UPDATE_GROUP', group }
+    return onUpdateBoard(groupAction, board)
+}
 
 export function onUpdateBoard(action, board) {
     return async(dispatch) => {
@@ -108,8 +117,8 @@ function _getUpdatedBoard(action, board) {
             boardToSave.groups = [...boardToSave.groups, action.group]
             break;
         case 'UPDATE_GROUP':
-            boardToSave.groups = boardToSave.groups.map(currGroup => currGroup.id === action.group.id ? action.group : currGroup)
-
+            boardToSave.groups = [...boardToSave.groups.map(currGroup => currGroup.id === action.group.id ? action.group : currGroup)]
+            break
     }
     return boardToSave;
 }
