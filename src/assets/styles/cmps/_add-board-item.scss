@@ -1,5 +1,15 @@
 .add-board-item {
     background-color: #EBECF0;
+    border-radius: 5px;
+    form {
+        padding: 10px;
+        width: 100%;
+        textarea {
+            margin: 0;
+            width: 100%;
+            font-family: unset;
+        }
+    }
     .form-btns {
         button:first-child {
             background-color: #0079BF;
@@ -7,6 +17,9 @@
             color: white;
             height: 30px;
             width: 80px;
+        }
+        button:last-child {
+            font-size: inherit;
         }
     }
 }
