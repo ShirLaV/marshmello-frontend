@@ -74,6 +74,13 @@ export function onAddBoard(board) {
     }
 }
 
+export function onAddCard(newCard, groupId, board) {
+    const group = board.groups.find(group => group.id === groupId)
+    group.cards = (group.cards) ? [...group.cards, newCard] : [newCard]
+    const groupAction = { type: 'UPDATE_GROUP', group }
+    return onUpdateBoard(groupAction, board)
+}
+
 // export function onUpdateCard(action, card, groupId, board) {
 //     let newCard = null;
 //     switch (action.type) {
@@ -104,8 +111,7 @@ export function onUpdateCard(action, name, board) {
             })
         ))
         console.log(card.checklists);
-    }
-    else { // for not nested properties
+    } else { // for not nested properties
         card[name] = action[name]
     }
     const groupAction = { type: 'UPDATE_GROUP', group }

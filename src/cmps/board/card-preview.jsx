@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import { HiOutlinePencil } from 'react-icons/hi';
 import { GrTextAlignFull } from 'react-icons/gr';
@@ -8,8 +7,9 @@ import { GrCheckbox } from 'react-icons/gr';
 import { GrCheckboxSelected } from 'react-icons/gr';
 import { FiClock } from 'react-icons/fi';
 
-import {onUpdateCard} from '../../store/board.actions.js'
+import { onUpdateCard } from '../../store/board.actions.js';
 import { MemberAvatar } from '../shared/member-avatar.jsx';
+
 class _CardPreview extends Component {
   state = {
     isCardLabelListOpen: false,
@@ -35,17 +35,26 @@ class _CardPreview extends Component {
   };
 
   getDueTimeStyle = (card) => {
+    //complete
     if (card.isComplete) return { backgroundColor: '#61BD4F' };
-    else if (Date.now - card.dueDate <= 0)
+    //due soon
+    else if (card.dueDate - Date.now() < Date.now() * 60 * 60 * 24)
       return { backgroundColor: '#EB5A46' };
-    return { backgroundColor: '#F2D600' };
+    //overdue
+    else if (card.dueDate - Date.now() < 0)
+      return { backgroundColor: '#F2D600' };
+    //none of the above
+    return { backgroundColor: 'inherit' };
   };
 
-  toggleCardComplete=( ev, boardId, groupId, cardId)=>{
+  toggleCardComplete = (ev, boardId, groupId, cardId) => {
     ev.stopPropagation();
-
-    this.props.onUpdateCard({boardId, groupId, cardId, isComplete: !this.props.card.isComplete }, "isComplete", this.props.board )
-  }
+    this.props.onUpdateCard(
+      { boardId, groupId, cardId, isComplete: !this.props.card.isComplete },
+      'isComplete',
+      this.props.board
+    );
+  };
 
   render() {
     const { board, card, groupId, openCardEdit } = this.props;
@@ -58,7 +67,7 @@ class _CardPreview extends Component {
     return (
       <div
         className='card-preview flex space-between'
-        onClick={()=>openCardEdit(board._id, groupId, card.id)}
+        onClick={() => openCardEdit(board._id, groupId, card.id)}
       >
         {card.style && (
           <div className='card-preview-header' style={backgroundColor}></div>
@@ -78,7 +87,9 @@ class _CardPreview extends Component {
                   key={labelId}
                   style={{ backgroundColor: label.color }}
                 >
-                  {isCardLabelListOpen && <span>{label.title}</span>}
+                  {isCardLabelListOpen && label.title && (
+                    <span>{label.title}</span>
+                  )}
                 </li>
               );
             })}
@@ -93,8 +104,14 @@ class _CardPreview extends Component {
 
         <div className='card-preview-footer flex align-center'>
           {card.dueDate && (
-            <div className='due-date-box' style={this.getDueTimeStyle(card)} onClick={(event)=>this.toggleCardComplete( event, board._id, groupId, card.id)}>
-              <span className='clock-icon'>
+            <div
+              className='due-date-box flex align-center'
+              style={this.getDueTimeStyle(card)}
+              onClick={(event) =>
+                this.toggleCardComplete(event, board._id, groupId, card.id)
+              }
+            >
+              <span className='clock-icon flex align-center'>
                 <FiClock />
               </span>
               <span className='check-icon'>
@@ -127,7 +144,7 @@ function mapStateToProps(state) {
 }
 const mapDispatchToProps = {
   // loadBoard,
-  onUpdateCard
+  onUpdateCard,
 };
 
 export const CardPreview = connect(

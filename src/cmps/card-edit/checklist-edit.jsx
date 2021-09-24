@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { ProgressBar } from './progress-bar'
 import { connect } from 'react-redux'
-import { onUpdateCard1 } from '../../store/board.actions'
+import { onUpdateCard } from '../../store/board.actions'
 
 
 export class _ChecklistEdit extends Component {
@@ -18,7 +18,7 @@ export class _ChecklistEdit extends Component {
     handleChange = ({ target: { name, checked } }) => {
         const { params, board } = this.props
         const action = { ...params, isChecked: checked }
-        this.props.onUpdateCard1(action, name, board)
+        this.props.onUpdateCard(action, name, board)
     }
 
     render() {
@@ -48,7 +48,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    onUpdateCard1,
+    onUpdateCard,
     // loadBoard
 }
 

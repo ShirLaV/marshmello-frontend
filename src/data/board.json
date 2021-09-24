@@ -105,10 +105,16 @@
         },
         "style": { "bgColor": "#26de81" },
         "labels": [{
-            "id": "l102",
-            "title": "Done",
-            "color": "#61bd4f"
-        }],
+                "id": "l101",
+                "title": "Done",
+                "color": "#61bd4f"
+            },
+            {
+                "id": "l102",
+                "title": "",
+                "color": "#0079BF"
+            }
+        ],
         "members": [{
             "_id": "u101",
             "fullname": "Tal Tarablus",

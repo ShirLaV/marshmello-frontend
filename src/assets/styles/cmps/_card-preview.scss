@@ -57,7 +57,10 @@
         }
     }
     .card-preview-footer {
+        gap: 5px;
         .due-date-box {
+            padding: 0 5px;
+            border-radius: 5px;
             .check-icon {
                 display: none;
             }
@@ -66,7 +69,8 @@
                     display: none;
                 }
                 .check-icon {
-                    display: inline-block;
+                    display: flex;
+                    align-items: center;
                 }
             }
         }

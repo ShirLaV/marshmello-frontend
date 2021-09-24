@@ -1,15 +1,7 @@
 import React from 'react';
-// import Select from 'react-select';
-
-// import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-// import { uploadImg } from '../services/cloudinary.service.js';
-// import { toyService } from '../services/toy.service.js';
-// import { UserMsg } from '../cmps/user-msg.jsx';
-
-import { onUpdateBoard, onUpdateCard } from '../../store/board.actions.js';
-// import { setUserMsg } from '../store/user.actions.js';
+import { onUpdateBoard, onUpdateCard, onAddCard } from '../../store/board.actions.js';
 
 import { GrClose } from 'react-icons/gr';
 import { utilService } from '../../services/util.service';
@@ -42,9 +34,9 @@ class _AddBoardItem extends React.Component {
     }
     else if (this.props.type === 'card') {
       const newCard = newItem;
-      const action = { type: 'ADD_CARD', newCard };
-      this.props.onUpdateCard(action, newCard, this.props.groupId, this.props.board);
+      this.props.onAddCard( newCard, this.props.groupId, this.props.board);
     }
+    this.setState({newItem: {title: ''}})
   };
 
   render() {
@@ -84,6 +76,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = {
   onUpdateBoard,
   onUpdateCard,
+  onAddCard
 };
 
 export const AddBoardItem = connect(
