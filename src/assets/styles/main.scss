@@ -7,14 +7,10 @@
 @import "basics/helpers";
 @import "basics/layout";
 @import "basics/base";
-@import "basics/links";
 @import "basics/forms";
 @import "basics/buttons";
 // Pages
-// @import "pages/about-us";
 // @import "pages/home-page";
-// @import "pages/car-app";
-// @import "pages/review-app";
 @import "pages/board-details";
 @import "pages/boards-select";
 
@@ -26,9 +22,6 @@
 @import "cmps/app-header";
 @import "cmps/board-header";
 @import "cmps/card-preview";
-// @import "cmps/app-header";
-// @import "cmps/app-footer";
-// @import "cmps/user-msg";
 @import "cmps/overlay_screen";
 @import "cmps/card-edit";
 @import "cmps/add-board-item";
