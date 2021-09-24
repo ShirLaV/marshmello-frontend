@@ -23,7 +23,7 @@
         "members": [{
             "_id": "u101",
             "fullname": "Tal Tarablus",
-            "imgUrl": "https://www.google.com"
+            "imgUrl": "https://robohash.org/abi.png?set=set2"
         }],
         "groups": [{
             "id": "g102",
