@@ -2,7 +2,7 @@ import { boardService } from "../services/board.service.js";
 // import { userService } from "../services/user.service.js";
 // import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js';
 export function loadBoards(filterBy) {
-    return async(dispatch) => {
+    return async (dispatch) => {
         try {
             const boards = await boardService.query(filterBy)
             dispatch({
@@ -17,7 +17,7 @@ export function loadBoards(filterBy) {
 }
 
 export function loadBoard(boardId) {
-    return async(dispatch) => {
+    return async (dispatch) => {
         try {
             const board = await boardService.getById(boardId)
             dispatch({
@@ -32,15 +32,15 @@ export function loadBoard(boardId) {
 }
 
 export function onRemoveBoard(boardId) {
-    return async(dispatch) => {
+    return async (dispatch) => {
         try {
             await boardService.remove(boardId)
             console.log('Deleted Succesfully!');
             dispatch({
-                    type: 'REMOVE_BOARD',
-                    boardId
-                })
-                // showSuccessMsg('Board removed')
+                type: 'REMOVE_BOARD',
+                boardId
+            })
+            // showSuccessMsg('Board removed')
         } catch (err) {
             // showErrorMsg('Cannot remove board')
             console.log('Cannot remove board', err)
@@ -48,15 +48,15 @@ export function onRemoveBoard(boardId) {
     }
 }
 export function onAddBoard(board) {
-    return async(dispatch) => {
+    return async (dispatch) => {
         try {
             const savedBoard = await boardService.save(board)
             console.log('Added Board', savedBoard);
             dispatch({
-                    type: 'ADD_BOARD',
-                    board: savedBoard
-                })
-                // showSuccessMsg('Board added')
+                type: 'ADD_BOARD',
+                board: savedBoard
+            })
+            // showSuccessMsg('Board added')
         } catch (err) {
             // showErrorMsg('Cannot add board')
             console.log('Cannot add board', err)
@@ -76,14 +76,15 @@ export function onUpdateCard(action, card, groupId, board) {
     }
 
     const group = board.groups.find(group => group.id === groupId);
-    const groupToUpdate = {...group, cards: group.cards }
+    const groupToUpdate = { ...group, cards: group.cards }
     if (!newCard) groupToUpdate.cards.map(currCard => currCard.id === card.id ? card : currCard)
     else groupToUpdate.cards = (groupToUpdate.cards) ? [...groupToUpdate.cards, newCard] : [newCard]
     const groupAction = { type: 'UPDATE_GROUP', group: groupToUpdate }
     return onUpdateBoard(groupAction, board)
 }
+
 export function onUpdateCard1(action, name, board) {
-    const { boardId, groupId, cardId } = action 
+    const { boardId, groupId, cardId } = action
     // const board = {...(await boardService.getById(boardId))}
     const group = board.groups.find(group => group.id === groupId)
     const card = group.cards.find(card => card.id === cardId)
@@ -93,7 +94,7 @@ export function onUpdateCard1(action, name, board) {
 }
 
 export function onUpdateBoard(action, board) {
-    return async(dispatch) => {
+    return async (dispatch) => {
         const boardToSave = _getUpdatedBoard(action, board)
         dispatch({
             type: 'UPDATE_BOARD',
@@ -102,7 +103,7 @@ export function onUpdateBoard(action, board) {
         console.log('Updated Board:', boardToSave);
         try {
             await boardService.save(boardToSave)
-                // showSuccessMsg('Board updated')
+            // showSuccessMsg('Board updated')
         } catch (err) {
             // showErrorMsg('Cannot update board')
             console.log('Cannot save board', err)
@@ -111,7 +112,7 @@ export function onUpdateBoard(action, board) {
 }
 
 function _getUpdatedBoard(action, board) {
-    const boardToSave = {...board }
+    const boardToSave = { ...board }
     switch (action.type) {
         case 'ADD_GROUP':
             boardToSave.groups = [...boardToSave.groups, action.group]

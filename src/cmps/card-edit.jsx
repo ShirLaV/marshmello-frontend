@@ -6,6 +6,7 @@ import { IoMdList } from 'react-icons/io'
 import { MdFormatListBulleted } from 'react-icons/md'
 import { LabelsMembers } from './card-edit/labels-members'
 // import { AiOutlinePlus } from 'react-icons/ai'
+import { BsCardChecklist } from 'react-icons/bs'
 
 class _CardEdit extends Component {
     state = {
@@ -49,7 +50,7 @@ class _CardEdit extends Component {
     render() {
         const { currCard, isDescriptionOpen, currGroup } = this.state
         if (!currCard) return <div>Loading...</div>
-        // console.log(this.props.board);
+        console.log(this.props.board);
         return (
             <div className="card-edit">
                 {currCard.style.bgColor && <div className="card-edit-bg" style={{ backgroundColor: currCard.style.bgColor }}></div>}
@@ -85,6 +86,13 @@ class _CardEdit extends Component {
                     <span><MdFormatListBulleted /></span>
                     <h3>Activity</h3>
                 </div>
+
+                {/* {currCard.checklists?.length && currCard.checklists.map(checklist => (<div className="card-edit-title">
+                    <span><BsCardChecklist /></span>
+                    <h3>{checklist.title}</h3>
+                    <
+                </div>))
+                } */}
             </div>
         )
     }
