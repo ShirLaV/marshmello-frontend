@@ -82,8 +82,9 @@ export function onUpdateCard(action, card, groupId, board) {
     const groupAction = { type: 'UPDATE_GROUP', group: groupToUpdate }
     return onUpdateBoard(groupAction, board)
 }
+
 export function onUpdateCard1(action, name, board) {
-    const { boardId, groupId, cardId } = action 
+    const { boardId, groupId, cardId } = action
     // const board = {...(await boardService.getById(boardId))}
     const group = board.groups.find(group => group.id === groupId)
     const card = group.cards.find(card => card.id === cardId)

@@ -30,7 +30,7 @@ export class GroupPreview extends Component {
         {group.cards && (
           <ul className='card-list clean-list'>
             {group.cards.map((card) => {
-              return <CardPreview key={card.id} card={card} />;
+              return <CardPreview key={card.id} card={card} groupId={group.id}/>;
             })}
           </ul>
         )}
