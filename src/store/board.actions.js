@@ -47,6 +47,16 @@ export function onRemoveBoard(boardId) {
         }
     }
 }
+
+export function setAddingBoard(isAddingBoard) {
+    return (dispatch) => {
+        dispatch({
+            type: 'SET_ADDING_BOARD',
+            isAddingBoard: isAddingBoard
+        })
+    }
+}
+
 export function onAddBoard(board) {
     return async (dispatch) => {
         try {

@@ -9,6 +9,7 @@ export const userService = {
     logout,
     signup,
     getLoggedinUser,
+    getMiniUser,
     getUsers,
     getById,
     remove,
@@ -81,7 +82,13 @@ function _saveLocalUser(user) {
 }
 
 function getLoggedinUser() {
-    return JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER) || 'null')
+    const loggedinUser = JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER) || 'null')
+    return loggedinUser
+}
+
+function getMiniUser() {
+    const fullUser = getLoggedinUser()
+    return { _id: fullUser._id , fullname: fullUser.fullname, imgUrl: fullUser.imgUrl }
 }
 
 
