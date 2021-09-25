@@ -34,9 +34,16 @@
     transition: background-color, border-color, box-shadow ease .085s;
     background-color: #091e420a;
 
+    .sidebar-btn {
+        justify-content: flex-start;
+    }
+
     &.secondary {
         background-color: #0079bf;
         color: #fff;
+        &:hover {
+            background-color: #026aa7;
+        }
     }
 
     &:hover {
@@ -44,4 +51,3 @@
     }
 
 }
-
