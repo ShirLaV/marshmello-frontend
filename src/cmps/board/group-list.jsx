@@ -31,9 +31,7 @@ export class GroupList extends Component {
                 />
               );
             })}
-          </ul>
-        )}
-        <div className='add-group-container'>
+            <div className='add-group-container'>
           {!isAddPopOpen && (
             <button className='add-boarditem-btn flex align-center' onClick={this.onToggleAddPop}>
               <i className="flex align-center">
@@ -46,6 +44,9 @@ export class GroupList extends Component {
             <AddBoardItem onToggleAddPop={this.onToggleAddPop} type={'group'} />
           )}
         </div>
+          </ul>
+        )}
+        
       </section>
     );
   }
