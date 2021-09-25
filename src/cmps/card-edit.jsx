@@ -1,51 +1,37 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { onUpdateCard, loadBoard } from '../store/board.actions'
+import { onUpdateCard } from '../store/board.actions'
 import { CgCreditCard } from 'react-icons/cg'
 import { IoMdList } from 'react-icons/io'
 import { MdFormatListBulleted } from 'react-icons/md'
 import { LabelsMembers } from './card-edit/labels-members'
-// import { AiOutlinePlus } from 'react-icons/ai'
 import { BsCardChecklist } from 'react-icons/bs'
 import { ChecklistEdit } from './card-edit/checklist-edit'
-// const board = (require('../data/board.json'))[0]
+import { IoMdClose } from 'react-icons/io'
+// import { AiOutlinePlus } from 'react-icons/ai'
 
 class _CardEdit extends Component {
     state = {
         isDescriptionOpen: false,
         currCard: null,
         currGroup: null,
-        isMounted: false,
     }
-
 
     componentDidMount() {
-        this.getInitialData()
-        this.setState({isMounted: true})
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        if (this.props.board !== prevProps.board) {
-            this.getInitialData()
-        }
-    }
-
-    getInitialData = () => {
         let currCard
         let currGroup
         if (this.props.card) currCard = this.props.card
         else {
             const { cardId, groupId } = this.props.match.params
             if (this.props.board.groups) {
-                currCard = this.getCardById(cardId, groupId).currentCard
-                currGroup = this.getCardById(cardId, groupId).currentGroup
+                currCard = this.getDataById(cardId, groupId).currentCard
+                currGroup = this.getDataById(cardId, groupId).currentGroup
             }
         }
-        // this.props.loadBoard('b101')
         this.setState({ currCard, currGroup })
     }
 
-    getCardById = (cardId, groupId) => {
+    getDataById = (cardId, groupId) => {
         const board = this.props.board
         const currentGroup = board.groups.find(group => group.id === groupId)
         const currentCard = currentGroup.cards.find(card => card.id === cardId)
@@ -63,180 +49,83 @@ class _CardEdit extends Component {
     handlePropertyChange = ({ target: { name, value, checked } }) => {
         let dataParams = this.props.match.params
         const action = { ...dataParams, [name]: value }
-        this.props.onUpdateCard(action, name, board)
+        this.props.onUpdateCard(action, name, this.props.board)
     }
+
+    // handlePropertyRemove = ({ target: { name, value, checked } }) => {
+    //     let dataParams = this.props.match.params
+    //     const action = { ...dataParams, [name]: value }
+    //     this.props.onRemoveCardProperty(action, name, this.props.board)
+    // }
 
     render() {
         const { currCard, isDescriptionOpen, currGroup } = this.state
         if (!currCard) return <div>Loading...</div>
-        console.log(this.props.board);
+        // console.log(this.props.board);
         return (
-            <div className="card-edit">
-                {currCard.style.bgColor && <div className="card-edit-bg" style={{ backgroundColor: currCard.style.bgColor }}></div>}
-                <div className="card-edit-header card-edit-title">
-                    <span><CgCreditCard /></span>
-                    <input className="clean-input" type="text" value={currCard.title} name="title" onChange={this.handleChange} onBlur={this.handlePropertyChange} />
-                </div>
-                <div className="list-name-container"><p>in list <span className="list-name">{currGroup.title}</span></p></div>
-                <LabelsMembers members={currCard.members} labelIds={currCard.labelIds} board={this.props.board} />
-                <div className="description-container card-edit-title">
-                    <span><IoMdList /></span>
-                    <h3>Description</h3>
-                </div>
-                <div className="card-description">
-                    <textarea
-                        className={`description-textarea ${isDescriptionOpen ? 'open' : ''}`}
-                        rows={isDescriptionOpen ? "6" : "3"}
-                        onFocus={this.setDescriptionTextarea}
-                        onBlur={(ev) => {
-                            this.setDescriptionTextarea()
-                            this.handlePropertyChange(ev)
-                        }}
-                        name="description"
-                        value={currCard.description}
-                        onChange={this.handleChange}
-                        placeholder="Add a more detailed description..." />
-                    {isDescriptionOpen && <div className="description-btns">
-                        <button>Save</button>
-                        <button onClick={this.setDescriptionTextarea}>X</button>
-                    </div>}
-                </div>
-
-                {currCard.checklists?.map(checklist => (
-                    <div key={checklist.id}>
-                        <div className="card-edit-title">
-                            <span><BsCardChecklist /></span>
-                            <h3>{checklist.title}</h3>
-                        </div>
-                        <div>
-                            <ChecklistEdit checklist={checklist} params={this.props.match.params} board={this.props.board} />
-                        </div>
+            <section className="card-edit">
+                    {currCard.style?.bgColor && <div className="card-edit-bg" style={{ backgroundColor: currCard.style.bgColor }}></div>}
+                    <div className="card-edit-header card-title-container">
+                        <span><CgCreditCard /></span>
+                        <input className="title-input" type="text" value={currCard.title} name="title" onChange={this.handleChange} onBlur={this.handlePropertyChange} />
                     </div>
-                ))
-                }
+                    <div className="list-name-container"><p>in list <span className="list-name">{currGroup.title}</span></p></div>
+                <div className="flex">
+                    <div className="card-edit-main">
+                        <LabelsMembers members={currCard.members} labelIds={currCard.labelIds} board={this.props.board} />
+                        <div className="description-container card-edit-title">
+                            <span><IoMdList /></span>
+                            <h3>Description</h3>
+                        </div>
+                        <div className="card-description">
+                            <textarea
+                                className={`description-textarea ${isDescriptionOpen ? 'open' : ''}`}
+                                rows={isDescriptionOpen ? "6" : "3"}
+                                onFocus={this.setDescriptionTextarea}
+                                onBlur={(ev) => {
+                                    this.setDescriptionTextarea()
+                                    this.handlePropertyChange(ev)
+                                }}
+                                name="description"
+                                value={currCard.description}
+                                onChange={this.handleChange}
+                                placeholder="Add a more detailed description..." />
+                            {isDescriptionOpen &&
+                                <div className="description-btns">
+                                    <button className="card-edit-btn secondary">Save</button>
+                                    <button onClick={this.setDescriptionTextarea}><IoMdClose style={{ color: '#42526e', fontSize: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} /></button>
+                                </div>}
+                        </div>
 
-                <div className="card-edit-title">
-                    <span><MdFormatListBulleted /></span>
-                    <h3>Activity</h3>
+                        {currCard.checklists?.map(checklist => (
+                            <div key={checklist.id}>
+                                <section className="flex space-between">
+                                    <div className="card-edit-title">
+                                        <span><BsCardChecklist /></span>
+                                        <h3>{checklist.title}</h3>
+                                    </div>
+                                    <button className="card-edit-btn">Delete</button>
+                                </section>
+                                <div>
+                                    <ChecklistEdit checklist={checklist} params={this.props.match.params} board={this.props.board} />
+                                </div>
+                                <button className="card-edit-btn">Add an item</button>
+                            </div>
+                        ))
+                        }
+                        <section className="flex space-between">
+                            <div className="card-edit-title">
+                                <span><MdFormatListBulleted /></span>
+                                <h3>Activity</h3>
+                            </div>
+                            <button className="card-edit-btn">Show details</button>
+                        </section>
+                    </div>
+                    <div className="sidebar">fhkj</div>
                 </div>
-
-            </div>
+            </section>
         )
     }
-}
-
-
-const board = {
-    "_id": "b101",
-    "title": "Robot dev proj",
-    "createdAt": 1589983468418,
-    "createdBy": {
-        "_id": "u101",
-        "fullname": "Abi Abambi",
-        "imgUrl": "http://some-img"
-    },
-    "style": {},
-    "labels": [
-        {
-            "id": "l101",
-            "title": "Done",
-            "color": "#61bd4f"
-        },
-        {
-            "id": "l102",
-            "title": "Important",
-            "color": "#eb5a46"
-        }
-    ],
-    "members": [
-        {
-            "_id": "u101",
-            "fullname": "Tal Tarablus",
-            "imgUrl": "https://www.google.com"
-        }
-    ],
-    "groups": [
-        {
-            "id": "g102",
-            "title": "Group 1",
-            "cards": [
-                {
-                    "id": "c103",
-                    "title": "Do that"
-                },
-                {
-                    "id": "c104",
-                    "title": "Help me",
-                    "description": "description",
-                    "comments": [
-                        {
-                            "id": "ZdPnm",
-                            "txt": "also @yaronb please CR this",
-                            "createdAt": 1590999817436,
-                            "byMember": {
-                                "_id": "u101",
-                                "fullname": "Tal Tarablus",
-                                "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
-                            }
-                        }
-                    ],
-                    "checklists": [
-                        {
-                            "id": "YEhmF",
-                            "title": "Checklist",
-                            "todos": [
-                                {
-                                    "id": "212jX",
-                                    "title": "To Do 1",
-                                    "isDone": false
-                                }
-                            ]
-                        }
-                    ],
-                    "members": [
-                        {
-                            "_id": "u101",
-                            "username": "Tal",
-                            "fullname": "Tal Tarablus",
-                            "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
-                        }
-                    ],
-                    "labelIds": [
-                        "l101",
-                        "l102"
-                    ],
-                    "createdAt": 1590999730348,
-                    "dueDate": 16156215211,
-                    "byMember": {
-                        "_id": "u101",
-                        "username": "Tal",
-                        "fullname": "Tal Tarablus",
-                        "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
-                    },
-                    "style": {
-                        "bgColor": "#26de81"
-                    }
-                }
-            ],
-            "style": {}
-        }
-    ],
-    "activities": [
-        {
-            "id": "a101",
-            "txt": "Changed Color",
-            "createdAt": 154514,
-            "byMember": {
-                "_id": "u101",
-                "fullname": "Abi Abambi",
-                "imgUrl": "http://some-img"
-            },
-            "card": {
-                "id": "c101",
-                "title": "Replace Logo"
-            }
-        }
-    ]
 }
 
 const mapStateToProps = state => {
@@ -247,7 +136,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
     onUpdateCard,
-    loadBoard
 }
 
 export const CardEdit = connect(mapStateToProps, mapDispatchToProps)(_CardEdit);

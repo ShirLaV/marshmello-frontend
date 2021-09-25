@@ -4,7 +4,7 @@ import { MemberAvatar } from '../shared/member-avatar'
 import { EditPopper } from './edit-popper'
 
 export function LabelsMembers({ members, labelIds, board }) {
-    const [isPopperOpen, setIsPopperOpen] = useState(true)
+    const [isPopperOpen, setIsPopperOpen] = useState(false)
     const [popperTitle, setPopperTitle] = useState('')
 
     const getCardLabels = (labelIds) => labelIds.map(id => board.labels.find(label => label.id === id))
