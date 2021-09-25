@@ -1,14 +1,20 @@
 .add-board-item {
     background-color: #EBECF0;
-    border-radius: 5px;
+    border-radius: 3px;
     form {
-        padding: 10px;
+        padding: 8px;
         width: 100%;
         textarea {
+            padding: 6px 8px 2px;
             resize: none;
             margin: 0;
             width: 100%;
             font-family: unset;
+            &:focus {
+                border: 2px solid #0079BF;
+                border-radius: 3px;
+                outline: 0 none;
+            }
         }
     }
     .form-btns {
@@ -16,11 +22,11 @@
             background-color: #0079BF;
             border-radius: 5px;
             color: white;
-            height: 30px;
-            width: 80px;
-        }
-        button:last-child {
-            font-size: inherit;
+            height: 33px;
+            width: 70px;
+            &:hover {
+                background-color: #0175B8;
+            }
         }
     }
 }

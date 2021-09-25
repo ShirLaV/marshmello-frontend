@@ -42,6 +42,9 @@ class _BoardDetails extends Component {
   openCardEdit=(boardId, groupId, cardId)=>{
     this.props.history.push(`/board/${boardId}/${groupId}/${cardId}`)
   }
+  updateBoard = (action) => {
+    this.props.onUpdateBoard(action, this.props.board);
+  };
   render() {
     const { board, onUpdateBoard } = this.props;
     if (Object.keys(board).length === 0) return <div>Loading...</div>;
@@ -52,7 +55,8 @@ class _BoardDetails extends Component {
         style={ boardStyle }
       >
         <BoardHeader />
-        <GroupList board={board} groups={board.groups} openCardEdit={this.openCardEdit} onUpdateBoard={onUpdateBoard}/>
+        <GroupList 
+       groups={board.groups} openCardEdit={this.openCardEdit} updateBoard={this.updateBoard}/>
       </div>
     );
   }

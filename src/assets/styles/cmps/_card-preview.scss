@@ -1,101 +1,104 @@
 .card-preview {
+    cursor: pointer;
+    max-width: 300px;
+    min-height: 20px;
     position: relative;
     flex-direction: column;
     background-color: white;
-    border-bottom: 1px solid #B2B9C5;
+    box-shadow: 0 1px 0 #16181b40;
     margin-bottom: 8px;
-    border-radius: 5px;
-    width: 100%;
-    min-height: 20px;
-    p {
-        padding: 0 5px;
-    }
+    border-radius: 3px;
     .card-preview-header {
-        height: fit-content;
+        background-position: 50%;
+        background-repeat: no-repeat;
+        background-size: cover;
+        user-select: none;
         .header-color {
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
-            height: 30px;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+            height: 32px;
         }
         img {
-            border-top-left-radius: 5px;
-            border-top-right-radius: 5px;
+            height: fit-content;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
         }
     }
-    .label-bar-list {
-        padding: 0 5px;
-        gap: 5px;
-        .label-bar {
-            margin: 5px 0;
-            border-radius: 5px;
-            font-size: 0.8rem;
-            text-align: center;
-        }
-        &.close {
-            .label-bar {
-                color: rgba(255, 255, 255, 0);
-                height: 10px;
-                width: 40px;
-                transition: height .2s, width .2s linear .2s;
-            }
-        }
-        &.open {
-            .label-bar {
-                color: white;
-                height: 20px;
-                width: 60px;
-                transition: color .2s linear 0.4s, width .2s, height .2s linear .2s;
-            }
-        }
-    }
-    .hover-edit-btn {
-        border-radius: 5px;
-        height: 20px;
-        background-color: rgba(235, 236, 240, 0.063);
-        display: none;
-        position: absolute;
-        top: 5px;
-        right: 5px;
-    }
-    &.card-preview:hover {
-        background-color: #F4F5F7;
-        cursor: pointer;
-        .hover-edit-btn {
-            display: block;
-            &.hover-edit-btn:hover {
-                background-color: rgb(235, 236, 240);
-            }
-        }
-    }
-    .card-preview-footer {
-        flex-wrap: wrap;
-        padding: 0 5px;
-        gap: 8px;
-        .due-date-box {
+    .card-details {
+        padding: 6px 8px 2px;
+        .label-bar-list {
             gap: 5px;
-            padding: 0 5px;
-            border-radius: 5px;
-            color: white;
-            .check-icon {
-                display: none;
+            .label-bar {
+                margin: 5px 0;
+                border-radius: 5px;
+                font-size: 0.8rem;
+                text-align: center;
             }
-            &.due-date-box:hover {
-                .clock-icon {
+            &.close {
+                .label-bar {
+                    color: rgba(255, 255, 255, 0);
+                    height: 8px;
+                    min-width: 40px;
+                    transition: height .2s, min-width .2s linear .2s;
+                }
+            }
+            &.open {
+                .label-bar {
+                    color: white;
+                    height: 20px;
+                    min-width: 60px;
+                    transition: color .2s linear 0.4s, min-width .2s, height .2s linear .2s;
+                }
+            }
+        }
+        .hover-edit-btn {
+            border-radius: 5px;
+            height: 20px;
+            background-color: rgba(235, 236, 240, 0.063);
+            display: none;
+            position: absolute;
+            top: 5px;
+            right: 5px;
+        }
+        &.card-preview:hover {
+            background-color: #F4F5F7;
+            cursor: pointer;
+            .hover-edit-btn {
+                display: block;
+                &.hover-edit-btn:hover {
+                    background-color: rgb(235, 236, 240);
+                }
+            }
+        }
+        .card-preview-footer {
+            flex-wrap: wrap;
+            gap: 8px;
+            .due-date-box {
+                gap: 5px;
+                padding: 0 5px;
+                border-radius: 5px;
+                color: white;
+                .check-icon {
                     display: none;
                 }
-                .check-icon {
-                    display: flex;
-                    align-items: center;
+                &.due-date-box:hover {
+                    .clock-icon {
+                        display: none;
+                    }
+                    .check-icon {
+                        display: flex;
+                        align-items: center;
+                    }
                 }
             }
-        }
-        .checklist-box {
-            gap: 5px;
-        }
-        .card-members-list {
-            padding: 5px;
-            flex: 1 1;
-            justify-content: flex-end;
+            .checklist-box {
+                gap: 5px;
+            }
+            .card-members-list {
+                padding: 5px;
+                flex: 1 1;
+                justify-content: flex-end;
+            }
         }
     }
 }

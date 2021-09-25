@@ -1,12 +1,16 @@
 .group-list-container {
-    padding: 10px;
-    .group-list {
-        gap: 10px;
-    }
+    padding-left: 40px;
+    margin-bottom: 8px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding-bottom: 8px;
+    position: absolute;
+    // right: 0;
+    // top: 0;
     .add-group-container {
+        margin: 0 4px;
         height: fit-content;
-        width: 250px;
-        margin-inline-start: 10px;
+        width: 272px;
         .add-boarditem-btn {
             gap: 5px;
             border-radius: 5px;
@@ -14,6 +18,9 @@
             padding-inline-start: 10px;
             height: 40px;
             width: 100%;
+            &:hover {
+                background-color: #92929059;
+            }
         }
     }
 }
