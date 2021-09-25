@@ -1,9 +1,14 @@
 .group-list-container {
     padding: 10px;
-    gap: 10px;
+    .group-list {
+        gap: 10px;
+    }
     .add-group-container {
+        height: fit-content;
         width: 250px;
+        margin-inline-start: 10px;
         .add-boarditem-btn {
+            gap: 5px;
             border-radius: 5px;
             background-color: #b5b6b259;
             padding-inline-start: 10px;

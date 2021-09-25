@@ -11,14 +11,15 @@ export class _ChecklistEdit extends Component {
 
     getTodoPercentage = (todos) => {
         const doneTodos = todos.filter(todo => todo.isDone)
-        const percentage = (doneTodos.length / todos.length) * 100
-        this.setState({ percentage })
+        return (doneTodos.length / todos.length) * 100
     }
 
     handleChange = ({ target: { name, checked } }) => {
         const { params, board } = this.props
         const action = { ...params, isChecked: checked }
         this.props.onUpdateCard(action, name, board)
+        const percentage = this.getTodoPercentage(this.props.checklist.todos)
+        this.setState({ percentage })
     }
 
     render() {
@@ -26,14 +27,14 @@ export class _ChecklistEdit extends Component {
         const { percentage } = this.state
         return (
             <section className="checklist-preview flex column">
-                <div className="flex">
-                    <span>{percentage}%</span>
-                    <ProgressBar completed={percentage} />
+                <div className="flex align-center">
+                    <span style={{ fontSize: 11 }}>{percentage}%</span>
+                    <ProgressBar completed={percentage} bgColor={(percentage === 100) ? '#61bd4f' : '#5ba4cf'} />
                 </div>
                 {checklist.todos?.map(todo => {
-                    return <div className="flex" key={todo.id}>
-                        <input type="checkbox" name={todo.id} checked={todo.isDone} onChange={this.handleChange} />
-                        <p>{todo.title}</p>
+                    return <div className="flex align-center todo-item" key={todo.id}>
+                        <input id="todo-item-title" type="checkbox" name={todo.id} checked={todo.isDone} onChange={this.handleChange} />
+                        <label htmlFor="todo-item-title">{todo.title}</label>
                     </div>
                 })}
             </section>
@@ -49,7 +50,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
     onUpdateCard,
-    // loadBoard
 }
 
 export const ChecklistEdit = connect(mapStateToProps, mapDispatchToProps)(_ChecklistEdit);

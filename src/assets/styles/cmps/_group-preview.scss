@@ -1,21 +1,30 @@
 .group-preview {
+    height: fit-content;
     border-radius: 5px;
     width: 250px;
     padding: 0 8px;
     background-color: #EBECF0;
     .group-header {
         height: 40px;
+        input {
+            font-weight: 600;
+        }
     }
-    p {
+    h4 {
         margin: 0;
+        padding: 0 5px;
     }
     .card-list {
         width: 100%;
     }
     .add-boarditem-btn {
         background-color: inherit;
-        align-self: center;
+        // align-self: center;
         height: unset;
+        gap: 5px;
+        i {
+            font-size: 1.2rem;
+        }
     }
     .group-footer {
         min-height: 40px;

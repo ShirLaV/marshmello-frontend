@@ -3,6 +3,20 @@
     width: rem(768px);
     display: block;
     margin: auto;
+    color: #172b4d;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: #f4f5f7;
+
+    h3 {
+        font-size: rem(16px);
+        font-weight: 600;
+    }
+
+    .card-edit-main {
+        flex: 2;
+        // width: 70%;
+        padding: 0 8px 8px 16px;
+    }
 
     .card-edit-bg {
         min-height: rem(116px);
@@ -15,37 +29,61 @@
         min-height: rem(32px);
     }
 
-    .clean-input {
+    .card-title-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: rem(20px) 8px 0 16px;
+    }
+
+    .title-input {
         border: none;
         outline: none;
         width: rem(656px);
+        min-height: rem(24px);
+        padding: 4px 8px;
         height: rem(33.333px);
         border-radius: rem(3px);
         font-size: rem(20px);
+        font-weight: 600;
+        line-height: rem(24px);
         transition: border .1s;
+        font-family: inherit;
+        width: 100%;
+        background-color: transparent;
 
         &:focus {
-            border: 2px solid black;
+            background-color: #fff;
+            box-shadow: inset 0 0 0 2px #0079bf;
         }
     }
 
     .card-edit-title {
         display: flex;
         gap: rem(10px);
-        margin: 12px 40px 8px 56px;
+        align-items: center;
+    }
+
+    .card-description {
+        padding: 10px 0 10px 26px;
     }
 
     .description-textarea {
-        width: rem(500px);
+        width: 100%;
         border: none;
         outline: none;
+        border-radius: rem(3px);
         background-color: #eaecf0;
         cursor: pointer;
-        margin: 12px 40px 8px 56px;
+        padding: rem(8px) rem(12px);
+        resize: none;
+        color: #172b4d;
+        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
+        font-size: rem(14px);
 
         &.open {
             background-color: #fff;
-            outline: 2px solid black;
+            box-shadow: inset 0 0 0 2px #0079bf;
             cursor: text;
         }
     }
@@ -53,6 +91,7 @@
     .description-btns {
         display: flex;
         gap: rem(10px);
+        margin-inline-start: rem(24px);
 
         button {
             cursor: pointer;
@@ -61,7 +100,11 @@
 
     .list-name-container {
         color: #5e6c84;
-        margin: 12px 40px 8px 56px;
+        margin: 0 0 rem(8px) rem(26px);
+        font-size: rem(14px);
+        font-weight: 400;
+        line-height: rem(20px);
+        padding-inline-start: rem(16px);
 
         .list-name {
             text-decoration: underline;
@@ -71,8 +114,15 @@
 
     .members-labels-container {
         display: flex;
-        gap: rem(10px);
-        margin: 12px 40px 8px 56px;
+        gap: rem(8px);
+        margin: rem(24px) 0 rem(24px) rem(26px);
+
+        h3 {
+            color: #5e6c84;
+            font-size: rem(12px);
+            font-weight: 500;
+            margin-bottom: rem(8px);
+        }
 
         .members-container,
         .lebels-container {
@@ -88,8 +138,8 @@
 
         .card-member {
             border-radius: 50%;
-            height: rem(30px);
-            width: rem(30px);
+            height: rem(32px);
+            width: rem(32px);
             cursor: pointer;
 
             &.add-member {
@@ -112,9 +162,14 @@
             padding: 0 rem(12px);
             color: #fff;
             cursor: pointer;
+            height: rem(32px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: rem(14px);
+            font-weight: 600;
+
             &.add-label {
-                // height: rem(16px);
-                // width: rem(16px);
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -123,10 +178,21 @@
             }
         }
 
+        .progress-percentage {
+            font-size: rem(11px);
+        }
+
     }
 
-    .popper-label {
-        
+    .todo-item {
+        label {
+            font-size: rem(14px);
+        }
+        input {
+
+        }
     }
+
+    .popper-label {}
 
 }

@@ -53,6 +53,17 @@
     padding: 0;
 }
 
+.clean-input {
+    border: none;
+    outline: none;
+    background-color: inherit;
+    transition: border .1s;
+    &:focus {
+        border: 2px solid black;
+        background-color: white;
+    }
+}
+
 // Media helpers
 .square-ratio {
     @include aspect-ratio(1, 1);

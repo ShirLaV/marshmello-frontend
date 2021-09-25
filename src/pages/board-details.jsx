@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { GroupList } from '../cmps/board/group-list.jsx';
 import { BoardHeader } from '../cmps/board/board-header.jsx';
-import { loadBoard } from '../store/board.actions.js';
+import { loadBoard, onUpdateBoard } from '../store/board.actions.js';
 
 class _BoardDetails extends Component {
   state = {
@@ -43,7 +43,7 @@ class _BoardDetails extends Component {
     this.props.history.push(`/board/${boardId}/${groupId}/${cardId}`)
   }
   render() {
-    const { board } = this.props;
+    const { board, onUpdateBoard } = this.props;
     if (Object.keys(board).length === 0) return <div>Loading...</div>;
     const { boardStyle } = this.state;
     return (
@@ -52,7 +52,7 @@ class _BoardDetails extends Component {
         style={ boardStyle }
       >
         <BoardHeader />
-        <GroupList groups={board.groups} openCardEdit={this.openCardEdit} />
+        <GroupList board={board} groups={board.groups} openCardEdit={this.openCardEdit} onUpdateBoard={onUpdateBoard}/>
       </div>
     );
   }
@@ -65,6 +65,7 @@ function mapStateToProps(state) {
 }
 const mapDispatchToProps = {
   loadBoard,
+  onUpdateBoard
 };
 
 export const BoardDetails = connect(
