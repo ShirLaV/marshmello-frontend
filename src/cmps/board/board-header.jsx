@@ -3,11 +3,11 @@ import { AiOutlineStar } from 'react-icons/ai'
 import { RiBarChartFill } from 'react-icons/ri'
 import { HiDotsHorizontal } from 'react-icons/hi'
 import { connect } from 'react-redux'
-import { Link, NavLink } from 'react-router-dom'
 
 import { onUpdateBoard } from '../../store/board.actions.js'
 import { loadUsers } from '../../store/user.actions.js'
 import { MemberAvatar } from '../shared/member-avatar.jsx'
+// import { SideMenu } from '../side-menu.jsx'
 
 class _BoardHeader extends React.Component {
 
@@ -22,7 +22,7 @@ class _BoardHeader extends React.Component {
     }
 
     render() {
-        const { users, board } = this.props
+        const { board } = this.props
         return (
             <section className="board-header">
                 <div className="left-btns">
@@ -39,6 +39,7 @@ class _BoardHeader extends React.Component {
                     <button className="dashboard-btn nav-button"><RiBarChartFill /> Dashboard</button>
                     <button className="right-menu-btn nav-button"><HiDotsHorizontal /> Show Menu</button>
                 </div>
+                {/* <SideMenu /> */}
             </section>
         )
     }

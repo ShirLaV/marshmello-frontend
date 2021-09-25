@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { CgHome } from 'react-icons/cg';
 import { AiOutlinePlus, AiOutlineBell } from 'react-icons/ai';
 import { SiTrello } from 'react-icons/si';

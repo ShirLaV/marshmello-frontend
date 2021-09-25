@@ -1,8 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { BoardList } from '../cmps/board-list'
-import { BoardAdd } from '../cmps/board/board-add'
-import { BoardPreview } from '../cmps/board-preview'
 import { AiFillStar } from 'react-icons/ai'
 import { SiTrello } from 'react-icons/si'
 

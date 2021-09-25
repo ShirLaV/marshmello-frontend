@@ -134,6 +134,9 @@ function _getUpdatedBoard(action, board) {
         case 'TOGGLE_STARRED':
             boardToSave.isStarred = action.isStarred
             break;
+        case 'CHANGE_BOARD_STYLE':
+            boardToSave.style = action.style
+            break;
         case 'ADD_GROUP':
             boardToSave.groups = [...boardToSave.groups, action.group]
             break;
