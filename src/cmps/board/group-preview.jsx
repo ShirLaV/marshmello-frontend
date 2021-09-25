@@ -5,7 +5,7 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { GrClose } from 'react-icons/gr';
 import { CardPreview } from './card-preview.jsx';
 
-import {AddBoardItem} from '../shared/add-board-item.jsx'
+import { AddBoardItem } from '../shared/add-board-item.jsx';
 
 export class GroupPreview extends Component {
   state = {
@@ -13,7 +13,7 @@ export class GroupPreview extends Component {
   };
 
   onToggleAddPop = () => {
-    this.setState({isAddPopOpen: !this.state.isAddPopOpen})  
+    this.setState({ isAddPopOpen: !this.state.isAddPopOpen });
   };
 
   render() {
@@ -30,19 +30,32 @@ export class GroupPreview extends Component {
         {group.cards && (
           <ul className='card-list clean-list'>
             {group.cards.map((card) => {
-              return <CardPreview key={card.id} card={card} groupId={group.id} openCardEdit={openCardEdit}/>;
+              return (
+                <CardPreview
+                  key={card.id}
+                  card={card}
+                  groupId={group.id}
+                  openCardEdit={openCardEdit}
+                />
+              );
             })}
           </ul>
         )}
         <div className='group-footer flex space-between align-center'>
           {!isAddPopOpen && (
-            <button className="add-boarditem-btn" onClick={this.onToggleAddPop}>
-              <AiOutlinePlus />
+            <button className='add-boarditem-btn flex align-center' onClick={this.onToggleAddPop}>
+              <i className='flex align-center'>
+                <AiOutlinePlus />
+              </i>
               <span>Add a card</span>
             </button>
           )}
           {isAddPopOpen && (
-            <AddBoardItem onToggleAddPop={this.onToggleAddPop} type={'card'} groupId={group.id}/>
+            <AddBoardItem
+              onToggleAddPop={this.onToggleAddPop}
+              type={'card'}
+              groupId={group.id}
+            />
           )}
         </div>
       </div>

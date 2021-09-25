@@ -16,8 +16,12 @@
     }
     .add-boarditem-btn {
         background-color: inherit;
-        align-self: center;
+        // align-self: center;
         height: unset;
+        gap: 5px;
+        i {
+            font-size: 1.2rem;
+        }
     }
     .group-footer {
         min-height: 40px;
