@@ -7,9 +7,10 @@ import { SiTrello } from 'react-icons/si';
 
 
 // import routes from '../routes'
-
-
 import { onLogin, onLogout, onSignup, loadUsers, removeUser } from '../store/user.actions.js'
+import { setAddingBoard } from '../store/board.actions'
+import { BoardAdd } from './board/board-add.jsx';
+import { MemberAvatar } from './shared/member-avatar.jsx';
 
 class _AppHeader extends React.Component {
     onLogin = (credentials) => {
@@ -22,8 +23,12 @@ class _AppHeader extends React.Component {
         this.props.onLogout()
     }
 
+    setAddBoard = () => {
+        this.props.setAddingBoard(true)
+    }
+
     render() {
-        const { user } = this.props
+        const { user, isAddingBoard } = this.props
         return (
             <header className="app-header">
                 <nav className="nav-links">
@@ -34,11 +39,12 @@ class _AppHeader extends React.Component {
                     </div>
                     <NavLink className="logo" to="/board"><SiTrello /> <span> Marshmello </span></NavLink>
                     <div className="right-links">
-                        <button className="nav-button"><AiOutlinePlus /></button>
+                        <button className="nav-button" onClick={() => this.setAddBoard()}><AiOutlinePlus /></button>
                         <button className="nav-button"><AiOutlineBell /></button>
-                        <button className="nav-button">User</button>
+                        <MemberAvatar key={user._id} member={user} />
                     </div>
                 </nav>
+                {isAddingBoard && <BoardAdd />}
             </header>
         )
     }
@@ -48,6 +54,7 @@ function mapStateToProps(state) {
     return {
         boards: state.boardModule.boards,
         user: state.userModule.user,
+        isAddingBoard: state.boardModule.isAddingBoard
     }
 }
 const mapDispatchToProps = {
@@ -55,7 +62,8 @@ const mapDispatchToProps = {
     onSignup,
     onLogout,
     loadUsers,
-    removeUser
+    removeUser,
+    setAddingBoard
 }
 
 
