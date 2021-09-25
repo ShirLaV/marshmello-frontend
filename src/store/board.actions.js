@@ -131,6 +131,9 @@ export function onUpdateBoard(action, board) {
 function _getUpdatedBoard(action, board) {
     const boardToSave = {...board }
     switch (action.type) {
+        case 'TOGGLE_STARRED':
+            boardToSave.isStarred = action.isStarred
+            break;
         case 'ADD_GROUP':
             boardToSave.groups = [...boardToSave.groups, action.group]
             break;
