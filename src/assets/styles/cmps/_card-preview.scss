@@ -12,10 +12,14 @@
     }
     .card-preview-header {
         height: fit-content;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
         .header-color {
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
             height: 30px;
+        }
+        img {
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
         }
     }
     .label-bar-list {
