@@ -39,9 +39,11 @@ class _CardPreview extends Component {
     //complete
     if (card.isComplete) return { backgroundColor: '#61BD4F' };
     //due soon
-    else if (card.dueDate - Date.now() < 1000 * 60 * 60 * 24) return { backgroundColor: '#F2D600' };
+    else if (card.dueDate - Date.now() < 1000 * 60 * 60 * 24)
+      return { backgroundColor: '#F2D600' };
     //overdue
-    else if (card.dueDate - Date.now() < 0) return { backgroundColor: '#EB5A46' };
+    else if (card.dueDate - Date.now() < 0)
+      return { backgroundColor: '#EB5A46' };
     //none of the above
     return { backgroundColor: 'inherit', color: 'unset' };
   };
@@ -86,73 +88,76 @@ class _CardPreview extends Component {
             {card.style.imgUrl && <img src={card.style.imgUrl} />}
           </div>
         )}
-        {card.labelIds && (
-          <ul
-            onClick={this.toggleCardLabelList}
-            className={`label-bar-list flex clean-list ${
-              isCardLabelListOpen ? 'open' : 'close'
-            }`}
-          >
-            {card.labelIds.map((labelId) => {
-              const label = this.getLabel(labelId);
-              return (
-                <li
-                  className='label-bar'
-                  key={labelId}
-                  // style={{ backgroundColor: label.color }}
-                >
-                  {isCardLabelListOpen && label.title && (
-                    <span>{label.title}</span>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-        )}
 
-        <p>{card.title}</p>
-
-        <button className='hover-edit-btn'>
-          <HiOutlinePencil />
-        </button>
-
-        <div className='card-preview-footer flex align-center'>
-          {card.dueDate && (
-            <div
-              className='due-date-box flex align-center'
-              style={this.getDueTimeStyle(card)}
-              onClick={(event) =>
-                this.toggleCardComplete(event, board._id, groupId, card.id)
-              }
+        <div className='card-details'>
+          {card.labelIds && (
+            <ul
+              onClick={this.toggleCardLabelList}
+              className={`label-bar-list flex clean-list ${
+                isCardLabelListOpen ? 'open' : 'close'
+              }`}
             >
-              <span className='clock-icon flex align-center'>
-                <FiClock />
-              </span>
-              <span className='check-icon'>
-                {card.isComplete ? <GrCheckboxSelected /> : <GrCheckbox />}
-              </span>
-              <span>{this.getFormatedTime(card.dueDate)}</span>
-            </div>
+              {card.labelIds.map((labelId) => {
+                const label = this.getLabel(labelId);
+                return (
+                  <li
+                    className='label-bar'
+                    key={labelId}
+                    style={{ backgroundColor: label.color }}
+                  >
+                    {isCardLabelListOpen && label.title && (
+                      <span>{label.title}</span>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
           )}
 
-          {card.description && (
-            <GrTextAlignFull title={'This card has a description'} />
-          )}
+          <p>{card.title}</p>
 
-          {card.checklists && (
-            <div className='checklist-box flex align-center'>
-              <BsCheckBox />
-              <span>{this.getChecklistStr(card.checklists)}</span>
-            </div>
-          )}
+          <button className='hover-edit-btn'>
+            <HiOutlinePencil />
+          </button>
 
-          {card.members && (
-            <div className='card-members-list flex'>
-              {card.members.map((member) => (
-                <MemberAvatar member={member} size={'md'} key={member.id} />
-              ))}
-            </div>
-          )}
+          <div className='card-preview-footer flex align-center'>
+            {card.dueDate && (
+              <div
+                className='due-date-box flex align-center'
+                style={this.getDueTimeStyle(card)}
+                onClick={(event) =>
+                  this.toggleCardComplete(event, board._id, groupId, card.id)
+                }
+              >
+                <span className='clock-icon flex align-center'>
+                  <FiClock />
+                </span>
+                <span className='check-icon'>
+                  {card.isComplete ? <GrCheckboxSelected color={"inherit"} /> : <GrCheckbox />}
+                </span>
+                <span>{this.getFormatedTime(card.dueDate)}</span>
+              </div>
+            )}
+
+            {card.description && (
+              <GrTextAlignFull title={'This card has a description'} />
+            )}
+
+            {card.checklists && (
+              <div className='checklist-box flex align-center'>
+                <BsCheckBox />
+                <span>{this.getChecklistStr(card.checklists)}</span>
+              </div>
+            )}
+
+            {card.members && (
+              <div className='card-members-list flex'>
+                {card.members.map((member) => (
+                  <MemberAvatar member={member} size={'md'} key={member.id} />
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
     );

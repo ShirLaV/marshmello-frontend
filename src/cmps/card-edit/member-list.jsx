@@ -1,26 +1,16 @@
-import  React, { Component } from 'react'
-import { connect } from 'react-redux'
-// import { loadUsers } from '../../store/user.actions'
+import React from 'react'
+import { PopperUserPreview } from './popper-user-preview'
 
-export default class _MembersPopup extends Component {
-    render() {
-        return (
-            <div>
-                
+export function MemberList() {
+    return (
+        <div className="member-list">
+            <input className="search-input" type="text" autoFocus placeholder="Search..." />
+            <h4>Board Members</h4>
+            <div className="flex column">
+                {users.map(user => <PopperUserPreview user={user} />)}
             </div>
-        )
-    }
-}
-
-const mapStateToProps = state => {
-    return {
-        users: state.userModule.users
-    }
-}
-
-const mapDispatchToProps = {
-    // onUpdateCard,
-    // loadBoard
+        </div>
+    )
 }
 
 const users = [
@@ -61,5 +51,3 @@ const users = [
         }]
     }
 ]
-
-export const MembersPopup = connect(mapStateToProps, mapDispatchToProps)(_MembersPopup);

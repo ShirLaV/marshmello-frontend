@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import { onUpdateBoard, onUpdateCard, onAddCard } from '../../store/board.actions.js';
 
+import { IoMdClose } from 'react-icons/io'
 import { GrClose } from 'react-icons/gr';
 import { utilService } from '../../services/util.service';
 
@@ -57,9 +58,7 @@ class _AddBoardItem extends React.Component {
           />
           <div className='form-btns flex align-center'>
             <button type='submit'>Add {renderedType}</button>
-            <button onClick={onToggleAddPop} className="flex align-center">
-              <GrClose />
-            </button>
+            <button onClick={onToggleAddPop}><IoMdClose className="icon" style={{ color: '#42526e', fontSize: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center'  }} /></button>
           </div>
         </form>
       </section>
