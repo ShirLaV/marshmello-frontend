@@ -1,22 +1,22 @@
 import React from 'react'
 
-export function ProgressBar({ completed }) {
+export function ProgressBar({ bgColor, completed }) {
 
     const containerStyles = {
-        height: 20,
+        height: 8,
         width: '100%',
         backgroundColor: "#e0e0de",
         borderRadius: 50,
-        margin: 10
+        margin: '10px 0 10px 10px'
     }
 
     const fillerStyles = {
         height: '100%',
         width: `${completed}%`,
-        backgroundColor: '#6a1b9a',
+        backgroundColor: bgColor,
         borderRadius: 'inherit',
         textAlign: 'right',
-        transition: 'width 1s ease-in-out'
+        transition: 'width .5s ease-in-out'
     }
 
     return (

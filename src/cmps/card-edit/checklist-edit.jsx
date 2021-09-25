@@ -28,13 +28,13 @@ export class _ChecklistEdit extends Component {
         return (
             <section className="checklist-preview flex column">
                 <div className="flex align-center">
-                    <span>{percentage}%</span>
-                    <ProgressBar completed={percentage} />
+                    <span style={{ fontSize: 11 }}>{percentage}%</span>
+                    <ProgressBar completed={percentage} bgColor={(percentage === 100) ? '#61bd4f' : '#5ba4cf'} />
                 </div>
                 {checklist.todos?.map(todo => {
-                    return <div className="flex" key={todo.id}>
-                        <input type="checkbox" name={todo.id} checked={todo.isDone} onChange={this.handleChange} />
-                        <p>{todo.title}</p>
+                    return <div className="flex align-center todo-item" key={todo.id}>
+                        <input id="todo-item-title" type="checkbox" name={todo.id} checked={todo.isDone} onChange={this.handleChange} />
+                        <label htmlFor="todo-item-title">{todo.title}</label>
                     </div>
                 })}
             </section>

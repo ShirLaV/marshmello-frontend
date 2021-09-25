@@ -7,6 +7,7 @@ import { MdFormatListBulleted } from 'react-icons/md'
 import { LabelsMembers } from './card-edit/labels-members'
 import { BsCardChecklist } from 'react-icons/bs'
 import { ChecklistEdit } from './card-edit/checklist-edit'
+import { IoMdClose } from 'react-icons/io'
 // import { AiOutlinePlus } from 'react-icons/ai'
 
 class _CardEdit extends Component {
@@ -62,58 +63,67 @@ class _CardEdit extends Component {
         if (!currCard) return <div>Loading...</div>
         // console.log(this.props.board);
         return (
-            <div className="card-edit">
-                {currCard.style.bgColor && <div className="card-edit-bg" style={{ backgroundColor: currCard.style.bgColor }}></div>}
-                <div className="card-edit-header card-edit-title">
-                    <span><CgCreditCard /></span>
-                    <input className="clean-input" type="text" value={currCard.title} name="title" onChange={this.handleChange} onBlur={this.handlePropertyChange} />
-                </div>
-                <div className="list-name-container"><p>in list <span className="list-name">{currGroup.title}</span></p></div>
-                <LabelsMembers members={currCard.members} labelIds={currCard.labelIds} board={this.props.board} />
-                <div className="description-container card-edit-title">
-                    <span><IoMdList /></span>
-                    <h3>Description</h3>
-                </div>
-                <div className="card-description">
-                    <textarea
-                        className={`description-textarea ${isDescriptionOpen ? 'open' : ''}`}
-                        rows={isDescriptionOpen ? "6" : "3"}
-                        onFocus={this.setDescriptionTextarea}
-                        onBlur={(ev) => {
-                            this.setDescriptionTextarea()
-                            this.handlePropertyChange(ev)
-                        }}
-                        name="description"
-                        value={currCard.description}
-                        onChange={this.handleChange}
-                        placeholder="Add a more detailed description..." />
-                    {isDescriptionOpen && <div className="description-btns">
-                        <button>Save</button>
-                        <button onClick={this.setDescriptionTextarea}>X</button>
-                    </div>}
-                </div>
+            <section className="card-edit">
+                    {currCard.style?.bgColor && <div className="card-edit-bg" style={{ backgroundColor: currCard.style.bgColor }}></div>}
+                    <div className="card-edit-header card-title-container">
+                        <span><CgCreditCard /></span>
+                        <input className="title-input" type="text" value={currCard.title} name="title" onChange={this.handleChange} onBlur={this.handlePropertyChange} />
+                    </div>
+                    <div className="list-name-container"><p>in list <span className="list-name">{currGroup.title}</span></p></div>
+                <div className="flex">
+                    <div className="card-edit-main">
+                        <LabelsMembers members={currCard.members} labelIds={currCard.labelIds} board={this.props.board} />
+                        <div className="description-container card-edit-title">
+                            <span><IoMdList /></span>
+                            <h3>Description</h3>
+                        </div>
+                        <div className="card-description">
+                            <textarea
+                                className={`description-textarea ${isDescriptionOpen ? 'open' : ''}`}
+                                rows={isDescriptionOpen ? "6" : "3"}
+                                onFocus={this.setDescriptionTextarea}
+                                onBlur={(ev) => {
+                                    this.setDescriptionTextarea()
+                                    this.handlePropertyChange(ev)
+                                }}
+                                name="description"
+                                value={currCard.description}
+                                onChange={this.handleChange}
+                                placeholder="Add a more detailed description..." />
+                            {isDescriptionOpen &&
+                                <div className="description-btns">
+                                    <button className="card-edit-btn secondary">Save</button>
+                                    <button onClick={this.setDescriptionTextarea}><IoMdClose style={{ color: '#42526e', fontSize: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} /></button>
+                                </div>}
+                        </div>
 
-                {currCard.checklists?.map(checklist => (
-                    <div key={checklist.id}>
+                        {currCard.checklists?.map(checklist => (
+                            <div key={checklist.id}>
+                                <section className="flex space-between">
+                                    <div className="card-edit-title">
+                                        <span><BsCardChecklist /></span>
+                                        <h3>{checklist.title}</h3>
+                                    </div>
+                                    <button className="card-edit-btn">Delete</button>
+                                </section>
+                                <div>
+                                    <ChecklistEdit checklist={checklist} params={this.props.match.params} board={this.props.board} />
+                                </div>
+                                <button className="card-edit-btn">Add an item</button>
+                            </div>
+                        ))
+                        }
                         <section className="flex space-between">
                             <div className="card-edit-title">
-                                <span><BsCardChecklist /></span>
-                                <h3>{checklist.title}</h3>
+                                <span><MdFormatListBulleted /></span>
+                                <h3>Activity</h3>
                             </div>
-                            <button>Delete</button>
+                            <button className="card-edit-btn">Show details</button>
                         </section>
-                        <div>
-                            <ChecklistEdit checklist={checklist} params={this.props.match.params} board={this.props.board} />
-                        </div>
                     </div>
-                ))
-                }
-
-                <div className="card-edit-title">
-                    <span><MdFormatListBulleted /></span>
-                    <h3>Activity</h3>
+                    <div className="sidebar">fhkj</div>
                 </div>
-            </div>
+            </section>
         )
     }
 }
