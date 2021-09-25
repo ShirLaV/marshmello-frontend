@@ -11,36 +11,42 @@ export class GroupList extends Component {
   };
 
   onToggleAddPop = () => {
-    this.setState({isAddPopOpen: !this.state.isAddPopOpen})  
+    this.setState({ isAddPopOpen: !this.state.isAddPopOpen });
   };
 
   render() {
-    const {groups, openCardEdit} = this.props
-    const {isAddPopOpen}=this.state
+    const { board, groups, openCardEdit, onUpdateBoard } = this.props;
+    const { isAddPopOpen } = this.state;
     return (
       <section className='group-list-container flex'>
         {groups && (
           <ul className='group-list clean-list flex'>
             {groups.map((group) => {
-              return <GroupPreview key={group.id} group={group} openCardEdit={openCardEdit}/>;
+              return (
+                <GroupPreview
+                  key={group.id}
+                  board={board}
+                  group={group}
+                  openCardEdit={openCardEdit}
+                  onUpdateBoard={onUpdateBoard}
+                />
+              );
             })}
           </ul>
         )}
-        <div className="add-group-container">
-
-        {!isAddPopOpen && (
-          <button className='add-boarditem-btn' onClick={this.onToggleAddPop}>
-            <AiOutlinePlus />
-            <span>Add a list</span>
-          </button>
-        )}
-        {isAddPopOpen && (
-          <AddBoardItem
-          onToggleAddPop={this.onToggleAddPop}
-          type={'group'}
-          />
+        <div className='add-group-container'>
+          {!isAddPopOpen && (
+            <button className='add-boarditem-btn flex align-center' onClick={this.onToggleAddPop}>
+              <i className="flex align-center">
+                <AiOutlinePlus />
+              </i>
+              <span>Add a list</span>
+            </button>
           )}
-          </div>
+          {isAddPopOpen && (
+            <AddBoardItem onToggleAddPop={this.onToggleAddPop} type={'group'} />
+          )}
+        </div>
       </section>
     );
   }
