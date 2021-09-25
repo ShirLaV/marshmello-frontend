@@ -61,9 +61,9 @@ class _CardEdit extends Component {
     }
 
     handlePropertyChange = ({ target: { name, value, checked } }) => {
-        let dataParams = this.props.match.params
-        const action = { ...dataParams, [name]: value }
-        this.props.onUpdateCard(action, name, board)
+        // let dataParams = this.props.match.params
+        // const action = { ...dataParams, [name]: value }
+        // this.props.onUpdateCard(action, name, board)
     }
 
     render() {

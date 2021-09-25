@@ -23,16 +23,16 @@ class _BoardHeader extends React.Component {
                 <div className="left-btns">
                     <button className="board-title nav-button">{board.title}</button>
                     <button className={'starred-btn nav-button'}><AiOutlineStar /></button> |
-                    <div className="user-previews">
-                        {board.members.map(member =>
-                            <MemberAvatar key={member._id} member={member} />
-                        )}
-                        <button className="invite-btn nav-button">Invite</button>
-                    </div>
-                    <div className="right-btns">
-                        <button className="dashboard-btn nav-button"><RiBarChartFill /> Dashboard</button>
-                        <button className="right-menu-btn nav-button"><HiDotsHorizontal /> Show Menu</button>
-                    </div>
+                <div className="user-previews">
+                    {board.members.map(member =>
+                        <MemberAvatar key={member._id} member={member} />
+                    )}
+                    <button className="invite-btn nav-button">Invite</button>
+                </div>
+                </div>
+                <div className="right-btns">
+                    <button className="dashboard-btn nav-button"><RiBarChartFill /> Dashboard</button>
+                    <button className="right-menu-btn nav-button"><HiDotsHorizontal /> Show Menu</button>
                 </div>
             </section>
         )

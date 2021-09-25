@@ -76,7 +76,7 @@ class _CardPreview extends Component {
                 <li
                   className='label-bar'
                   key={labelId}
-                  style={{ backgroundColor: label.color }}
+                  // style={{ backgroundColor: label.color }}
                 >
                   {isCardLabelListOpen && <span>{label.title}</span>}
                 </li>

@@ -1,9 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
+// import { OverlayScreen } from '../overlay-screen'
 import { onAddBoard, setAddingBoard } from '../../store/board.actions.js'
-
-import selectImg from '../../assets/img/board-page.png'
 
 
 class _BoardAdd extends React.Component {
@@ -13,6 +12,10 @@ class _BoardAdd extends React.Component {
             imgUrl: ''
         },
         chosenImgIdx: 5
+    }
+
+    componentWillUnmount() {
+        this.props.setAddingBoard(false)
     }
 
     handleChange = (ev) => {
@@ -40,8 +43,8 @@ class _BoardAdd extends React.Component {
         const { title, chosenImgIdx } = this.state
         return (
             <div className="board-add" >
-                <form className="board-add-form" onSubmit={this.addBoard} style={{ backgroundImage: `url(${images[chosenImgIdx]})`}} >
-                    <input className="board-title-input" type="text" placeholder="Add board title" name="title" value={title} onChange={this.handleChange} />
+                <form className="board-add-form" onSubmit={this.addBoard} style={{ backgroundImage: `url(${images[chosenImgIdx]})` }} >
+                    <input className={`board-title-input ${(title) ? 'editing' : ''}`} autoComplete="off" type="text" placeholder="Add board title" name="title" value={title} onChange={this.handleChange} />
                     <button className={`create-btn ${(title) ? 'clickable' : ''}`} type="submit">Create Board</button>
                 </form>
                 <div className="images-container">
@@ -51,6 +54,7 @@ class _BoardAdd extends React.Component {
                         </button>
                     )}
                 </div>
+                {/* <OverlayScreen /> */}
             </div>
         )
     }

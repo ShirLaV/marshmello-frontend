@@ -31,7 +31,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    // onUpdateCard1,
+    // onUpdateCard,
     // loadBoard
 }
 
