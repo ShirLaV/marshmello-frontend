@@ -11,9 +11,12 @@
         padding: 0 5px;
     }
     .card-preview-header {
-        height: 30px;
+        height: fit-content;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
+        .header-color {
+            height: 30px;
+        }
     }
     .label-bar-list {
         padding: 0 5px;
@@ -61,6 +64,7 @@
         }
     }
     .card-preview-footer {
+        flex-wrap: wrap;
         padding: 0 5px;
         gap: 8px;
         .due-date-box {
