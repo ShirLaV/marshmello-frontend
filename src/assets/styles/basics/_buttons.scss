@@ -1,6 +1,7 @@
 .nav-button {
     background-color: rgba(221, 221, 221, 0.205);
-    font-size: rem(16px);
+    font-size: rem(18px);
+    padding: 5px;
     color: white;
     border-radius: 3px;
     transition: all 0.3s;
@@ -34,9 +35,16 @@
     transition: background-color, border-color, box-shadow ease .085s;
     background-color: #091e420a;
 
+    .sidebar-btn {
+        justify-content: flex-start;
+    }
+
     &.secondary {
         background-color: #0079bf;
         color: #fff;
+        &:hover {
+            background-color: #026aa7;
+        }
     }
 
     &:hover {
@@ -44,4 +52,3 @@
     }
 
 }
-

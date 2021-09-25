@@ -4,8 +4,7 @@ import { PopperLabelPreview } from './popper-label-preview';
 import { PopperUserPreview } from './popper-user-preview';
 // import { loadUsers } from '../../store/user.actions'
 
-const _EditPopper = ({ title, showInput = true }) => {
-    console.log(title);
+const _EditPopper = ({ title, popoverBody: PopoverBody /* cmp */, showInput = true }) => {
     return (
         <div style={{ border: '1px solid black', width: '300px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid black' }}>
@@ -19,6 +18,7 @@ const _EditPopper = ({ title, showInput = true }) => {
             ? board.members.map(member => <PopperUserPreview key={member._id} user={member} />) 
             : board.labels.map(label => <PopperLabelPreview key={label.id} label={label} />) 
             }
+        {/*     <PopoverBody /> */}
         </div>
     )
 }
@@ -31,7 +31,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    // onUpdateCard1,
+    // onUpdateCard,
     // loadBoard
 }
 

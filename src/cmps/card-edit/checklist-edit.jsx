@@ -5,6 +5,7 @@ import { onUpdateCard } from '../../store/board.actions'
 
 
 export class _ChecklistEdit extends Component {
+    
     state = {
         percentage: 0,
     }

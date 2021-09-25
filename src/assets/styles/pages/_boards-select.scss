@@ -1,7 +1,26 @@
 .boards-select {
-    margin-top: 100px;
-    
-    .workspace {
-        margin-top: 100px;
-    }
+  margin-top: 100px;
+
+  h2 {
+    margin-top: 50px;
+    display: block;
+  }
+
+  .starred-boards {
+    margin-top: 20px;
+  }
+
+  .workspace {
+    margin-top: 20px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .create-board-btn {
+    background-color: #97a0af6e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }

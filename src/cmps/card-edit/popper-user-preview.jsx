@@ -6,7 +6,7 @@ export function PopperUserPreview({user}) {
         <div className="flex">
             <MemberAvatar member={user} />
             <p>{user.fullname}</p>
-            <p>{user.username}</p>
+            <p>({user.username})</p>
         </div>
     )
 }

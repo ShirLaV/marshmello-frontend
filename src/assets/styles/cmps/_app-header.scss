@@ -9,6 +9,7 @@
     .left-links {
         display: flex;
         align-items: center;
+        gap: 7px;
     }
 
     .logo {
@@ -24,6 +25,12 @@
         &:hover {
             color: rgb(255, 255, 255);
         }
+    }
+
+    .right-links {
+        display: flex;
+        align-items: center;
+        gap: 7px;
     }
 }
 }

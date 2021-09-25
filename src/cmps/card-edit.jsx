@@ -8,6 +8,18 @@ import { LabelsMembers } from './card-edit/labels-members'
 import { BsCardChecklist } from 'react-icons/bs'
 import { ChecklistEdit } from './card-edit/checklist-edit'
 import { IoMdClose } from 'react-icons/io'
+import { BiUser } from 'react-icons/bi'
+import { MdLabelOutline } from 'react-icons/md'
+import { BsClock } from 'react-icons/bs'
+import { FiPaperclip } from 'react-icons/fi'
+import { BsArrowRight } from 'react-icons/bs'
+import { MdContentCopy } from 'react-icons/md'
+import { AiOutlineEye } from 'react-icons/ai'
+import { GoArchive } from 'react-icons/go'
+
+import { DynamicPopover } from './shared/dynamic-popover'
+import { EditSidebarLabel } from './card-edit/edit-sidebar-label'
+import { MemberList } from './card-edit/member-list'
 // import { AiOutlinePlus } from 'react-icons/ai'
 
 class _CardEdit extends Component {
@@ -15,6 +27,7 @@ class _CardEdit extends Component {
         isDescriptionOpen: false,
         currCard: null,
         currGroup: null,
+        isOpen: false
     }
 
     componentDidMount() {
@@ -52,6 +65,10 @@ class _CardEdit extends Component {
         this.props.onUpdateCard(action, name, this.props.board)
     }
 
+    onClose = () => {
+        this.setState({ isOpen: false })
+    }
+
     // handlePropertyRemove = ({ target: { name, value, checked } }) => {
     //     let dataParams = this.props.match.params
     //     const action = { ...dataParams, [name]: value }
@@ -64,12 +81,12 @@ class _CardEdit extends Component {
         // console.log(this.props.board);
         return (
             <section className="card-edit">
-                    {currCard.style?.bgColor && <div className="card-edit-bg" style={{ backgroundColor: currCard.style.bgColor }}></div>}
-                    <div className="card-edit-header card-title-container">
-                        <span><CgCreditCard /></span>
-                        <input className="title-input" type="text" value={currCard.title} name="title" onChange={this.handleChange} onBlur={this.handlePropertyChange} />
-                    </div>
-                    <div className="list-name-container"><p>in list <span className="list-name">{currGroup.title}</span></p></div>
+                {currCard.style?.bgColor && <div className="card-edit-bg" style={{ backgroundColor: currCard.style.bgColor }}></div>}
+                <div className="card-edit-header card-title-container">
+                    <span><CgCreditCard /></span>
+                    <input className="title-input" type="text" value={currCard.title} name="title" onChange={this.handleChange} onBlur={this.handlePropertyChange} />
+                </div>
+                <div className="list-name-container"><p>in list <span className="list-name">{currGroup.title}</span></p></div>
                 <div className="flex">
                     <div className="card-edit-main">
                         <LabelsMembers members={currCard.members} labelIds={currCard.labelIds} board={this.props.board} />
@@ -97,6 +114,13 @@ class _CardEdit extends Component {
                                 </div>}
                         </div>
 
+                        <button onClick={() => this.setState({ isOpen: true })}>open</button>
+                        {this.state.isOpen && <DynamicPopover onClose={() => this.setState({ isOpen: false })} title="fhvhk fhb">
+                            <MemberList />
+                        </DynamicPopover>
+                        }
+
+
                         {currCard.checklists?.map(checklist => (
                             <div key={checklist.id}>
                                 <section className="flex space-between">
@@ -121,12 +145,21 @@ class _CardEdit extends Component {
                             <button className="card-edit-btn">Show details</button>
                         </section>
                     </div>
-                    <div className="sidebar">fhkj</div>
+
+                    <div className="sidebar">
+                        <div className="add-to-card">
+                            <h3 className="sidebar-title">Add to card</h3>
+                            {addToCard.map(item => <EditSidebarLabel Icon={item.icon} title={item.title} />)}
+                        </div>
+                    </div>
                 </div>
             </section>
         )
     }
 }
+
+const addToCard = [{ icon: BiUser, title: 'Members' }, { icon: MdLabelOutline, title: 'Labels' }, { icon: BsCardChecklist, title: 'Checklist' }, { icon: BsClock, title: 'Dates' }, { icon: FiPaperclip, title: 'Attachment' }]
+const actions = [{ icon: BsArrowRight, title: 'Move' }, { icon: MdContentCopy, title: 'Copy' }, { icon: BsCardChecklist, title: 'Checklist' }, { icon: BsClock, title: 'Dates' }, { icon: FiPaperclip, title: 'Attachment' }]
 
 const mapStateToProps = state => {
     return {
