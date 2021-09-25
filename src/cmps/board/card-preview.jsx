@@ -12,14 +12,6 @@ import { onUpdateCard } from '../../store/board.actions.js';
 import { MemberAvatar } from '../shared/member-avatar.jsx';
 
 class _CardPreview extends Component {
-  state = {
-    isCardLabelListOpen: false,
-  };
-
-  toggleCardLabelList = (event) => {
-    event.stopPropagation();
-    this.setState({ isCardLabelListOpen: !this.state.isCardLabelListOpen });
-  };
 
   getLabel = (labelId) => {
     const board = this.props.board;
@@ -70,8 +62,7 @@ class _CardPreview extends Component {
   };
 
   render() {
-    const { board, card, groupId, openCardEdit } = this.props;
-    const { isCardLabelListOpen } = this.state;
+    const { board, card, groupId, openCardEdit, isCardLabelListOpen, toggleCardLabelList } = this.props;
     return (
       <div
         className='card-preview flex space-between'
@@ -92,7 +83,7 @@ class _CardPreview extends Component {
         <div className='card-details'>
           {card.labelIds && (
             <ul
-              onClick={this.toggleCardLabelList}
+              onClick={toggleCardLabelList}
               className={`label-bar-list flex clean-list ${
                 isCardLabelListOpen ? 'open' : 'close'
               }`}

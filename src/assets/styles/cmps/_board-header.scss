@@ -1,31 +1,30 @@
 .board-header {
-  z-index: 2;
-  background-color: rgba(155, 154, 154, 0.315);
-  padding: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  .left-btns {
+    z-index: 2;
+    padding: 5px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    .user-previews {
-      display: flex;
-      align-items: center;
-      .user-pic-container {
-        border-radius: 50%;
-        width: 30px;
-      }
+    justify-content: space-between;
+    .left-btns {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        .user-previews {
+            display: flex;
+            align-items: center;
+            .user-pic-container {
+                border-radius: 50%;
+                width: 30px;
+            }
+        }
+        .starred-btn {
+            &.starred {
+                color: gold;
+            }
+        }
     }
-    .starred-btn {
-      &.starred {
-        color: gold;
-      }
+    .right-btns {
+        display: flex;
+        gap: 10px;
+        // align-items: center;
     }
-  }
-  .right-btns {
-    display: flex;
-    gap: 10px;
-    // align-items: center;
-  }
 }

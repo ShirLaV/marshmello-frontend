@@ -13,8 +13,8 @@ export class GroupPreview extends Component {
     groupTitle: '',
   };
 
-  componentDidMount(){
-    this.setState({...this.state, groupTitle: this.props.group.title})
+  componentDidMount() {
+    this.setState({ ...this.state, groupTitle: this.props.group.title });
   }
 
   onToggleAddPop = () => {
@@ -22,12 +22,12 @@ export class GroupPreview extends Component {
   };
 
   handleChange = ({ target: { name, value } }) => {
-    this.setState((prevState) => ({...prevState, [name]: value  }));
+    this.setState((prevState) => ({ ...prevState, [name]: value }));
   };
 
   onChangeGroupTitle = () => {
-    const group= this.props.group;
-    group.title=this.state.groupTitle
+    const group = this.props.group;
+    group.title = this.state.groupTitle;
     const action = { type: 'UPDATE_GROUP', group };
     this.props.updateBoard(action);
   };
@@ -35,7 +35,7 @@ export class GroupPreview extends Component {
   handleFocus = (event) => event.target.select();
 
   render() {
-    const { group, openCardEdit } = this.props;
+    const { group, openCardEdit ,toggleCardLabelList, isCardLabelListOpen} = this.props;
     const { isAddPopOpen, groupTitle } = this.state;
     return (
       <div className='group-preview'>
@@ -62,6 +62,9 @@ export class GroupPreview extends Component {
                   card={card}
                   groupId={group.id}
                   openCardEdit={openCardEdit}
+                  toggleCardLabelList={toggleCardLabelList}
+                  isCardLabelListOpen={isCardLabelListOpen}
+
                 />
               );
             })}
