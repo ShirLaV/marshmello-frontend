@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+
 import { BsThreeDots } from 'react-icons/bs';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { GrClose } from 'react-icons/gr';
@@ -11,10 +13,11 @@ export class GroupPreview extends Component {
   state = {
     isAddPopOpen: false,
     groupTitle: '',
+    draggedGroup: [],
   };
 
   componentDidMount() {
-    this.setState({ ...this.state, groupTitle: this.props.group.title });
+    this.setState({ ...this.state, groupTitle: this.props.group.title, draggedGroup: this.props.group });
   }
 
   onToggleAddPop = () => {
@@ -34,11 +37,33 @@ export class GroupPreview extends Component {
 
   handleFocus = (event) => event.target.select();
 
+  handleOnDragEnd = (result) => {
+    const items = Array.from(this.state.draggedGroup.cards);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+    const group={...this.state.draggedGroup, cards: items}
+    const action = {type: 'UPDATE_GROUP', group}
+    this.props.updateBoard(action)
+    this.setState((prevState)=>({...prevState, draggedGroup: group}))
+  };
+
   render() {
-    const { group, openCardEdit ,toggleCardLabelList, isCardLabelListOpen} = this.props;
-    const { isAddPopOpen, groupTitle } = this.state;
+    const {
+      provided,
+      innerRef,
+      group,
+      openCardEdit,
+      toggleCardLabelList,
+      isCardLabelListOpen,
+    } = this.props;
+    const { isAddPopOpen, groupTitle, draggedGroup } = this.state;
     return (
-      <div className='group-preview'>
+      <div
+        className='group-preview'
+        {...provided.draggableProps}
+        {...provided.dragHandleProps}
+        ref={innerRef}
+      >
         <div className='group-header flex space-between align-center'>
           <input
             className='clean-input'
@@ -53,22 +78,41 @@ export class GroupPreview extends Component {
             <BsThreeDots />
           </button>
         </div>
-        {group.cards && (
-          <ul className='card-list clean-list'>
-            {group.cards.map((card) => {
-              return (
-                <CardPreview
-                  key={card.id}
-                  card={card}
-                  groupId={group.id}
-                  openCardEdit={openCardEdit}
-                  toggleCardLabelList={toggleCardLabelList}
-                  isCardLabelListOpen={isCardLabelListOpen}
-
-                />
-              );
-            })}
-          </ul>
+        {draggedGroup.cards && (
+          <DragDropContext onDragEnd={this.handleOnDragEnd}>
+            <Droppable droppableId='card-list'>
+              {(provided) => (
+                <ul
+                  className='card-list clean-list'
+                  {...provided.droppableProps}
+                  ref={provided.innerRef}
+                >
+                  {draggedGroup.cards.map((card, index) => {
+                    return (
+                      <Draggable
+                        key={card.id}
+                        draggableId={card.id}
+                        index={index}
+                      >
+                        {(provided) => (
+                          <CardPreview
+                            innerRef={provided.innerRef}
+                            provided={provided}
+                            card={card}
+                            groupId={group.id}
+                            openCardEdit={openCardEdit}
+                            toggleCardLabelList={toggleCardLabelList}
+                            isCardLabelListOpen={isCardLabelListOpen}
+                          />
+                        )}
+                      </Draggable>
+                    );
+                  })}
+                  {provided.placeholder}
+                </ul>
+              )}
+            </Droppable>
+          </DragDropContext>
         )}
         <div className='group-footer flex space-between align-center'>
           {!isAddPopOpen && (

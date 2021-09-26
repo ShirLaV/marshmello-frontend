@@ -44,6 +44,7 @@ class _BoardDetails extends Component {
     this.props.history.push(`/board/${boardId}/${groupId}/${cardId}`);
   };
   updateBoard = (action) => {
+    console.log('action in board details', action)
     this.props.onUpdateBoard(action, this.props.board);
   };
   toggleCardLabelList = (event) => {
@@ -65,7 +66,6 @@ class _BoardDetails extends Component {
           updateBoard={this.updateBoard}
           toggleCardLabelList={this.toggleCardLabelList}
           isCardLabelListOpen={isCardLabelListOpen}
-
         />
       </div>
     );

@@ -2,7 +2,7 @@
     position: relative;
     flex-grow: 1;
     height: 90vh;
-    .group-list {
+    .group-list-wrapper {
         bottom: 0;
         left: 0;
         margin-bottom: 8px;
@@ -27,6 +27,32 @@
             margin: 0 5px;
             background-color: rgba(0, 0, 0, 0.378);
         }
+    }
+    .group-list {
+        // bottom: 0;
+        // left: 0;
+        // margin-bottom: 8px;
+        // overflow-x: auto;
+        // overflow-y: hidden;
+        // padding-bottom: 8px;
+        // position: absolute;
+        // right: 0;
+        // top: 0;
+        // -webkit-user-select: none;
+        // user-select: none;
+        // white-space: nowrap;
+        // &::-webkit-scrollbar {
+        //     height: 12px;
+        // }
+        // &::-webkit-scrollbar-thumb {
+        //     background-color: rgba(230, 226, 226, 0.7);
+        //     border-radius: 5px;
+        // }
+        // &::-webkit-scrollbar-track {
+        //     border-radius: 5px;
+        //     margin: 0 5px;
+        //     background-color: rgba(0, 0, 0, 0.378);
+        // }
     }
     .add-group-container {
         margin: 0 4px;

@@ -41,7 +41,7 @@ class _AppHeader extends React.Component {
                     <div className="right-links">
                         <button className="nav-button" onClick={() => this.setAddBoard()}><AiOutlinePlus /></button>
                         <button className="nav-button"><AiOutlineBell /></button>
-                        <MemberAvatar key={user._id} member={user} />
+                        {/* <MemberAvatar key={user._id} member={user} /> */}
                     </div>
                 </nav>
                 {isAddingBoard && <BoardAdd />}
