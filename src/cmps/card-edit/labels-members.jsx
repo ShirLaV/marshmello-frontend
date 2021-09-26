@@ -1,17 +1,26 @@
 import { useState } from 'react'
-import { AiOutlinePlus } from 'react-icons/ai'
+import { DynamicPopover } from '../shared/dynamic-popover'
 import { MemberAvatar } from '../shared/member-avatar'
-import { EditPopper } from './edit-popper'
+import { MemberList } from '../shared/popover-children/member-list'
+import LabelList from '../shared/popover-children/label-list'
+import { AiOutlinePlus } from 'react-icons/ai'
 
 export function LabelsMembers({ members, labelIds, board }) {
-    const [isPopperOpen, setIsPopperOpen] = useState(false)
-    const [popperTitle, setPopperTitle] = useState('')
+    const [isOpen, setIsOpen] = useState(false)
+    const [rect, setRect] = useState('')
+    const [element, setElement] = useState('')
+    const [cmp, setCmp] = useState('')
+    const [popoverTitle, setPopoverTitle] = useState('')
 
     const getCardLabels = (labelIds) => labelIds.map(id => board.labels.find(label => label.id === id))
 
-    const handlePopper = (ev, label) => {
-        setPopperTitle(label)
-        setIsPopperOpen(!isPopperOpen)
+    const handlePopoverChange = (ev, cmp) => {
+        const rect = ev.target.getBoundingClientRect()
+        setRect(rect)
+        setElement(ev.target)
+        setIsOpen(!isOpen)
+        setCmp(cmp)
+        setPopoverTitle(cmp)
     }
 
     return (
@@ -23,10 +32,10 @@ export function LabelsMembers({ members, labelIds, board }) {
                         <MemberAvatar member={member} />
                     </div>)}
                     <div
-                        onClick={(ev) => handlePopper(ev, 'members')}
+                        onClick={(ev) => handlePopoverChange(ev, 'members')}
                         className="card-member add-member"
                     >
-                        <AiOutlinePlus onClick={(ev) => handlePopper(ev, 'members')} />
+                        <AiOutlinePlus />
                     </div>
                 </div>
             </div>}
@@ -38,15 +47,19 @@ export function LabelsMembers({ members, labelIds, board }) {
                         {label.title || ''}
                     </div>)}
                     <div
-                        onClick={(ev) => handlePopper(ev, 'labels')}
+                        onClick={(ev) => handlePopoverChange(ev, 'labels')}
                         className="card-label add-label"
                     >
-                        <AiOutlinePlus onClick={(ev) => handlePopper(ev, 'labels')} />
+                        <AiOutlinePlus />
                     </div>
                 </div>
             </div>}
 
-            {isPopperOpen && <EditPopper title={popperTitle} />}
+            {isOpen && <DynamicPopover onClose={() => setIsOpen(false)} title={popoverTitle} rect={rect} element={element}>
+                {cmp === 'members' ? <MemberList /> : <LabelList />}
+            </DynamicPopover>
+            }
+
         </div>
     )
 }

@@ -1,11 +1,49 @@
-.member-list {
-    h4{
+.member-list,
+.label-list-container {
+    h4 {
         color: #5e6c84;
-    font-size: rem(12px);
-    font-weight: 500;
-    letter-spacing: .04em;
-    line-height: rem(16px);
-    text-transform: uppercase;
-    margin: rem(16px) 0 rem(8px) ;
+        font-size: rem(12px);
+        font-weight: 500;
+        letter-spacing: .04em;
+        line-height: rem(16px);
+        text-transform: uppercase;
+        margin: rem(16px) 0 rem(8px);
+    }
+
+    .popper-user-preview {
+        border-radius: 3px;
+        margin-bottom: rem(2px);
+        position: relative;
+        padding: rem(4px);
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        font-size: rem(14px);
+        align-items: center;
+
+        &:hover {
+            background-color: #091e420a;
+        }
+
+        .popper-user-name {
+            margin-left: rem(8px);
+            max-width: rem(198px);
+            height: rem(32px);
+            align-items: center;
+            display: flex;
+        }
+
+        p {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .popper-user-check {
+            align-items: center;
+            display: flex;
+            position: absolute;
+            right: rem(12px);
+        }
     }
 }

@@ -1,0 +1,43 @@
+.popover-attach-file {
+    .attach-from {
+        margin-bottom: rem(8px);
+        border-bottom: 1px solid #091e4221;
+        color: #5e6c84;
+        padding-bottom: 8px;
+
+        label {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 4px 0;
+            &:hover {
+                background-color: #eaecf0;
+            }
+        }
+    }
+
+    .attach-link {
+        padding-bottom: 8px;
+        margin-bottom: rem(8px);
+        // height: rem(40px);
+        border-bottom: 1px solid #091e4221;
+        color: #5e6c84;
+
+        input {
+            margin-bottom: 12px;
+        }
+
+        label {
+            color: #5e6c84;
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            line-height: 16px;
+            margin-bottom: 4px;
+            margin-top: 12px;
+        }
+    }
+
+
+}

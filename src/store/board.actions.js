@@ -88,27 +88,31 @@ export function onRemoveCard(cardId, groupId, board) {
     return onUpdateBoard(groupAction, board)
 }
 
-export function onUpdateCard(action, name, board) {
-    const { groupId, cardId, isChecked } = action
+// export function onUpdateCard(action, name, board) {
+//     const { groupId, cardId, isChecked } = action
+//     const group = board.groups.find(group => group.id === groupId)
+//     const card = group.cards.find(card => card.id === cardId)
+//     if (typeof isChecked === "boolean") {
+//         card.checklists.map(checklist => (
+//             checklist.todos.map(todo => {
+//                 if (todo.id === name) todo.isDone = isChecked
+//             })
+//         ))
+//     }
+//     else { // for not nested properties
+//         card[name] = action[name]
+//     }
+//     const groupAction = { type: 'UPDATE_GROUP', group }
+//     return onUpdateBoard(groupAction, board)
+// }
+
+export function onUpdateCard(cardToSave, groupId, board) {
     const group = board.groups.find(group => group.id === groupId)
-    const card = group.cards.find(card => card.id === cardId)
-    if (typeof isChecked === "boolean") {
-        card.checklists.map(checklist => (
-            checklist.todos.map(todo => {
-                if (todo.id === name) todo.isDone = isChecked
-            })
-        ))
-    }
-    else { // for not nested properties
-        card[name] = action[name]
-    }
+    const cardIdx = group.cards.findIndex(card => card.id === cardToSave.id)
+    group.cards.splice(cardIdx, 1, cardToSave)
     const groupAction = { type: 'UPDATE_GROUP', group }
     return onUpdateBoard(groupAction, board)
 }
-
-// export function onRemoveCardProperty() {
-
-// }
 
 export function onUpdateBoard(action, board) {
     return async(dispatch) => {

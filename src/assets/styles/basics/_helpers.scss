@@ -96,6 +96,34 @@
     }
 }
 
+.main-checkbox {
+    background-color: #fafbfc;
+    border-radius: 2px;
+    border: none;
+    outline: none;
+    box-shadow: inset 0 0 0 2px #dfe1e6;
+    cursor: pointer;
+    height: 16px;
+    width: 16px;
+    margin: 6px 6px 6px 0;
+    text-align: center;
+
+    &:checked {
+        color:#0079bf;
+        box-shadow: none;
+    }
+}
+
+.list-item-layover {
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+    z-index: 1;
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
+}
+
 // Media helpers
 .square-ratio {
     @include aspect-ratio(1, 1);
