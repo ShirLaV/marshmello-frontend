@@ -13,6 +13,7 @@ import { MemberAvatar } from '../shared/member-avatar.jsx';
 
 class _CardPreview extends Component {
 
+
   getLabel = (labelId) => {
     const board = this.props.board;
     const label = board.labels.find((label) => label.id === labelId);
@@ -62,10 +63,15 @@ class _CardPreview extends Component {
   };
 
   render() {
+    const {provided, innerRef}=this.props;
     const { board, card, groupId, openCardEdit, isCardLabelListOpen, toggleCardLabelList } = this.props;
     return (
       <div
         className='card-preview flex space-between'
+        {...provided.draggableProps}
+        {...provided.dragHandleProps}
+        ref={innerRef}
+
         onClick={() => openCardEdit(board._id, groupId, card.id)}
       >
         {card.style && (
