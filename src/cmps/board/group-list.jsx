@@ -15,7 +15,7 @@ export class GroupList extends Component {
   };
 
   render() {
-    const { groups, openCardEdit, updateBoard } = this.props;
+    const { groups, openCardEdit, updateBoard, toggleCardLabelList , isCardLabelListOpen} = this.props;
     const { isAddPopOpen } = this.state;
     return (
       <section className='group-list-container flex'>
@@ -28,6 +28,9 @@ export class GroupList extends Component {
                   group={group}
                   openCardEdit={openCardEdit}
                   updateBoard={updateBoard}
+                  toggleCardLabelList={toggleCardLabelList}
+                  isCardLabelListOpen={isCardLabelListOpen}
+        
                 />
               );
             })}

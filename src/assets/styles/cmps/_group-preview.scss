@@ -2,11 +2,13 @@
     height: fit-content;
     border-radius: 3px;
     min-width: 272px;
+    max-width: 272px;
     padding: 0 8px;
     background-color: #EBECF0;
     margin: 0 4px;
     .group-header {
         height: 40px;
+        padding-inline-start: 8px;
         input {
             height: 28px;
             font-weight: 600;
@@ -19,14 +21,35 @@
             }
         }
     }
+    padding: 0 4px;
+    .card-list {
+        max-height: 80vh;
+        flex: 1 1 auto;
+        padding: 0 4px;
+        min-height: 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+        &::-webkit-scrollbar-thumb {
+            border-radius: 5px;
+            background-color: #bfc4ce;
+        }
+        &::-webkit-scrollbar-track {
+            border-radius: 5px;
+            margin-bottom: 2px;
+            background-color: #dadbe2;
+        }
+    }
     .group-footer {
+        margin: 0 4px;
         min-height: 40px;
         .add-boarditem-btn {
             border-radius: 3px;
             padding: 5px 0px 5px 8px;
             margin: 0px 0px 8px 0px;
             flex: 1 0 auto;
-            // background-color: inherit;
             height: unset;
             gap: 5px;
             i {

@@ -8,6 +8,7 @@ import { loadBoard, onUpdateBoard } from '../store/board.actions.js';
 class _BoardDetails extends Component {
   state = {
     boardStyle: {},
+    isCardLabelListOpen: false,
   };
   componentDidMount() {
     const { boardId } = this.props.match.params;
@@ -39,24 +40,33 @@ class _BoardDetails extends Component {
         },
       });
   };
-  openCardEdit=(boardId, groupId, cardId)=>{
-    this.props.history.push(`/board/${boardId}/${groupId}/${cardId}`)
-  }
+  openCardEdit = (boardId, groupId, cardId) => {
+    this.props.history.push(`/board/${boardId}/${groupId}/${cardId}`);
+  };
   updateBoard = (action) => {
     this.props.onUpdateBoard(action, this.props.board);
   };
+  toggleCardLabelList = (event) => {
+    console.log('toggling')
+    event.stopPropagation();
+    this.setState({ isCardLabelListOpen: !this.state.isCardLabelListOpen });
+  };
   render() {
-    const { board, onUpdateBoard } = this.props;
+    const { board } = this.props;
+    const {isCardLabelListOpen}=this.state;
     if (Object.keys(board).length === 0) return <div>Loading...</div>;
     const { boardStyle } = this.state;
     return (
-      <div
-        className='board-details'
-        style={ boardStyle }
-      >
+      <div className='board-details' style={boardStyle}>
         <BoardHeader />
-        <GroupList 
-       groups={board.groups} openCardEdit={this.openCardEdit} updateBoard={this.updateBoard}/>
+        <GroupList
+          groups={board.groups}
+          openCardEdit={this.openCardEdit}
+          updateBoard={this.updateBoard}
+          toggleCardLabelList={this.toggleCardLabelList}
+          isCardLabelListOpen={isCardLabelListOpen}
+
+        />
       </div>
     );
   }
@@ -69,7 +79,7 @@ function mapStateToProps(state) {
 }
 const mapDispatchToProps = {
   loadBoard,
-  onUpdateBoard
+  onUpdateBoard,
 };
 
 export const BoardDetails = connect(
