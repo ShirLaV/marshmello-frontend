@@ -13,8 +13,8 @@ export class GroupPreview extends Component {
     groupTitle: '',
   };
 
-  componentDidMount(){
-    this.setState({...this.state, groupTitle: this.props.group.title})
+  componentDidMount() {
+    this.setState({ ...this.state, groupTitle: this.props.group.title });
   }
 
   onToggleAddPop = () => {
@@ -22,19 +22,20 @@ export class GroupPreview extends Component {
   };
 
   handleChange = ({ target: { name, value } }) => {
-    this.setState((prevState) => ({...prevState, [name]: value  }));
+    this.setState((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  handlePropertyChange = ({ target: { name, value } }) => {
-    // let dataParams = this.props.match.params;
-    const group= this.props.group;
-    group.title=this.state.groupTitle
+  onChangeGroupTitle = () => {
+    const group = this.props.group;
+    group.title = this.state.groupTitle;
     const action = { type: 'UPDATE_GROUP', group };
-    this.props.onUpdateBoard(action, this.props.board);
+    this.props.updateBoard(action);
   };
+
+  handleFocus = (event) => event.target.select();
 
   render() {
-    const { board, group, openCardEdit } = this.props;
+    const { group, openCardEdit ,toggleCardLabelList, isCardLabelListOpen} = this.props;
     const { isAddPopOpen, groupTitle } = this.state;
     return (
       <div className='group-preview'>
@@ -44,11 +45,10 @@ export class GroupPreview extends Component {
             type='text'
             value={groupTitle}
             name='groupTitle'
+            onFocus={this.handleFocus}
             onChange={this.handleChange}
-            onBlur={this.handlePropertyChange}
+            onBlur={this.onChangeGroupTitle}
           />
-
-          {/* <h4>{group.title}</h4> */}
           <button>
             <BsThreeDots />
           </button>
@@ -62,6 +62,9 @@ export class GroupPreview extends Component {
                   card={card}
                   groupId={group.id}
                   openCardEdit={openCardEdit}
+                  toggleCardLabelList={toggleCardLabelList}
+                  isCardLabelListOpen={isCardLabelListOpen}
+
                 />
               );
             })}

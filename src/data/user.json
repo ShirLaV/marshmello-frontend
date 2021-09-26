@@ -34,5 +34,41 @@
             "boardId": "b103",
             "taskId": "t103"
         }]
+    },
+    {
+        "_id": "u104",
+        "fullname": "Beth Smith",
+        "username": "beth@smith.com",
+        "password": "beth123",
+        "imgUrl": "https://robohash.org/beth.png?set=set2",
+        "mentions": [{
+            "id": "m103",
+            "boardId": "b103",
+            "taskId": "t103"
+        }]
+    },
+    {
+        "_id": "u105",
+        "fullname": "Jerry Smith",
+        "username": "jerry@smith.com",
+        "password": "jerry123",
+        "imgUrl": "https://robohash.org/jerry.png?set=set2",
+        "mentions": [{
+            "id": "m103",
+            "boardId": "b103",
+            "taskId": "t103"
+        }]
+    },
+    {
+        "_id": "u106",
+        "fullname": "Bird Person",
+        "username": "bird@person.com",
+        "password": "bird123",
+        "imgUrl": "https://robohash.org/bird.png?set=set2",
+        "mentions": [{
+            "id": "m103",
+            "boardId": "b103",
+            "taskId": "t103"
+        }]
     }
 ]

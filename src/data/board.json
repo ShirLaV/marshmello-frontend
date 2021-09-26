@@ -1,244 +1,1024 @@
-[{
-        "_id": "b101",
-        "title": "Robot dev proj",
-        "createdAt": 1589983468418,
-        "isStarred": false,
-        "createdBy": {
+[
+  {
+    "_id": "b101",
+    "title": "Robot dev proj1",
+    "createdAt": 1589983468418,
+    "isStarred": false,
+    "createdBy": {
+      "_id": "u101",
+      "fullname": "Abi Abambi",
+      "imgUrl": "https://robohash.org/abi.png?set=set2"
+    },
+    "style": {
+      "imgUrl": "https://images.pexels.com/photos/1914982/pexels-photo-1914982.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
+    },
+    "labels": [
+      {
+        "id": "l101",
+        "title": "Done",
+        "color": "#61bd4f"
+      },
+      {
+        "id": "l102",
+        "title": "Important",
+        "color": "#eb5a46"
+      },
+      {
+        "id": "l103",
+        "title": "urgent",
+        "color": "#0079BF"
+      }
+    ],
+    "members": [
+      {
+        "_id": "u101",
+        "fullname": "Abi Abambi",
+        "imgUrl": "https://robohash.org/abi.png?set=set2"
+    },
+    {
+    "_id": "u102",
+    "fullname": "Rick Sanchez",
+    "imgUrl": "https://robohash.org/rick.png?set=set2"
+  },
+  {
+    "_id": "u103",
+    "fullname": "Morty Smith",
+    "imgUrl": "https://robohash.org/morty.png?set=set2"
+  }
+    ],
+    "groups": [
+      {
+        "id": "g102",
+        "title": "Backlog",
+        "cards": [
+          {
+            "id": "c103",
+            "title": "Do that"
+          },
+          {
+            "id": "c104",
+            "title": "Pass the course",
+            "description": "description",
+            "isComplete": true,
+            "comments": [
+              {
+                "id": "ZdPnm",
+                "txt": "also @yaronb please CR this",
+                "createdAt": 1590999817436.0,
+                "byMember": {
+                  "_id": "u101",
+                  "fullname": "Abi Abambi",
+                  "imgUrl": "https://robohash.org/abi.png?set=set2"
+                }
+              }
+            ],
+            "checklists": [
+              {
+                "id": "YEhmF",
+                "title": "Checklist1",
+                "todos": [
+                  {
+                    "id": "212jX",
+                    "title": "To Do 1",
+                    "isDone": false
+                  }
+                ]
+              },
+              {
+                "id": "YEhmS",
+                "title": "Checklist2",
+                "todos": [
+                  {
+                    "id": "212jX",
+                    "title": "To Do 1",
+                    "isDone": false
+                  }
+                ]
+              },
+              {
+                "id": "YEhmA",
+                "title": "Checklist3",
+                "todos": [
+                  {
+                    "id": "212jX",
+                    "title": "To Do 1",
+                    "isDone": false
+                  },
+                  {
+                    "id": "212jY",
+                    "title": "To Do 2",
+                    "isDone": true
+                  },
+                  {
+                    "id": "212jZ",
+                    "title": "To Do 1",
+                    "isDone": false
+                  }
+                ]
+              }
+            ],
+            "members": [
+              {
+                "_id": "u101",
+                "username": "abi@ababmi.com",
+                "fullname": "Abi Abambi",
+                "imgUrl": "https://robohash.org/abi.png?set=set2"
+              }
+            ],
+            "labelIds": ["l101", "l102"],
+            "createdAt": 1590999730348,
+            "dueDate": 16156215211,
+            "byMember": {
+              "_id": "u101",
+              "username": "abi@ababmi.com",
+              "fullname": "Abi Abambi",
+              "imgUrl": "https://robohash.org/abi.png?set=set2"
+            },
+            "style": {
+              "bgColor": "#26de81"
+            }
+          },
+          {
+            "id": "c105",
+            "title": "Finish this project",
+            "description": "Let us finish this project in time and with great success",
+            "isComplete": false,
+            "checklists": [
+              {
+                "id": "YEhmF",
+                "title": "Checklist",
+                "todos": [
+                  {
+                    "id": "212jX",
+                    "title": "To Do 1",
+                    "isDone": false
+                  }
+                ]
+              },
+              {
+                "id": "Fkdgngrt12",
+                "title": "Checklist2",
+                "todos": [
+                  {
+                    "id": "212jX",
+                    "title": "To Do 1",
+                    "isDone": false
+                  },
+                  {
+                    "id": "ffjenf54f",
+                    "title": "To Do 2",
+                    "isDone": true
+                  }
+                ]
+              }
+            ],
+            "members": [
+              {
+                "_id": "u102",
+                "username": "rick@sanchez.com",
+                "fullname": "Rick Sanchez",
+                "imgUrl": "https://robohash.org/rick.png?set=set2"
+              }
+            ],
+            "labelIds": ["l101", "l103"],
+            "createdAt": 1590999730348,
+            "dueDate": 1633156788007,
+            "byMember": {
+              "_id": "u102",
+              "username": "rick@sanchez.com",
+              "fullname": "Rick Sanchez",
+              "imgUrl": "https://robohash.org/rick.png?set=set2"
+            },
+            "style": {
+              "imgUrl": "https://cdn.mos.cms.futurecdn.net/wtqqnkYDYi2ifsWZVW2MT4-970-80.jpg.webp"
+            }
+          }
+        ],
+        "style": {}
+      },
+      {
+        "id": "g103",
+        "title": "Done",
+        "cards": [
+          {
+            "id": "c1010",
+            "title": "Do that"
+          },
+          {
+            "id": "c104",
+            "title": "Help me",
+            "description": "description",
+            "isComplete": true,
+            "comments": [
+              {
+                "id": "ZdPnm",
+                "txt": "also @yaronb please CR this",
+                "createdAt": 1590999817436.0,
+                "byMember": {
+                  "_id": "u101",
+                  "fullname": "Abi Abambi",
+                  "imgUrl": "https://robohash.org/abi.png?set=set2"
+                }
+              }
+            ],
+            "checklists": [
+              {
+                "id": "YEhmF",
+                "title": "Checklist",
+                "todos": [
+                  {
+                    "id": "212jX",
+                    "title": "To Do 1",
+                    "isDone": false
+                  }
+                ]
+              }
+            ],
+            "members": [
+              {
+                "_id": "u101",
+                "username": "abi@ababmi.com",
+                "fullname": "Abi Abambi",
+                "imgUrl": "https://robohash.org/abi.png?set=set2"
+              }
+            ],
+            "labelIds": ["l101", "l102"],
+            "createdAt": 1590999730348,
+            "dueDate": 16156215211,
+            "byMember": {
+              "_id": "u101",
+              "username": "abi@ababmi.com",
+              "fullname": "Abi Abambi",
+              "imgUrl": "https://robohash.org/abi.png?set=set2"
+            },
+            "style": {
+              "bgColor": "#26de81"
+            }
+          },
+          {
+            "id": "c107",
+            "title": "Finish this project",
+            "description": "Let us finish this project in time and with great success",
+            "isComplete": false,
+            "checklists": [
+              {
+                "id": "YEhmF",
+                "title": "Checklist",
+                "todos": [
+                  {
+                    "id": "212jX",
+                    "title": "To Do 1",
+                    "isDone": false
+                  }
+                ]
+              },
+              {
+                "id": "Fkdgngrt12",
+                "title": "Checklist2",
+                "todos": [
+                  {
+                    "id": "212jX",
+                    "title": "To Do 1",
+                    "isDone": false
+                  },
+                  {
+                    "id": "ffjenf54f",
+                    "title": "To Do 2",
+                    "isDone": true
+                  }
+                ]
+              }
+            ],
+            "members": [
+              {
+                "_id": "u102",
+                "username": "rick@sanchez.com",
+                "fullname": "Rick Sanchez",
+                "imgUrl": "https://robohash.org/rick.png?set=set2"
+              }
+            ],
+            "labelIds": ["l101", "l103"],
+            "createdAt": 1590999730348,
+            "dueDate": 1633156788007,
+            "byMember": {
+              "_id": "u102",
+              "username": "rick@sanchez.com",
+              "fullname": "Rick Sanchez",
+              "imgUrl": "https://robohash.org/rick.png?set=set2"
+            },
+            "style": {
+              "imgUrl": "https://cdn.mos.cms.futurecdn.net/wtqqnkYDYi2ifsWZVW2MT4-970-80.jpg.webp"
+            }
+          },
+          {
+            "id": "c108",
+            "title": "Yes Pleaseeee",
+            "description": "Let us finish this project in time and with great success",
+            "isComplete": false,
+            "checklists": [
+              {
+                "id": "YEhmF",
+                "title": "Checklist",
+                "todos": [
+                  {
+                    "id": "212jX",
+                    "title": "To Do 1",
+                    "isDone": false
+                  }
+                ]
+              },
+              {
+                "id": "Fkdgngrt12",
+                "title": "Checklist2",
+                "todos": [
+                  {
+                    "id": "212jX",
+                    "title": "To Do 1",
+                    "isDone": false
+                  },
+                  {
+                    "id": "ffjenf54f",
+                    "title": "To Do 2",
+                    "isDone": true
+                  }
+                ]
+              }
+            ],
+            "members": [
+              {
+                "_id": "u102",
+                "username": "rick@sanchez.com",
+                "fullname": "Rick Sanchez",
+                "imgUrl": "https://robohash.org/rick.png?set=set2"
+              }
+            ],
+            "labelIds": ["l101", "l103"],
+            "createdAt": 1590999730348,
+            "dueDate": 1633156788007,
+            "byMember": {
+              "_id": "u102",
+              "username": "rick@sanchez.com",
+              "fullname": "Rick Sanchez",
+              "imgUrl": "https://robohash.org/rick.png?set=set2"
+            },
+            "style": {
+              "imgUrl": "https://cdn.mos.cms.futurecdn.net/wtqqnkYDYi2ifsWZVW2MT4-970-80.jpg.webp"
+            }
+          },
+          {
+            "id": "c109",
+            "title": "Of course we can",
+            "description": "Let us finish this project in time and with great success",
+            "isComplete": false,
+            "checklists": [
+              {
+                "id": "YEhmF",
+                "title": "Checklist",
+                "todos": [
+                  {
+                    "id": "212jX",
+                    "title": "To Do 1",
+                    "isDone": false
+                  }
+                ]
+              },
+              {
+                "id": "Fkdgngrt12",
+                "title": "Checklist2",
+                "todos": [
+                  {
+                    "id": "212jX",
+                    "title": "To Do 1",
+                    "isDone": false
+                  },
+                  {
+                    "id": "ffjenf54f",
+                    "title": "To Do 2",
+                    "isDone": true
+                  }
+                ]
+              }
+            ],
+            "members": [
+              {
+                "_id": "u102",
+                "username": "rick@sanchez.com",
+                "fullname": "Rick Sanchez",
+                "imgUrl": "https://robohash.org/rick.png?set=set2"
+              }
+            ],
+            "labelIds": ["l101", "l103"],
+            "createdAt": 1590999730348,
+            "dueDate": 1633156788007,
+            "byMember": {
+              "_id": "u102",
+              "username": "rick@sanchez.com",
+              "fullname": "Rick Sanchez",
+              "imgUrl": "https://robohash.org/rick.png?set=set2"
+            },
+            "style": {
+              "imgUrl": "https://cdn.mos.cms.futurecdn.net/wtqqnkYDYi2ifsWZVW2MT4-970-80.jpg.webp"
+            }
+          },
+          {
+            "id": "c110",
+            "title": "Finish this project",
+            "description": "Let us finish this project in time and with great success",
+            "isComplete": false,
+            "checklists": [
+              {
+                "id": "YEhmF",
+                "title": "Checklist",
+                "todos": [
+                  {
+                    "id": "212jX",
+                    "title": "To Do 1",
+                    "isDone": false
+                  }
+                ]
+              },
+              {
+                "id": "Fkdgngrt12",
+                "title": "Checklist2",
+                "todos": [
+                  {
+                    "id": "212jX",
+                    "title": "To Do 1",
+                    "isDone": false
+                  },
+                  {
+                    "id": "ffjenf54f",
+                    "title": "To Do 2",
+                    "isDone": true
+                  }
+                ]
+              }
+            ],
+            "members": [
+              {
+                "_id": "u102",
+                "username": "rick@sanchez.com",
+                "fullname": "Rick Sanchez",
+                "imgUrl": "https://robohash.org/rick.png?set=set2"
+              }
+            ],
+            "labelIds": ["l101", "l103"],
+            "createdAt": 1590999730348,
+            "dueDate": 1633156788007,
+            "byMember": {
+              "_id": "u102",
+              "username": "rick@sanchez.com",
+              "fullname": "Rick Sanchez",
+              "imgUrl": "https://robohash.org/rick.png?set=set2"
+            },
+            "style": {
+              "imgUrl": "https://cdn.mos.cms.futurecdn.net/wtqqnkYDYi2ifsWZVW2MT4-970-80.jpg.webp"
+            }
+          }
+        ],
+        "style": {}
+      },
+      {
+        "id": "g103",
+        "title": "Done",
+        "cards": [
+          {
+            "id": "c1010",
+            "title": "Do that"
+          },
+          {
+            "id": "c104",
+            "title": "Help me",
+            "description": "description",
+            "isComplete": true,
+            "comments": [
+              {
+                "id": "ZdPnm",
+                "txt": "also @yaronb please CR this",
+                "createdAt": 1590999817436.0,
+                "byMember": {
+                  "_id": "u101",
+                  "fullname": "Abi Abambi",
+                  "imgUrl": "https://robohash.org/abi.png?set=set2"
+                }
+              }
+            ],
+            "checklists": [
+              {
+                "id": "YEhmF",
+                "title": "Checklist",
+                "todos": [
+                  {
+                    "id": "212jX",
+                    "title": "To Do 1",
+                    "isDone": false
+                  }
+                ]
+              }
+            ],
+            "members": [
+              {
+                "_id": "u101",
+                "username": "abi@ababmi.com",
+                "fullname": "Abi Abambi",
+                "imgUrl": "https://robohash.org/abi.png?set=set2"
+              }
+            ],
+            "labelIds": ["l101", "l102"],
+            "createdAt": 1590999730348,
+            "dueDate": 16156215211,
+            "byMember": {
+              "_id": "u101",
+              "username": "abi@ababmi.com",
+              "fullname": "Abi Abambi",
+              "imgUrl": "https://robohash.org/abi.png?set=set2"
+            },
+            "style": {
+              "bgColor": "#26de81"
+            }
+          },
+          {
+            "id": "c105",
+            "title": "Finish this project",
+            "description": "Let us finish this project in time and with great success",
+            "isComplete": false,
+            "checklists": [
+              {
+                "id": "YEhmF",
+                "title": "Checklist",
+                "todos": [
+                  {
+                    "id": "212jX",
+                    "title": "To Do 1",
+                    "isDone": false
+                  }
+                ]
+              },
+              {
+                "id": "Fkdgngrt12",
+                "title": "Checklist2",
+                "todos": [
+                  {
+                    "id": "212jX",
+                    "title": "To Do 1",
+                    "isDone": false
+                  },
+                  {
+                    "id": "ffjenf54f",
+                    "title": "To Do 2",
+                    "isDone": true
+                  }
+                ]
+              }
+            ],
+            "members": [
+              {
+                "_id": "u102",
+                "username": "rick@sanchez.com",
+                "fullname": "Rick Sanchez",
+                "imgUrl": "https://robohash.org/rick.png?set=set2"
+              }
+            ],
+            "labelIds": ["l101", "l103"],
+            "createdAt": 1590999730348,
+            "dueDate": 1633156788007,
+            "byMember": {
+              "_id": "u102",
+              "username": "rick@sanchez.com",
+              "fullname": "Rick Sanchez",
+              "imgUrl": "https://robohash.org/rick.png?set=set2"
+            },
+            "style": {
+              "imgUrl": "https://cdn.mos.cms.futurecdn.net/wtqqnkYDYi2ifsWZVW2MT4-970-80.jpg.webp"
+            }
+          }
+        ],
+        "style": {}
+      },
+      {
+        "id": "g103",
+        "title": "Done",
+        "cards": [
+          {
+            "id": "c1010",
+            "title": "Do that"
+          },
+          {
+            "id": "c104",
+            "title": "Help me",
+            "description": "description",
+            "isComplete": true,
+            "comments": [
+              {
+                "id": "ZdPnm",
+                "txt": "also @yaronb please CR this",
+                "createdAt": 1590999817436.0,
+                "byMember": {
+                  "_id": "u101",
+                  "fullname": "Abi Abambi",
+                  "imgUrl": "https://robohash.org/abi.png?set=set2"
+                }
+              }
+            ],
+            "checklists": [
+              {
+                "id": "YEhmF",
+                "title": "Checklist",
+                "todos": [
+                  {
+                    "id": "212jX",
+                    "title": "To Do 1",
+                    "isDone": false
+                  }
+                ]
+              }
+            ],
+            "members": [
+              {
+                "_id": "u101",
+                "username": "abi@ababmi.com",
+                "fullname": "Abi Abambi",
+                "imgUrl": "https://robohash.org/abi.png?set=set2"
+              }
+            ],
+            "labelIds": ["l101", "l102"],
+            "createdAt": 1590999730348,
+            "dueDate": 16156215211,
+            "byMember": {
+              "_id": "u101",
+              "username": "abi@ababmi.com",
+              "fullname": "Abi Abambi",
+              "imgUrl": "https://robohash.org/abi.png?set=set2"
+            },
+            "style": {
+              "bgColor": "#26de81"
+            }
+          },
+          {
+            "id": "c105",
+            "title": "Finish this project",
+            "description": "Let us finish this project in time and with great success",
+            "isComplete": false,
+            "checklists": [
+              {
+                "id": "YEhmF",
+                "title": "Checklist",
+                "todos": [
+                  {
+                    "id": "212jX",
+                    "title": "To Do 1",
+                    "isDone": false
+                  }
+                ]
+              },
+              {
+                "id": "Fkdgngrt12",
+                "title": "Checklist2",
+                "todos": [
+                  {
+                    "id": "212jX",
+                    "title": "To Do 1",
+                    "isDone": false
+                  },
+                  {
+                    "id": "ffjenf54f",
+                    "title": "To Do 2",
+                    "isDone": true
+                  }
+                ]
+              }
+            ],
+            "members": [
+              {
+                "_id": "u102",
+                "username": "rick@sanchez.com",
+                "fullname": "Rick Sanchez",
+                "imgUrl": "https://robohash.org/rick.png?set=set2"
+              }
+            ],
+            "labelIds": ["l101", "l103"],
+            "createdAt": 1590999730348,
+            "dueDate": 1633156788007,
+            "byMember": {
+              "_id": "u102",
+              "username": "rick@sanchez.com",
+              "fullname": "Rick Sanchez",
+              "imgUrl": "https://robohash.org/rick.png?set=set2"
+            },
+            "style": {
+              "imgUrl": "https://cdn.mos.cms.futurecdn.net/wtqqnkYDYi2ifsWZVW2MT4-970-80.jpg.webp"
+            }
+          }
+        ],
+        "style": {}
+      },
+      {
+        "id": "g103",
+        "title": "Done",
+        "cards": [
+          {
+            "id": "c1010",
+            "title": "Do that"
+          },
+          {
+            "id": "c104",
+            "title": "Help me",
+            "description": "description",
+            "isComplete": true,
+            "comments": [
+              {
+                "id": "ZdPnm",
+                "txt": "also @yaronb please CR this",
+                "createdAt": 1590999817436.0,
+                "byMember": {
+                  "_id": "u101",
+                  "fullname": "Abi Abambi",
+                  "imgUrl": "https://robohash.org/abi.png?set=set2"
+                }
+              }
+            ],
+            "checklists": [
+              {
+                "id": "YEhmF",
+                "title": "Checklist",
+                "todos": [
+                  {
+                    "id": "212jX",
+                    "title": "To Do 1",
+                    "isDone": false
+                  }
+                ]
+              }
+            ],
+            "members": [
+              {
+                "_id": "u101",
+                "username": "abi@ababmi.com",
+                "fullname": "Abi Abambi",
+                "imgUrl": "https://robohash.org/abi.png?set=set2"
+              }
+            ],
+            "labelIds": ["l101", "l102"],
+            "createdAt": 1590999730348,
+            "dueDate": 16156215211,
+            "byMember": {
+              "_id": "u101",
+              "username": "abi@ababmi.com",
+              "fullname": "Abi Abambi",
+              "imgUrl": "https://robohash.org/abi.png?set=set2"
+            },
+            "style": {
+              "bgColor": "#26de81"
+            }
+          },
+          {
+            "id": "c105",
+            "title": "Finish this project",
+            "description": "Let us finish this project in time and with great success",
+            "isComplete": false,
+            "checklists": [
+              {
+                "id": "YEhmF",
+                "title": "Checklist",
+                "todos": [
+                  {
+                    "id": "212jX",
+                    "title": "To Do 1",
+                    "isDone": false
+                  }
+                ]
+              },
+              {
+                "id": "Fkdgngrt12",
+                "title": "Checklist2",
+                "todos": [
+                  {
+                    "id": "212jX",
+                    "title": "To Do 1",
+                    "isDone": false
+                  },
+                  {
+                    "id": "ffjenf54f",
+                    "title": "To Do 2",
+                    "isDone": true
+                  }
+                ]
+              }
+            ],
+            "members": [
+              {
+                "_id": "u102",
+                "username": "rick@sanchez.com",
+                "fullname": "Rick Sanchez",
+                "imgUrl": "https://robohash.org/rick.png?set=set2"
+              }
+            ],
+            "labelIds": ["l101", "l103"],
+            "createdAt": 1590999730348,
+            "dueDate": 1633156788007,
+            "byMember": {
+              "_id": "u102",
+              "username": "rick@sanchez.com",
+              "fullname": "Rick Sanchez",
+              "imgUrl": "https://robohash.org/rick.png?set=set2"
+            },
+            "style": {
+              "imgUrl": "https://cdn.mos.cms.futurecdn.net/wtqqnkYDYi2ifsWZVW2MT4-970-80.jpg.webp"
+            }
+          }
+        ],
+        "style": {}
+      }
+    ],
+    "activities": [
+      {
+        "id": "a101",
+        "txt": "Changed Color",
+        "createdAt": 154514,
+        "byMember": {
+          "_id": "u101",
+          "fullname": "Abi Abambi",
+          "imgUrl": "https://robohash.org/abi.png?set=set2"
+        },
+        "card": {
+          "id": "c101",
+          "title": "Replace Logo"
+        }
+      }
+    ]
+  },
+  {
+    "_id": "b102",
+    "title": "Marshmello",
+    "createdAt": 1589983468418,
+    "isStarred": true,
+    "createdBy": {
+      "_id": "u103",
+      "fullname": "Morty Smith",
+      "imgUrl": "https://robohash.org/morty.png?set=set2"
+    },
+    "style": { "bgColor": "#26de81" },
+    "labels": [
+      {
+        "id": "l101",
+        "title": "Done",
+        "color": "#61bd4f"
+      },
+      {
+        "id": "l102",
+        "title": "Stuck",
+        "color": "#0079BF"
+      },
+      {
+        "id": "l103",
+        "title": "In Progress",
+        "color": "#61bd4f"
+      },
+      {
+        "id": "l104",
+        "title": "With Bugs",
+        "color": "#61bd4f"
+      },
+      {
+        "id": "l105",
+        "title": "Ready",
+        "color": "#61bd4f"
+      }
+    ],
+    "members": [
+        {
             "_id": "u101",
             "fullname": "Abi Abambi",
             "imgUrl": "https://robohash.org/abi.png?set=set2"
         },
-        "style": { "imgUrl": "https://images.pexels.com/photos/1914982/pexels-photo-1914982.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260" },
-        "labels": [{
-                "id": "l101",
-                "title": "Done",
-                "color": "#61bd4f"
-            },
-            {
-                "id": "l102",
-                "title": "Important",
-                "color": "#eb5a46"
-            },
-            {
-                "id": "l103",
-                "title": "urgent",
-                "color": "#0079BF"
-            }
-        ],
-        "members": [{
-            "_id": "u102",
-            "fullname": "Rick Sanchez",
-            "imgUrl": "https://robohash.org/rick.png?set=set2"
-        }],
-        "groups": [{
-            "id": "g102",
-            "title": "Group 1",
-            "cards": [{
-                    "id": "c103",
-                    "title": "Do that"
-                },
-                {
-                    "id": "c104",
-                    "title": "Help me",
-                    "description": "description",
-                    "isComplete": true,
-                    "comments": [{
-                        "id": "ZdPnm",
-                        "txt": "also @yaronb please CR this",
-                        "createdAt": 1590999817436.0,
-                        "byMember": {
-                            "_id": "u101",
-                            "fullname": "Abi Abambi",
-                            "imgUrl": "https://robohash.org/abi.png?set=set2"
-                        }
-                    }],
-                    "checklists": [{
-                        "id": "YEhmF",
-                        "title": "Checklist",
-                        "todos": [{
-                            "id": "212jX",
-                            "title": "To Do 1",
-                            "isDone": false
-                        }]
-                    }],
-                    "members": [{
-                        "_id": "u101",
-                        "username": "abi@ababmi.com",
-                        "fullname": "Abi Abambi",
-                        "imgUrl": "https://robohash.org/abi.png?set=set2"
-                    }],
-                    "labelIds": ["l101", "l102"],
-                    "createdAt": 1590999730348,
-                    "dueDate": 16156215211,
-                    "byMember": {
-                        "_id": "u101",
-                        "username": "abi@ababmi.com",
-                        "fullname": "Abi Abambi",
-                        "imgUrl": "https://robohash.org/abi.png?set=set2"
-                    },
-                    "style": {
-                        "bgColor": "#26de81"
-                    }
-                },
-                {
-                    "id": "c105",
-                    "title": "Finish this project",
-                    "description": "Let us finish this project in time and with great success",
-                    "isComplete": false,
-                    "checklists": [{
-                            "id": "YEhmF",
-                            "title": "Checklist",
-                            "todos": [{
-                                "id": "212jX",
-                                "title": "To Do 1",
-                                "isDone": false
-                            }]
-                        },
-                        {
-                            "id": "Fkdgngrt12",
-                            "title": "Checklist2",
-                            "todos": [{
-                                    "id": "212jX",
-                                    "title": "To Do 1",
-                                    "isDone": false
-                                },
-                                {
-                                    "id": "ffjenf54f",
-                                    "title": "To Do 2",
-                                    "isDone": true
-                                }
-                            ]
-                        }
-                    ],
-                    "members": [{
-                        "_id": "u102",
-                        "username": "rick@sanchez.com",
-                        "fullname": "Rick Sanchez",
-                        "imgUrl": "https://robohash.org/rick.png?set=set2"
-                    }],
-                    "labelIds": ["l101", "l103"],
-                    "createdAt": 1590999730348,
-                    "dueDate": 1633156788007,
-                    "byMember": {
-                        "_id": "u102",
-                        "username": "rick@sanchez.com",
-                        "fullname": "Rick Sanchez",
-                        "imgUrl": "https://robohash.org/rick.png?set=set2"
-                    },
-                    "style": {
-                        "imgUrl": "https://cdn.mos.cms.futurecdn.net/wtqqnkYDYi2ifsWZVW2MT4-970-80.jpg.webp"
-                    }
+        {
+        "_id": "u102",
+        "fullname": "Rick Sanchez",
+        "imgUrl": "https://robohash.org/rick.png?set=set2"
+      },
+      {
+        "_id": "u103",
+        "fullname": "Morty Smith",
+        "imgUrl": "https://robohash.org/morty.png?set=set2"
+      }
+    ],
+    "groups": [
+      {
+        "id": "g102",
+        "title": "Group 1",
+        "cards": [
+          {
+            "id": "c103",
+            "title": "Do that",
+            "description": "description"
+          },
+          {
+            "id": "c104",
+            "title": "Help me",
+            "description": "description",
+            "comments": [
+              {
+                "id": "ZdPnm",
+                "txt": "also @yaronb please CR this",
+                "createdAt": 1590999817436.0,
+                "byMember": {
+                  "_id": "u103",
+                  "fullname": "Morty Smith",
+                  "imgUrl": "https://robohash.org/morty.png?set=set2"
                 }
+              }
             ],
-            "style": {}
-        }],
-        "activities": [{
-            "id": "a101",
-            "txt": "Changed Color",
-            "createdAt": 154514,
+            "checklists": [
+              {
+                "id": "YEhmF",
+                "title": "Checklist",
+                "todos": [
+                  {
+                    "id": "212jX",
+                    "title": "To Do 1",
+                    "isDone": false
+                  },
+                  {
+                    "id": "212jF",
+                    "title": "To Do 2",
+                    "isDone": true
+                  },
+                  {
+                    "id": "212jN",
+                    "title": "To Do 3",
+                    "isDone": false
+                  }
+                ]
+              },
+              {
+                "id": "YEhmR",
+                "title": "Checklist 2",
+                "todos": [
+                  {
+                    "id": "232jX",
+                    "title": "To Do 4",
+                    "isDone": false
+                  },
+                  {
+                    "id": "232jF",
+                    "title": "To Do 5",
+                    "isDone": true
+                  },
+                  {
+                    "id": "232jN",
+                    "title": "To Do 6",
+                    "isDone": true
+                  }
+                ]
+              }
+            ],
+            "members": [
+              {
+                "_id": "u102",
+                "username": "rick@sanchez.com",
+                "fullname": "Rick Sanchez",
+                "imgUrl": "https://robohash.org/rick.png?set=set2"
+              },
+              {
+
+                "_id": "u103",
+                "username": "morty@smith.com",
+                "fullname": "Morty Smith",
+                "imgUrl": "https://robohash.org/morty.png?set=set2"
+              }
+            ],
+            "labelIds": ["l101", "l102", "l103"],
+            "createdAt": 1590999730348,
+            "dueDate": 16156215211,
             "byMember": {
                 "_id": "u101",
-                "fullname": "Abi Abambi",
-                "imgUrl": "https://robohash.org/abi.png?set=set2"
+              "username": "abi@abambi.com",
+              "fullname": "Abi Abambi",
+              "imgUrl": "https://robohash.org/abi.png?set=set2"
             },
-            "card": {
-                "id": "c101",
-                "title": "Replace Logo"
+            "style": {
+              "bgColor": "#26de81"
             }
-        }]
-    },
-    {
-        "_id": "b102",
-        "title": "Marshmello",
-        "createdAt": 1589983468418,
-        "isStarred": true,
-        "createdBy": {
-            "_id": "u103",
-            "fullname": "Morty Smith",
-            "imgUrl": "https://robohash.org/morty.png?set=set2"
+          }
+        ],
+        "style": {}
+      }
+    ],
+    "activities": [
+      {
+        "id": "a1024",
+        "txt": "Changed Color",
+        "createdAt": 154514,
+        "byMember": {
+          "_id": "u101",
+          "fullname": "Abi Abambi",
+          "imgUrl": "https://robohash.org/abi.png?set=set2"
         },
-        "style": { "bgColor": "#26de81" },
-        "labels": [{
-                "id": "l101",
-                "title": "Done",
-                "color": "#61bd4f"
-            },
-            {
-                "id": "l102",
-                "title": "",
-                "color": "#0079BF"
-            }
-        ],
-        "members": [{
-            "_id": "u102",
-            "fullname": "Rick Sanchez",
-            "imgUrl": "https://robohash.org/rick.png?set=set2"
-        }],
-        "groups": [{
-            "id": "g102",
-            "title": "Group 1",
-            "cards": [{
-                    "id": "c103",
-                    "title": "Do that"
-                },
-                {
-                    "id": "c104",
-                    "title": "Help me",
-                    "description": "description",
-                    "comments": [{
-                        "id": "ZdPnm",
-                        "txt": "also @yaronb please CR this",
-                        "createdAt": 1590999817436.0,
-                        "byMember": {
-                            "_id": "u103",
-                            "fullname": "Morty Smith",
-                            "imgUrl": "https://robohash.org/morty.png?set=set2"
-                        }
-                    }],
-                    "checklists": [{
-                        "id": "YEhmF",
-                        "title": "Checklist",
-                        "todos": [{
-                            "id": "212jX",
-                            "title": "To Do 1",
-                            "isDone": false
-                        }]
-                    }],
-                    "members": [{
-                        "_id": "u102",
-                        "username": "rick@sanchez.com",
-                        "fullname": "Rick Sanchez",
-                        "imgUrl": "https://robohash.org/rick.png?set=set2"
-                        }],
-                    "labelIds": ["l101", "l102"],
-                    "createdAt": 1590999730348,
-                    "dueDate": 16156215211,
-                    "byMember": {
-                        "_id": "u101",
-                        "username": "Tal",
-                        "fullname": "Tal Tarablus",
-                        "imgUrl": "https://robohash.org/rick.png?set=set2"
-                    },
-                    "style": {
-                        "bgColor": "#26de81"
-                    }
-                }
-            ],
-            "style": {}
-        }],
-        "activities": [{
-            "id": "a1024",
-            "txt": "Changed Color",
-            "createdAt": 154514,
-            "byMember": {
-                "_id": "u101",
-                "fullname": "Abi Abambi",
-                "imgUrl": "https://robohash.org/abi.png?set=set2"
-            },
-            "card": {
-                "id": "c101",
-                "title": "Replace Logo"
-            }
-        }]
-    }
+        "card": {
+          "id": "c101",
+          "title": "Replace Logo"
+        }
+      }
+    ]
+  }
 ]

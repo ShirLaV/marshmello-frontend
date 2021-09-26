@@ -1,18 +1,26 @@
 .board-preview {
   color: whitesmoke;
-  border-radius: 10px;
+  border-radius: 5px;
   padding: 10px;
   height: 100px;
   width: 200px;
   cursor: pointer;
   background-size: cover;
   background-position: 50%;
-  
+  transition: all 0.3s;
+
   .preview-content {
-      display: flex;
-      justify-content: space-between;
-      height: 100%;
-      width: 100%;
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    width: 100%;
+
+    &:hover {
+      .star-btn {
+        transform: translate(0);
+        opacity: 1;
+      }
+    }
   }
 
   .board-title {
@@ -21,7 +29,21 @@
   }
 
   .star-btn {
+    font-size: rem(20px);
+    transform: translate(110%);
+    opacity: 0;
+    color: white;
     align-self: flex-end;
     justify-self: flex-end;
+
+    transition: all 0.3s;
+
+    &:hover {
+      font-size: rem(25px);
+    }
+
+    &.starred {
+      color: gold;
+    }
   }
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { CgHome } from 'react-icons/cg';
 import { AiOutlinePlus, AiOutlineBell } from 'react-icons/ai';
 import { SiTrello } from 'react-icons/si';
@@ -33,8 +33,8 @@ class _AppHeader extends React.Component {
             <header className="app-header">
                 <nav className="nav-links">
                     <div className="left-links">
-                        <NavLink to="/"><button className="nav-button"><CgHome /></button></NavLink>
-                        <NavLink to="/board"><button className="nav-button"><SiTrello /> Boards</button></NavLink>
+                        <NavLink to="/"><button className="home-btn nav-button"><CgHome /></button></NavLink>
+                        <NavLink to="/board"><button className="boards-btn flex nav-button"><SiTrello /> Boards</button></NavLink>
                         {/* <NavLink to="/board/:boardId"><button className="nav-button">Board</button></NavLink> */}
                     </div>
                     <NavLink className="logo" to="/board"><SiTrello /> <span> Marshmello </span></NavLink>

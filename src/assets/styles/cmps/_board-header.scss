@@ -1,6 +1,5 @@
 .board-header {
     z-index: 2;
-    background-color: rgba(155, 154, 154, 0.315);
     padding: 5px;
     display: flex;
     align-items: center;
@@ -15,6 +14,11 @@
             .user-pic-container {
                 border-radius: 50%;
                 width: 30px;
+            }
+        }
+        .starred-btn {
+            &.starred {
+                color: gold;
             }
         }
     }

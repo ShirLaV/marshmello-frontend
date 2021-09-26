@@ -50,7 +50,7 @@ class _BoardAdd extends React.Component {
                 <div className="images-container">
                     {images.map((image, idx) =>
                         <button className={`img-btn ${(idx === chosenImgIdx) ? 'chosen' : ''}`} key={idx} onClick={(ev) => this.handleImage(ev, idx)}>
-                            <img className="add-board-img" src={image} />
+                            <img className="add-board-img" src={image} alt={image} />
                         </button>
                     )}
                 </div>

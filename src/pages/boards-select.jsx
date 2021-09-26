@@ -1,11 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { BoardList } from '../cmps/board-list'
-import { BoardAdd } from '../cmps/board/board-add'
-import { BoardPreview } from '../cmps/board-preview'
-import { loadBoards, setAddingBoard } from '../store/board.actions'
 import { AiFillStar } from 'react-icons/ai'
 import { SiTrello } from 'react-icons/si'
+
+import { loadBoards, setAddingBoard, onUpdateBoard } from '../store/board.actions'
 
 
 
@@ -19,6 +18,10 @@ class _BoardSelect extends React.Component {
 
     getStarredBoards = () => {
         return this.props.boards.filter(board => board.isStarred)
+    }
+
+    toggleStarredBoard = () => {
+        
     }
 
     setAddBoard = () => {
@@ -38,7 +41,7 @@ class _BoardSelect extends React.Component {
                 </div>
                 <h2> <SiTrello /> Workspace</h2>
                 <div className="workspace">
-                    <BoardList boards={boards} />
+                    <BoardList boards={boards} toggleStarred={this.toggleStarred} />
                     <div className="board-preview create-board-btn" onClick={() => this.setAddBoard()}>
                         <h4>Create New Board</h4>
                     </div>
@@ -57,7 +60,8 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
     loadBoards,
-    setAddingBoard
+    setAddingBoard,
+    onUpdateBoard
 }
 
 export const BoardSelect = connect(mapStateToProps, mapDispatchToProps)(_BoardSelect)
