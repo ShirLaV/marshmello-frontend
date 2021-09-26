@@ -1,7 +1,7 @@
 .nav-button {
     background-color: rgba(221, 221, 221, 0.205);
-    font-size: rem(18px);
-    padding: 5px;
+    font-size: rem(20px);
+    padding: 6px 8px;
     color: white;
     border-radius: 3px;
     transition: all 0.3s;
@@ -45,6 +45,10 @@
         &:hover {
             background-color: #026aa7;
         }
+    }
+
+    &.long {
+        width: 100%;
     }
 
     &:hover {

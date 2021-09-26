@@ -1,34 +1,28 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { onUpdateCard } from '../store/board.actions'
-import { CgCreditCard } from 'react-icons/cg'
-import { IoMdList } from 'react-icons/io'
-import { MdFormatListBulleted } from 'react-icons/md'
+import { CardEditSidebar } from './card-edit/card-edit-sidebar'
 import { LabelsMembers } from './card-edit/labels-members'
-import { BsCardChecklist } from 'react-icons/bs'
 import { ChecklistEdit } from './card-edit/checklist-edit'
-import { IoMdClose } from 'react-icons/io'
-import { BiUser } from 'react-icons/bi'
-import { MdLabelOutline } from 'react-icons/md'
-import { BsClock } from 'react-icons/bs'
-import { FiPaperclip } from 'react-icons/fi'
-import { BsArrowRight } from 'react-icons/bs'
-import { MdContentCopy } from 'react-icons/md'
-import { AiOutlineEye } from 'react-icons/ai'
-import { GoArchive } from 'react-icons/go'
-
 import { DynamicPopover } from './shared/dynamic-popover'
-import { EditSidebarLabel } from './card-edit/edit-sidebar-label'
-import { MemberList } from './card-edit/member-list'
-// import { AiOutlinePlus } from 'react-icons/ai'
+import { onUpdateCard } from '../store/board.actions'
+import { MemberList } from './shared/popover-children/member-list'
+import { MdFormatListBulleted } from 'react-icons/md'
+import { IoMdList, IoMdClose } from 'react-icons/io'
+import { BsCardChecklist } from 'react-icons/bs'
+import { CgCreditCard } from 'react-icons/cg'
 
 class _CardEdit extends Component {
     state = {
         isDescriptionOpen: false,
         currCard: null,
         currGroup: null,
-        isOpen: false
+        isAddTodo: false
+        // isOpen: false,
+        // rect: '',
+        // element: null
     }
+
+    descriptionRef = React.createRef()
 
     componentDidMount() {
         let currCard
@@ -55,28 +49,37 @@ class _CardEdit extends Component {
         this.setState({ isDescriptionOpen: !this.state.isDescriptionOpen })
     }
 
-    handleChange = ({ target: { name, value } }) => {
+    handleInputChange = ({ target: { name, value } }) => {
         this.setState({ currCard: { ...this.state.currCard, [name]: value } })
     }
 
-    handlePropertyChange = ({ target: { name, value, checked } }) => {
-        let dataParams = this.props.match.params
-        const action = { ...dataParams, [name]: value }
-        this.props.onUpdateCard(action, name, this.props.board)
+    handlePropertyChange = (card) => {
+        // const { currCard } = this.state
+        const { board } = this.props
+        const { groupId } = this.props.match.params
+        this.props.onUpdateCard(card, groupId, board)
     }
 
-    onClose = () => {
-        this.setState({ isOpen: false })
-    }
-
-    // handlePropertyRemove = ({ target: { name, value, checked } }) => {
+    // handlePropertyChange = ({ target: { name, value, checked } }) => {
     //     let dataParams = this.props.match.params
     //     const action = { ...dataParams, [name]: value }
-    //     this.props.onRemoveCardProperty(action, name, this.props.board)
+    //     this.props.onUpdateCard(action, name, this.props.board)
+    // }
+
+    onRemoveChecklist = (checklistId) => {
+        const { currCard } = this.state
+        const idx = currCard.checklists.findIndex(checklist => checklist.id === checklistId)
+        currCard.checklists.splice(idx, 1)
+        this.handlePropertyChange(currCard)
+    }
+
+    // handlePopoverChange = (ev) => {
+    //     const rect = ev.target.getBoundingClientRect()
+    //     this.setState({ rect, isOpen: !this.state.isOpen, element: ev.target })
     // }
 
     render() {
-        const { currCard, isDescriptionOpen, currGroup } = this.state
+        const { currCard, isDescriptionOpen, currGroup, isAddTodo } = this.state
         if (!currCard) return <div>Loading...</div>
         // console.log(this.props.board);
         return (
@@ -84,19 +87,27 @@ class _CardEdit extends Component {
                 {currCard.style?.bgColor && <div className="card-edit-bg" style={{ backgroundColor: currCard.style.bgColor }}></div>}
                 <div className="card-edit-header card-title-container">
                     <span><CgCreditCard /></span>
-                    <input className="title-input" type="text" value={currCard.title} name="title" onChange={this.handleChange} onBlur={this.handlePropertyChange} />
+                    <input className="title-input" type="text" value={currCard.title} name="title" onChange={this.handleInputChange} onBlur={this.handlePropertyChange} />
                 </div>
+
                 <div className="list-name-container"><p>in list <span className="list-name">{currGroup.title}</span></p></div>
                 <div className="flex">
+
                     <div className="card-edit-main">
-                        <LabelsMembers members={currCard.members} labelIds={currCard.labelIds} board={this.props.board} />
+                        <LabelsMembers handlePropertyChange={this.handlePropertyChange} currCard={currCard} members={currCard.members} labelIds={currCard.labelIds} board={this.props.board} />
                         <div className="description-container card-edit-title">
                             <span><IoMdList /></span>
                             <h3>Description</h3>
+                            {currCard.description && !isDescriptionOpen && <button className="card-edit-btn" onClick={() => {
+                                this.setDescriptionTextarea()
+                                this.descriptionRef.current.focus()
+                            }}> Edit</button>}
                         </div>
+
                         <div className="card-description">
                             <textarea
-                                className={`description-textarea ${isDescriptionOpen ? 'open' : ''}`}
+                                ref={this.descriptionRef}
+                                className={`description-textarea ${isDescriptionOpen ? 'open' : ''} ${currCard.description ? 'filled' : ''}`}
                                 rows={isDescriptionOpen ? "6" : "3"}
                                 onFocus={this.setDescriptionTextarea}
                                 onBlur={(ev) => {
@@ -105,7 +116,7 @@ class _CardEdit extends Component {
                                 }}
                                 name="description"
                                 value={currCard.description}
-                                onChange={this.handleChange}
+                                onChange={this.handleInputChange}
                                 placeholder="Add a more detailed description..." />
                             {isDescriptionOpen &&
                                 <div className="description-btns">
@@ -114,12 +125,10 @@ class _CardEdit extends Component {
                                 </div>}
                         </div>
 
-                        <button onClick={() => this.setState({ isOpen: true })}>open</button>
-                        {this.state.isOpen && <DynamicPopover onClose={() => this.setState({ isOpen: false })} title="fhvhk fhb">
+                        {/* {this.state.isOpen && <DynamicPopover onClose={() => this.setState({ isOpen: false })} title="fhvhk fhb" rect={this.state.rect} element={this.state.element}>
                             <MemberList />
                         </DynamicPopover>
-                        }
-
+                        } */}
 
                         {currCard.checklists?.map(checklist => (
                             <div key={checklist.id}>
@@ -128,12 +137,16 @@ class _CardEdit extends Component {
                                         <span><BsCardChecklist /></span>
                                         <h3>{checklist.title}</h3>
                                     </div>
-                                    <button className="card-edit-btn">Delete</button>
+                                    <button className="card-edit-btn" onClick={() => this.onRemoveChecklist(checklist.id)}>Delete</button>
                                 </section>
                                 <div>
                                     <ChecklistEdit checklist={checklist} params={this.props.match.params} board={this.props.board} />
                                 </div>
-                                <button className="card-edit-btn">Add an item</button>
+                                {!isAddTodo
+                                    ? <button className="card-edit-btn add-todo-btn" onClick={() => this.setState({ isAddTodo: true })}>Add an item</button>
+                                    : <textarea rows="2" className="description-textarea add-todo" autoFocus placeholder="Add an item" onBlur={() => this.setState({ isAddTodo: false })} />
+
+                                }
                             </div>
                         ))
                         }
@@ -146,20 +159,12 @@ class _CardEdit extends Component {
                         </section>
                     </div>
 
-                    <div className="sidebar">
-                        <div className="add-to-card">
-                            <h3 className="sidebar-title">Add to card</h3>
-                            {addToCard.map(item => <EditSidebarLabel Icon={item.icon} title={item.title} />)}
-                        </div>
-                    </div>
+                    <CardEditSidebar />
                 </div>
             </section>
         )
     }
 }
-
-const addToCard = [{ icon: BiUser, title: 'Members' }, { icon: MdLabelOutline, title: 'Labels' }, { icon: BsCardChecklist, title: 'Checklist' }, { icon: BsClock, title: 'Dates' }, { icon: FiPaperclip, title: 'Attachment' }]
-const actions = [{ icon: BsArrowRight, title: 'Move' }, { icon: MdContentCopy, title: 'Copy' }, { icon: BsCardChecklist, title: 'Checklist' }, { icon: BsClock, title: 'Dates' }, { icon: FiPaperclip, title: 'Attachment' }]
 
 const mapStateToProps = state => {
     return {
