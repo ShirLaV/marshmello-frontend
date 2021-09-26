@@ -1,6 +1,6 @@
 .card-edit {
-    min-height: rem(600px);
-    width: rem(768px);
+    min-height: 600px;
+    width: 768px;
     display: block;
     margin: auto;
     color: #172b4d;
@@ -12,40 +12,40 @@
         flex: 2;
         padding: 0 8px 8px 16px;
         h3 {
-            font-size: rem(16px);
+            font-size: 16px;
             font-weight: 600;
         }
     }
 
     .card-edit-bg {
-        min-height: rem(116px);
-        height: rem(116px);
+        min-height: 116px;
+        height: 116px;
         padding: 0;
         width: 100%;
     }
 
     .card-edit-header {
-        min-height: rem(32px);
+        min-height: 32px;
     }
 
     .card-title-container {
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: rem(20px) 8px 0 16px;
+        padding: 20px 8px 0 16px;
     }
 
     .title-input {
         border: none;
         outline: none;
-        width: rem(656px);
-        min-height: rem(24px);
+        width: 656px;
+        min-height: 24px;
         padding: 4px 8px;
-        height: rem(33.333px);
-        border-radius: rem(3px);
-        font-size: rem(20px);
+        height: 33.333px;
+        border-radius: 3px;
+        font-size: 20px;
         font-weight: 600;
-        line-height: rem(24px);
+        line-height: 24px;
         transition: border .1s;
         font-family: inherit;
         width: 100%;
@@ -59,37 +59,51 @@
 
     .card-edit-title {
         display: flex;
-        gap: rem(10px);
+        gap: 16px;
         align-items: center;
     }
 
     .card-description {
-        padding: 10px 0 10px 26px;
+        padding: 10px 0 10px 32px;
     }
 
     .description-textarea {
         width: 100%;
         border: none;
         outline: none;
-        border-radius: rem(3px);
+        border-radius: 3px;
         background-color: #eaecf0;
         cursor: pointer;
-        padding: rem(8px) rem(12px);
+        padding: 8px 12px;
         resize: none;
         color: #172b4d;
         font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
-        font-size: rem(14px);
+        font-size: 14px;
 
-        &.open {
+        &.add-todo {
+            margin-left: 32px;
+            width: 520px;
+        }
+        
+        &.open, &:focus {
             background-color: #fff;
             box-shadow: inset 0 0 0 2px #0079bf;
             cursor: text;
+        }
+        
+        &.filled {
+            background-color: transparent;
+            padding: 0;
+            
+            &.open {
+                padding: 8px 12px;
+            }
         }
     }
 
     .description-btns {
         display: flex;
-        gap: rem(10px);
+        gap: 10px;
 
         button {
             cursor: pointer;
@@ -98,11 +112,11 @@
 
     .list-name-container {
         color: #5e6c84;
-        margin: 0 0 rem(8px) rem(26px);
-        font-size: rem(14px);
+        margin: 0 0 8px 26px;
+        font-size: 14px;
         font-weight: 400;
-        line-height: rem(20px);
-        padding-inline-start: rem(16px);
+        line-height: 20px;
+        padding-inline-start: 16px;
 
         .list-name {
             text-decoration: underline;
@@ -112,14 +126,14 @@
 
     .members-labels-container {
         display: flex;
-        gap: rem(8px);
-        margin: rem(24px) 0 rem(24px) rem(26px);
+        gap: 8px;
+        margin: 24px 0 24px 26px;
 
         h3 {
             color: #5e6c84;
-            font-size: rem(12px);
+            font-size: 12px;
             font-weight: 500;
-            margin-bottom: rem(8px);
+            margin-bottom: 8px;
             letter-spacing: .04em;
             line-height: 20px;
             text-transform: uppercase;
@@ -134,13 +148,13 @@
         .members,
         .labels {
             display: flex;
-            gap: rem(5px);
+            gap: 5px;
         }
 
         .card-member {
             border-radius: 50%;
-            height: rem(32px);
-            width: rem(32px);
+            height: 32px;
+            width: 32px;
             cursor: pointer;
 
             &.add-member {
@@ -159,15 +173,15 @@
         }
 
         .card-label {
-            border-radius: rem(3px);
-            padding: 0 rem(12px);
+            border-radius: 3px;
+            padding: 0 12px;
             color: #fff;
             cursor: pointer;
-            height: rem(32px);
+            height: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: rem(14px);
+            font-size: 14px;
             font-weight: 600;
 
             &.add-label {
@@ -180,18 +194,23 @@
         }
 
         .progress-percentage {
-            font-size: rem(11px);
+            font-size: 11px;
         }
 
     }
 
     .todo-item {
         label {
-            font-size: rem(14px);
+            font-size: 14px;
         }
         input {
 
         }
+    }
+
+    .add-todo-btn {
+        margin-left: 32px;
+        margin-top: 8px;
     }
 
     .sidebar {
@@ -200,26 +219,30 @@
             // padding: rem(6px) rem(12px) rem(6px) 0;
             justify-content: flex-start;
             align-items: center;
-            gap: rem(6px);
-            width: rem(144px);
-            font-size: rem(14px);
+            gap: 6px;
+            width: 144px;
+            font-size: 14px;
         }
 
-        .add-to-card {
+        .add-to-card, .actions {
             display: flex;
             flex-direction: column;
-            gap: rem(8px);
+            gap: 8px;
         }
 
         h3 {
             &.sidebar-title {
-                font-size: rem(12px);
+                font-size: 12px;
                 color: #5e6c84;
                 font-weight: 500;
                 letter-spacing: .04em;
                 line-height: 20px;
                 text-transform: uppercase;
             }
+        }
+
+        .actions {
+            margin-top: 24px;
         }
 
     }

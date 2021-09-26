@@ -47,6 +47,10 @@
         }
     }
 
+    &.long {
+        width: 100%;
+    }
+
     &:hover {
         background-color: #091e4214;
     }

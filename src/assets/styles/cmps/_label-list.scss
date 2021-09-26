@@ -1,0 +1,39 @@
+.label-list-container {
+
+    .label-list {
+        display: flex;
+        flex-direction: column;
+        gap: rem(4px);
+    }
+
+    .label-preview {
+        cursor: pointer;
+        align-items: center;
+        gap: rem(4px);
+
+        .icon-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: rem(32px);
+            height: rem(32px);
+            border-radius: rem(3px);
+
+            &:hover {
+                background-color: #091e4214;
+            }
+        }
+
+        .popper-label {
+            width: rem(244px);
+            height: rem(32px);
+            padding: rem(6px) rem(12px);
+            color: #fff;
+            font-size: rem(14px);
+            font-weight: 700;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+        }
+    }
+}

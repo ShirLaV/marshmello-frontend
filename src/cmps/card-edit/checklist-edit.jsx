@@ -5,7 +5,6 @@ import { onUpdateCard } from '../../store/board.actions'
 
 
 export class _ChecklistEdit extends Component {
-    
     state = {
         percentage: 0,
     }
@@ -29,13 +28,13 @@ export class _ChecklistEdit extends Component {
         return (
             <section className="checklist-preview flex column">
                 <div className="flex align-center">
-                    <span style={{ fontSize: 11 }}>{percentage}%</span>
+                    <span style={{ fontSize: 11, width: 32, maxWidth: 32, minWidth: 32 }}>{percentage}%</span>
                     <ProgressBar completed={percentage} bgColor={(percentage === 100) ? '#61bd4f' : '#5ba4cf'} />
                 </div>
-                {checklist.todos?.map(todo => {
+                {checklist.todos?.map((todo, i) => {
                     return <div className="flex align-center todo-item" key={todo.id}>
-                        <input id="todo-item-title" type="checkbox" name={todo.id} checked={todo.isDone} onChange={this.handleChange} />
-                        <label htmlFor="todo-item-title">{todo.title}</label>
+                        <input className="main-checkbox" id={`todo-item-title${todo.title + i}`} type="checkbox" name={todo.id} checked={todo.isDone} onChange={this.handleChange} />
+                        <label htmlFor={`todo-item-title${todo.title + i}`}>{todo.title}</label>
                     </div>
                 })}
             </section>

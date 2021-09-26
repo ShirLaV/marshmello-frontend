@@ -7,7 +7,7 @@ export function ProgressBar({ bgColor, completed }) {
         width: '100%',
         backgroundColor: "#e0e0de",
         borderRadius: 50,
-        margin: '10px 0 10px 10px'
+        margin: '10px 0 10px 0px'
     }
 
     const fillerStyles = {
@@ -20,7 +20,7 @@ export function ProgressBar({ bgColor, completed }) {
     }
 
     return (
-        <div style={containerStyles}>
+        <div className="outer-container" style={containerStyles}>
             <div style={fillerStyles}>
             </div>
         </div>
