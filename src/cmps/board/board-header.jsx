@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import { onUpdateBoard } from '../../store/board.actions.js'
 import { loadUsers } from '../../store/user.actions.js'
 import { MemberAvatar } from '../shared/member-avatar.jsx'
+// import { InviteMembers } from './invite-members.jsx'
 // import { SideMenu } from '../side-menu.jsx'
 
 class _BoardHeader extends React.Component {
@@ -32,8 +33,9 @@ class _BoardHeader extends React.Component {
                         {board.members.map(member =>
                             <MemberAvatar key={member._id} member={member} />
                         )}
-                        <button className="invite-btn nav-button">Invite</button>
                     </div>
+                    <button className="invite-btn nav-button">Invite</button>
+                    {/* <InviteMembers /> */}
                 </div>
                 <div className="right-btns">
                     <button className="dashboard-btn nav-button"><RiBarChartFill /> Dashboard</button>
