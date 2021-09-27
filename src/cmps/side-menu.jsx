@@ -2,12 +2,19 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 class _SideMenu extends React.Component {
+    state = {
+        currViewId: null
+    }
+
+
+
 
     render() {
         return (
             <div className="side-menu">
-                <h1>Side Menu</h1>
-                
+                <div className="title popover-header">
+                    <p>Side Menu</p>
+                </div>
             </div>
         )
     }

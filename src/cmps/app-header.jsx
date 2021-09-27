@@ -11,6 +11,8 @@ import { onLogin, onLogout, onSignup, loadUsers, removeUser } from '../store/use
 import { setAddingBoard } from '../store/board.actions'
 import { BoardAdd } from './board/board-add.jsx';
 import { MemberAvatar } from './shared/member-avatar.jsx';
+import { OverlayScreen } from '../cmps/overlay-screen'
+
 
 class _AppHeader extends React.Component {
     onLogin = (credentials) => {
@@ -23,8 +25,8 @@ class _AppHeader extends React.Component {
         this.props.onLogout()
     }
 
-    setAddBoard = () => {
-        this.props.setAddingBoard(true)
+    setAddBoard = (value) => {
+        this.props.setAddingBoard(value)
     }
 
     render() {
@@ -35,16 +37,16 @@ class _AppHeader extends React.Component {
                     <div className="left-links">
                         <NavLink to="/"><button className="home-btn nav-button"><CgHome /></button></NavLink>
                         <NavLink to="/board"><button className="boards-btn flex nav-button"><SiTrello /> Boards</button></NavLink>
-                        {/* <NavLink to="/board/:boardId"><button className="nav-button">Board</button></NavLink> */}
                     </div>
                     <NavLink className="logo" to="/board"><SiTrello /> <span> Marshmello </span></NavLink>
                     <div className="right-links">
-                        <button className="nav-button" onClick={() => this.setAddBoard()}><AiOutlinePlus /></button>
+                        <button className="nav-button" onClick={() => this.setAddBoard(true)}><AiOutlinePlus /></button>
                         <button className="nav-button"><AiOutlineBell /></button>
-                        {/* <MemberAvatar key={user._id} member={user} /> */}
+                        <MemberAvatar key={user._id} member={user} />
                     </div>
                 </nav>
-                {isAddingBoard && <BoardAdd />}
+                {isAddingBoard && <BoardAdd onClose={() => this.setAddBoard(false)}/>}
+                {isAddingBoard && <OverlayScreen />}
             </header>
         )
     }
