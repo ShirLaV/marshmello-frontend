@@ -60,10 +60,13 @@ export class GroupPreview extends Component {
     const { isAddPopOpen, groupTitle } = this.state;
     // console.log('groupTitle', groupTitle)
     return (
+      <div className="group-wrapper">
+
       <Draggable draggableId={group.id} index={index}>
         {(provided) => (
+          
           <div
-            className='group-preview'
+            className='group-preview flex column'
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
@@ -132,6 +135,8 @@ export class GroupPreview extends Component {
           </div>
         )}
       </Draggable>
+      </div>
+
     );
   }
 }

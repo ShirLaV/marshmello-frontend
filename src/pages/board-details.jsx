@@ -18,7 +18,7 @@ import { Route } from 'react-router';
 
 class _BoardDetails extends Component {
   state = {
-    boardStyle: {},
+    // boardStyle: {},
     isCardLabelListOpen: false,
     isAddPopOpen: false,
   };
@@ -26,15 +26,15 @@ class _BoardDetails extends Component {
     const { boardId } = this.props.match.params;
     this.loadBoard(boardId);
   }
-  componentDidUpdate(prevProps) {
-    const prevBoard = prevProps.board;
-    const board = this.props.board;
-    if (!prevBoard || prevBoard.style !== board.style) {
-      if (board.style) {
-        this.setBoardStyle(board.style);
-      }
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   const prevBoard = prevProps.board;
+  //   const board = this.props.board;
+  //   if (!prevBoard || prevBoard.style !== board.style) {
+  //     if (board.style) {
+  //       this.setBoardStyle(board.style);
+  //     }
+  //   }
+  // }
   componentWillUnmount(){
     this.props.resetBoard()
   }
@@ -42,20 +42,20 @@ class _BoardDetails extends Component {
     this.props.loadBoard(boardId);
   };
 
-  setBoardStyle = (style) => {
-    if (style.bgColor)
-      this.setState({
-        boardStyle: {
-          backgroundColor: style.bgColor,
-        },
-      });
-    else
-      this.setState({
-        boardStyle: {
-          backgroundImage: `url("${style.imgUrl}")`,
-        },
-      });
-  };
+  // setBoardStyle = (style) => {
+  //   if (style.bgColor)
+  //     this.setState({
+  //       boardStyle: {
+  //         backgroundColor: style.bgColor,
+  //       },
+  //     });
+  //   else
+  //     this.setState({
+  //       boardStyle: {
+  //         backgroundImage: `url("${style.imgUrl}")`,
+  //       },
+  //     });
+  // };
   openCardEdit = (groupId, cardId) => {
     this.props.history.push(`${this.props.board._id}/${groupId}/${cardId}`);
   };
@@ -125,7 +125,7 @@ class _BoardDetails extends Component {
       this.state;
     if (!board) return <div>Loading...</div>;
     return (
-      <div className='board-details' >
+      <div className='board-details flex column' >
       {/* <div className='board-details' style={boardStyle}> */}
         <Route path='/board/:boardId/:groupId/:cardId' component={CardEdit} />
         <BoardHeader />
