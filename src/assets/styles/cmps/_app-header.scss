@@ -1,39 +1,47 @@
 .app-header {
-  background-color: rgba(173, 101, 173, 0.541);
+  position: fixed;
+  z-index: 5;
+  width: 100%;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.548);
   padding: 5px;
+
+  & + * {
+    margin-top: 44px;
+  }
   .nav-links {
     display: flex;
     justify-content: space-between;
-    
-    .left-links {
-        display: flex;
-        align-items: center;
-        gap: 7px;
 
-        .boards-btn {
-            gap: 5px;
-        }
+    .left-links {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+
+      .boards-btn {
+        gap: 5px;
+      }
     }
 
     .logo {
-        text-decoration: none;
-        color: rgba(255, 255, 255, 0.466);
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.466);
 
-        transition: all 0.3s;
-        
-        > span {
-            font-size: rem(22px);
-        }
+      transition: all 0.3s;
 
-        &:hover {
-            color: rgb(255, 255, 255);
-        }
+      > span {
+        font-size: rem(22px);
+      }
+
+      &:hover {
+        color: rgb(255, 255, 255);
+      }
     }
 
     .right-links {
-        display: flex;
-        align-items: center;
-        gap: 7px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
     }
-}
+  }
 }
