@@ -56,6 +56,7 @@ console.log('changing title')
       toggleCardLabelList,
       isCardLabelListOpen,
       index,
+      toggleCardComplete
     } = this.props;
     const { isAddPopOpen, groupTitle } = this.state;
     // console.log('groupTitle', groupTitle)
@@ -100,6 +101,7 @@ console.log('changing title')
                           openCardEdit={openCardEdit}
                           toggleCardLabelList={toggleCardLabelList}
                           isCardLabelListOpen={isCardLabelListOpen}
+                          toggleCardComplete={toggleCardComplete}
                         />
                       );
                     })}

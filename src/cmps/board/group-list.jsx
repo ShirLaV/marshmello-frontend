@@ -29,6 +29,7 @@ export class GroupList extends Component {
       updateBoard,
       toggleCardLabelList,
       isCardLabelListOpen,
+      toggleCardComplete
     } = this.props;
     // const { isAddPopOpen } = this.state;
     return (
@@ -43,6 +44,7 @@ export class GroupList extends Component {
               updateBoard={updateBoard}
               toggleCardLabelList={toggleCardLabelList}
               isCardLabelListOpen={isCardLabelListOpen}
+              toggleCardComplete={toggleCardComplete}
             />
           );
         })}
