@@ -41,25 +41,9 @@
             margin-bottom: 2px;
             background-color: #dadbe2;
         }
-    }
-    .group-footer {
-        margin: 0 4px;
-        min-height: 40px;
-        .add-boarditem-btn {
-            border-radius: 3px;
-            padding: 5px 0px 5px 8px;
-            margin: 0px 0px 8px 0px;
-            flex: 1 0 auto;
-            height: unset;
-            gap: 5px;
-            i {
-                font-size: 1.2rem;
-            }
-        }
         .add-board-item {
             width: 100%;
             form {
-                padding: unset;
                 padding-bottom: 8px;
                 textarea {
                     box-shadow: 0 1px 0 #16181b40;
@@ -71,6 +55,21 @@
                         outline: 0 none;
                     }
                 }
+            }
+        }
+    }
+    .group-footer {
+        margin: 0 4px;
+        // min-height: 40px;
+        .add-boarditem-btn {
+            border-radius: 3px;
+            padding: 5px 0px 5px 8px;
+            margin: 0px 0px 8px 0px;
+            flex: 1 0 auto;
+            height: unset;
+            gap: 5px;
+            i {
+                font-size: 1.2rem;
             }
         }
     }

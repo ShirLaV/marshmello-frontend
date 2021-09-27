@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { Draggable } from 'react-beautiful-dnd';
+
 import { HiOutlinePencil } from 'react-icons/hi';
 import { GrTextAlignFull } from 'react-icons/gr';
 import { GrCheckbox } from 'react-icons/gr';
@@ -12,8 +14,6 @@ import { onUpdateCard } from '../../store/board.actions.js';
 import { MemberAvatar } from '../shared/member-avatar.jsx';
 
 class _CardPreview extends Component {
-
-
   getLabel = (labelId) => {
     const board = this.props.board;
     const label = board.labels.find((label) => label.id === labelId);
@@ -63,100 +63,128 @@ class _CardPreview extends Component {
   };
 
   render() {
-    const {provided, innerRef}=this.props;
-    const { board, card, groupId, openCardEdit, isCardLabelListOpen, toggleCardLabelList } = this.props;
+    const {
+      board,
+      card,
+      groupId,
+      openCardEdit,
+      isCardLabelListOpen,
+      toggleCardLabelList,
+      index,
+    } = this.props;
     return (
-      <div
-        className='card-preview flex space-between'
-        {...provided.draggableProps}
-        {...provided.dragHandleProps}
-        ref={innerRef}
-
-        onClick={() => openCardEdit(board._id, groupId, card.id)}
-      >
-        {card.style && (
-          <div className='card-preview-header'>
-            {card.style.bgColor && (
-              <div
-                className='header-color'
-                style={{ backgroundColor: card.style.bgColor }}
-              ></div>
-            )}
-            {card.style.imgUrl && <img src={card.style.imgUrl} />}
-          </div>
-        )}
-
-        <div className='card-details'>
-          {card.labelIds && (
-            <ul
-              onClick={toggleCardLabelList}
-              className={`label-bar-list flex clean-list ${
-                isCardLabelListOpen ? 'open' : 'close'
-              }`}
+      <Draggable draggableId={card.id} index={index}>
+        {(provided) => {
+          return (
+            <div
+              ref={provided.innerRef}
+              {...provided.dragHandleProps}
+              {...provided.draggableProps}
             >
-              {card.labelIds.map((labelId) => {
-                const label = this.getLabel(labelId);
-                return (
-                  <li
-                    className='label-bar'
-                    key={labelId}
-                    style={{ backgroundColor: label.color }}
-                  >
-                    {isCardLabelListOpen && label.title && (
-                      <span>{label.title}</span>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-
-          <p>{card.title}</p>
-
-          <button className='hover-edit-btn'>
-            <HiOutlinePencil />
-          </button>
-
-          <div className='card-preview-footer flex align-center'>
-            {card.dueDate && (
               <div
-                className='due-date-box flex align-center'
-                style={this.getDueTimeStyle(card)}
-                onClick={(event) =>
-                  this.toggleCardComplete(event, board._id, groupId, card.id)
-                }
+                className='card-preview flex space-between'
+                onClick={() => openCardEdit(board._id, groupId, card.id)}
               >
-                <span className='clock-icon flex align-center'>
-                  <FiClock />
-                </span>
-                <span className='check-icon'>
-                  {card.isComplete ? <GrCheckboxSelected color={"inherit"} /> : <GrCheckbox />}
-                </span>
-                <span>{this.getFormatedTime(card.dueDate)}</span>
-              </div>
-            )}
+                {card.style && (
+                  <div className='card-preview-header'>
+                    {card.style.bgColor && (
+                      <div
+                        className='header-color'
+                        style={{ backgroundColor: card.style.bgColor }}
+                      ></div>
+                    )}
+                    {card.style.imgUrl && <img src={card.style.imgUrl} />}
+                  </div>
+                )}
 
-            {card.description && (
-              <GrTextAlignFull title={'This card has a description'} />
-            )}
+                <div className='card-details'>
+                  {card.labelIds && (
+                    <ul
+                      onClick={toggleCardLabelList}
+                      className={`label-bar-list flex clean-list ${
+                        isCardLabelListOpen ? 'open' : 'close'
+                      }`}
+                    >
+                      {card.labelIds.map((labelId, index) => {
+                        const label = this.getLabel(labelId);
+                        return (
+                          <li
+                            className='label-bar'
+                            key={index}
+                            style={{ backgroundColor: label.color }}
+                          >
+                            {isCardLabelListOpen && label.title && (
+                              <span>{label.title}</span>
+                            )}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  )}
 
-            {card.checklists && (
-              <div className='checklist-box flex align-center'>
-                <BsCheckBox />
-                <span>{this.getChecklistStr(card.checklists)}</span>
-              </div>
-            )}
+                  <p>{card.title}</p>
 
-            {card.members && (
-              <div className='card-members-list flex'>
-                {card.members.map((member) => (
-                  <MemberAvatar member={member} size={'md'} key={member.id} />
-                ))}
+                  <button className='hover-edit-btn'>
+                    <HiOutlinePencil />
+                  </button>
+
+                  <div className='card-preview-footer flex align-center'>
+                    {card.dueDate && (
+                      <div
+                        className='due-date-box flex align-center'
+                        style={this.getDueTimeStyle(card)}
+                        onClick={(event) =>
+                          this.toggleCardComplete(
+                            event,
+                            board._id,
+                            groupId,
+                            card.id
+                          )
+                        }
+                      >
+                        <span className='clock-icon flex align-center'>
+                          <FiClock />
+                        </span>
+                        <span className='check-icon'>
+                          {card.isComplete ? (
+                            <GrCheckboxSelected color={'inherit'} />
+                          ) : (
+                            <GrCheckbox />
+                          )}
+                        </span>
+                        <span>{this.getFormatedTime(card.dueDate)}</span>
+                      </div>
+                    )}
+
+                    {card.description && (
+                      <GrTextAlignFull title={'This card has a description'} />
+                    )}
+
+                    {card.checklists && (
+                      <div className='checklist-box flex align-center'>
+                        <BsCheckBox />
+                        <span>{this.getChecklistStr(card.checklists)}</span>
+                      </div>
+                    )}
+
+                    {card.members && (
+                      <div className='card-members-list flex'>
+                        {card.members.map((member, index) => (
+                          <MemberAvatar
+                            member={member}
+                            size={'md'}
+                            key={index}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
-            )}
-          </div>
-        </div>
-      </div>
+            </div>
+          );
+        }}
+      </Draggable>
     );
   }
 }
