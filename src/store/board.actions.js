@@ -127,6 +127,9 @@ function _getUpdatedBoard(action, board) {
         case 'CHANGE_BOARD_STYLE':
             boardToSave.style = action.style
             break;
+        case 'CHANGE_TITLE':
+            boardToSave.title = action.title
+            break;
         case 'ADD_BOARD_MEMBER':
             console.log('members from action: ', boardToSave.members)
             boardToSave.members = [...boardToSave.members, action.member]

@@ -1,0 +1,22 @@
+.invite-members {
+  .member-list {
+    .user-preview {
+      display: flex;
+      justify-content: space-between;
+      border-radius: 3px;
+      margin-bottom: rem(2px);
+      position: relative;
+      padding: rem(4px);
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      font-size: rem(14px);
+      align-items: center;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #091e420a;
+      }
+    }
+  }
+}

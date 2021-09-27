@@ -6,10 +6,9 @@ import { Link } from 'react-router-dom'
 export function BoardPreview({ board, toggleStarredBoard }) {
 
     function toggleIsStarred(ev) {
-        ev.stopPropagation();
-        console.log(ev)
-        board.isStarred = !board.isStarred
-        console.log(board)
+        ev.preventDefault()
+        ev.stopPropagation()
+        toggleStarredBoard(board)
     }
 
     return (
