@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { utilService } from '../services/util.service'
 import { CardEditSidebar } from './card-edit/card-edit-sidebar'
 import { LabelsMembers } from './card-edit/labels-members'
 import { ChecklistEdit } from './card-edit/checklist-edit'
 import { DynamicPopover } from './shared/dynamic-popover'
-import { onUpdateCard } from '../store/board.actions'
+import { loadBoard, onUpdateCard } from '../store/board.actions'
 import { MemberList } from './shared/popover-children/member-list'
 import { MdFormatListBulleted } from 'react-icons/md'
 import { IoMdList, IoMdClose } from 'react-icons/io'
@@ -16,15 +17,20 @@ class _CardEdit extends Component {
         isDescriptionOpen: false,
         currCard: null,
         currGroup: null,
-        isAddTodo: false
+        isAddTodo: false,
+        newTodo: ''
         // isOpen: false,
         // rect: '',
         // element: null
     }
 
     descriptionRef = React.createRef()
+    addTodoBtnRef = React.createRef()
+    newTodoTextarea = React.createRef()
 
     componentDidMount() {
+        document.addEventListener('mousedown', this.handleClick)
+        // console.log(this.props.match.params.groupId);
         let currCard
         let currGroup
         if (this.props.card) currCard = this.props.card
@@ -38,6 +44,20 @@ class _CardEdit extends Component {
         this.setState({ currCard, currGroup })
     }
 
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClick)
+    }
+
+    handleClick = e => {
+        if (this.addTodoBtnRef?.current?.contains(e.target) || this.newTodoTextarea?.current?.contains(e.target)) {
+            // inside click
+            return
+        }
+        // outside click 
+        this.setState({ isAddTodo: false, newTodo: '' })
+    }
+
+
     getDataById = (cardId, groupId) => {
         const board = this.props.board
         const currentGroup = board.groups.find(group => group.id === groupId)
@@ -50,11 +70,20 @@ class _CardEdit extends Component {
     }
 
     handleInputChange = ({ target: { name, value } }) => {
-        this.setState({ currCard: { ...this.state.currCard, [name]: value } })
+        if (name === "newTodo") this.setState({ newTodo: value })
+        else this.setState({ currCard: { ...this.state.currCard, [name]: value } })
     }
 
-    handlePropertyChange = (card) => {
-        // const { currCard } = this.state
+    onAddTodo = (checklist) => {
+        const card = this.state.currCard
+        checklist.todos.push({ id: utilService.makeId(), title: this.state.newTodo, isDone: false })
+        const idx = card.checklists.findIndex(cl => cl.id === checklist.id)
+        card.checklists.splice(idx, 1, checklist)
+        this.setState({ currCard: card, isAddTodo: false, newTodo: '' })
+        this.handlePropertyChange()
+    }
+
+    handlePropertyChange = (card = this.state.currCard) => {
         const { board } = this.props
         const { groupId } = this.props.match.params
         this.props.onUpdateCard(card, groupId, board)
@@ -67,10 +96,11 @@ class _CardEdit extends Component {
     // }
 
     onRemoveChecklist = (checklistId) => {
-        const { currCard } = this.state
-        const idx = currCard.checklists.findIndex(checklist => checklist.id === checklistId)
-        currCard.checklists.splice(idx, 1)
-        this.handlePropertyChange(currCard)
+        const card = this.state.card
+        const idx = card.checklists.findIndex(checklist => checklist.id === checklistId)
+        card.checklists.splice(idx, 1)
+        this.setState({ currCard: card })
+        this.handlePropertyChange()
     }
 
     // handlePopoverChange = (ev) => {
@@ -79,6 +109,7 @@ class _CardEdit extends Component {
     // }
 
     render() {
+        console.log(this.addTodoBtnRef.current);
         const { currCard, isDescriptionOpen, currGroup, isAddTodo } = this.state
         if (!currCard) return <div>Loading...</div>
         // console.log(this.props.board);
@@ -87,7 +118,7 @@ class _CardEdit extends Component {
                 {currCard.style?.bgColor && <div className="card-edit-bg" style={{ backgroundColor: currCard.style.bgColor }}></div>}
                 <div className="card-edit-header card-title-container">
                     <span><CgCreditCard /></span>
-                    <input className="title-input" type="text" value={currCard.title} name="title" onChange={this.handleInputChange} onBlur={this.handlePropertyChange} />
+                    <input className="title-input" type="text" value={currCard.title} name="title" onChange={this.handleInputChange} onBlur={() => this.handlePropertyChange()} />
                 </div>
 
                 <div className="list-name-container"><p>in list <span className="list-name">{currGroup.title}</span></p></div>
@@ -110,9 +141,9 @@ class _CardEdit extends Component {
                                 className={`description-textarea ${isDescriptionOpen ? 'open' : ''} ${currCard.description ? 'filled' : ''}`}
                                 rows={isDescriptionOpen ? "6" : "3"}
                                 onFocus={this.setDescriptionTextarea}
-                                onBlur={(ev) => {
+                                onBlur={() => {
                                     this.setDescriptionTextarea()
-                                    this.handlePropertyChange(ev)
+                                    this.handlePropertyChange()
                                 }}
                                 name="description"
                                 value={currCard.description}
@@ -120,7 +151,7 @@ class _CardEdit extends Component {
                                 placeholder="Add a more detailed description..." />
                             {isDescriptionOpen &&
                                 <div className="description-btns">
-                                    <button className="card-edit-btn secondary">Save</button>
+                                    <button className="card-edit-btn secondary" onClick={() => this.handlePropertyChange()}>Save</button>
                                     <button onClick={this.setDescriptionTextarea}><IoMdClose style={{ color: '#42526e', fontSize: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} /></button>
                                 </div>}
                         </div>
@@ -140,11 +171,24 @@ class _CardEdit extends Component {
                                     <button className="card-edit-btn" onClick={() => this.onRemoveChecklist(checklist.id)}>Delete</button>
                                 </section>
                                 <div>
-                                    <ChecklistEdit checklist={checklist} params={this.props.match.params} board={this.props.board} />
+                                    <ChecklistEdit checklist={checklist} currCard={currCard} handlePropertyChange={this.handlePropertyChange} />
                                 </div>
                                 {!isAddTodo
                                     ? <button className="card-edit-btn add-todo-btn" onClick={() => this.setState({ isAddTodo: true })}>Add an item</button>
-                                    : <textarea rows="2" className="description-textarea add-todo" autoFocus placeholder="Add an item" onBlur={() => this.setState({ isAddTodo: false })} />
+                                    : <><textarea rows="2"
+                                        className="description-textarea add-todo"
+                                        ref={this.newTodoTextarea}
+                                        autoFocus
+                                        name="newTodo"
+                                        placeholder="Add an item"
+                                        onChange={this.handleInputChange} />
+                                        {/* // onBlur={() => this.setState({ isAddTodo: false, newTodo: '' })}  */}
+
+                                        <div className="description-btns add-todo-btns">
+                                            <button ref={this.addTodoBtnRef} className="card-edit-btn secondary" onClick={() => this.onAddTodo(checklist)}>Save</button>
+                                            <button onClick={() => this.setState({ isAddTodo: false, newTodo: '' })}><IoMdClose style={{ color: '#42526e', fontSize: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} /></button>
+                                        </div>
+                                    </>
 
                                 }
                             </div>

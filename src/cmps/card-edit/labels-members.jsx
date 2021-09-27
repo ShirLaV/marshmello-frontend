@@ -5,7 +5,7 @@ import { MemberList } from '../shared/popover-children/member-list'
 import LabelList from '../shared/popover-children/label-list'
 import { AiOutlinePlus } from 'react-icons/ai'
 
-export function LabelsMembers({ members, labelIds, board }) {
+export function LabelsMembers({ members, labelIds, board, currCard, handlePropertyChange }) {
     const [isOpen, setIsOpen] = useState(false)
     const [rect, setRect] = useState('')
     const [element, setElement] = useState('')
@@ -56,7 +56,7 @@ export function LabelsMembers({ members, labelIds, board }) {
             </div>}
 
             {isOpen && <DynamicPopover onClose={() => setIsOpen(false)} title={popoverTitle} rect={rect} element={element}>
-                {cmp === 'members' ? <MemberList /> : <LabelList />}
+                {cmp === 'members' ? <MemberList currCard={currCard} handlePropertyChange={handlePropertyChange}/> : <LabelList />}
             </DynamicPopover>
             }
 
