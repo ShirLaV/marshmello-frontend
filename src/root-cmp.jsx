@@ -15,9 +15,10 @@ export class RootCmp extends React.Component {
                 <AppHeader />
                 <main>
                     <Switch>
-                        <Route path="/board/:boardId/:groupId/:cardId" component={CardEdit} />
-                        {routes.map(route => <Route key={route.path} exact component={route.component} path={route.path} />)}
+                        {routes.map(route => <Route key={route.path}  component={route.component} path={route.path} />)}
+                        {/* {routes.map(route => <Route key={route.path} exact component={route.component} path={route.path} />)} */}
                     </Switch>
+                        {/* <Route path="/board/:boardId/:groupId/:cardId" component={CardEdit} /> */}
                 </main>
             </div>
         )

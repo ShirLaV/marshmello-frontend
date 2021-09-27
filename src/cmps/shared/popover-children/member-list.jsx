@@ -9,11 +9,11 @@ class _MemberList extends Component {
         currCard: ''
     }
 
-    // componentDidMount() {
-    // //     console.log(this.props.handlePropertyChange);
-    // //    console.log(this.props.currCard);
-    //     this.setState({ currCard: this.props.currCard })
-    // }
+    componentDidMount() {
+        console.log(this.props);
+        // console.log(this.props.handlePropertyChange);
+        // this.setState({ currCard: this.props.currCard })
+    }
     
     checkIsMember = (memberId) => {
         return this.state.currCard?.members?.find(member => member._id === memberId)
@@ -34,6 +34,7 @@ class _MemberList extends Component {
     }
     
     render() {
+        
         return (
             <div className="member-list">
                 <input className="search-input" type="text" autoFocus placeholder="Search..." />

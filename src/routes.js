@@ -4,9 +4,9 @@ import { BoardDetails } from './pages/board-details.jsx'
 
 // Routes accesible from the main navigation (in AppHeader)
 const routes = [{
-        path: '/',
-        component: HomePage,
-        label: 'Home',
+        path: '/board/:boardId',
+        component: BoardDetails,
+        label: 'Board'
     },
     {
         path: '/board',
@@ -14,10 +14,11 @@ const routes = [{
         label: 'Boards'
     },
     {
-        path: '/board/:boardId',
-        component: BoardDetails,
-        label: 'Board'
+        path: '/',
+        component: HomePage,
+        label: 'Home',
     }
+
 ]
 
 export default routes;

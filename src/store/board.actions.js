@@ -90,6 +90,9 @@ export function onRemoveCard(cardId, groupId, board) {
 
 
 export function onUpdateCard(cardToSave, groupId, board) {
+    // console.log('cardToSave', cardToSave);
+    // console.log('groupId', groupId);
+    // console.log('board', board);
     const group = board.groups.find(group => group.id === groupId)
     const cardIdx = group.cards.findIndex(card => card.id === cardToSave.id)
     group.cards.splice(cardIdx, 1, cardToSave)

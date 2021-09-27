@@ -56,6 +56,7 @@ console.log('changing title')
       toggleCardLabelList,
       isCardLabelListOpen,
       index,
+      toggleCardComplete
     } = this.props;
     const { isAddPopOpen, groupTitle } = this.state;
     // console.log('groupTitle', groupTitle)
@@ -93,13 +94,14 @@ console.log('changing title')
                     group.cards.map((card, index) => {
                       return (
                         <CardPreview
-                        key={card.id}
+                          key={card.id}
                           card={card}
                           index={index}
                           groupId={group.id}
                           openCardEdit={openCardEdit}
                           toggleCardLabelList={toggleCardLabelList}
                           isCardLabelListOpen={isCardLabelListOpen}
+                          toggleCardComplete={toggleCardComplete}
                         />
                       );
                     })}
