@@ -1,6 +1,6 @@
 const initialState = {
     boards: [],
-    currBoard: {},
+    currBoard: null,
     lastRemovedBoard: null,
     isAddingBoard: false
 }
