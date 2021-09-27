@@ -24,7 +24,6 @@ export class GroupPreview extends Component {
 
   componentDidUpdate(prevProps) {
     if(prevProps.group!==this.props.group){
-console.log('changing title')
       this.setState({
         ...this.state,
         groupTitle: this.props.group.title,

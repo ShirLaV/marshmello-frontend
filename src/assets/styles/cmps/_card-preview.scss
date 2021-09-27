@@ -25,7 +25,8 @@
         }
     }
     .card-details {
-        padding: 6px 8px 2px;
+        padding: 6px 8px 6px;
+        // padding: 8px 6px 8px 0px;
         .label-bar-list {
             // gap: 5px;
             .label-bar {
@@ -52,6 +53,7 @@
             }
         }
         .card-preview-footer {
+            // padding: 8px 0px;
             flex-wrap: wrap;
             gap: 8px;
             .due-date-box {

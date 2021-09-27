@@ -1,10 +1,9 @@
-[
-    {
+[{
         "_id": "u101",
-        "fullname": "Abi Abambi",
-        "username": "abi@ababmi.com",
-        "password": "aBambi123",
-        "imgUrl": "https://robohash.org/abi.png?set=set2",
+        "fullname": "Summer Smith",
+        "username": "summer@Smith.com",
+        "password": "summer123",
+        "imgUrl": "http://pa1.narvii.com/7560/c8fb90383dd2f95adb3b741f1cd5eb624a6d9275r1-480-270_00.gif",
         "mentions": [{
             "id": "m101",
             "boardId": "b101",
@@ -16,7 +15,7 @@
         "fullname": "Rick Sanchez",
         "username": "rick@sanchez.com",
         "password": "rick123",
-        "imgUrl": "https://robohash.org/rick.png?set=set2",
+        "imgUrl": "https://64.media.tumblr.com/fe5fa9731f868bf384972e484179c207/tumblr_onsmw9RiW41utwx86o1_640.gifv",
         "mentions": [{
             "id": "m102",
             "boardId": "b102",
@@ -28,7 +27,7 @@
         "fullname": "Morty Smith",
         "username": "morty@smith.com",
         "password": "morty123",
-        "imgUrl": "https://robohash.org/morty.png?set=set2",
+        "imgUrl": "https://media4.giphy.com/media/kE3oHWRe1Td2oLeIX7/giphy.gif",
         "mentions": [{
             "id": "m103",
             "boardId": "b103",
@@ -40,7 +39,7 @@
         "fullname": "Beth Smith",
         "username": "beth@smith.com",
         "password": "beth123",
-        "imgUrl": "https://robohash.org/beth.png?set=set2",
+        "imgUrl": "https://i.imgur.com/pUVtIqL.gif",
         "mentions": [{
             "id": "m103",
             "boardId": "b103",
@@ -52,7 +51,7 @@
         "fullname": "Jerry Smith",
         "username": "jerry@smith.com",
         "password": "jerry123",
-        "imgUrl": "https://robohash.org/jerry.png?set=set2",
+        "imgUrl": "https://c.tenor.com/K5glSjkHrDkAAAAM/rick-and-morty-adult-swim.gif",
         "mentions": [{
             "id": "m103",
             "boardId": "b103",
