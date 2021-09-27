@@ -9,7 +9,7 @@ import { loadUsers } from '../../store/user.actions.js'
 import { MemberAvatar } from '../shared/member-avatar.jsx'
 import { InviteMembers } from './invite-members.jsx'
 import { DynamicPopover } from '../shared/dynamic-popover.jsx'
-// import { SideMenu } from '../side-menu.jsx'
+import { SideMenu } from '../side-menu/side-menu.jsx'
 
 class _BoardHeader extends React.Component {
 
@@ -17,7 +17,8 @@ class _BoardHeader extends React.Component {
         isOpen: false,
         rect: null,
         element: null,
-        boardTitle: this.props.board.title
+        boardTitle: this.props.board.title,
+        isMenuOpen: false
     }
 
     componentDidMount() {
@@ -47,9 +48,13 @@ class _BoardHeader extends React.Component {
         onUpdateBoard({ type: 'CHANGE_TITLE', title: board.title }, board)
     }
 
+    toggleMenu = () => {
+        this.setState((prevState) => ({ ...prevState, isMenuOpen: !this.state.isMenuOpen }))
+    }
+
     render() {
         const { board } = this.props
-        const { boardTitle } = this.state
+        const { boardTitle, isMenuOpen } = this.state
         return (
             <section className="board-header">
                 <div className="left-btns">
@@ -69,9 +74,9 @@ class _BoardHeader extends React.Component {
                 </div>
                 <div className="right-btns">
                     <button className="dashboard-btn nav-button"><RiBarChartFill /> Dashboard</button>
-                    <button className="right-menu-btn nav-button"><HiDotsHorizontal /> Show Menu</button>
+                    <button onClick={() => this.toggleMenu()} className="right-menu-btn nav-button"><HiDotsHorizontal /> Show Menu</button>
                 </div>
-                {/* <SideMenu /> */}
+                <SideMenu isMenuOpen={isMenuOpen} onClose={() => {this.toggleMenu()}} />
             </section>
         )
     }
