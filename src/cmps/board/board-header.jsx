@@ -73,7 +73,7 @@ class _BoardHeader extends React.Component {
                     </DynamicPopover>}
                 </div>
                 <div className="right-btns">
-                    <button className="dashboard-btn nav-button"><RiBarChartFill /> Dashboard</button>
+                    <button className={`dashboard-btn nav-button ${(isMenuOpen) ? 'menu-open' : ''}`}><RiBarChartFill /> Dashboard</button>
                     <button onClick={() => this.toggleMenu()} className="right-menu-btn nav-button"><HiDotsHorizontal /> Show Menu</button>
                 </div>
                 <SideMenu isMenuOpen={isMenuOpen} onClose={() => {this.toggleMenu()}} />
