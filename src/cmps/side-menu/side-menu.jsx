@@ -14,6 +14,10 @@ class _SideMenu extends React.Component {
     { id: 'c102', title: 'Search Cards', icon: <BiSearch />, component: ChangeBG },
     { id: 'c103', title: 'Archive', icon: <BsArchiveFill />, component: ChangeBG }]
 
+    componentWillUnmount() {
+        this.setState((prevState) => ({ ...prevState, currViewIdx: -1 }))
+    }
+
     onSelectView = (viewId) => {
         this.setState((prevState) => ({ ...prevState, currViewIdx: viewId }))
     }
@@ -38,9 +42,9 @@ class _SideMenu extends React.Component {
     _DefaultView = () => {
         return <ul className="default-menu clean-list">
             {this._cmpsToRender.map((cmp, idx) =>
-                <li key={cmp.id}>
+                <li onClick={() => this.onSelectView(idx)} key={cmp.id}>
                     <div className="icon">{cmp.icon}</div>
-                    <p onClick={() => this.onSelectView(idx)}>{cmp.title}</p>
+                    <p>{cmp.title}</p>
                 </li>
             )}
         </ul>
