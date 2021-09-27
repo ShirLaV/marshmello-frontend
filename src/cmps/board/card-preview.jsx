@@ -56,7 +56,6 @@ class _CardPreview extends Component {
 
   render() {
     const {
-      board,
       card,
       groupId,
       openCardEdit,
@@ -98,12 +97,12 @@ class _CardPreview extends Component {
                         isCardLabelListOpen ? 'open' : 'close'
                       }`}
                     >
-                      {card.labelIds.map((labelId, index) => {
+                      {card.labelIds.map((labelId) => {
                         const label = this.getLabel(labelId);
                         return (
                           <li
                             className='label-bar'
-                            key={index}
+                            key={label.id}
                             style={{ backgroundColor: label.color }}
                           >
                             {isCardLabelListOpen && label.title && (
@@ -130,8 +129,7 @@ class _CardPreview extends Component {
                           toggleCardComplete(
                             event,
                             groupId,
-                            card.id,
-                            !this.props.card.isComplete
+                            card,
                           )
                         }
                       >

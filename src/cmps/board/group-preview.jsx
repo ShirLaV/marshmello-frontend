@@ -94,7 +94,7 @@ console.log('changing title')
                     group.cards.map((card, index) => {
                       return (
                         <CardPreview
-                        key={card.id}
+                          key={card.id}
                           card={card}
                           index={index}
                           groupId={group.id}

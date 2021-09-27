@@ -48,13 +48,11 @@ class _BoardDetails extends Component {
       });
   };
   openCardEdit = (groupId, cardId) => {
-    console.log('opening card edit', groupId, cardId);
     this.props.history.push(
       `${this.props.board._id}/${groupId}/${cardId}`
     );
   };
   updateBoard = (action) => {
-    console.log('action in board details', action);
     this.props.onUpdateBoard(action, this.props.board);
   };
   toggleCardLabelList = (event) => {
@@ -63,12 +61,16 @@ class _BoardDetails extends Component {
     this.setState({ isCardLabelListOpen: !this.state.isCardLabelListOpen });
   };
 
-  toggleCardComplete = (ev, groupId, cardId, isComplete) => {
+  toggleCardComplete = (ev, groupId, card) => {
     ev.stopPropagation();
-    const boardId = this.props.board._id;
+    const cardToUpdate={...card}
+    // const boardId = this.props.board._id;
+    // const cardToUpdate={...this.props.board.groups.find(card=> card.id===cardId)}
+    card.isComplete=!card.isComplete;
+    console.log('toggling card complete- card', cardToUpdate)
     this.props.onUpdateCard(
-      { boardId, groupId, cardId, isComplete: isComplete },
-      'isComplete',
+      card,
+      groupId,
       this.props.board
     );
   };
@@ -135,7 +137,7 @@ class _BoardDetails extends Component {
           <section className='group-list-container flex'>
             <div className='group-list-wrapper flex'>
               <Droppable
-                droppableId='all-groups'
+                droppableId={board._id}
                 direction='horizontal'
                 type='group'
               >
