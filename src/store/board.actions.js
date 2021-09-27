@@ -20,6 +20,8 @@ export function loadBoard(boardId) {
     return async(dispatch) => {
         try {
             const board = await boardService.getById(boardId)
+            document.body.style.background = board.style.bgColor ? board.style.bgColor : `url("${board.style.imgUrl}")`
+
             dispatch({
                 type: 'SET_CURR_BOARD',
                 board
@@ -29,6 +31,16 @@ export function loadBoard(boardId) {
             console.log('Cannot load board', err)
         }
     }
+}
+export function resetBoard() {
+    document.body.style.background = 'unset'
+    return (dispatch) => {
+        dispatch({
+            type: 'SET_CURR_BOARD',
+            board: null
+        })
+    }
+
 }
 
 export function onRemoveBoard(boardId) {
