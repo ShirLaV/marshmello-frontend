@@ -4,10 +4,12 @@ import { connect } from 'react-redux';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { AiOutlinePlus } from 'react-icons/ai';
 
+import { CardEdit } from '../cmps/card-edit.jsx';
 import { AddBoardItem } from '../cmps/shared/add-board-item.jsx';
 import { GroupList } from '../cmps/board/group-list.jsx';
 import { BoardHeader } from '../cmps/board/board-header.jsx';
-import { loadBoard, onUpdateBoard } from '../store/board.actions.js';
+import { loadBoard, onUpdateBoard, onUpdateCard } from '../store/board.actions.js';
+import { Route } from 'react-router';
 
 class _BoardDetails extends Component {
   state = {
@@ -45,11 +47,12 @@ class _BoardDetails extends Component {
         },
       });
   };
-  openCardEdit = (boardId, groupId, cardId) => {
-    this.props.history.push(`/board/${boardId}/${groupId}/${cardId}`);
+  openCardEdit = (groupId, cardId) => {
+    this.props.history.push(
+      `${this.props.board._id}/${groupId}/${cardId}`
+    );
   };
   updateBoard = (action) => {
-    console.log('action in board details', action);
     this.props.onUpdateBoard(action, this.props.board);
   };
   toggleCardLabelList = (event) => {
@@ -58,22 +61,34 @@ class _BoardDetails extends Component {
     this.setState({ isCardLabelListOpen: !this.state.isCardLabelListOpen });
   };
 
+  toggleCardComplete = (ev, groupId, card) => {
+    ev.stopPropagation();
+    const cardToUpdate={...card}
+    // const boardId = this.props.board._id;
+    // const cardToUpdate={...this.props.board.groups.find(card=> card.id===cardId)}
+    card.isComplete=!card.isComplete;
+    console.log('toggling card complete- card', cardToUpdate)
+    this.props.onUpdateCard(
+      card,
+      groupId,
+      this.props.board
+    );
+  };
+
   handleOnDragEnd = (result) => {
     const { destination, source, type } = result;
     if (!destination) return;
     const boardToChange = { ...this.props.board };
-
     //group dragged -
     if (type === 'group') {
       const draggedGroup = boardToChange.groups.splice(source.index, 1);
-      console.log('draggedGroupd', draggedGroup)
+      console.log('draggedGroupd', draggedGroup);
       boardToChange.groups.splice(destination.index, 0, ...draggedGroup);
       // console.log('changed board', boardToChange)
       // console.log('original board', this.props.board)
       this.props.onUpdateBoard({ type: '' }, boardToChange);
       return;
     }
-
     const sourceGroup = {
       ...boardToChange.groups.find((group) => group.id === source.droppableId),
     };
@@ -87,7 +102,9 @@ class _BoardDetails extends Component {
     //card dragged to another group
     else {
       const destinationGroup = {
-        ...boardToChange.groups.find((group) => group.id === destination.droppableId),
+        ...boardToChange.groups.find(
+          (group) => group.id === destination.droppableId
+        ),
       };
       destinationGroup.cards.splice(destination.index, 0, ...card);
       boardToChange.groups = boardToChange.groups.map((currGroup) => {
@@ -105,21 +122,22 @@ class _BoardDetails extends Component {
 
   render() {
     const { board } = this.props;
-    const { isCardLabelListOpen, isAddPopOpen } = this.state;
+    const { isCardLabelListOpen, isAddPopOpen, boardStyle, openedCardEdit } =
+      this.state;
     // console.log('board', board)
     if (Object.keys(board).length === 0) return <div>Loading...</div>;
-    const { boardStyle } = this.state;
     return (
-      <div className='board-details' style={boardStyle}>
+      <div className='board-details' style={boardStyle}>  
+            <Route
+              path='/board/:boardId/:groupId/:cardId'
+              component={CardEdit}
+            />
         <BoardHeader />
         <DragDropContext onDragEnd={this.handleOnDragEnd}>
-
-          <section
-            className='group-list-container flex'
-          >
+          <section className='group-list-container flex'>
             <div className='group-list-wrapper flex'>
               <Droppable
-                droppableId='all-groups'
+                droppableId={board._id}
                 direction='horizontal'
                 type='group'
               >
@@ -132,6 +150,7 @@ class _BoardDetails extends Component {
                         updateBoard={this.updateBoard}
                         toggleCardLabelList={this.toggleCardLabelList}
                         isCardLabelListOpen={isCardLabelListOpen}
+                        toggleCardComplete={this.toggleCardComplete}
                       />
                     )}
                     {provided.placeholder}
@@ -174,6 +193,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = {
   loadBoard,
   onUpdateBoard,
+  onUpdateCard
 };
 
 export const BoardDetails = connect(

@@ -41,14 +41,6 @@ class _CardPreview extends Component {
     return { backgroundColor: 'inherit', color: 'unset' };
   };
 
-  toggleCardComplete = (ev, boardId, groupId, cardId) => {
-    ev.stopPropagation();
-    this.props.onUpdateCard(
-      { boardId, groupId, cardId, isComplete: !this.props.card.isComplete },
-      'isComplete',
-      this.props.board
-    );
-  };
 
   getChecklistStr = (checklists) => {
     let todosCount = 0;
@@ -64,12 +56,12 @@ class _CardPreview extends Component {
 
   render() {
     const {
-      board,
       card,
       groupId,
       openCardEdit,
       isCardLabelListOpen,
       toggleCardLabelList,
+      toggleCardComplete,
       index,
     } = this.props;
     return (
@@ -83,7 +75,7 @@ class _CardPreview extends Component {
             >
               <div
                 className='card-preview flex space-between'
-                onClick={() => openCardEdit(board._id, groupId, card.id)}
+                onClick={() => openCardEdit( groupId, card.id)}
               >
                 {card.style && (
                   <div className='card-preview-header'>
@@ -105,12 +97,12 @@ class _CardPreview extends Component {
                         isCardLabelListOpen ? 'open' : 'close'
                       }`}
                     >
-                      {card.labelIds.map((labelId, index) => {
+                      {card.labelIds.map((labelId) => {
                         const label = this.getLabel(labelId);
                         return (
                           <li
                             className='label-bar'
-                            key={index}
+                            key={label.id}
                             style={{ backgroundColor: label.color }}
                           >
                             {isCardLabelListOpen && label.title && (
@@ -134,11 +126,10 @@ class _CardPreview extends Component {
                         className='due-date-box flex align-center'
                         style={this.getDueTimeStyle(card)}
                         onClick={(event) =>
-                          this.toggleCardComplete(
+                          toggleCardComplete(
                             event,
-                            board._id,
                             groupId,
-                            card.id
+                            card,
                           )
                         }
                       >

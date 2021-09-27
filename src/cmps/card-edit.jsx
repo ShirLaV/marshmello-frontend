@@ -35,10 +35,9 @@ class _CardEdit extends Component {
         let currGroup
         if (this.props.card) currCard = this.props.card
         else {
-            const cardId = this.props.cardId
-            const groupId = this.props.groupId
-            // const { cardId, groupId } = this.props.openedCardEdit
-            // const { cardId, groupId } = this.props.match.params
+            // const { cardId, groupId } = this.props
+            const { cardId, groupId } = this.props.match.params
+
             if (this.props.board.groups) {
                 currCard = this.getDataById(cardId, groupId).currentCard
                 currGroup = this.getDataById(cardId, groupId).currentGroup
