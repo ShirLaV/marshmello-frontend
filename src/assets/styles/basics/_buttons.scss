@@ -1,4 +1,8 @@
 .nav-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
     background-color: rgba(167, 167, 167, 0.205);
     font-size: rem(20px);
     padding: 6px 8px;
