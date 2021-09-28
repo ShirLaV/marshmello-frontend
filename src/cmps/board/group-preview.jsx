@@ -7,6 +7,7 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { GrClose } from 'react-icons/gr';
 import { CardPreview } from './card-preview.jsx';
 
+import { GroupActions } from '../shared/popover-children/group-actions.jsx';
 import { AddBoardItem } from '../shared/add-board-item.jsx';
 import { DynamicPopover } from '../shared/dynamic-popover.jsx';
 
@@ -14,10 +15,10 @@ export class GroupPreview extends Component {
   state = {
     isAddPopOpen: false,
     groupTitle: '',
-    isPopoverOpen: false
+    isPopoverOpen: false,
   };
 
-  groupEditRef = React.createRef()
+  groupEditRef = React.createRef();
 
   componentDidMount() {
     this.setState({
@@ -87,16 +88,26 @@ export class GroupPreview extends Component {
                   onBlur={this.onChangeGroupTitle}
                 />
 
-                <div className="relative" ref={this.groupEditRef} onClick={() => this.setState({ isPopoverOpen: !isPopoverOpen })}>
+                <div
+                  className='relative'
+                  ref={this.groupEditRef}
+                  onClick={() =>
+                    this.setState({ isPopoverOpen: !isPopoverOpen })
+                  }
+                >
                   <button>
                     <BsThreeDots />
                   </button>
-                  {isPopoverOpen && <DynamicPopover onClose={() => this.setState({ isPopoverOpen: false })} ref={this.groupEditRef} title="List actions">
-
-                  </DynamicPopover>}
+                  {isPopoverOpen && (
+                    <DynamicPopover
+                      onClose={() => this.setState({ isPopoverOpen: false })}
+                      ref={this.groupEditRef}
+                      title='List actions'
+                    >
+                      <GroupActions onToggleAddPop={this.onToggleAddPop}/>
+                    </DynamicPopover>
+                  )}
                 </div>
-
-
               </div>
               <Droppable droppableId={group.id}>
                 {(provided) => (
