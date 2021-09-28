@@ -10,7 +10,7 @@
         margin: rem(16px) 0 rem(8px);
     }
 
-    .popper-user-preview {
+    .popper-member-preview {
         border-radius: 3px;
         margin-bottom: rem(2px);
         position: relative;
@@ -25,7 +25,7 @@
             background-color: #091e420a;
         }
 
-        .popper-user-name {
+        .popper-member-name {
             margin-left: rem(8px);
             max-width: rem(198px);
             height: rem(32px);
@@ -39,7 +39,7 @@
             white-space: nowrap;
         }
 
-        .popper-user-check {
+        .popper-member-check {
             align-items: center;
             display: flex;
             position: absolute;

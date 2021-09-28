@@ -50,7 +50,6 @@ class _BoardAdd extends React.Component {
     addBoard = (ev) => {
         ev.preventDefault()
         if (!this.state.title) return
-        console.log(this.state)
         this.props.onAddBoard(this.state)
         this.props.setAddingBoard(false)
     }

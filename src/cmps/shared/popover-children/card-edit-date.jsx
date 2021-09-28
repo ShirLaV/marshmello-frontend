@@ -9,8 +9,6 @@ export default function CardEditDate() {
         // const [start, end] = dates
         // setStartDate(start)
         // setEndDate(end)
-        console.log(ev);
-        console.log(ev.getTime());
     }
 
     return (
