@@ -35,7 +35,7 @@ class _AppHeader extends React.Component {
             <header className="app-header">
                 <nav className="nav-links">
                     <div className="left-links">
-                        <NavLink to="/board"><button className="home-btn nav-button"><CgHome /></button></NavLink>
+                        <NavLink to="/"><button className="home-btn nav-button"><CgHome /></button></NavLink>
                         <NavLink to="/board"><button className="boards-btn flex nav-button"><SiTrello /> Boards</button></NavLink>
                     </div>
                     <NavLink className="logo" to="/"><SiTrello /> <span> Marshmello </span></NavLink>
