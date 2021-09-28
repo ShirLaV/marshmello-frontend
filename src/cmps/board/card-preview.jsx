@@ -10,7 +10,7 @@ import { GrCheckboxSelected } from 'react-icons/gr';
 import { FiClock } from 'react-icons/fi';
 import { BsCheckBox } from 'react-icons/bs';
 
-import { onUpdateCard } from '../../store/board.actions.js';
+// import { onUpdateCard } from '../../store/board.actions.js';
 import { MemberAvatar } from '../shared/member-avatar.jsx';
 
 class _CardPreview extends Component {
@@ -187,7 +187,7 @@ function mapStateToProps(state) {
 }
 const mapDispatchToProps = {
   // loadBoard,
-  onUpdateCard,
+  // onUpdateCard,
 };
 
 export const CardPreview = connect(

@@ -24,7 +24,6 @@ export class GroupPreview extends Component {
 
   componentDidUpdate(prevProps) {
     if(prevProps.group!==this.props.group){
-console.log('changing title')
       this.setState({
         ...this.state,
         groupTitle: this.props.group.title,
@@ -61,10 +60,13 @@ console.log('changing title')
     const { isAddPopOpen, groupTitle } = this.state;
     // console.log('groupTitle', groupTitle)
     return (
+      <div className="group-wrapper">
+
       <Draggable draggableId={group.id} index={index}>
         {(provided) => (
+          
           <div
-            className='group-preview'
+            className='group-preview flex column'
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
@@ -133,6 +135,8 @@ console.log('changing title')
           </div>
         )}
       </Draggable>
+      </div>
+
     );
   }
 }

@@ -11,14 +11,12 @@ export class RootCmp extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="app flex column">
                 <AppHeader />
-                <main>
+                <main className="main-app">
                     <Switch>
                         {routes.map(route => <Route key={route.path}  component={route.component} path={route.path} />)}
-                        {/* {routes.map(route => <Route key={route.path} exact component={route.component} path={route.path} />)} */}
                     </Switch>
-                        {/* <Route path="/board/:boardId/:groupId/:cardId" component={CardEdit} /> */}
                 </main>
             </div>
         )

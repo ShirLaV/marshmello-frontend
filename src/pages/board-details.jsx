@@ -8,12 +8,17 @@ import { CardEdit } from '../cmps/card-edit.jsx';
 import { AddBoardItem } from '../cmps/shared/add-board-item.jsx';
 import { GroupList } from '../cmps/board/group-list.jsx';
 import { BoardHeader } from '../cmps/board/board-header.jsx';
-import { loadBoard, onUpdateBoard, onUpdateCard } from '../store/board.actions.js';
+import {
+  loadBoard,
+  onUpdateBoard,
+  onUpdateCard,
+  resetBoard
+} from '../store/board.actions.js';
 import { Route } from 'react-router';
 
 class _BoardDetails extends Component {
   state = {
-    boardStyle: {},
+    // boardStyle: {},
     isCardLabelListOpen: false,
     isAddPopOpen: false,
   };
@@ -21,58 +26,52 @@ class _BoardDetails extends Component {
     const { boardId } = this.props.match.params;
     this.loadBoard(boardId);
   }
-  componentDidUpdate(prevProps) {
-    const prevBoard = prevProps.board;
-    const board = this.props.board;
-    if (prevBoard !== board) {
-      if (board.style) this.setBoardStyle(board.style);
-    }
+  // componentDidUpdate(prevProps) {
+  //   const prevBoard = prevProps.board;
+  //   const board = this.props.board;
+  //   if (!prevBoard || prevBoard.style !== board.style) {
+  //     if (board.style) {
+  //       this.setBoardStyle(board.style);
+  //     }
+  //   }
+  // }
+  componentWillUnmount(){
+    this.props.resetBoard()
   }
   loadBoard = (boardId) => {
     this.props.loadBoard(boardId);
   };
-  setBoardStyle = (style) => {
-    if (style.bgColor)
-      this.setState({
-        boardStyle: {
-          ...this.state.boardStyle,
-          backgroundColor: style.bgColor,
-        },
-      });
-    else
-      this.setState({
-        boardStyle: {
-          ...this.state.boardStyle,
-          backgroundImage: `url("${style.imgUrl}")`,
-        },
-      });
-  };
+
+  // setBoardStyle = (style) => {
+  //   if (style.bgColor)
+  //     this.setState({
+  //       boardStyle: {
+  //         backgroundColor: style.bgColor,
+  //       },
+  //     });
+  //   else
+  //     this.setState({
+  //       boardStyle: {
+  //         backgroundImage: `url("${style.imgUrl}")`,
+  //       },
+  //     });
+  // };
   openCardEdit = (groupId, cardId) => {
-    this.props.history.push(
-      `${this.props.board._id}/${groupId}/${cardId}`
-    );
+    this.props.history.push(`${this.props.board._id}/${groupId}/${cardId}`);
   };
   updateBoard = (action) => {
     this.props.onUpdateBoard(action, this.props.board);
   };
   toggleCardLabelList = (event) => {
-    console.log('toggling');
     event.stopPropagation();
     this.setState({ isCardLabelListOpen: !this.state.isCardLabelListOpen });
   };
 
   toggleCardComplete = (ev, groupId, card) => {
     ev.stopPropagation();
-    const cardToUpdate = { ...card }
-    // const boardId = this.props.board._id;
-    // const cardToUpdate={...this.props.board.groups.find(card=> card.id===cardId)}
-    card.isComplete = !card.isComplete;
-    console.log('toggling card complete- card', cardToUpdate)
-    this.props.onUpdateCard(
-      card,
-      groupId,
-      this.props.board
-    );
+    const cardToUpdate = { ...card };
+    cardToUpdate.isComplete = !card.isComplete;
+    this.props.onUpdateCard(cardToUpdate, groupId, this.props.board);
   };
 
   handleOnDragEnd = (result) => {
@@ -124,16 +123,11 @@ class _BoardDetails extends Component {
     const { board } = this.props;
     const { isCardLabelListOpen, isAddPopOpen, boardStyle, openedCardEdit } =
       this.state;
-    // console.log('board', board)
-    if (Object.keys(board).length === 0) return <div>Loading...</div>;
+    if (!board) return <div>Loading...</div>;
     return (
-      <div className='board-details' style={boardStyle}>
-        <div style={{ position: 'relative', zIndex: 10 }}>
-          <Route
-            path='/board/:boardId/:groupId/:cardId'
-            component={CardEdit}
-          />
-        </div>
+      <div className='board-details flex column' >
+      {/* <div className='board-details' style={boardStyle}> */}
+        <Route path='/board/:boardId/:groupId/:cardId' component={CardEdit} />
         <BoardHeader />
         <DragDropContext onDragEnd={this.handleOnDragEnd}>
           <section className='group-list-container flex'>
@@ -195,7 +189,8 @@ function mapStateToProps(state) {
 const mapDispatchToProps = {
   loadBoard,
   onUpdateBoard,
-  onUpdateCard
+  onUpdateCard,
+  resetBoard
 };
 
 export const BoardDetails = connect(

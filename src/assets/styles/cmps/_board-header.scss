@@ -1,5 +1,5 @@
 .board-header {
-  background-color: rgba(128, 128, 128, 0.637);
+  background-color: transparent;
   z-index: 2;
   padding: 5px;
   display: flex;
@@ -21,7 +21,7 @@
     .user-previews {
       display: flex;
       align-items: center;
-      gap: -2px;
+      margin: -2px;
     }
     .starred-btn {
       &.starred {
@@ -33,5 +33,11 @@
     display: flex;
     gap: 10px;
     // align-items: center;
+
+    .dashboard-btn {
+      &.menu-open {
+        transform: translateX(-170%);
+      }
+    }
   }
 }

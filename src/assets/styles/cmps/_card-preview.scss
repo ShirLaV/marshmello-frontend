@@ -25,7 +25,8 @@
         }
     }
     .card-details {
-        padding: 6px 8px 2px;
+        padding: 6px 8px 6px;
+        // padding: 8px 6px 8px 0px;
         .label-bar-list {
             // gap: 5px;
             .label-bar {
@@ -51,26 +52,8 @@
                 }
             }
         }
-        .hover-edit-btn {
-            border-radius: 5px;
-            height: 20px;
-            background-color: rgba(235, 236, 240, 0.063);
-            display: none;
-            position: absolute;
-            top: 5px;
-            right: 5px;
-        }
-        &.card-preview:hover {
-            background-color: #F4F5F7;
-            cursor: pointer;
-            .hover-edit-btn {
-                display: block;
-                &.hover-edit-btn:hover {
-                    background-color: rgb(235, 236, 240);
-                }
-            }
-        }
         .card-preview-footer {
+            // padding: 8px 0px;
             flex-wrap: wrap;
             gap: 8px;
             .due-date-box {
@@ -95,9 +78,28 @@
                 gap: 5px;
             }
             .card-members-list {
-                padding: 5px;
+                // padding: 5px;
                 flex: 1 1;
                 justify-content: flex-end;
+            }
+        }
+    }
+    .hover-edit-btn {
+        border-radius: 5px;
+        height: 20px;
+        background-color: rgba(235, 236, 240, 0.063);
+        display: none;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+    }
+    &.card-preview:hover {
+        background-color: #F4F5F7;
+        cursor: pointer;
+        .hover-edit-btn {
+            display: block;
+            &.hover-edit-btn:hover {
+                background-color: rgb(235, 236, 240);
             }
         }
     }
