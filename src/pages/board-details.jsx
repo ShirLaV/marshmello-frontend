@@ -63,10 +63,10 @@ class _BoardDetails extends Component {
 
   toggleCardComplete = (ev, groupId, card) => {
     ev.stopPropagation();
-    const cardToUpdate={...card}
+    const cardToUpdate = { ...card }
     // const boardId = this.props.board._id;
     // const cardToUpdate={...this.props.board.groups.find(card=> card.id===cardId)}
-    card.isComplete=!card.isComplete;
+    card.isComplete = !card.isComplete;
     console.log('toggling card complete- card', cardToUpdate)
     this.props.onUpdateCard(
       card,
@@ -127,11 +127,13 @@ class _BoardDetails extends Component {
     // console.log('board', board)
     if (Object.keys(board).length === 0) return <div>Loading...</div>;
     return (
-      <div className='board-details' style={boardStyle}>  
-            <Route
-              path='/board/:boardId/:groupId/:cardId'
-              component={CardEdit}
-            />
+      <div className='board-details' style={boardStyle}>
+        <div style={{ position: 'relative', zIndex: 10 }}>
+          <Route
+            path='/board/:boardId/:groupId/:cardId'
+            component={CardEdit}
+          />
+        </div>
         <BoardHeader />
         <DragDropContext onDragEnd={this.handleOnDragEnd}>
           <section className='group-list-container flex'>
