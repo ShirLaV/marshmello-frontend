@@ -61,6 +61,8 @@ export class GroupPreview extends Component {
       isCardLabelListOpen,
       index,
       toggleCardComplete,
+      toggleGroupArchive,
+      onToggleAddPop
     } = this.props;
     const { isAddPopOpen, groupTitle, isPopoverOpen } = this.state;
     // console.log('groupTitle', groupTitle)
@@ -104,7 +106,7 @@ export class GroupPreview extends Component {
                       ref={this.groupEditRef}
                       title='List actions'
                     >
-                      <GroupActions onToggleAddPop={this.onToggleAddPop}/>
+                      <GroupActions groupId={group.id} onToggleAddPop={onToggleAddPop} toggleGroupArchive={toggleGroupArchive}/>
                     </DynamicPopover>
                   )}
                 </div>
