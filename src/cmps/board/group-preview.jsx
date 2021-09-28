@@ -37,7 +37,9 @@ export class GroupPreview extends Component {
   }
 
   onToggleAddPop = () => {
+    console.log('hey')
     this.setState({ isAddPopOpen: !this.state.isAddPopOpen });
+
   };
 
   handleChange = ({ target: { name, value } }) => {
@@ -64,10 +66,10 @@ export class GroupPreview extends Component {
       toggleGroupArchive,
       onToggleAddPop
     } = this.props;
-    const { isAddPopOpen, groupTitle, isPopoverOpen } = this.state;
+    const { isAddPopOpen, groupTitle, isPopoverOpen, isDragged } = this.state;
     // console.log('groupTitle', groupTitle)
     return (
-      <div className='group-wrapper'>
+      <div className={'group-wrapper'} >
         <Draggable draggableId={group.id} index={index}>
           {(provided, snapshot) => (
             <div
@@ -75,9 +77,7 @@ export class GroupPreview extends Component {
               {...provided.draggableProps}
               {...provided.dragHandleProps}
               ref={provided.innerRef}
-              // style={{
-              //   transform: snapshot.isDragging ? 'rotate(45deg)' : 'rotate(0deg)',
-              // }}
+      
             >
               <div className='group-header flex space-between align-center'>
                 <input
@@ -106,7 +106,7 @@ export class GroupPreview extends Component {
                       ref={this.groupEditRef}
                       title='List actions'
                     >
-                      <GroupActions groupId={group.id} onToggleAddPop={onToggleAddPop} toggleGroupArchive={toggleGroupArchive}/>
+                      <GroupActions groupId={group.id} onToggleAddPop={this.onToggleAddPop} toggleGroupArchive={toggleGroupArchive}/>
                     </DynamicPopover>
                   )}
                 </div>
