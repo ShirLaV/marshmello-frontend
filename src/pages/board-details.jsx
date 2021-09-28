@@ -18,6 +18,8 @@ import { GroupList } from '../cmps/board/group-list.jsx';
 import { BoardHeader } from '../cmps/board/board-header.jsx';
 import { OverlayScreen } from '../cmps/overlay-screen.jsx';
 import { QuickCardEditor } from '../cmps/quick-card-editor.jsx';
+import { Route } from 'react-router';
+import { Loader } from '../cmps/shared/loader.jsx';
 
 class _BoardDetails extends Component {
   state = {
@@ -120,7 +122,7 @@ class _BoardDetails extends Component {
     const { board } = this.props;
     const { isCardLabelListOpen, isAddPopOpen, quickCardEditor } =
       this.state;
-    if (!board) return <div>Loading...</div>;
+    if (!board) return <Loader />
     return (
       <div className='board-details flex column'>
         <Route path='/board/:boardId/:groupId/:cardId' component={CardEdit} />
