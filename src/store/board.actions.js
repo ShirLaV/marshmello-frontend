@@ -88,7 +88,8 @@ export function onAddBoard(board) {
 
 export function onAddCard(newCard, groupId, board) {
     const group = board.groups.find(group => group.id === groupId)
-    newCard.createdAt = Date.now();
+    newCard = {...newCard, createdAt: Date.now(), isComplete: false };
+
     group.cards = (group.cards) ? [...group.cards, newCard] : [newCard]
     const groupAction = { type: 'UPDATE_GROUP', group }
     return onUpdateBoard(groupAction, board)
