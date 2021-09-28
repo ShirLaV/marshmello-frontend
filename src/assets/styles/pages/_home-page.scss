@@ -1,0 +1,76 @@
+body {
+  overflow-y: scroll;
+}
+.home-page {
+
+  background: linear-gradient(1deg, #ffffff 0%, #eae6ff 80%);
+  color: #091e42;
+
+  .home-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #eae6ff;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+
+    transition: all 0.5s;
+
+    &.bg-visible {
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .logo {
+      font-size: rem(30px);
+    }
+
+    .header-buttons {
+      display: flex;
+      gap: 10px;
+
+      .login-btn {
+        background-color: transparent;
+        color: #0065ff;
+      }
+
+      .signup-btn {
+        background-color: #0065ff;
+        color: white;
+      }
+    }
+  }
+
+  .home-first-fold {
+    margin-top: 60px;
+    display: flex;
+    padding: 10px;
+
+    .first-fold-text {
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+
+      > h1 {
+        font-size: 3rem;
+        line-height: 1.25;
+      }
+
+      > p {
+        font-family: "Charlie Text", sans-serif;
+        font-size: rem(20px);
+        font-weight: 400;
+        line-height: 1.5;
+      }
+
+      .cta-btn {
+        background-color: #0065ff;
+        align-self: flex-start;
+        padding: 15px 50px;
+        border-radius: 7px;
+      }
+    }
+  }
+}

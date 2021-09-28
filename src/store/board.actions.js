@@ -21,7 +21,6 @@ export function loadBoard(boardId) {
         try {
             const board = await boardService.getById(boardId)
             document.body.style.background = board.style.bgColor ? board.style.bgColor : `url("${board.style.imgUrl}")`
-
             dispatch({
                 type: 'SET_CURR_BOARD',
                 board

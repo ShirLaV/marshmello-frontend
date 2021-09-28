@@ -6,17 +6,14 @@ import { BoardDetails } from './pages/board-details.jsx'
 const routes = [{
         path: '/board/:boardId',
         component: BoardDetails,
-        label: 'Board'
     },
     {
         path: '/board',
         component: BoardSelect,
-        label: 'Boards'
     },
     {
         path: '/',
         component: HomePage,
-        label: 'Home',
     }
 
 ]

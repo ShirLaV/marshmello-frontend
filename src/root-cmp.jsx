@@ -1,26 +1,39 @@
 import React from 'react'
-
-import { Switch, Route } from 'react-router'
-
+import { Switch, Route, withRouter } from 'react-router'
 import routes from './routes'
-
 import { AppHeader } from './cmps/app-header'
-import { CardEdit } from './cmps/card-edit'
+import { connect } from 'react-redux'
 
-export class RootCmp extends React.Component {
+class _RootCmp extends React.Component {
+
+    get isHeaderShown() {
+        const { pathname } = this.props.location
+        return (pathname.includes('board') || pathname.includes('boards'))
+    }
 
     render() {
         return (
             <div className="app flex column">
-                <AppHeader />
+                {this.isHeaderShown &&
+                    <AppHeader />
+                }
                 <main className="main-app">
                     <Switch>
-                        {routes.map(route => <Route key={route.path}  component={route.component} path={route.path} />)}
+                        {routes.map(route => <Route key={route.path} component={route.component} path={route.path} />)}
                     </Switch>
                 </main>
             </div>
         )
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        board: state.boardModule.currBoard
+    }
+}
+
+const _RootCmpWithRouter = withRouter(_RootCmp)
+export const RootCmp = connect(mapStateToProps)(_RootCmpWithRouter)
 
 

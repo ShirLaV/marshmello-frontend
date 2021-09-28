@@ -13,6 +13,12 @@
         cursor: pointer;
         color: white;
       }
+
+      .user-previews {
+        .user-avatar {
+            margin-inline-end: -50px;
+        }
+      }
     }
 
     display: flex;
