@@ -12,13 +12,12 @@ import {
   loadBoard,
   onUpdateBoard,
   onUpdateCard,
-  resetBoard
+  resetBoard,
 } from '../store/board.actions.js';
 import { Route } from 'react-router';
 
 class _BoardDetails extends Component {
   state = {
-    // boardStyle: {},
     isCardLabelListOpen: false,
     isAddPopOpen: false,
   };
@@ -26,36 +25,12 @@ class _BoardDetails extends Component {
     const { boardId } = this.props.match.params;
     this.loadBoard(boardId);
   }
-  // componentDidUpdate(prevProps) {
-  //   const prevBoard = prevProps.board;
-  //   const board = this.props.board;
-  //   if (!prevBoard || prevBoard.style !== board.style) {
-  //     if (board.style) {
-  //       this.setBoardStyle(board.style);
-  //     }
-  //   }
-  // }
-  componentWillUnmount(){
-    this.props.resetBoard()
+  componentWillUnmount() {
+    this.props.resetBoard();
   }
   loadBoard = (boardId) => {
     this.props.loadBoard(boardId);
   };
-
-  // setBoardStyle = (style) => {
-  //   if (style.bgColor)
-  //     this.setState({
-  //       boardStyle: {
-  //         backgroundColor: style.bgColor,
-  //       },
-  //     });
-  //   else
-  //     this.setState({
-  //       boardStyle: {
-  //         backgroundImage: `url("${style.imgUrl}")`,
-  //       },
-  //     });
-  // };
   openCardEdit = (groupId, cardId) => {
     this.props.history.push(`${this.props.board._id}/${groupId}/${cardId}`);
   };
@@ -119,14 +94,25 @@ class _BoardDetails extends Component {
     this.setState({ isAddPopOpen: !this.state.isAddPopOpen });
   };
 
+  toggleGroupArchive = (groupId) => {
+    const groupToUpdate = {
+      ...this.props.board.groups.find((group) => groupId === group.id),
+    };
+    groupToUpdate.isArchive = groupToUpdate.isArchive
+      ? !groupToUpdate.isArchive
+      : true;
+    const action = { type: 'UPDATE_GROUP', group: groupToUpdate };
+    this.props.onUpdateBoard(action, this.props.board);
+  };
+
   render() {
     const { board } = this.props;
     const { isCardLabelListOpen, isAddPopOpen, boardStyle, openedCardEdit } =
       this.state;
     if (!board) return <div>Loading...</div>;
     return (
-      <div className='board-details flex column' >
-      {/* <div className='board-details' style={boardStyle}> */}
+      <div className='board-details flex column'>
+        {/* <div className='board-details' style={boardStyle}> */}
         <Route path='/board/:boardId/:groupId/:cardId' component={CardEdit} />
         <BoardHeader />
         <DragDropContext onDragEnd={this.handleOnDragEnd}>
@@ -147,6 +133,7 @@ class _BoardDetails extends Component {
                         toggleCardLabelList={this.toggleCardLabelList}
                         isCardLabelListOpen={isCardLabelListOpen}
                         toggleCardComplete={this.toggleCardComplete}
+                        toggleGroupArchive={this.toggleGroupArchive}
                       />
                     )}
                     {provided.placeholder}
@@ -190,7 +177,7 @@ const mapDispatchToProps = {
   loadBoard,
   onUpdateBoard,
   onUpdateCard,
-  resetBoard
+  resetBoard,
 };
 
 export const BoardDetails = connect(

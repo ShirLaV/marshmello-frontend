@@ -24,10 +24,11 @@ class _AddBoardItem extends React.Component {
     newItem[target.name] = target.value;
     this.setState({ newItem });
   };
-
+  
   onAddItem = (ev) => {
     ev.preventDefault();
     const { newItem } = this.state;
+    if(!newItem.title) return
     newItem.id = utilService.makeId();
     if (this.props.type === 'group') {
       const action = { type: 'ADD_GROUP', group: newItem };
