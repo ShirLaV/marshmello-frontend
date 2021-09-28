@@ -21,6 +21,8 @@ class _BoardHeader extends React.Component {
         isMenuOpen: false
     }
 
+    inviteRef = React.createRef()
+
     componentDidMount() {
         this.props.loadUsers()
     }
@@ -29,11 +31,6 @@ class _BoardHeader extends React.Component {
         const { board, onUpdateBoard } = this.props
         board.isStarred = !board.isStarred
         onUpdateBoard({ type: 'TOGGLE_STARRED', isStarred: board.isStarred }, board)
-    }
-
-    onOpenInvite = (ev) => {
-        const rect = ev.target.getBoundingClientRect()
-        this.setState({ isOpen: !this.state.isOpen, rect: rect, element: ev.target })
     }
 
     handleFocus = (event) => event.target.select();
@@ -54,7 +51,7 @@ class _BoardHeader extends React.Component {
 
     render() {
         const { board } = this.props
-        const { boardTitle, isMenuOpen } = this.state
+        const { boardTitle, isMenuOpen, isOpen } = this.state
         return (
             <section className="board-header">
                 <div className="left-btns">
@@ -67,10 +64,12 @@ class _BoardHeader extends React.Component {
                             <MemberAvatar key={member._id} member={member} />
                         )}
                     </div>
-                    <button onClick={(ev) => this.onOpenInvite(ev)} className="invite-btn nav-button">Invite</button>
-                    {this.state.isOpen && <DynamicPopover onClose={() => this.setState({ isOpen: false })} title="Invite Members" rect={this.state.rect} element={this.state.element}>
-                        <InviteMembers />
-                    </DynamicPopover>}
+                    <div className='relative' ref={this.inviteRef}>
+                        <button onClick={() => this.setState({ isOpen: !isOpen })} className="invite-btn nav-button">Invite</button>
+                        {isOpen && <DynamicPopover onClose={() => this.setState({ isOpen: false })} title="Invite Members" ref={this.inviteRef}>
+                            <InviteMembers />
+                        </DynamicPopover>}
+                    </div>
                 </div>
                 <div className="right-btns">
                     <button className={`dashboard-btn nav-button ${(isMenuOpen) ? 'menu-open' : ''}`}><RiBarChartFill /> Dashboard</button>
