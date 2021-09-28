@@ -17,7 +17,6 @@ import { IoMdClose } from 'react-icons/io'
 */
 
 export const DynamicPopover = React.forwardRef(({ onClose, title, children }, parentRef) => {
-
     const targetRef = useRef();
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
 
@@ -31,20 +30,22 @@ export const DynamicPopover = React.forwardRef(({ onClose, title, children }, pa
     }, [])
 
     useEffect(() => {
-        window.addEventListener("mousedown", handleClick);
-        return () => {
-            window.removeEventListener("mousedown", handleClick);
+        const handleClick = e => {
+            const containerElement = targetRef.current
+            if (containerElement?.contains(e.target) || parentRef?.current?.contains(e.target)) {
+                // inside click
+                return
+            }
+            // outside click 
+            onClose()
         }
-    }, [parentRef])
 
-    const handleClick = e => {
-        if (targetRef.current.contains(e.target) || parentRef?.current?.contains(e.target)) {
-            // inside click
-            return
+        window.addEventListener("mouseup", handleClick);
+        return () => {
+            window.removeEventListener("mouseup", handleClick);
         }
-        // outside click 
-        onClose()
-    }
+    }, [onClose, parentRef])
+
 
     const getLocation = () => {
         const rect = parentRef?.current?.getBoundingClientRect()
@@ -59,16 +60,16 @@ export const DynamicPopover = React.forwardRef(({ onClose, title, children }, pa
             if (verticalCheck) bottom = '-400%'
             else if (topCheck) bottom = '-100%'
             else bottom = rect.height + 8
-            if (rightCheck) return {bottom, right: 0}
-            else return {bottom, left: 0}
+            if (rightCheck) return { bottom, right: 0 }
+            else return { bottom, left: 0 }
         }
-        if (rightCheck) return {top: rect.height + 8, right: 0}
+        if (rightCheck) return { top: rect.height + 8, right: 0 }
 
-        return {left: 0, top: rect.height + 8}
+        return { left: 0, top: rect.height + 8 }
     }
 
     return (
-        <div ref={targetRef} className="dynamic-popover" style={{ position: 'absolute', ...getLocation() }}>
+        <div ref={ref => targetRef.current = ref} className="dynamic-popover" style={{ position: 'absolute', ...getLocation() }}>
             <div className="popover-header">
                 <p>{title}</p>
                 <span onClick={onClose}><IoMdClose /></span>
