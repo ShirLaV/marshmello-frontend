@@ -13,6 +13,7 @@
 // @import "pages/home-page";
 @import "pages/board-details";
 @import "pages/boards-select";
+@import "pages/home-page";
 
 // Components
 @import "cmps/group-list";
@@ -35,4 +36,7 @@
 @import "cmps/popover-checklist";
 @import "cmps/popover-attach-file";
 @import "cmps/invite-members";
+@import "cmps/group-actions";
 @import "cmps/side-menu";
+@import "cmps/search-cards";
+@import "cmps/loader";

@@ -3,15 +3,16 @@
     justify-content: center;
     align-items: center;
     gap: 5px;
-    background-color: rgba(167, 167, 167, 0.205);
+    background-color: #dfe0db3c;
+    // background-color: rgba(167, 167, 167, 0.205);
     font-size: rem(20px);
     padding: 6px 8px;
     color: white;
     border-radius: 3px;
     transition: all 0.3s;
-
     &:hover {
-        background-color: rgba(122, 122, 122, 0.205);
+        background-color: #dfe0db60;
+        // background-color: rgba(122, 122, 122, 0.205);
     }
 }
 
@@ -19,7 +20,6 @@
     text-align: start;
     padding: 0;
     font-size: 1rem;
-
     &.add-boarditem-btn:hover {
         background-color: rgba(145, 141, 141, 0.165);
     }
@@ -38,11 +38,9 @@
     padding: 6px 12px;
     transition: background-color, border-color, box-shadow ease .085s;
     background-color: #091e420a;
-
     .sidebar-btn {
         justify-content: flex-start;
     }
-
     &.secondary {
         background-color: #0079bf;
         color: #fff;
@@ -50,13 +48,10 @@
             background-color: #026aa7;
         }
     }
-
     &.long {
         width: 100%;
     }
-
     &:hover {
         background-color: #091e4214;
     }
-
 }

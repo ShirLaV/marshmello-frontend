@@ -4,6 +4,7 @@ const initialState = {
     lastRemovedBoard: null,
     isAddingBoard: false,
     currCardId: null,
+    filterBy: {}
 }
 
 export function boardReducer(state = initialState, action) {
@@ -12,6 +13,9 @@ export function boardReducer(state = initialState, action) {
     switch (action.type) {
         case 'SET_BOARDS':
             newState = { ...state, boards: action.boards }
+            break
+        case 'UPDATE_FILTER':
+            newState = {...state, filterBy: action.filterBy }
             break
         case 'SET_CURR_BOARD':
             newState = { ...state, currBoard: action.board }

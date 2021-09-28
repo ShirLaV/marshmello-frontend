@@ -9,6 +9,7 @@ import { GrCheckbox } from 'react-icons/gr';
 import { GrCheckboxSelected } from 'react-icons/gr';
 import { FiClock } from 'react-icons/fi';
 import { BsCheckBox } from 'react-icons/bs';
+import { ImAttachment } from 'react-icons/im';
 
 // import { onUpdateCard } from '../../store/board.actions.js';
 import { MemberAvatar } from '../shared/member-avatar.jsx';
@@ -41,7 +42,6 @@ class _CardPreview extends Component {
     return { backgroundColor: 'inherit', color: 'unset' };
   };
 
-
   getChecklistStr = (checklists) => {
     let todosCount = 0;
     let doneTodosCount = 0;
@@ -62,8 +62,10 @@ class _CardPreview extends Component {
       isCardLabelListOpen,
       toggleCardLabelList,
       toggleCardComplete,
-      index,
+      toggleQuickCardEditor,
+      index
     } = this.props;
+    
     return (
       <Draggable draggableId={card.id} index={index}>
         {(provided) => {
@@ -75,8 +77,17 @@ class _CardPreview extends Component {
             >
               <div
                 className='card-preview flex space-between'
-                onClick={() => openCardEdit( groupId, card.id)}
+                onClick={() => openCardEdit(groupId, card.id)}
               >
+                <button
+                  className='hover-edit-btn'
+                  onClick={(event) => toggleQuickCardEditor(event, card)}
+                >
+                  <HiOutlinePencil />
+                </button>
+
+                {/* <CardContent /> */}
+
                 {card.style && (
                   <div className='card-preview-header'>
                     {card.style.bgColor && (
@@ -116,21 +127,13 @@ class _CardPreview extends Component {
 
                   <p>{card.title}</p>
 
-                  <button className='hover-edit-btn'>
-                    <HiOutlinePencil />
-                  </button>
-
                   <div className='card-preview-footer flex align-center'>
                     {card.dueDate && (
                       <div
                         className='due-date-box flex align-center'
                         style={this.getDueTimeStyle(card)}
                         onClick={(event) =>
-                          toggleCardComplete(
-                            event,
-                            groupId,
-                            card,
-                          )
+                          toggleCardComplete(event, groupId, card)
                         }
                       >
                         <span className='clock-icon flex align-center'>
@@ -149,6 +152,14 @@ class _CardPreview extends Component {
 
                     {card.description && (
                       <GrTextAlignFull title={'This card has a description'} />
+                    )}
+                    {card.attachments && card.attachments.length > 0 && (
+                      <div className='attachment-box flex align-center'>
+                        <span className='flex align-center'>
+                          <ImAttachment />
+                        </span>
+                        <span>{card.attachments.length}</span>
+                      </div>
                     )}
 
                     {card.checklists && (

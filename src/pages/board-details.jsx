@@ -1,61 +1,43 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Route } from 'react-router';
 
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { AiOutlinePlus } from 'react-icons/ai';
+
+import {
+  loadBoard,
+  onUpdateBoard,
+  onUpdateCard,
+  resetBoard,
+} from '../store/board.actions.js';
 
 import { CardEdit } from '../cmps/card-edit.jsx';
 import { AddBoardItem } from '../cmps/shared/add-board-item.jsx';
 import { GroupList } from '../cmps/board/group-list.jsx';
 import { BoardHeader } from '../cmps/board/board-header.jsx';
-import {
-  loadBoard,
-  onUpdateBoard,
-  onUpdateCard,
-  resetBoard
-} from '../store/board.actions.js';
-import { Route } from 'react-router';
+import { OverlayScreen } from '../cmps/overlay-screen.jsx';
+import { QuickCardEditor } from '../cmps/quick-card-editor.jsx';
+import { Loader } from '../cmps/shared/loader.jsx';
 
 class _BoardDetails extends Component {
   state = {
-    // boardStyle: {},
     isCardLabelListOpen: false,
     isAddPopOpen: false,
+    quickCardEditor: {
+      cardToEdit: null,
+    },
   };
   componentDidMount() {
     const { boardId } = this.props.match.params;
     this.loadBoard(boardId);
   }
-  // componentDidUpdate(prevProps) {
-  //   const prevBoard = prevProps.board;
-  //   const board = this.props.board;
-  //   if (!prevBoard || prevBoard.style !== board.style) {
-  //     if (board.style) {
-  //       this.setBoardStyle(board.style);
-  //     }
-  //   }
-  // }
-  componentWillUnmount(){
-    this.props.resetBoard()
+  componentWillUnmount() {
+    this.props.resetBoard();
   }
   loadBoard = (boardId) => {
     this.props.loadBoard(boardId);
   };
-
-  // setBoardStyle = (style) => {
-  //   if (style.bgColor)
-  //     this.setState({
-  //       boardStyle: {
-  //         backgroundColor: style.bgColor,
-  //       },
-  //     });
-  //   else
-  //     this.setState({
-  //       boardStyle: {
-  //         backgroundImage: `url("${style.imgUrl}")`,
-  //       },
-  //     });
-  // };
   openCardEdit = (groupId, cardId) => {
     this.props.history.push(`${this.props.board._id}/${groupId}/${cardId}`);
   };
@@ -65,6 +47,11 @@ class _BoardDetails extends Component {
   toggleCardLabelList = (event) => {
     event.stopPropagation();
     this.setState({ isCardLabelListOpen: !this.state.isCardLabelListOpen });
+  };
+
+  toggleQuickCardEditor = (event, card) => {
+    event.stopPropagation();
+    this.setState({ quickCardEditor: {cardToEdit: card} });
   };
 
   toggleCardComplete = (ev, groupId, card) => {
@@ -77,14 +64,12 @@ class _BoardDetails extends Component {
   handleOnDragEnd = (result) => {
     const { destination, source, type } = result;
     if (!destination) return;
+    // console.log('hey')
     const boardToChange = { ...this.props.board };
     //group dragged -
     if (type === 'group') {
       const draggedGroup = boardToChange.groups.splice(source.index, 1);
-      console.log('draggedGroupd', draggedGroup);
       boardToChange.groups.splice(destination.index, 0, ...draggedGroup);
-      // console.log('changed board', boardToChange)
-      // console.log('original board', this.props.board)
       this.props.onUpdateBoard({ type: '' }, boardToChange);
       return;
     }
@@ -105,7 +90,9 @@ class _BoardDetails extends Component {
           (group) => group.id === destination.droppableId
         ),
       };
-      destinationGroup.cards.splice(destination.index, 0, ...card);
+      if (destinationGroup.cards) destinationGroup.cards.splice(destination.index, 0, ...card);
+      else destinationGroup.cards=[card]
+      console.log('destinationGroup', destinationGroup)
       boardToChange.groups = boardToChange.groups.map((currGroup) => {
         if (currGroup.id === source.droppableId) return sourceGroup;
         if (currGroup.id === destination.droppableId) return destinationGroup;
@@ -119,16 +106,27 @@ class _BoardDetails extends Component {
     this.setState({ isAddPopOpen: !this.state.isAddPopOpen });
   };
 
+  toggleGroupArchive = (groupId) => {
+    const groupToUpdate = {
+      ...this.props.board.groups.find((group) => groupId === group.id),
+    };
+    groupToUpdate.isArchive = groupToUpdate.isArchive
+      ? !groupToUpdate.isArchive
+      : true;
+    const action = { type: 'UPDATE_GROUP', group: groupToUpdate };
+    this.props.onUpdateBoard(action, this.props.board);
+  };
+
   render() {
     const { board } = this.props;
-    const { isCardLabelListOpen, isAddPopOpen, boardStyle, openedCardEdit } =
+    const { isCardLabelListOpen, isAddPopOpen, quickCardEditor } =
       this.state;
-    if (!board) return <div>Loading...</div>;
+    if (!board) return <Loader />
     return (
-      <div className='board-details flex column' >
-      {/* <div className='board-details' style={boardStyle}> */}
+      <div className='board-details flex column'>
         <Route path='/board/:boardId/:groupId/:cardId' component={CardEdit} />
         <BoardHeader />
+
         <DragDropContext onDragEnd={this.handleOnDragEnd}>
           <section className='group-list-container flex'>
             <div className='group-list-wrapper flex'>
@@ -137,8 +135,12 @@ class _BoardDetails extends Component {
                 direction='horizontal'
                 type='group'
               >
-                {(provided) => (
-                  <div {...provided.droppableProps} ref={provided.innerRef}>
+                {(provided, snapshot) => (
+                  <div
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                    className='flex'
+                  >
                     {board.groups && (
                       <GroupList
                         groups={board.groups}
@@ -147,35 +149,46 @@ class _BoardDetails extends Component {
                         toggleCardLabelList={this.toggleCardLabelList}
                         isCardLabelListOpen={isCardLabelListOpen}
                         toggleCardComplete={this.toggleCardComplete}
+                        toggleGroupArchive={this.toggleGroupArchive}
+                        toggleQuickCardEditor={this.toggleQuickCardEditor}
                       />
                     )}
                     {provided.placeholder}
+
+                    <div className='add-group-container'>
+                      {!isAddPopOpen && (
+                        <button
+                          className='add-boarditem-btn flex align-center'
+                          onClick={this.onToggleAddPop}
+                        >
+                          <i className='flex align-center'>
+                            <AiOutlinePlus />
+                          </i>
+                          <span>Add a list</span>
+                        </button>
+                      )}
+                      {isAddPopOpen && (
+                        <AddBoardItem
+                          onToggleAddPop={this.onToggleAddPop}
+                          type={'group'}
+                        />
+                      )}
+                    </div>
                   </div>
                 )}
               </Droppable>
-
-              <div className='add-group-container'>
-                {!isAddPopOpen && (
-                  <button
-                    className='add-boarditem-btn flex align-center'
-                    onClick={this.onToggleAddPop}
-                  >
-                    <i className='flex align-center'>
-                      <AiOutlinePlus />
-                    </i>
-                    <span>Add a list</span>
-                  </button>
-                )}
-                {isAddPopOpen && (
-                  <AddBoardItem
-                    onToggleAddPop={this.onToggleAddPop}
-                    type={'group'}
-                  />
-                )}
-              </div>
             </div>
           </section>
         </DragDropContext>
+
+        {/* {quickCardEditor.cardToEdit && (
+          <div>
+            <div onClick={(event)=>this.toggleQuickCardEditor(event, null)}>
+              <OverlayScreen />
+            </div>
+            <QuickCardEditor card={quickCardEditor.cardToEdit} />
+          </div>
+        )} */}
       </div>
     );
   }
@@ -190,7 +203,7 @@ const mapDispatchToProps = {
   loadBoard,
   onUpdateBoard,
   onUpdateCard,
-  resetBoard
+  resetBoard,
 };
 
 export const BoardDetails = connect(

@@ -38,7 +38,7 @@ class _AppHeader extends React.Component {
                         <NavLink to="/"><button className="home-btn nav-button"><CgHome /></button></NavLink>
                         <NavLink to="/board"><button className="boards-btn flex nav-button"><SiTrello /> Boards</button></NavLink>
                     </div>
-                    <NavLink className="logo" to="/board"><SiTrello /> <span> Marshmello </span></NavLink>
+                    <NavLink className="logo" to="/"><SiTrello /> <span> Marshmello </span></NavLink>
                     <div className="right-links">
                         <button className="nav-button" onClick={() => this.setAddBoard(true)}><AiOutlinePlus /></button>
                         <button className="nav-button"><AiOutlineBell /></button>

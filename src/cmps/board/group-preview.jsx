@@ -7,6 +7,7 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import { GrClose } from 'react-icons/gr';
 import { CardPreview } from './card-preview.jsx';
 
+import { GroupActions } from '../shared/popover-children/group-actions.jsx';
 import { AddBoardItem } from '../shared/add-board-item.jsx';
 import { DynamicPopover } from '../shared/dynamic-popover.jsx';
 
@@ -14,10 +15,10 @@ export class GroupPreview extends Component {
   state = {
     isAddPopOpen: false,
     groupTitle: '',
-    isPopoverOpen: false
+    isPopoverOpen: false,
   };
 
-  groupEditRef = React.createRef()
+  groupEditRef = React.createRef();
 
   componentDidMount() {
     this.setState({
@@ -37,6 +38,7 @@ export class GroupPreview extends Component {
 
   onToggleAddPop = () => {
     this.setState({ isAddPopOpen: !this.state.isAddPopOpen });
+
   };
 
   handleChange = ({ target: { name, value } }) => {
@@ -60,11 +62,15 @@ export class GroupPreview extends Component {
       isCardLabelListOpen,
       index,
       toggleCardComplete,
+      toggleGroupArchive,
+      toggleQuickCardEditor
     } = this.props;
     const { isAddPopOpen, groupTitle, isPopoverOpen } = this.state;
-    // console.log('groupTitle', groupTitle)
+
+
     return (
-      <div className='group-wrapper'>
+      <div className={'group-wrapper'} 
+      style={{display: group.isArchive? 'none' : 'unset' }}>
         <Draggable draggableId={group.id} index={index}>
           {(provided, snapshot) => (
             <div
@@ -72,9 +78,7 @@ export class GroupPreview extends Component {
               {...provided.draggableProps}
               {...provided.dragHandleProps}
               ref={provided.innerRef}
-              // style={{
-              //   transform: snapshot.isDragging ? 'rotate(45deg)' : 'rotate(0deg)',
-              // }}
+      
             >
               <div className='group-header flex space-between align-center'>
                 <input
@@ -87,16 +91,26 @@ export class GroupPreview extends Component {
                   onBlur={this.onChangeGroupTitle}
                 />
 
-                <div className="relative" ref={this.groupEditRef} onClick={() => this.setState({ isPopoverOpen: !isPopoverOpen })}>
+                <div
+                  className='relative'
+                  ref={this.groupEditRef}
+                  onClick={() =>
+                    this.setState({ isPopoverOpen: !isPopoverOpen })
+                  }
+                >
                   <button>
                     <BsThreeDots />
                   </button>
-                  {isPopoverOpen && <DynamicPopover onClose={() => this.setState({ isPopoverOpen: false })} ref={this.groupEditRef} title="List actions">
-
-                  </DynamicPopover>}
+                  {isPopoverOpen && (
+                    <DynamicPopover
+                      onClose={() => this.setState({ isPopoverOpen: false })}
+                      ref={this.groupEditRef}
+                      title='List actions'
+                    >
+                      <GroupActions groupId={group.id} onToggleAddPop={this.onToggleAddPop} toggleGroupArchive={toggleGroupArchive}/>
+                    </DynamicPopover>
+                  )}
                 </div>
-
-
               </div>
               <Droppable droppableId={group.id}>
                 {(provided) => (
@@ -107,6 +121,8 @@ export class GroupPreview extends Component {
                   >
                     {group.cards &&
                       group.cards.map((card, index) => {
+                        // const cardId = card? card.id: index;
+                        // if (!card) card.id=index
                         return (
                           <CardPreview
                             key={card.id}
@@ -117,9 +133,12 @@ export class GroupPreview extends Component {
                             toggleCardLabelList={toggleCardLabelList}
                             isCardLabelListOpen={isCardLabelListOpen}
                             toggleCardComplete={toggleCardComplete}
+                            toggleQuickCardEditor={toggleQuickCardEditor}
                           />
                         );
                       })}
+                {/* {!group.cards &&
+                <li key={0} index={0} style={{visibility: "hidden", height: "1px"}}>empty card</li>} */}
                     {provided.placeholder}
                     {isAddPopOpen && (
                       <AddBoardItem

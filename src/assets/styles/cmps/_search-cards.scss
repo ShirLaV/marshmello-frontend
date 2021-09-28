@@ -1,0 +1,49 @@
+.search-cards {
+  padding: 10px;
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgba(83, 83, 83, 0.15);
+    }
+  }
+
+  span {
+      margin-inline-end: 10px;
+  }
+
+  .search-desc {
+    text-align: center;
+  }
+
+  .label-list {
+    .label-preview {
+      .label-details {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .label-color {
+        border-radius: 5px;
+        height: 32px;
+        width: 32px;
+      }
+    }
+  }
+
+  .member-list {
+    .user-preview {
+      .user-details {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+    }
+  }
+}

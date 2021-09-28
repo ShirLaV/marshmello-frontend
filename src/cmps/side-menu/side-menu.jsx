@@ -4,15 +4,18 @@ import { BiSearch } from 'react-icons/bi';
 import { connect } from 'react-redux';
 import { ChangeBG } from './change-bg';
 import { BsArchiveFill } from 'react-icons/bs';
+import { BoardIcon } from './board-icon';
+import { SearchCards } from './search-cards';
+import { Archive } from './archive';
 
 class _SideMenu extends React.Component {
     state = {
         currViewIdx: -1
     }
 
-    _cmpsToRender = [{ id: 'c101', title: 'Change Background', icon: this._ImgIcon, component: ChangeBG },
-    { id: 'c102', title: 'Search Cards', icon: <BiSearch />, component: ChangeBG },
-    { id: 'c103', title: 'Archive', icon: <BsArchiveFill />, component: ChangeBG }]
+    _cmpsToRender = [{ id: 'c101', title: 'Change Background', icon: <BoardIcon />, component: ChangeBG },
+    { id: 'c102', title: 'Search Cards - Under Construction 🚧', icon: <BiSearch />, component: SearchCards },
+    { id: 'c103', title: 'Archive - Under Construction 🚧', icon: <BsArchiveFill />, component: Archive }]
 
     componentWillUnmount() {
         this.setState((prevState) => ({ ...prevState, currViewIdx: -1 }))
@@ -48,11 +51,6 @@ class _SideMenu extends React.Component {
                 </li>
             )}
         </ul>
-    }
-
-    _ImgIcon = () => {
-        const { style } = this.props.board
-        return <button className="img-btn" style={(style.imgUrl) ? { backgroundImage: '' } : { backgroundColor: style.bgColor }}></button>
     }
 
     render() {

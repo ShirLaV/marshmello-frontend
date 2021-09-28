@@ -13,6 +13,15 @@
         cursor: pointer;
         color: white;
       }
+
+      .user-previews {
+        width: 100px;
+        display: flex;
+        flex-wrap: nowrap;
+        .user-avatar {
+            margin-inline-end: -50px;
+        }
+      }
     }
 
     display: flex;
