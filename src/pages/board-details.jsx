@@ -18,7 +18,6 @@ import { GroupList } from '../cmps/board/group-list.jsx';
 import { BoardHeader } from '../cmps/board/board-header.jsx';
 import { OverlayScreen } from '../cmps/overlay-screen.jsx';
 import { QuickCardEditor } from '../cmps/quick-card-editor.jsx';
-import { Route } from 'react-router';
 import { Loader } from '../cmps/shared/loader.jsx';
 
 class _BoardDetails extends Component {
@@ -65,14 +64,12 @@ class _BoardDetails extends Component {
   handleOnDragEnd = (result) => {
     const { destination, source, type } = result;
     if (!destination) return;
+    // console.log('hey')
     const boardToChange = { ...this.props.board };
     //group dragged -
     if (type === 'group') {
       const draggedGroup = boardToChange.groups.splice(source.index, 1);
-      console.log('draggedGroupd', draggedGroup);
       boardToChange.groups.splice(destination.index, 0, ...draggedGroup);
-      // console.log('changed board', boardToChange)
-      // console.log('original board', this.props.board)
       this.props.onUpdateBoard({ type: '' }, boardToChange);
       return;
     }
@@ -93,7 +90,9 @@ class _BoardDetails extends Component {
           (group) => group.id === destination.droppableId
         ),
       };
-      destinationGroup.cards.splice(destination.index, 0, ...card);
+      if (destinationGroup.cards) destinationGroup.cards.splice(destination.index, 0, ...card);
+      else destinationGroup.cards=[card]
+      console.log('destinationGroup', destinationGroup)
       boardToChange.groups = boardToChange.groups.map((currGroup) => {
         if (currGroup.id === source.droppableId) return sourceGroup;
         if (currGroup.id === destination.droppableId) return destinationGroup;
