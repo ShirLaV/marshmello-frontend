@@ -13,6 +13,13 @@
       font-size: rem(14px);
       align-items: center;
       cursor: pointer;
+      gap: 5px;
+
+      .user-details {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
 
       &:hover {
         background-color: #091e420a;
