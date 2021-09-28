@@ -181,14 +181,14 @@ class _BoardDetails extends Component {
           </section>
         </DragDropContext>
 
-        {/* {quickCardEditor.cardToEdit && (
+        {quickCardEditor.cardToEdit && (
           <div>
             <div onClick={(event)=>this.toggleQuickCardEditor(event, null)}>
               <OverlayScreen />
             </div>
             <QuickCardEditor card={quickCardEditor.cardToEdit} />
           </div>
-        )} */}
+        )}
       </div>
     );
   }
