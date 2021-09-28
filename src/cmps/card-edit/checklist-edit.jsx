@@ -39,7 +39,10 @@ export class _ChecklistEdit extends Component {
 
     getTodoPercentage = (todos) => {
         const doneTodos = todos.filter(todo => todo.isDone)
-        return (doneTodos.length / todos.length) * 100
+        const percentage = (doneTodos.length / todos.length) * 100
+
+        // console.log(((doneTodos.length / todos.length) * 100).length);
+        return (Number.isInteger(percentage)) ? percentage : percentage.toFixed(0)
     }
 
     handleChange = (todoId) => {

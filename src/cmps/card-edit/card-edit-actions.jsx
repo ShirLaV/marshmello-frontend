@@ -32,7 +32,7 @@ export class CardEditActions extends Component {
                 </div>
 
                 {
-                    this.state.isOpen && <DynamicPopover onClose={() => this.setState({ isOpen: false })} title={actions[idx].title} rect={this.state.rect} element={this.state.element}>
+                    this.state.isOpen && <DynamicPopover isModal onClose={() => this.setState({ isOpen: false })} title={actions[idx].title} rect={this.state.rect} element={this.state.element}>
                         <InnerPopperCmp />
                     </DynamicPopover>
                 }
