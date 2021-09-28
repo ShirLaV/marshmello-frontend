@@ -2,7 +2,7 @@ import { boardService } from "../services/board.service.js";
 // import { userService } from "../services/user.service.js";
 // import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js';
 export function loadBoards(filterBy) {
-    return async(dispatch) => {
+    return async (dispatch) => {
         try {
             const boards = await boardService.query(filterBy)
             dispatch({
@@ -17,10 +17,11 @@ export function loadBoards(filterBy) {
 }
 
 export function loadBoard(boardId) {
-    return async(dispatch) => {
+    return async (dispatch) => {
         try {
             const board = await boardService.getById(boardId)
             document.body.style.background = board.style.bgColor ? board.style.bgColor : `url("${board.style.imgUrl}")`
+
             dispatch({
                 type: 'SET_CURR_BOARD',
                 board
@@ -43,15 +44,15 @@ export function resetBoard() {
 }
 
 export function onRemoveBoard(boardId) {
-    return async(dispatch) => {
+    return async (dispatch) => {
         try {
             await boardService.remove(boardId)
             console.log('Deleted Succesfully!');
             dispatch({
-                    type: 'REMOVE_BOARD',
-                    boardId
-                })
-                // showSuccessMsg('Board removed')
+                type: 'REMOVE_BOARD',
+                boardId
+            })
+            // showSuccessMsg('Board removed')
         } catch (err) {
             // showErrorMsg('Cannot remove board')
             console.log('Cannot remove board', err)
@@ -69,15 +70,15 @@ export function setAddingBoard(isAddingBoard) {
 }
 
 export function onAddBoard(board) {
-    return async(dispatch) => {
+    return async (dispatch) => {
         try {
             const savedBoard = await boardService.save(board)
             console.log('Added Board', savedBoard);
             dispatch({
-                    type: 'ADD_BOARD',
-                    board: savedBoard
-                })
-                // showSuccessMsg('Board added')
+                type: 'ADD_BOARD',
+                board: savedBoard
+            })
+            // showSuccessMsg('Board added')
         } catch (err) {
             // showErrorMsg('Cannot add board')
             console.log('Cannot add board', err)
@@ -87,7 +88,7 @@ export function onAddBoard(board) {
 
 export function onAddCard(newCard, groupId, board) {
     const group = board.groups.find(group => group.id === groupId)
-    newCard = {...newCard, createdAt: Date.now(), isComplete: false };
+    newCard = { ...newCard, createdAt: Date.now(), isComplete: false };
 
     group.cards = (group.cards) ? [...group.cards, newCard] : [newCard]
     const groupAction = { type: 'UPDATE_GROUP', group }
@@ -113,17 +114,24 @@ export function onUpdateCard(cardToSave, groupId, board) {
     return onUpdateBoard(groupAction, board)
 }
 
+export function onUpdateFilter(filterBy) {
+    return (dispatch) => {
+        const action = { type: 'UPDATE_FILTER', filterBy }
+        dispatch(action)
+    }
+}
+
 export function onUpdateBoard(action, board) {
-    return async(dispatch) => {
+    return async (dispatch) => {
         const boardToSave = _getUpdatedBoard(action, board)
         dispatch({
-                type: 'UPDATE_BOARD',
-                board: boardToSave
-            })
-            // console.log('Updated Board:', boardToSave);
+            type: 'UPDATE_BOARD',
+            board: boardToSave
+        })
+        // console.log('Updated Board:', boardToSave);
         try {
             await boardService.save(boardToSave)
-                // showSuccessMsg('Board updated')
+            // showSuccessMsg('Board updated')
         } catch (err) {
             // showErrorMsg('Cannot update board')
             console.log('Cannot save board', err)
@@ -132,7 +140,7 @@ export function onUpdateBoard(action, board) {
 }
 
 function _getUpdatedBoard(action, board) {
-    const boardToSave = {...board }
+    const boardToSave = { ...board }
     switch (action.type) {
         case 'TOGGLE_STARRED':
             boardToSave.isStarred = action.isStarred
@@ -160,11 +168,3 @@ function _getUpdatedBoard(action, board) {
     }
     return boardToSave;
 }
-
-//
-// export function onUpdateFilter(filterBy) {
-//     return (dispatch) => {
-//         const action = { type: 'UPDATE_FILTER', filterBy }
-//         dispatch(action)
-//     }
-// }

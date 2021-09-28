@@ -15,6 +15,7 @@ import {
   resetBoard,
 } from '../store/board.actions.js';
 import { Route } from 'react-router';
+import { Loader } from '../cmps/shared/loader.jsx';
 
 class _BoardDetails extends Component {
   state = {
@@ -109,7 +110,7 @@ class _BoardDetails extends Component {
     const { board } = this.props;
     const { isCardLabelListOpen, isAddPopOpen, boardStyle, openedCardEdit } =
       this.state;
-    if (!board) return <div>Loading...</div>;
+    if (!board) return <Loader />
     return (
       <div className='board-details flex column'>
         {/* <div className='board-details' style={boardStyle}> */}

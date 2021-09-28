@@ -6,6 +6,7 @@ import { SiTrello } from 'react-icons/si'
 
 import { loadBoards, setAddingBoard, onUpdateBoard } from '../store/board.actions'
 import { OverlayScreen } from '../cmps/overlay-screen'
+import { Loader } from '../cmps/shared/loader'
 
 
 
@@ -33,6 +34,7 @@ class _BoardSelect extends React.Component {
 
     render() {
         const { boards, isAddingBoard } = this.props
+        if (!boards) return <Loader />
         return (
             <div className="boards-select main-container">
                 <h2> <AiFillStar /> Starred Boards</h2>

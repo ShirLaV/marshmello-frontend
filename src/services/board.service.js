@@ -41,7 +41,37 @@ function save(board) {
             isStarred: false,
             createdBy: userService.getMiniUser(),
             groups: [],
-            labels: [],
+            labels: [{
+                id: "l101",
+                title: "",
+                color: "#61bd4f"
+            },
+            {
+                id: "l102",
+                title: "",
+                color: "#FF9F1A"
+            },
+            {
+                id: "l103",
+                title: "",
+                color: "#eb5a46"
+            },
+            {
+                id: "l104",
+                title: "",
+                color: "#C377E0"
+            },
+            {
+                id: "l105",
+                title: "",
+                color: "#344563"
+            },
+            {
+                id: "l106",
+                title: "",
+                color: "#FF78CB"
+            }
+        ],
             members: [userService.getMiniUser()]
         }
         return storageService.post(STORAGE_KEY, boardToSave)

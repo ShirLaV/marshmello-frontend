@@ -2,7 +2,7 @@ import React from 'react'
 import { SiTrello } from 'react-icons/si'
 import { connect } from 'react-redux'
 import heroImg from '../assets/img/hero.png'
-import productImg from '../assets/img/homepage-product.png'
+import productImg from '../assets/img/homepage-product.jpg'
 
 
 class _HomePage extends React.Component {
@@ -15,7 +15,7 @@ class _HomePage extends React.Component {
         window.addEventListener('scroll', this.changeHeaderStyle)
         document.body.style.overflowY = 'scroll'
     }
-    
+
     componentWillUnmount() {
         window.removeEventListener('scroll', this.changeHeaderStyle)
         document.body.style.overflowY = 'hidden'
@@ -33,7 +33,7 @@ class _HomePage extends React.Component {
     render() {
         const { isNavbarBG } = this.state
         return (
-            <section className="home-page">
+            <section className="home-page main-container">
                 <header className={`home-header ${(isNavbarBG) ? 'bg-visible' : ''}`}>
                     <span className="logo"> <SiTrello /> Marshmello</span>
                     <div className="header-buttons">
@@ -48,14 +48,18 @@ class _HomePage extends React.Component {
                             From high rises to the home office, the way your team works is unique—accomplish it all with Marshmello.</p>
                         <button className="cta-btn nav-button" onClick={() => { this.props.history.push('/board') }}>Get Started!</button>
                     </div>
-                    <div className="firs-fold-img">
+                    <div className="first-fold-img">
                         <img src={heroImg} alt="hero" />
                     </div>
                 </div>
-                <div className="second-fold">
-                    {/* <img src={productImg} alt="product" /> */}
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi quis incidunt suscipit quia doloremque. Vero dignissimos vel, doloremque reprehenderit, est fugit saepe eaque omnis dolore nam repellendus, voluptates porro rem?</p>
-                    <img src={heroImg} alt="hero" />
+                <div className="home-second-fold">
+                    <div className="second-fold-text">
+                        <h1>It’s more than work. It’s a way of working together.</h1>
+                        <p>Start with a Marshmello board, lists, and cards. Customize and expand with more features as your teamwork grows. Manage projects, organize tasks, and build team spirit—all in one place.</p>
+                    </div>
+                    <div className="second-fold-img">
+                        <img src={productImg} alt="hero" />
+                    </div>
                 </div>
             </section >
         )
