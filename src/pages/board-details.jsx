@@ -18,7 +18,6 @@ import { GroupList } from '../cmps/board/group-list.jsx';
 import { BoardHeader } from '../cmps/board/board-header.jsx';
 import { OverlayScreen } from '../cmps/overlay-screen.jsx';
 import { QuickCardEditor } from '../cmps/quick-card-editor.jsx';
-import { Route } from 'react-router';
 import { Loader } from '../cmps/shared/loader.jsx';
 
 class _BoardDetails extends Component {
