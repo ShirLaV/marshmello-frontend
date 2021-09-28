@@ -53,8 +53,9 @@ class _HomePage extends React.Component {
                     </div>
                 </div>
                 <div className="second-fold">
-                    <img src={productImg} alt="product" />
+                    {/* <img src={productImg} alt="product" /> */}
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi quis incidunt suscipit quia doloremque. Vero dignissimos vel, doloremque reprehenderit, est fugit saepe eaque omnis dolore nam repellendus, voluptates porro rem?</p>
+                    <img src={heroImg} alt="hero" />
                 </div>
             </section >
         )
