@@ -24,6 +24,10 @@ class _AddBoardItem extends React.Component {
     newItem[target.name] = target.value;
     this.setState({ newItem });
   };
+
+  onKeyUpEnter=(ev)=>{
+    if(ev.key==='Enter') this.onAddItem(ev)
+  }
   
   onAddItem = (ev) => {
     ev.preventDefault();
@@ -48,7 +52,7 @@ class _AddBoardItem extends React.Component {
     const renderedType = this.props.type === 'card' ? this.props.type : 'list';
     return (
       <section className='add-board-item'>
-        <form onSubmit={this.onAddItem}>
+        <form onSubmit={this.onAddItem} onKeyUp={this.onKeyUpEnter}>
           <textarea
             placeholder={`Enter a title for this ${renderedType}`}
             ref={(input) => {
@@ -57,6 +61,7 @@ class _AddBoardItem extends React.Component {
             value={title}
             name='title'
             onChange={this.handleChange}
+            onBlur={this.onAddItem}
           />
           <div className='form-btns flex align-center'>
             <button type='submit'>Add {renderedType}</button>

@@ -9,13 +9,19 @@ export function GroupList({
   toggleCardLabelList,
   isCardLabelListOpen,
   toggleCardComplete,
-  toggleGroupArchive
+  toggleGroupArchive,
+  toggleQuickCardEditor
 }) {
- 
+//  let index = -1;
   return (
     <ul className='group-list clean-list flex'>
       {groups.map((group, index) => {
-        if(group.isArchive) return;
+        // index++;
+        // if(group.isArchive) {
+        //   index++;
+        //   return;
+        // }
+
         return (
           <GroupPreview
             key={group.id}
@@ -27,6 +33,7 @@ export function GroupList({
             isCardLabelListOpen={isCardLabelListOpen}
             toggleCardComplete={toggleCardComplete}
             toggleGroupArchive={toggleGroupArchive}
+            toggleQuickCardEditor={toggleQuickCardEditor}
           />
         );
       })}

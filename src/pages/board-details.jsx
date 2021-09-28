@@ -1,25 +1,31 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Route } from 'react-router';
 
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { AiOutlinePlus } from 'react-icons/ai';
 
-import { CardEdit } from '../cmps/card-edit.jsx';
-import { AddBoardItem } from '../cmps/shared/add-board-item.jsx';
-import { GroupList } from '../cmps/board/group-list.jsx';
-import { BoardHeader } from '../cmps/board/board-header.jsx';
 import {
   loadBoard,
   onUpdateBoard,
   onUpdateCard,
   resetBoard,
 } from '../store/board.actions.js';
-import { Route } from 'react-router';
+
+import { CardEdit } from '../cmps/card-edit.jsx';
+import { AddBoardItem } from '../cmps/shared/add-board-item.jsx';
+import { GroupList } from '../cmps/board/group-list.jsx';
+import { BoardHeader } from '../cmps/board/board-header.jsx';
+import { OverlayScreen } from '../cmps/overlay-screen.jsx';
+import { QuickCardEditor } from '../cmps/quick-card-editor.jsx';
 
 class _BoardDetails extends Component {
   state = {
     isCardLabelListOpen: false,
     isAddPopOpen: false,
+    quickCardEditor: {
+      cardToEdit: null,
+    },
   };
   componentDidMount() {
     const { boardId } = this.props.match.params;
@@ -40,6 +46,11 @@ class _BoardDetails extends Component {
   toggleCardLabelList = (event) => {
     event.stopPropagation();
     this.setState({ isCardLabelListOpen: !this.state.isCardLabelListOpen });
+  };
+
+  toggleQuickCardEditor = (event, card) => {
+    event.stopPropagation();
+    this.setState({ quickCardEditor: {cardToEdit: card} });
   };
 
   toggleCardComplete = (ev, groupId, card) => {
@@ -107,14 +118,14 @@ class _BoardDetails extends Component {
 
   render() {
     const { board } = this.props;
-    const { isCardLabelListOpen, isAddPopOpen, boardStyle, openedCardEdit } =
+    const { isCardLabelListOpen, isAddPopOpen, quickCardEditor } =
       this.state;
     if (!board) return <div>Loading...</div>;
     return (
       <div className='board-details flex column'>
-        {/* <div className='board-details' style={boardStyle}> */}
         <Route path='/board/:boardId/:groupId/:cardId' component={CardEdit} />
         <BoardHeader />
+
         <DragDropContext onDragEnd={this.handleOnDragEnd}>
           <section className='group-list-container flex'>
             <div className='group-list-wrapper flex'>
@@ -123,8 +134,12 @@ class _BoardDetails extends Component {
                 direction='horizontal'
                 type='group'
               >
-                {(provided) => (
-                  <div {...provided.droppableProps} ref={provided.innerRef} className="flex">
+                {(provided, snapshot) => (
+                  <div
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                    className='flex'
+                  >
                     {board.groups && (
                       <GroupList
                         groups={board.groups}
@@ -134,55 +149,45 @@ class _BoardDetails extends Component {
                         isCardLabelListOpen={isCardLabelListOpen}
                         toggleCardComplete={this.toggleCardComplete}
                         toggleGroupArchive={this.toggleGroupArchive}
+                        toggleQuickCardEditor={this.toggleQuickCardEditor}
                       />
                     )}
                     {provided.placeholder}
-                    
-              <div className='add-group-container'>
-                {!isAddPopOpen && (
-                  <button
-                    className='add-boarditem-btn flex align-center'
-                    onClick={this.onToggleAddPop}
-                  >
-                    <i className='flex align-center'>
-                      <AiOutlinePlus />
-                    </i>
-                    <span>Add a list</span>
-                  </button>
-                )}
-                {isAddPopOpen && (
-                  <AddBoardItem
-                    onToggleAddPop={this.onToggleAddPop}
-                    type={'group'}
-                  />
-                )}
-              </div>
+
+                    <div className='add-group-container'>
+                      {!isAddPopOpen && (
+                        <button
+                          className='add-boarditem-btn flex align-center'
+                          onClick={this.onToggleAddPop}
+                        >
+                          <i className='flex align-center'>
+                            <AiOutlinePlus />
+                          </i>
+                          <span>Add a list</span>
+                        </button>
+                      )}
+                      {isAddPopOpen && (
+                        <AddBoardItem
+                          onToggleAddPop={this.onToggleAddPop}
+                          type={'group'}
+                        />
+                      )}
+                    </div>
                   </div>
                 )}
               </Droppable>
-{/* 
-              <div className='add-group-container'>
-                {!isAddPopOpen && (
-                  <button
-                    className='add-boarditem-btn flex align-center'
-                    onClick={this.onToggleAddPop}
-                  >
-                    <i className='flex align-center'>
-                      <AiOutlinePlus />
-                    </i>
-                    <span>Add a list</span>
-                  </button>
-                )}
-                {isAddPopOpen && (
-                  <AddBoardItem
-                    onToggleAddPop={this.onToggleAddPop}
-                    type={'group'}
-                  />
-                )}
-              </div> */}
             </div>
           </section>
         </DragDropContext>
+
+        {/* {quickCardEditor.cardToEdit && (
+          <div>
+            <div onClick={(event)=>this.toggleQuickCardEditor(event, null)}>
+              <OverlayScreen />
+            </div>
+            <QuickCardEditor card={quickCardEditor.cardToEdit} />
+          </div>
+        )} */}
       </div>
     );
   }

@@ -62,6 +62,7 @@ class _CardPreview extends Component {
       isCardLabelListOpen,
       toggleCardLabelList,
       toggleCardComplete,
+      toggleQuickCardEditor,
       index,
     } = this.props;
     return (
@@ -77,6 +78,15 @@ class _CardPreview extends Component {
                 className='card-preview flex space-between'
                 onClick={() => openCardEdit(groupId, card.id)}
               >
+                <button
+                  className='hover-edit-btn'
+                  onClick={(event) => toggleQuickCardEditor(event, card)}
+                >
+                  <HiOutlinePencil />
+                </button>
+
+                {/* <CardContent /> */}
+
                 {card.style && (
                   <div className='card-preview-header'>
                     {card.style.bgColor && (
@@ -116,10 +126,6 @@ class _CardPreview extends Component {
 
                   <p>{card.title}</p>
 
-                  <button className='hover-edit-btn'>
-                    <HiOutlinePencil />
-                  </button>
-
                   <div className='card-preview-footer flex align-center'>
                     {card.dueDate && (
                       <div
@@ -148,9 +154,8 @@ class _CardPreview extends Component {
                     )}
                     {card.attachments && card.attachments.length > 0 && (
                       <div className='attachment-box flex align-center'>
-                        <span className="flex align-center">
-
-                        <ImAttachment />
+                        <span className='flex align-center'>
+                          <ImAttachment />
                         </span>
                         <span>{card.attachments.length}</span>
                       </div>

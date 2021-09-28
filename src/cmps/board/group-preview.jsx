@@ -37,7 +37,6 @@ export class GroupPreview extends Component {
   }
 
   onToggleAddPop = () => {
-    console.log('hey')
     this.setState({ isAddPopOpen: !this.state.isAddPopOpen });
 
   };
@@ -64,12 +63,14 @@ export class GroupPreview extends Component {
       index,
       toggleCardComplete,
       toggleGroupArchive,
-      onToggleAddPop
+      toggleQuickCardEditor
     } = this.props;
-    const { isAddPopOpen, groupTitle, isPopoverOpen, isDragged } = this.state;
-    // console.log('groupTitle', groupTitle)
+    const { isAddPopOpen, groupTitle, isPopoverOpen } = this.state;
+
+
     return (
-      <div className={'group-wrapper'} >
+      <div className={'group-wrapper'} 
+      style={{display: group.isArchive? 'none' : 'unset' }}>
         <Draggable draggableId={group.id} index={index}>
           {(provided, snapshot) => (
             <div
@@ -130,6 +131,7 @@ export class GroupPreview extends Component {
                             toggleCardLabelList={toggleCardLabelList}
                             isCardLabelListOpen={isCardLabelListOpen}
                             toggleCardComplete={toggleCardComplete}
+                            toggleQuickCardEditor={toggleQuickCardEditor}
                           />
                         );
                       })}
