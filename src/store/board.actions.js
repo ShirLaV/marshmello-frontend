@@ -124,6 +124,9 @@ export function onSetCardId(cardId) {
             // showErrorMsg('Cannot load boards')
             console.log('Cannot set card', err)
         }
+    }
+}
+
 export function onUpdateFilter(filterBy) {
     return (dispatch) => {
         const action = { type: 'UPDATE_FILTER', filterBy }
