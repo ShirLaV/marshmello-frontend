@@ -43,14 +43,16 @@
             padding: 8px;
         }
         .add-boarditem-btn {
+            color: white;
             gap: 5px;
             border-radius: 5px;
-            background-color: #b5b6b259;
+            background-color: #dfe0db3c;
             padding-inline-start: 10px;
             height: 40px;
             width: 100%;
+            transition: background-color 0.2s;
             &:hover {
-                background-color: #92929059;
+                background-color: #dfe0db60;
             }
         }
     }

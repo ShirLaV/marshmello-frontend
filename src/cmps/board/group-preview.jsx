@@ -59,21 +59,22 @@ export class GroupPreview extends Component {
       toggleCardLabelList,
       isCardLabelListOpen,
       index,
-      toggleCardComplete
+      toggleCardComplete,
     } = this.props;
     const { isAddPopOpen, groupTitle, isPopoverOpen } = this.state;
     // console.log('groupTitle', groupTitle)
     return (
-      <div className="group-wrapper">
-
+      <div className='group-wrapper'>
         <Draggable draggableId={group.id} index={index}>
-          {(provided) => (
-
+          {(provided, snapshot) => (
             <div
               className='group-preview flex column'
               {...provided.draggableProps}
               {...provided.dragHandleProps}
               ref={provided.innerRef}
+              // style={{
+              //   transform: snapshot.isDragging ? 'rotate(45deg)' : 'rotate(0deg)',
+              // }}
             >
               <div className='group-header flex space-between align-center'>
                 <input
@@ -148,7 +149,6 @@ export class GroupPreview extends Component {
           )}
         </Draggable>
       </div>
-
     );
   }
 }
