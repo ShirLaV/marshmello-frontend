@@ -37,7 +37,9 @@ export class GroupPreview extends Component {
   }
 
   onToggleAddPop = () => {
+    console.log('hey')
     this.setState({ isAddPopOpen: !this.state.isAddPopOpen });
+
   };
 
   handleChange = ({ target: { name, value } }) => {
@@ -104,7 +106,7 @@ export class GroupPreview extends Component {
                       ref={this.groupEditRef}
                       title='List actions'
                     >
-                      <GroupActions groupId={group.id} onToggleAddPop={onToggleAddPop} toggleGroupArchive={toggleGroupArchive}/>
+                      <GroupActions groupId={group.id} onToggleAddPop={this.onToggleAddPop} toggleGroupArchive={toggleGroupArchive}/>
                     </DynamicPopover>
                   )}
                 </div>

@@ -124,7 +124,7 @@ class _BoardDetails extends Component {
                 type='group'
               >
                 {(provided) => (
-                  <div {...provided.droppableProps} ref={provided.innerRef}>
+                  <div {...provided.droppableProps} ref={provided.innerRef} className="flex">
                     {board.groups && (
                       <GroupList
                         groups={board.groups}
@@ -137,10 +137,7 @@ class _BoardDetails extends Component {
                       />
                     )}
                     {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
-
+                    
               <div className='add-group-container'>
                 {!isAddPopOpen && (
                   <button
@@ -160,6 +157,29 @@ class _BoardDetails extends Component {
                   />
                 )}
               </div>
+                  </div>
+                )}
+              </Droppable>
+{/* 
+              <div className='add-group-container'>
+                {!isAddPopOpen && (
+                  <button
+                    className='add-boarditem-btn flex align-center'
+                    onClick={this.onToggleAddPop}
+                  >
+                    <i className='flex align-center'>
+                      <AiOutlinePlus />
+                    </i>
+                    <span>Add a list</span>
+                  </button>
+                )}
+                {isAddPopOpen && (
+                  <AddBoardItem
+                    onToggleAddPop={this.onToggleAddPop}
+                    type={'group'}
+                  />
+                )}
+              </div> */}
             </div>
           </section>
         </DragDropContext>
