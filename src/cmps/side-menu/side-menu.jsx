@@ -52,7 +52,7 @@ class _SideMenu extends React.Component {
 
     _ImgIcon = () => {
         const { style } = this.props.board
-        return <button className="img-btn" style={(style.imgUrl) ? { backgroundImage: '' } : { backgroundColor: style.bgColor }}></button>
+        return <div className="img-btn" style={(style.imgUrl) ? { backgroundImage: '' } : { backgroundColor: style.bgColor }}></div>
     }
 
     render() {
