@@ -23,7 +23,7 @@ export class GroupPreview extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if(prevProps.group!==this.props.group){
+    if (prevProps.group !== this.props.group) {
       this.setState({
         ...this.state,
         groupTitle: this.props.group.title,
@@ -55,88 +55,88 @@ export class GroupPreview extends Component {
       toggleCardLabelList,
       isCardLabelListOpen,
       index,
-      toggleCardComplete
+      toggleCardComplete,
     } = this.props;
     const { isAddPopOpen, groupTitle } = this.state;
     // console.log('groupTitle', groupTitle)
     return (
-      <div className="group-wrapper">
-
-      <Draggable draggableId={group.id} index={index}>
-        {(provided) => (
-          
-          <div
-            className='group-preview flex column'
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            ref={provided.innerRef}
-          >
-            <div className='group-header flex space-between align-center'>
-              <input
-                className='clean-input'
-                type='text'
-                value={groupTitle}
-                name='groupTitle'
-                onFocus={this.handleFocus}
-                onChange={this.handleChange}
-                onBlur={this.onChangeGroupTitle}
-              />
-              <button>
-                <BsThreeDots />
-              </button>
-            </div>
-            <Droppable droppableId={group.id}>
-              {(provided) => (
-                <ul
-                  className='card-list clean-list'
-                  {...provided.droppableProps}
-                  ref={provided.innerRef}
-                >
-                  {group.cards &&
-                    group.cards.map((card, index) => {
-                      return (
-                        <CardPreview
-                          key={card.id}
-                          card={card}
-                          index={index}
-                          groupId={group.id}
-                          openCardEdit={openCardEdit}
-                          toggleCardLabelList={toggleCardLabelList}
-                          isCardLabelListOpen={isCardLabelListOpen}
-                          toggleCardComplete={toggleCardComplete}
-                        />
-                      );
-                    })}
-                  {provided.placeholder}
-                  {isAddPopOpen && (
-                    <AddBoardItem
-                      onToggleAddPop={this.onToggleAddPop}
-                      type={'card'}
-                      groupId={group.id}
-                    />
-                  )}
-                </ul>
-              )}
-            </Droppable>
-
-            <div className='group-footer flex space-between align-center'>
-              {!isAddPopOpen && (
-                <button
-                  className='add-boarditem-btn flex align-center'
-                  onClick={this.onToggleAddPop}
-                >
-                  <i className='flex align-center'>
-                    <AiOutlinePlus />
-                  </i>
-                  <span>Add a card</span>
+      <div className='group-wrapper'>
+        <Draggable draggableId={group.id} index={index}>
+          {(provided, snapshot) => (
+            <div
+              className='group-preview flex column'
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+              ref={provided.innerRef}
+              // style={{
+              //   transform: snapshot.isDragging ? 'rotate(45deg)' : 'rotate(0deg)',
+              // }}
+            >
+              <div className='group-header flex space-between align-center'>
+                <input
+                  className='clean-input'
+                  type='text'
+                  value={groupTitle}
+                  name='groupTitle'
+                  onFocus={this.handleFocus}
+                  onChange={this.handleChange}
+                  onBlur={this.onChangeGroupTitle}
+                />
+                <button>
+                  <BsThreeDots />
                 </button>
-              )}
-            </div>
-          </div>
-        )}
-      </Draggable>
-      </div>
+              </div>
+              <Droppable droppableId={group.id}>
+                {(provided) => (
+                  <ul
+                    className='card-list clean-list'
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                  >
+                    {group.cards &&
+                      group.cards.map((card, index) => {
+                        return (
+                          <CardPreview
+                            key={card.id}
+                            card={card}
+                            index={index}
+                            groupId={group.id}
+                            openCardEdit={openCardEdit}
+                            toggleCardLabelList={toggleCardLabelList}
+                            isCardLabelListOpen={isCardLabelListOpen}
+                            toggleCardComplete={toggleCardComplete}
+                          />
+                        );
+                      })}
+                    {provided.placeholder}
+                    {isAddPopOpen && (
+                      <AddBoardItem
+                        onToggleAddPop={this.onToggleAddPop}
+                        type={'card'}
+                        groupId={group.id}
+                      />
+                    )}
+                  </ul>
+                )}
+              </Droppable>
 
+              <div className='group-footer flex space-between align-center'>
+                {!isAddPopOpen && (
+                  <button
+                    className='add-boarditem-btn flex align-center'
+                    onClick={this.onToggleAddPop}
+                  >
+                    <i className='flex align-center'>
+                      <AiOutlinePlus />
+                    </i>
+                    <span>Add a card</span>
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
+        </Draggable>
+      </div>
     );
   }
 }
