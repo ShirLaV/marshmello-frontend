@@ -119,7 +119,7 @@ class _CardEdit extends Component {
         const { currCard, isDescriptionOpen, currGroup, isAddTodo } = this.state
         if (!currCard) return <div>Loading...</div>
         return (
-            <div style={{ backgroundColor: '#000000a3', width: '100%', height: '100vh', position: 'fixed', inset: 0, overflowY: 'auto', inset: 0 }}>
+            <div style={{ backgroundColor: '#000000a3', width: '100%', height: '100vh', position: 'absolute', zIndex: 10, inset: 0, overflowY: 'auto', inset: 0 }}>
                 <section className="card-edit" ref={this.modalRef}>
                     {currCard.style?.bgColor && <div className="card-edit-bg" style={{ backgroundColor: currCard.style.bgColor }}></div>}
                     <button className="close-modal-btn" onClick={() => this.props.history.goBack()}><IoMdClose /></button>
