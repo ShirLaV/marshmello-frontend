@@ -4,34 +4,30 @@ import { CardEditSidebar } from './card-edit/card-edit-sidebar'
 import { LabelsMembers } from './card-edit/labels-members'
 import { ChecklistEdit } from './card-edit/checklist-edit'
 import { onUpdateCard, onSetCardId } from '../store/board.actions'
-import { MdFormatListBulleted } from 'react-icons/md'
-import { IoMdList, IoMdClose } from 'react-icons/io'
+import { IoMdClose } from 'react-icons/io'
 import { TiCreditCard } from 'react-icons/ti'
 import { CgCreditCard } from 'react-icons/cg'
-
+import { CardEditDescription } from './card-edit/card-edit-description'
+import { CardEditActivities } from './card-edit/card-edit-activities'
+import { CardEditAttachment } from './card-edit/card-edit-attachment'
 
 class _CardEdit extends Component {
     state = {
-        isDescriptionOpen: false,
         currCard: null,
         currGroup: null
     }
 
-    descriptionRef = React.createRef()
     modalRef = React.createRef()
 
     componentDidMount() {
         document.addEventListener('mousedown', this.handleClick)
         let currCard
         let currGroup
-        if (this.props.card) currCard = this.props.card
-        else {
-            const { cardId, groupId } = this.props.match.params
-            this.props.onSetCardId(cardId)
-            if (this.props.board.groups) {
-                currCard = this.getDataById(cardId, groupId).currentCard
-                currGroup = this.getDataById(cardId, groupId).currentGroup
-            }
+        const { cardId, groupId } = this.props.match.params
+        this.props.onSetCardId(cardId)
+        if (this.props.board.groups) {
+            currCard = this.getDataById(cardId, groupId).currentCard
+            currGroup = this.getDataById(cardId, groupId).currentGroup
         }
         this.setState({ currCard, currGroup })
     }
@@ -53,10 +49,6 @@ class _CardEdit extends Component {
         return { currentGroup, currentCard }
     }
 
-    setDescriptionTextarea = () => {
-        this.setState({ isDescriptionOpen: !this.state.isDescriptionOpen })
-    }
-
     handleInputChange = ({ target: { name, value } }) => {
         this.setState({ currCard: { ...this.state.currCard, [name]: value } })
     }
@@ -67,17 +59,10 @@ class _CardEdit extends Component {
         this.props.onUpdateCard(card, groupId, board)
     }
 
-    onRemoveChecklist = (checklistId) => {
-        const card = this.state.card
-        const idx = card.checklists.findIndex(checklist => checklist.id === checklistId)
-        card.checklists.splice(idx, 1)
-        this.setState({ currCard: card })
-        this.handlePropertyChange()
-    }
-
     render() {
-        const { currCard, isDescriptionOpen, currGroup } = this.state
+        const { currCard, currGroup } = this.state
         if (!currCard) return <div>Loading...</div>
+        // console.log(new Date(currCard?.dueDate));
         return (
             <div className="edit-modal-container">
                 <section className="card-edit" ref={this.modalRef}>
@@ -100,35 +85,9 @@ class _CardEdit extends Component {
 
                             <LabelsMembers />
 
-                            <div className="description-container card-edit-title">
-                                <span><IoMdList /></span>
-                                <h3>Description</h3>
-                                {currCard.description && !isDescriptionOpen && <button className="card-edit-btn" onClick={() => {
-                                    this.setDescriptionTextarea()
-                                    this.descriptionRef.current.focus()
-                                }}> Edit</button>}
-                            </div>
-                            <div className="card-description">
-                                <textarea
-                                    ref={this.descriptionRef}
-                                    className={`description-textarea ${isDescriptionOpen ? 'open' : ''} ${currCard.description ? 'filled' : ''}`}
-                                    rows={isDescriptionOpen ? "6" : "3"}
-                                    onFocus={this.setDescriptionTextarea}
-                                    onBlur={() => {
-                                        this.setDescriptionTextarea()
-                                        this.handlePropertyChange()
-                                    }}
-                                    name="description"
-                                    value={currCard.description}
-                                    onChange={this.handleInputChange}
-                                    placeholder="Add a more detailed description..."
-                                />
-                                {isDescriptionOpen &&
-                                    <div className="description-btns">
-                                        <button className="card-edit-btn secondary" onClick={() => this.handlePropertyChange()}>Save</button>
-                                        <button onClick={this.setDescriptionTextarea}><IoMdClose style={{ color: '#42526e', fontSize: '24px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} /></button>
-                                    </div>}
-                            </div>
+                            <CardEditDescription />
+
+                            {currCard.attachments?.length && <CardEditAttachment />}
 
                             {currCard.checklists?.map(checklist => (
                                 <div key={checklist.id}>
@@ -136,13 +95,7 @@ class _CardEdit extends Component {
                                 </div>
                             ))}
 
-                            <section className="flex space-between">
-                                <div className="card-edit-title">
-                                    <span><MdFormatListBulleted /></span>
-                                    <h3>Activity</h3>
-                                </div>
-                                <button className="card-edit-btn">Show details</button>
-                            </section>
+                            <CardEditActivities />
 
                         </div>
 
@@ -157,8 +110,7 @@ class _CardEdit extends Component {
 
 const mapStateToProps = state => {
     return {
-        board: state.boardModule.currBoard,
-        currCardId: state.boardModule.currCardId
+        board: state.boardModule.currBoard
     }
 }
 

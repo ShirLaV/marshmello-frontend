@@ -21,7 +21,7 @@ export class _ChecklistEdit extends Component {
 
     componentDidMount() {
         document.addEventListener('mousedown', this.handleClick)
-        this.setTodoPercentage()
+        if (this.props.checklist.todos) this.setTodoPercentage()
     }
 
     componentWillUnmount() {
@@ -42,6 +42,10 @@ export class _ChecklistEdit extends Component {
     }
 
     setTodoPercentage = (todos = this.props.checklist.todos) => {
+        if (!todos?.length && !this.props.checklist?.todos.length) {
+            this.setState({ percentage: 0 })
+            return
+        }
         const doneTodos = todos.filter(todo => todo.isDone)
         const num = (doneTodos.length / todos.length) * 100
         const percentage = (Number.isInteger(num)) ? num : num.toFixed(0)

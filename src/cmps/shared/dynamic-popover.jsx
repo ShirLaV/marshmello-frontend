@@ -70,10 +70,16 @@ export const DynamicPopover = React.forwardRef(({ onClose, title, children }, pa
 
     return (
         <div ref={ref => targetRef.current = ref} className="dynamic-popover" style={{ position: 'absolute', ...getLocation() }}>
-            <div className="popover-header">
-                <p>{title}</p>
-                <span onClick={onClose}><IoMdClose /></span>
-            </div>
+            {title
+                ?
+                <div className="popover-header">
+                    <p>{title}</p>
+                    <span onClick={onClose}><IoMdClose /></span>
+                </div>
+                :
+                <div className="relative" style={{ height: 16 }}>
+                    <span className="close-popover-icon" onClick={onClose}><IoMdClose /></span>
+                </div>}
             <div className="popover-content">
                 {children}
             </div>

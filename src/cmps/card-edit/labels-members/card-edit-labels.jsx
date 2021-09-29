@@ -10,7 +10,7 @@ const _CardEditLabels = ({ currCardId, board }) => {
     const addButtonRef = useRef()
 
     const getCardLabels = (labelIds) => (
-        labelIds.map(id => board.labels.find(label => label.id === id))
+        labelIds?.map(id => board.labels.find(label => label.id === id))
     )
 
     const groupId = cardEditService.getGroupId(currCardId)
