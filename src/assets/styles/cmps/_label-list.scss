@@ -6,10 +6,13 @@
         gap: rem(4px);
     }
 
+    
+
     .label-preview {
         cursor: pointer;
         align-items: center;
         gap: rem(4px);
+        position: relative;
 
         .icon-wrapper {
             display: flex;
@@ -34,6 +37,12 @@
             border-radius: 3px;
             display: flex;
             align-items: center;
+            position: relative;
+
+            .popper-label-check {
+                position: absolute;
+                right: 5px;
+            }
         }
     }
 }

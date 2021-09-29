@@ -64,14 +64,12 @@ class _BoardDetails extends Component {
   handleOnDragEnd = (result) => {
     const { destination, source, type } = result;
     if (!destination) return;
+    // console.log('hey')
     const boardToChange = { ...this.props.board };
     //group dragged -
     if (type === 'group') {
       const draggedGroup = boardToChange.groups.splice(source.index, 1);
-      console.log('draggedGroupd', draggedGroup);
       boardToChange.groups.splice(destination.index, 0, ...draggedGroup);
-      // console.log('changed board', boardToChange)
-      // console.log('original board', this.props.board)
       this.props.onUpdateBoard({ type: '' }, boardToChange);
       return;
     }
@@ -92,7 +90,9 @@ class _BoardDetails extends Component {
           (group) => group.id === destination.droppableId
         ),
       };
-      destinationGroup.cards.splice(destination.index, 0, ...card);
+      if (destinationGroup.cards) destinationGroup.cards.splice(destination.index, 0, ...card);
+      else destinationGroup.cards=[card]
+      console.log('destinationGroup', destinationGroup)
       boardToChange.groups = boardToChange.groups.map((currGroup) => {
         if (currGroup.id === source.droppableId) return sourceGroup;
         if (currGroup.id === destination.droppableId) return destinationGroup;
@@ -181,14 +181,14 @@ class _BoardDetails extends Component {
           </section>
         </DragDropContext>
 
-        {/* {quickCardEditor.cardToEdit && (
+        {quickCardEditor.cardToEdit && (
           <div>
             <div onClick={(event)=>this.toggleQuickCardEditor(event, null)}>
               <OverlayScreen />
             </div>
             <QuickCardEditor card={quickCardEditor.cardToEdit} />
           </div>
-        )} */}
+        )}
       </div>
     );
   }

@@ -102,9 +102,8 @@ export function onRemoveCard(cardId, groupId, board) {
     return onUpdateBoard(groupAction, board)
 }
 
-
 export function onUpdateCard(cardToSave, groupId, board) {
-    // console.log('cardToSave', cardToSave);
+    console.log('cardToSave', cardToSave);
     // console.log('groupId', groupId);
     // console.log('board', board);
     const group = board.groups.find(group => group.id === groupId)
@@ -112,6 +111,20 @@ export function onUpdateCard(cardToSave, groupId, board) {
     group.cards.splice(cardIdx, 1, cardToSave)
     const groupAction = { type: 'UPDATE_GROUP', group }
     return onUpdateBoard(groupAction, board)
+}
+
+export function onSetCardId(cardId) {
+    return async (dispatch) => {
+        try {
+            dispatch({
+                type: 'SET_CARD_ID',
+                cardId
+            })
+        } catch (err) {
+            // showErrorMsg('Cannot load boards')
+            console.log('Cannot set card', err)
+        }
+    }
 }
 
 export function onUpdateFilter(filterBy) {

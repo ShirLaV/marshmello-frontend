@@ -5,7 +5,7 @@ export class QuickCardEditor extends Component {
   render() {
     const { card } = this.props;
     return <div>
-        <CardPreview card={card}/>
+        {/* <CardPreview card={card}/> */}
     </div>;
   }
 }

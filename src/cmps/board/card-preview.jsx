@@ -63,8 +63,9 @@ class _CardPreview extends Component {
       toggleCardLabelList,
       toggleCardComplete,
       toggleQuickCardEditor,
-      index,
+      index
     } = this.props;
+    
     return (
       <Draggable draggableId={card.id} index={index}>
         {(provided) => {

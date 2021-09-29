@@ -1,7 +1,9 @@
 import React from 'react'
 import { PopperLabelPreview } from '../../card-edit/popper-label-preview'
+import { connect } from 'react-redux'
 
-export default function LabelList() {
+function _LabelList({ board }) {
+    const labels = board.labels
     return (
         <div className="label-list-container">
             <input className="search-input" type="text" autoFocus placeholder="Search labels..." />
@@ -13,19 +15,12 @@ export default function LabelList() {
     )
 }
 
-const labels = [{
-    "id": "l101",
-    "title": "Done",
-    "color": "#61bd4f"
-},
-{
-    "id": "l102",
-    "title": "Important",
-    "color": "#eb5a46"
-},
-{
-    "id": "l103",
-    "title": "urgent",
-    "color": "#0079BF"
+const mapStateToProps = state => {
+    return {
+        board: state.boardModule.currBoard,
+    }
 }
-]
+
+export const LabelList = connect(mapStateToProps)(_LabelList)
+
+

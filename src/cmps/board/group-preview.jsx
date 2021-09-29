@@ -121,6 +121,8 @@ export class GroupPreview extends Component {
                   >
                     {group.cards &&
                       group.cards.map((card, index) => {
+                        // const cardId = card? card.id: index;
+                        // if (!card) card.id=index
                         return (
                           <CardPreview
                             key={card.id}
@@ -135,6 +137,8 @@ export class GroupPreview extends Component {
                           />
                         );
                       })}
+                {/* {!group.cards &&
+                <li key={0} index={0} style={{visibility: "hidden", height: "1px"}}>empty card</li>} */}
                     {provided.placeholder}
                     {isAddPopOpen && (
                       <AddBoardItem
