@@ -24,12 +24,6 @@ class _CardEdit extends Component {
         this.handleLoad()
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.board !== this.props.board) {
-            this.handleLoad()
-        }
-    }
-
     componentWillUnmount() {
         document.removeEventListener('mousedown', this.handleClick)
     }
@@ -107,7 +101,7 @@ class _CardEdit extends Component {
                             {currCard.attachments?.length && <CardEditAttachment />}
 
                             {currCard.checklists?.map(checklist => (
-                                <div key={checklist.id}>
+                                <div key={checklist.id} className="checklists-container flex column">
                                     <ChecklistEdit checklist={checklist} currCard={currCard} handlePropertyChange={this.handlePropertyChange} />
                                 </div>
                             ))}

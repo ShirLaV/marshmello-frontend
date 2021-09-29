@@ -1,17 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { cardEditService } from '../../services/card-edit.service'
 import { CgCreditCard } from 'react-icons/cg'
 import { connect } from 'react-redux'
 import { onUpdateCard } from '../../store/board.actions'
 
 
-function _AttachmentPreview({ attachment, currCardId, board }) {
-    const [isOpen, setIsOpen] = useState(false)
+function _AttachmentPreview({ attachment, currCardId, board, onUpdateCard }) {
 
     const groupId = cardEditService.getGroupId(currCardId)
     const currCard = cardEditService.getCardById(currCardId, groupId)
     const addedAt = cardEditService.getUploadTime(attachment.addedAt)
-
 
     const toggleCover = () => {
         if (currCard?.style?.imgUrl === attachment.url) currCard.style = null
@@ -23,6 +21,10 @@ function _AttachmentPreview({ attachment, currCardId, board }) {
         return currCard?.style?.imgUrl === attachment.url
     }
 
+    const onRemoveAttachment = () => {
+        const res = cardEditService.handleFileRemove(attachment.id)
+        onUpdateCard(...res)
+    }
 
     return (
         <div className="attachment-preview flex">
@@ -35,7 +37,7 @@ function _AttachmentPreview({ attachment, currCardId, board }) {
                 <div className="middle-line">
                     <span>{addedAt}</span>-
                     <span>Comment</span>-
-                    <span>Delete</span>-
+                    <span onClick={onRemoveAttachment}>Delete</span>-
                     <span>Edit</span>
                 </div>
                 <div className="attachment-cover">

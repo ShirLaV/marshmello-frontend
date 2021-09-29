@@ -17,7 +17,7 @@ const _CardEditDueDate = ({ currCardId, onUpdateCard, board }) => {
 
     const getDueDateLabel = () => {
         if (currCard.isComplete) return { title: 'Complete', bgColor: '#61bd4f' }
-        if((dueDate - Date.now()) < 0) return { title: 'Overdue', bgColor: '#eb5a46' }
+        if ((dueDate - Date.now()) < 0) return { title: 'Overdue', bgColor: '#eb5a46' }
         if ((dueDate - Date.now()) <= (1000 * 60 * 60 * 24)) return { title: 'Due soon', bgColor: '#f2d600' }
         else return { title: '', bgColor: '' }
     }
@@ -30,7 +30,7 @@ const _CardEditDueDate = ({ currCardId, onUpdateCard, board }) => {
     return (
         <>
             {dueDate && <div className="due-date-container">
-                <h3>DUE DATE</h3>
+                <h3 className="small-title">Due date</h3>
                 <div className="due-date" >
                     <input type="checkbox" className="main-checkbox" checked={currCard.isComplete} onChange={onToggleComplete} />
                     <div className="card-edit-btn" ref={dueDateRef}>

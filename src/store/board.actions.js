@@ -2,7 +2,7 @@ import { boardService } from "../services/board.service.js";
 // import { userService } from "../services/user.service.js";
 // import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js';
 export function loadBoards(filterBy) {
-    return async(dispatch) => {
+    return async (dispatch) => {
         try {
             const boards = await boardService.query(filterBy)
             dispatch({
@@ -17,7 +17,7 @@ export function loadBoards(filterBy) {
 }
 
 export function loadBoard(boardId) {
-    return async(dispatch) => {
+    return async (dispatch) => {
         try {
             const board = await boardService.getById(boardId)
             document.body.style.background = board.style.bgColor ? board.style.bgColor : `url("${board.style.imgUrl}")`
@@ -46,15 +46,15 @@ export function resetBoard() {
 }
 
 export function onRemoveBoard(boardId) {
-    return async(dispatch) => {
+    return async (dispatch) => {
         try {
             await boardService.remove(boardId)
             console.log('Deleted Succesfully!');
             dispatch({
-                    type: 'REMOVE_BOARD',
-                    boardId
-                })
-                // showSuccessMsg('Board removed')
+                type: 'REMOVE_BOARD',
+                boardId
+            })
+            // showSuccessMsg('Board removed')
         } catch (err) {
             // showErrorMsg('Cannot remove board')
             console.log('Cannot remove board', err)
@@ -72,15 +72,15 @@ export function setAddingBoard(isAddingBoard) {
 }
 
 export function onAddBoard(board) {
-    return async(dispatch) => {
+    return async (dispatch) => {
         try {
             const savedBoard = await boardService.save(board)
             console.log('Added Board', savedBoard);
             dispatch({
-                    type: 'ADD_BOARD',
-                    board: savedBoard
-                })
-                // showSuccessMsg('Board added')
+                type: 'ADD_BOARD',
+                board: savedBoard
+            })
+            // showSuccessMsg('Board added')
         } catch (err) {
             // showErrorMsg('Cannot add board')
             console.log('Cannot add board', err)
@@ -90,7 +90,7 @@ export function onAddBoard(board) {
 
 export function onAddCard(newCard, groupId, board, activity) {
     const group = board.groups.find(group => group.id === groupId)
-    newCard = {...newCard, createdAt: Date.now(), isComplete: false };
+    newCard = { ...newCard, createdAt: Date.now(), isComplete: false };
 
     group.cards = (group.cards) ? [...group.cards, newCard] : [newCard]
     const groupAction = { type: 'UPDATE_GROUP', group }
@@ -115,7 +115,7 @@ export function onUpdateCard(cardToSave, groupId, board) {
 }
 
 export function onSetCardId(cardId) {
-    return async(dispatch) => {
+    return async (dispatch) => {
         try {
             dispatch({
                 type: 'SET_CARD_ID',
@@ -138,12 +138,11 @@ export function onUpdateFilter(filterBy) {
 export function onUpdateBoard(action, board, activity = null) {
     return async (dispatch) => {
         const boardToSave = _getUpdatedBoard(action, board)
-        console.log(boardToSave);
         dispatch({
-                type: 'UPDATE_BOARD',
-                board: boardToSave
-            })
-            // console.log('Updated Board:', boardToSave);
+            type: 'UPDATE_BOARD',
+            board: boardToSave
+        })
+        // console.log('Updated Board:', boardToSave);
         try {
             await boardService.save(boardToSave, activity = null)
             // showSuccessMsg('Board updated')
@@ -155,7 +154,7 @@ export function onUpdateBoard(action, board, activity = null) {
 }
 
 function _getUpdatedBoard(action, board) {
-    const boardToSave = {...board }
+    const boardToSave = { ...board }
     switch (action.type) {
         case 'TOGGLE_STARRED':
             boardToSave.isStarred = action.isStarred

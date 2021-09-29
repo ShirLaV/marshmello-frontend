@@ -23,7 +23,7 @@
             },
             {
                 "id": "l103",
-                "title": "urgent",
+                "title": "Urgent",
                 "color": "#eb5a46"
             },
             {
@@ -76,7 +76,7 @@
                         "title": "Notification not sending",
                         "description": "Notification on header doesn't apear in time",
                         "isComplete": false,
-                        "attachments": [{ "url": "https://images.pexels.com/photos/1122626/pexels-photo-1122626.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260", "title": "Attachment", "addedAt": 1632823545000, "isCover": false }],
+                        "attachments": [{ "id": "j0dq7e", "url": "https://images.pexels.com/photos/1122626/pexels-photo-1122626.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260", "title": "Attachment", "addedAt": 1632823545000 }],
                         "members": [{
                                 "_id": "u103",
                                 "username": "morty@smith.com",
