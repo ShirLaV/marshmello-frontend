@@ -170,8 +170,8 @@ export class GroupPreview extends Component {
                 )}
               </Droppable>
 
-              <div className='group-footer flex space-between align-center'>
                 {!isAddPopOpen && (
+              <div className='group-footer flex space-between align-center'>
                   <button
                     className='add-boarditem-btn flex align-center'
                     onClick={this.onToggleAddPop}
@@ -181,8 +181,8 @@ export class GroupPreview extends Component {
                     </i>
                     <span>Add a card</span>
                   </button>
-                )}
               </div>
+                )}
             </div>
           )}
         </Draggable>
