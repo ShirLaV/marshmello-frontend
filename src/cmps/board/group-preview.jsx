@@ -38,7 +38,6 @@ export class GroupPreview extends Component {
 
   onToggleAddPop = () => {
     this.setState({ isAddPopOpen: !this.state.isAddPopOpen });
-
   };
 
   handleChange = ({ target: { name, value } }) => {
@@ -52,7 +51,23 @@ export class GroupPreview extends Component {
     this.props.updateBoard(action);
   };
 
-  handleFocus = (event) => event.target.select();
+  blurFocus = (event) => {
+    // event.stopPropagation();
+    // document.activeElement.blur();
+    // event.target.parentNode.blur()
+    event.target.blur()
+    // console.log('hey')
+    // console.log(event.target)
+  };
+
+  setFocus = (event) => {
+    console.log('yay')
+    event.target.focus();
+  };
+
+  handleFocus = (event) => {
+    event.target.select();
+  };
 
   render() {
     const {
@@ -63,14 +78,16 @@ export class GroupPreview extends Component {
       index,
       toggleCardComplete,
       toggleGroupArchive,
-      toggleQuickCardEditor
+      onToggleQuickCardEditor,
+      getLabel
     } = this.props;
     const { isAddPopOpen, groupTitle, isPopoverOpen } = this.state;
 
-
     return (
-      <div className={'group-wrapper'} 
-      style={{display: group.isArchive? 'none' : 'unset' }}>
+      <div
+        className={'group-wrapper'}
+        style={{ display: group.isArchive ? 'none' : 'unset' }}
+      >
         <Draggable draggableId={group.id} index={index}>
           {(provided, snapshot) => (
             <div
@@ -78,7 +95,6 @@ export class GroupPreview extends Component {
               {...provided.draggableProps}
               {...provided.dragHandleProps}
               ref={provided.innerRef}
-      
             >
               <div className='group-header flex space-between align-center'>
                 <input
@@ -86,7 +102,9 @@ export class GroupPreview extends Component {
                   type='text'
                   value={groupTitle}
                   name='groupTitle'
-                  onFocus={this.handleFocus}
+                  // onFocus={this.handleFocus}
+                  onMouseDown={this.blurFocus}
+                  onMouseUp={this.setFocus}
                   onChange={this.handleChange}
                   onBlur={this.onChangeGroupTitle}
                 />
@@ -107,7 +125,11 @@ export class GroupPreview extends Component {
                       ref={this.groupEditRef}
                       title='List actions'
                     >
-                      <GroupActions groupId={group.id} onToggleAddPop={this.onToggleAddPop} toggleGroupArchive={toggleGroupArchive}/>
+                      <GroupActions
+                        groupId={group.id}
+                        onToggleAddPop={this.onToggleAddPop}
+                        toggleGroupArchive={toggleGroupArchive}
+                      />
                     </DynamicPopover>
                   )}
                 </div>
@@ -121,8 +143,6 @@ export class GroupPreview extends Component {
                   >
                     {group.cards &&
                       group.cards.map((card, index) => {
-                        // const cardId = card? card.id: index;
-                        // if (!card) card.id=index
                         return (
                           <CardPreview
                             key={card.id}
@@ -133,12 +153,11 @@ export class GroupPreview extends Component {
                             toggleCardLabelList={toggleCardLabelList}
                             isCardLabelListOpen={isCardLabelListOpen}
                             toggleCardComplete={toggleCardComplete}
-                            toggleQuickCardEditor={toggleQuickCardEditor}
+                            onToggleQuickCardEditor={onToggleQuickCardEditor}
+                            getLabel={getLabel}
                           />
                         );
                       })}
-                {/* {!group.cards &&
-                <li key={0} index={0} style={{visibility: "hidden", height: "1px"}}>empty card</li>} */}
                     {provided.placeholder}
                     {isAddPopOpen && (
                       <AddBoardItem
