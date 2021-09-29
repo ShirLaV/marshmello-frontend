@@ -1,5 +1,8 @@
 .quick-card-editor {
-    z-index: 2;
+    z-index: 20;
+    .card-preview {
+        cursor: default;
+    }
     textarea {
         background-color: inherit;
         font-family: unset;
@@ -14,5 +17,39 @@
     }
     .card-edit-btn {
         margin-top: 8px;
+    }
+    .quick-editor-btn {
+        gap: 5px;
+        background: #0009;
+        border-radius: 3px;
+        clear: both;
+        color: #e6e6e6;
+        float: left;
+        margin: 0 0 4px 8px;
+        padding: 6px 12px 6px 8px;
+        text-decoration: none;
+        transition: transform 85ms ease-in;
+        &:hover {
+            background: #000c;
+            color: #fff;
+            transform: translateX(5px);
+        }
+        .card-edit-btn {
+            color: white;
+            padding: unset;
+            margin: unset;
+            font-size: unset;
+            line-height: unset;
+        }
+        .btn-label-container {
+            gap: 5px;
+            align-items: center;
+        }
+        .dynamic-popover {
+            z-index: 21;
+        }
+        .popper-member-preview {
+            color: #172b4d;
+        }
     }
 }

@@ -356,9 +356,21 @@
                 ],
                 "style": {}
             },
-
+            {
+                "id": "ghtrhthfgsf",
+                "title": "Nest steps",
+                "cards": [{
+                    "id": "afgfv3ffs",
+                    "title": "Responsivness"
+                }]
+            },
             {
                 "id": "g1038yur673y",
+                "title": "QA",
+                "cards": []
+            },
+            {
+                "id": "4tesrgfg",
                 "title": "Done",
                 "cards": []
             }
