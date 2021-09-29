@@ -47,7 +47,11 @@ class _AddBoardItem extends React.Component {
     }
     else if (this.props.type === 'card') {
       const newCard = {...newItem , isComplete: false };
-      this.props.onAddCard( newCard, this.props.groupId, this.props.board);
+      
+      // ADD ACTIVITY
+      const activity = {txt: activityTxtMap.addCard(newCard.title), card: newCard}
+
+      this.props.onAddCard( newCard, this.props.groupId, this.props.board, activity);
     }
     this.setState({newItem: {title: ''}})
   };
