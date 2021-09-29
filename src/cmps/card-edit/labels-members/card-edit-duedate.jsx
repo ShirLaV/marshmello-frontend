@@ -15,8 +15,10 @@ const _CardEditDueDate = ({ currCardId, onUpdateCard, board }) => {
     const dueDate = currCard?.dueDate
     const time = cardEditService.getFormattedTime(dueDate)
 
-    const checkIfDueSoon = () => {
-        return (dueDate - Date.now()) <= (1000 * 60 * 60 * 24)
+    const getDueDateLabel = () => {
+        if (currCard.isComplete) return { title: 'Complete', bgColor: '#61bd4f' }
+        if ((dueDate - Date.now()) <= (1000 * 60 * 60 * 24)) return { title: 'Due soon', bgColor: '#f2d600' }
+        else return { title: '', bgColor: '' }
     }
 
     const onToggleComplete = () => {
@@ -32,7 +34,7 @@ const _CardEditDueDate = ({ currCardId, onUpdateCard, board }) => {
                     <input type="checkbox" className="main-checkbox" checked={currCard.isComplete} onChange={onToggleComplete} />
                     <div className="card-edit-btn" ref={dueDateRef}>
                         <span className="due-date-time">{time}</span>
-                        {checkIfDueSoon() && <span style={{ backgroundColor: '#f2d600' }}>DUE SOON</span>}
+                        <span style={{ backgroundColor: getDueDateLabel().bgColor, textTransform: 'uppercase', fontSize: 12, padding: '0 3px', borderRadius: 2 }}>{getDueDateLabel().title}</span>
                         <span className="due-date-icon"><BsChevronDown /></span>
                         <div className="list-item-layover" onClick={() => setIsOpen(!isOpen)}></div>
                         {isOpen && <DynamicPopover onClose={() => setIsOpen(false)} title={'Dates'} ref={dueDateRef}>

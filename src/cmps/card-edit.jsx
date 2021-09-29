@@ -87,7 +87,7 @@ class _CardEdit extends Component {
 
                             <CardEditDescription />
 
-                            {currCard.attachments.length && <CardEditAttachment />}
+                            {currCard.attachments?.length && <CardEditAttachment />}
 
                             {currCard.checklists?.map(checklist => (
                                 <div key={checklist.id}>
