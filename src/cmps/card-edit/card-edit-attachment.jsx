@@ -18,20 +18,6 @@ class _CardEditAttachment extends Component {
         this.setState({ currCard })
     }
 
-    // setDescriptionTextarea = () => {
-    //     this.setState({ isDescriptionOpen: !this.state.isDescriptionOpen })
-    // }
-
-    // handleDescriptionChange = (card = this.state.currCard) => {
-    //     const { board } = this.props
-    //     const groupId = cardEditService.getGroupId(this.props.currCardId)
-    //     this.props.onUpdateCard(card, groupId, board)
-    // }
-
-    // handleInputChange = ({ target: { value } }) => {
-    //     this.setState({ currCard: { ...this.state.currCard, description: value } })
-    // }
-
     render() {
         const { currCard } = this.state
         return (

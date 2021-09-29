@@ -44,7 +44,8 @@ const handleMemberChange = (memberId) => {
     const groupId = getGroupId(cardId)
     let card = getCardById(cardId, groupId)
 
-    const isMemberExist = card?.members.some(member => member._id === memberId)
+    if (!card.members) card.members = []
+    const isMemberExist = card?.members?.some(member => member._id === memberId)
     if (isMemberExist) card = { ...card, members: card?.members.filter(member => member._id !== memberId) }
     else {
         const memberToAdd = board.members.find(member => member._id === memberId)
@@ -59,6 +60,7 @@ const handleLabelChange = (labelId) => {
     const board = store.getState().boardModule.currBoard
     const groupId = getGroupId(cardId)
     let card = getCardById(cardId, groupId)
+    if (!card.labelIds) card.labelIds = []
     const isLabelExist = card?.labelIds.some(id => id === labelId)
     if (isLabelExist) card = { ...card, labelIds: card?.labelIds.filter(id => id !== labelId) }
     else {
