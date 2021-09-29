@@ -1,6 +1,7 @@
 import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
+import { httpService } from './http.service'
 
 const STORAGE_KEY = 'board'
 // const listeners = []
@@ -14,25 +15,40 @@ export const boardService = {
 window.cs = boardService;
 
 
-function query() {
+async function query() {
     return storageService.query(STORAGE_KEY)
+    // try {
+    //     const boards = await httpService.get('board')
+    //     return boards
+    // } catch (err) {
+    //     console.log('Front: Error loading boards', err)
+    // }
 }
 
-function getById(boardId) {
+async function getById(boardId) {
     return storageService.get(STORAGE_KEY, boardId)
+    // try {
+    //     const board = await httpService.get(`board/${boardId}`)
+    //     return board
+    // } catch (err) {
+    //     console.log(`Front: Error loading board with ID: ${boardId}`, err)
+
+    // }
 }
 
-function remove(boardId) {
-    // return new Promise((resolve, reject) => {
-    //     setTimeout(reject, 2000)
-    // })
-    // return Promise.reject('Not now!');
+async function remove(boardId) {
     return storageService.remove(STORAGE_KEY, boardId)
+    // try {
+    //     return httpService.delete(`board/${boardId}`)
+    // } catch (err) {
+    //     console.log(`Front: Error deleting board with ID: ${boardId}`);
+    // }
 }
 
-function save(board) {
+async function save(board) {
     if (board._id) {
         return storageService.put(STORAGE_KEY, board)
+        // return httpService.put(`board/${board._id}`, board)
     } else {
         const boardToSave = {
             title: board.title,
@@ -71,10 +87,12 @@ function save(board) {
                 title: "",
                 color: "#FF78CB"
             }
-        ],
+            ],
             members: [userService.getMiniUser()]
         }
         return storageService.post(STORAGE_KEY, boardToSave)
+        // const addedBoard = await httpService.post(`board`, boardToSave)
+        // return addedBoard
     }
 }
 
