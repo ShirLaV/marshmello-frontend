@@ -23,8 +23,11 @@
             text-decoration: none;
             color: rgba(255, 255, 255, 0.466);
             transition: all 0.3s;
+            font-weight: 700;
+            line-height: 32px;
             >span {
-                font-size: rem(22px);
+                font-size: 18px;
+                // font-size: rem(22px);
             }
             &:hover {
                 color: rgb(255, 255, 255);

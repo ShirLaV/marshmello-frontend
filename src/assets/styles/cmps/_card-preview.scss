@@ -26,6 +26,7 @@
     .card-details {
         padding: 6px 8px 6px;
         .label-bar-list {
+            flex-wrap: wrap;
             .label-bar {
                 margin: 0 4px 4px 0;
                 border-radius: 5px;

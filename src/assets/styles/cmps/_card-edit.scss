@@ -6,7 +6,6 @@
     z-index: 10;
     inset: 0;
     overflow-y: auto;
-
     .card-edit {
         position: absolute;
         top: 48px;
@@ -23,8 +22,6 @@
         background-color: #f4f5f7;
         z-index: 2;
         border-radius: 2px;
-
-
         .close-modal-btn {
             display: flex;
             justify-content: center;
@@ -40,12 +37,10 @@
             transition: background-color 85ms, color 85ms;
             font-size: 32px;
             padding: 10px;
-
             &:hover {
                 background-color: #00000029;
             }
         }
-
         .change-cover-btn {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             position: absolute;
@@ -60,26 +55,21 @@
             font-size: 14px;
             font-weight: 400;
             line-height: 20px;
-
             .cover-icon {
                 font-size: 18px;
             }
-
             &:hover {
                 background-color: #00000029;
             }
         }
-
         .card-edit-main {
             flex: 2;
             padding: 0 8px 8px 16px;
-
             h3 {
                 font-size: 16px;
                 font-weight: 600;
             }
         }
-
         .card-edit-bg {
             min-height: 116px;
             height: 116px;
@@ -88,28 +78,23 @@
             border-top-left-radius: 2px;
             border-top-right-radius: 2px;
         }
-
         .card-edit-header {
             min-height: 32px;
         }
-
         .card-title-container {
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px 8px 0 16px;
-
             span {
                 display: flex;
                 align-items: center;
-
                 svg {
                     height: 18px;
                     width: 24px;
                 }
             }
         }
-
         .title-input {
             border: none;
             outline: none;
@@ -125,33 +110,27 @@
             width: 100%;
             margin-right: 50px;
             background-color: transparent;
-
             &:focus {
                 background-color: #fff;
                 box-shadow: inset 0 0 0 2px #0079bf;
             }
         }
-
         .card-edit-title {
             display: flex;
             gap: 8px;
             align-items: center;
-
             span {
                 display: flex;
                 align-items: center;
-
                 svg {
                     height: 18px;
                     width: 24px;
                 }
             }
         }
-
         .card-description {
             padding: 10px 0 10px 32px;
         }
-
         .description-textarea {
             width: 100%;
             border: none;
@@ -164,47 +143,38 @@
             color: #172b4d;
             font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Noto Sans, Ubuntu, Droid Sans, Helvetica Neue, sans-serif;
             font-size: 14px;
-
             &.add-todo {
                 margin-left: 32px;
                 width: 520px;
             }
-
             &.edit-todo {
                 width: 520px;
                 height: 56px;
             }
-
             &.open,
             &:focus {
                 background-color: #fff;
                 box-shadow: inset 0 0 0 2px #0079bf;
                 cursor: text;
             }
-
             &.filled {
                 background-color: transparent;
                 padding: 0;
-
                 &.open {
                     padding: 8px 12px;
                 }
             }
         }
-
         .description-btns {
             display: flex;
             gap: 10px;
-
             button {
                 cursor: pointer;
             }
-
             &.add-todo-btns {
                 margin-left: 32px;
             }
         }
-
         .list-name-container {
             color: #5e6c84;
             margin: 0 0 8px 26px;
@@ -212,20 +182,16 @@
             font-weight: 400;
             line-height: 20px;
             padding-inline-start: 24px;
-
             .list-name {
                 text-decoration: underline;
             }
-
         }
-
         .members-labels-container {
             display: flex;
             gap: 8px;
             margin: 24px 0 24px 26px;
             position: relative;
             flex-wrap: wrap;
-
             h3:not(.mini-user-fullname) {
                 color: #5e6c84;
                 font-size: 12px;
@@ -235,27 +201,26 @@
                 line-height: 20px;
                 text-transform: uppercase;
             }
-
             .members-container,
             .lebels-container,
             .due-date-container {
                 display: flex;
                 flex-direction: column;
             }
-
+            .labels {
+                flex-wrap: wrap;
+            }
             .members,
             .labels,
             .due-date {
                 display: flex;
                 gap: 5px;
             }
-
             .due-date {
                 align-items: center;
                 input {
                     margin: 0;
                 }
-
                 .card-edit-btn {
                     display: flex;
                     align-items: center;
@@ -264,7 +229,6 @@
                     position: relative;
                     cursor: pointer;
                 }
-
                 .due-date-icon {
                     display: flex;
                     align-items: center;
@@ -272,12 +236,10 @@
                     margin-top: 2px;
                 }
             }
-
             .card-member {
                 border-radius: 50%;
                 height: 32px;
                 width: 32px;
-
                 &.add-member {
                     color: #42526e;
                     background-color: #091e420a;
@@ -285,14 +247,12 @@
                     justify-content: center;
                     align-items: center;
                 }
-
                 img {
                     width: 100%;
                     height: 100%;
                     border-radius: 50%;
                 }
             }
-
             .card-label {
                 border-radius: 3px;
                 padding: 0 12px;
@@ -303,7 +263,6 @@
                 justify-content: center;
                 font-size: 14px;
                 font-weight: 600;
-
                 &.add-label {
                     display: flex;
                     justify-content: center;
@@ -312,37 +271,29 @@
                     background-color: #091e420a;
                 }
             }
-
             .progress-percentage {
                 font-size: 11px;
             }
-
         }
-
         .todo-item {
             width: 100%;
             display: flex;
             position: relative;
             margin-bottom: 8px;
-
             &:hover {
                 background-color: #091e420a;
-
                 .remove-todo-icon {
                     display: block;
                 }
             }
-
             span {
                 font-size: 14px;
                 color: #172b4d;
                 cursor: pointer;
-
                 &.done {
                     text-decoration: line-through;
                 }
             }
-
             .remove-todo-icon {
                 display: none;
                 position: absolute;
@@ -350,17 +301,13 @@
                 top: 0;
                 padding: 5px;
             }
-
         }
-
         .add-todo-btn {
             margin-left: 32px;
             margin-top: 8px;
         }
-
         .sidebar {
             padding: 0 16px 8px 8px;
-
             .btn-label-container {
                 // padding: rem(6px) rem(12px) rem(6px) 0;
                 justify-content: flex-start;
@@ -369,14 +316,12 @@
                 width: 144px;
                 font-size: 14px;
             }
-
             .add-to-card,
             .actions {
                 display: flex;
                 flex-direction: column;
                 gap: 8px;
             }
-
             h3 {
                 &.sidebar-title {
                     font-size: 12px;
@@ -387,13 +332,9 @@
                     text-transform: uppercase;
                 }
             }
-
             .actions {
                 margin-top: 24px;
             }
-
         }
-
-
     }
 }

@@ -39,8 +39,12 @@ class _QuickCardEditor extends Component {
     const cardToSave = { ...this.state.card };
     cardToSave.title = this.state.cardTitle;
     this.props.onUpdateCard(cardToSave, this.props.groupId, this.props.board);
-    this.props.onToggleQuickCardEditor(event, null, '')
+    this.props.onToggleQuickCardEditor(event, null, '');
   };
+  openCard=(event)=>{
+    this.props.onToggleQuickCardEditor(event, null, '')
+    this.props.openCardEdit(this.props.groupId, this.props.cardId)
+  }
 
   render() {
     const { card, cardTitle } = this.state;
@@ -92,7 +96,14 @@ class _QuickCardEditor extends Component {
             />
           </div>
         </div>
-        <button onClick={this.onSave} className="card-edit-btn secondary">Save</button>
+        <button onClick={this.onSave} className='card-edit-btn secondary'>
+          Save
+        </button>
+        <div className='quick-editor-sidebar flex column'>
+          <button onClick={this.openCard}>
+            <span>Open card</span>
+          </button>
+        </div>
       </div>
     );
   }
