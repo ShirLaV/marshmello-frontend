@@ -62,7 +62,6 @@ class _CardEdit extends Component {
     render() {
         const { currCard, currGroup } = this.state
         if (!currCard) return <div>Loading...</div>
-        console.log(new Date(currCard?.dueDate));
         return (
             <div className="edit-modal-container">
                 <section className="card-edit" ref={this.modalRef}>
