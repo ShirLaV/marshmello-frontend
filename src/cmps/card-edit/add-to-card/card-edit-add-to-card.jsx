@@ -1,6 +1,6 @@
 import React from 'react'
 import { MemberList } from '../../shared/popover-children/member-list'
-import CardEditDate from '../../shared/popover-children/card-edit-date'
+import { CardEditDate } from '../../shared/popover-children/card-edit-date'
 import { LabelList } from '../../shared/popover-children/label-list'
 import { BsClock, BsCardChecklist } from 'react-icons/bs'
 import { MdLabelOutline } from 'react-icons/md'

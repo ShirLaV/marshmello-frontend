@@ -13,7 +13,7 @@ export function CardEditAddToCardItem({ item }) {
             </span>
             {
                 isOpen && <DynamicPopover onClose={() => setIsOpen(false)} title={item.title} ref={itemRef}>
-                    <InnerPopperCmp />
+                    <InnerPopperCmp onClose={() => setIsOpen(false)} />
                 </DynamicPopover>
             }
         </div>

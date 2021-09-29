@@ -3,7 +3,7 @@ import { cardEditService } from '../../../services/card-edit.service'
 import { onUpdateCard } from '../../../store/board.actions'
 import { connect } from 'react-redux'
 
-export function _PopoverChecklist({onUpdateCard}) {
+export function _PopoverChecklist({ onUpdateCard, onClose }) {
     const inputRef = useRef()
     const [title, setTitle] = useState('Checklist')
 
@@ -20,6 +20,8 @@ export function _PopoverChecklist({onUpdateCard}) {
         ev.preventDefault()
         const res = cardEditService.handleChecklistChange('addChecklist', null, title)
         onUpdateCard(...res)
+        setTitle('')
+        onClose()
     }
 
     return (

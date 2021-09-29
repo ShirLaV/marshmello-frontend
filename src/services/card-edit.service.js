@@ -12,7 +12,6 @@ const handleChecklistChange = (type, checklistId, value, newVal) => {
             checklist.todos.push(value)
 
         } else if (type === 'markTodo') {
-            debugger
             const todo = checklist.todos.find(todo => todo.id === value)
             todo.isDone = !todo.isDone
 
@@ -70,6 +69,15 @@ const handleLabelChange = (labelId) => {
     return [card, groupId, board]
 }
 
+const handleDueDateChange = (timestamp) => {
+    const cardId = store.getState().boardModule.currCardId
+    const board = store.getState().boardModule.currBoard
+    const groupId = getGroupId(cardId)
+    let card = getCardById(cardId, groupId)
+    card.dueDate = timestamp
+    return [card, groupId, board]
+}
+
 const getCardById = (cardId, groupId) => {
     const board = store.getState().boardModule.currBoard
     const group = board.groups.find(group => group.id === groupId)
@@ -81,11 +89,35 @@ const getGroupId = (cardId) => {
     return board.groups.find(group => group.cards.find(card => card.id === cardId))?.id
 }
 
+const getFormattedTime = (timestamp) => {
+    if (!timestamp) return ''
+    const timeLeft = timestamp - Date.now()
+    if (timeLeft <= (1000 * 60 * 60 * 24)) return 'today at 12:00 AM'
+    else if (timeLeft <= (1000 * 60 * 60 * 48)) return 'tomorrow at 12:00 AM'
+    const date = new Date(timestamp)
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    const idx = date.getMonth()
+    const month = monthNames[idx]
+    const day = date.getDate()
+    return `${month} ${day} at 12:00 AM`
+}
+
+const getUploadTime = (timestamp) => {
+    const timePassed = Date.now() - timestamp
+    if (timePassed < (1000 * 60)) return 'Added a few seconds ago'
+    else if (timePassed < 1000 * 60 * 60) {
+        const minutes = Math.floor(timePassed / 1000 / 60)
+        return `Added ${minutes} minutes ago`
+    }
+}
+
 
 export const cardEditService = {
     handleChecklistChange,
     handleMemberChange,
     getGroupId,
     getCardById,
-    handleLabelChange
+    handleLabelChange,
+    handleDueDateChange,
+    getFormattedTime
 }
