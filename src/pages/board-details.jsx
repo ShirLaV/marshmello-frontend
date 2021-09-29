@@ -27,6 +27,7 @@ class _BoardDetails extends Component {
     quickCardEditor: {
       cardToEdit: null,
       groupId: '',
+      position: {}
     },
   };
   componentDidMount() {
@@ -49,24 +50,23 @@ class _BoardDetails extends Component {
     event.stopPropagation();
     this.setState({ isCardLabelListOpen: !this.state.isCardLabelListOpen });
   };
-
   onToggleQuickCardEditor = (event, card, groupId) => {
     event.stopPropagation();
-    this.setState({ quickCardEditor: { cardToEdit: card, groupId } });
+    // console.log('event', event)
+    const parentElement = event.currentTarget.parentNode;
+    var position = parentElement.getBoundingClientRect();
+    this.setState({ quickCardEditor: { cardToEdit: card, groupId, position  } });
   };
-
   toggleCardComplete = (ev, groupId, card) => {
     ev.stopPropagation();
     const cardToUpdate = { ...card };
     cardToUpdate.isComplete = !card.isComplete;
     this.props.onUpdateCard(cardToUpdate, groupId, this.props.board);
   };
-
   getLabel = (labelId) => {
     const label = this.props.board.labels.find((label) => label.id === labelId);
     return label;
   };
-
   handleOnDragEnd = (result) => {
     const { destination, source, type } = result;
     if (!destination) return;
@@ -108,11 +108,9 @@ class _BoardDetails extends Component {
       this.props.onUpdateBoard({ type: '' }, boardToChange);
     }
   };
-
   onToggleAddPop = () => {
     this.setState({ isAddPopOpen: !this.state.isAddPopOpen });
   };
-
   toggleGroupArchive = (groupId) => {
     const groupToUpdate = {
       ...this.props.board.groups.find((group) => groupId === group.id),
@@ -192,9 +190,11 @@ class _BoardDetails extends Component {
           <QuickCardEditor
             cardId={quickCardEditor.cardToEdit.id}
             groupId={quickCardEditor.groupId}
+            position={quickCardEditor.position}
             getLabel={this.getLabel}
             toggleCardComplete={this.toggleCardComplete}
             isCardLabelListOpen={isCardLabelListOpen}
+            onToggleQuickCardEditor={this.onToggleQuickCardEditor}
           />
         )}
         {quickCardEditor.cardToEdit && (

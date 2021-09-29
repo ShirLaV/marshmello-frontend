@@ -61,7 +61,7 @@ export class GroupPreview extends Component {
   };
 
   setFocus = (event) => {
-    console.log('yay')
+    // console.log('yay')
     event.target.focus();
   };
 
