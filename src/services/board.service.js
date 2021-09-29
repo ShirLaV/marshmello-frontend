@@ -41,12 +41,23 @@ async function remove(boardId) {
     // try {
     //     return httpService.delete(`board/${boardId}`)
     // } catch (err) {
-    //     console.log(`Front: Error deleting board with ID: ${boardId}`);
-    // }
-}
-
-async function save(board) {
-    if (board._id) {
+        //     console.log(`Front: Error deleting board with ID: ${boardId}`);
+        // }
+    }
+    
+    async function save(board, activity) {
+        if (board._id) {
+        const newActivity = {
+            id: utilService.makeId(),
+            txt: activity.txt,
+            createdBy: userService.getMiniUser(),
+            createdAt: Date.now(),
+            task: (activity.task) ? activity.task : ''
+        }
+        console.log('Activity from service: ', newActivity)
+        board.activities.push(newActivity)
+        console.log('Board activities from service: ', board.activities)
+        
         return storageService.put(STORAGE_KEY, board)
         // return httpService.put(`board/${board._id}`, board)
     } else {
@@ -87,13 +98,15 @@ async function save(board) {
                 title: "",
                 color: "#FF78CB"
             }
-            ],
-            members: [userService.getMiniUser()]
-        }
-        return storageService.post(STORAGE_KEY, boardToSave)
-        // const addedBoard = await httpService.post(`board`, boardToSave)
-        // return addedBoard
+        ],
+        members: [userService.getMiniUser()],
+        activities: []
     }
+    
+    return storageService.post(STORAGE_KEY, boardToSave)
+    // const addedBoard = await httpService.post(`board`, boardToSave)
+    // return addedBoard
+}
 }
 
 // function subscribe(listener) {

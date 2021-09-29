@@ -132,7 +132,7 @@ export function onUpdateFilter(filterBy) {
     }
 }
 
-export function onUpdateBoard(action, board) {
+export function onUpdateBoard(action, board, activity) {
     return async (dispatch) => {
         const boardToSave = _getUpdatedBoard(action, board)
         dispatch({
@@ -141,7 +141,7 @@ export function onUpdateBoard(action, board) {
         })
         // console.log('Updated Board:', boardToSave);
         try {
-            await boardService.save(boardToSave)
+            await boardService.save(boardToSave, activity)
             // showSuccessMsg('Board updated')
         } catch (err) {
             // showErrorMsg('Cannot update board')

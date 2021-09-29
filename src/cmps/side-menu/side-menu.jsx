@@ -43,14 +43,18 @@ class _SideMenu extends React.Component {
     }
 
     _DefaultView = () => {
-        return <ul className="default-menu clean-list">
-            {this._cmpsToRender.map((cmp, idx) =>
-                <li onClick={() => this.onSelectView(idx)} key={cmp.id}>
-                    <div className="icon">{cmp.icon}</div>
-                    <p>{cmp.title}</p>
-                </li>
-            )}
-        </ul>
+        return <div>
+            <ul className="default-menu clean-list">
+                {this._cmpsToRender.map((cmp, idx) =>
+                    <li onClick={() => this.onSelectView(idx)} key={cmp.id}>
+                        <div className="icon">{cmp.icon}</div>
+                        <p>{cmp.title}</p>
+                    </li>
+                )}
+            </ul>
+            <hr />
+            
+        </div>
     }
 
     render() {

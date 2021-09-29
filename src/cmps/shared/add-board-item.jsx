@@ -6,6 +6,8 @@ import { onUpdateBoard, onUpdateCard, onAddCard } from '../../store/board.action
 import { IoMdClose } from 'react-icons/io'
 import { GrClose } from 'react-icons/gr';
 import { utilService } from '../../services/util.service';
+import { activityTxtMap } from '../../services/activity.service.js'
+
 
 class _AddBoardItem extends React.Component {
   state = {
@@ -36,8 +38,12 @@ class _AddBoardItem extends React.Component {
     newItem.id = utilService.makeId();
     if (this.props.type === 'group') {
       if(!newItem.cards) newItem.cards=[]
+      
+      // ADD ACTIVITY
+      const activity = {txt: activityTxtMap.addGroup(newItem.title)}
+      
       const action = { type: 'ADD_GROUP', group: newItem };
-      this.props.onUpdateBoard(action, this.props.board);
+      this.props.onUpdateBoard(action, this.props.board, activity);
     }
     else if (this.props.type === 'card') {
       const newCard = {...newItem , isComplete: false };
