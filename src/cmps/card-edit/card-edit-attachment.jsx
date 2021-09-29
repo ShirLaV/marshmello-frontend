@@ -27,7 +27,7 @@ class _CardEditAttachment extends Component {
                     <h3>Attachments</h3>
                 </div>
                 <div className="card-attachments">
-                    {currCard?.attachments?.map(attachment => <AttachmentPreview attachment={attachment} />)}
+                    {currCard?.attachments?.map((attachment, i) => <AttachmentPreview key={attachment.title + i} attachment={attachment} />)}
                 </div>
             </>
         )
