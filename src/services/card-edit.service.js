@@ -94,6 +94,14 @@ const getGroupId = (cardId) => {
 const getFormattedTime = (timestamp) => {
     if (!timestamp) return ''
     const timeLeft = timestamp - Date.now()
+    if (timeLeft < 0) {
+        const date = new Date(timestamp)
+        const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        const idx = date.getMonth()
+        const month = monthNames[idx]
+        const day = date.getDate()
+        return `${month} ${day} at 12:00 AM`
+    }
     if (timeLeft <= (1000 * 60 * 60 * 24)) return 'today at 12:00 AM'
     else if (timeLeft <= (1000 * 60 * 60 * 48)) return 'tomorrow at 12:00 AM'
     const date = new Date(timestamp)

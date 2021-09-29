@@ -59,15 +59,23 @@ class _CardEdit extends Component {
         this.props.onUpdateCard(card, groupId, board)
     }
 
+    checkCardBackground = () => {
+        const { currCard } = this.state
+        if (!currCard.style) return
+        if (currCard.style.bgColor) return { backgroundColor: currCard.style.bgColor, minHeight: 116, height: 116 }
+        if (currCard.style.imgUrl) return { background: `center / contain no-repeat url(${currCard.style.imgUrl})`, objectFit: 'cover', minHeight: 160, height: 160 }
+    }
+
     render() {
         const { currCard, currGroup } = this.state
         if (!currCard) return <div>Loading...</div>
+        const bg = this.checkCardBackground()
         return (
             <div className="edit-modal-container">
                 <section className="card-edit" ref={this.modalRef}>
-                    {currCard.style?.bgColor && <div className="card-edit-bg" style={{ backgroundColor: currCard.style.bgColor }}></div>}
+                    {currCard.style && <div className="card-edit-bg" style={bg}></div>}
                     <button className="close-modal-btn" onClick={() => this.props.history.goBack()}><IoMdClose /></button>
-                    {currCard.style?.bgColor && <button className="change-cover-btn">
+                    {currCard.style && <button className="change-cover-btn" style={{ top: currCard.style.bgColor ? 76 : 118 }}>
                         <span className="cover-icon"><TiCreditCard /></span>
                         <span>Cover</span>
                     </button>}
