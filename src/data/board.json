@@ -76,7 +76,7 @@
                         "title": "Notification not sending",
                         "description": "Notification on header doesn't apear in time",
                         "isComplete": false,
-                        "attachments": ["https://images.pexels.com/photos/1122626/pexels-photo-1122626.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"],
+                        "attachments": [{"url": "https://images.pexels.com/photos/1122626/pexels-photo-1122626.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260", "title":"attachment", "addedAt":1632823545, "isCover":false}],
                         "members": [{
                                 "_id": "u103",
                                 "username": "morty@smith.com",

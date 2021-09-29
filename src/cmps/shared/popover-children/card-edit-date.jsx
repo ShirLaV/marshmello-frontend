@@ -1,14 +1,30 @@
 import React, { useState } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import { connect } from 'react-redux'
+import { cardEditService } from '../../../services/card-edit.service'
+import { onUpdateCard } from '../../../store/board.actions'
 
-export default function CardEditDate() {
+
+
+const _CardEditDate = ({ onUpdateCard, onClose }) => {
     const [startDate, setStartDate] = useState(new Date())
     const [endDate, setEndDate] = useState(null)
-    const onChange = (ev) => {
-        // const [start, end] = dates
-        // setStartDate(start)
-        // setEndDate(end)
+    const [dueDate, setDueDate] = useState(null)
+
+    const onChange = (date) => {
+        setDueDate(date.getTime())
+    }
+
+    const onReset = () => {
+        setDueDate(null)
+        handleSubmit()
+    }
+
+    const handleSubmit = () => {
+        const res = cardEditService.handleDueDateChange(dueDate)
+        onUpdateCard(...res)
+        onClose()
     }
 
     return (
@@ -23,31 +39,15 @@ export default function CardEditDate() {
                 formatWeekDay={nameOfDay => nameOfDay.substr(0, 3)}
             />
             <div className="picker-btns flex column">
-                <button className="card-edit-btn secondary long">Save</button>
-                <button className="card-edit-btn long">Remove</button>
+                <button className="card-edit-btn secondary long" onClick={handleSubmit}>Save</button>
+                <button className="card-edit-btn long" onClick={onReset}>Remove</button>
             </div>
         </div>
-        // <DatePicker
-        //     selected={startDate}
-        //     onChange={(date) => setStartDate(date)}
-        //     popperClassName="some-custom-class"
-        //     popperPlacement="top-end"
-        //     popperModifiers={[
-        //         {
-        //             name: "offset",
-        //             options: {
-        //                 offset: [5, 10],
-        //             },
-        //         },
-        //         {
-        //             name: "preventOverflow",
-        //             options: {
-        //                 rootBoundary: "viewport",
-        //                 tether: false,
-        //                 altAxis: true,
-        //             },
-        //         },
-        //     ]}
-        // />
     )
 }
+
+const mapDispatchToProps = {
+    onUpdateCard
+}
+
+export const CardEditDate = connect(null, mapDispatchToProps)(_CardEditDate);
