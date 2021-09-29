@@ -35,7 +35,7 @@ class _AddBoardItem extends React.Component {
     if(!newItem.title) return
     newItem.id = utilService.makeId();
     if (this.props.type === 'group') {
-      // if(!newItem.cards) newItem.cards=[null]
+      if(!newItem.cards) newItem.cards=[]
       const action = { type: 'ADD_GROUP', group: newItem };
       this.props.onUpdateBoard(action, this.props.board);
     }

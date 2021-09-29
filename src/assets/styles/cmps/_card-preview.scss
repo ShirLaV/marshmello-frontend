@@ -6,7 +6,6 @@
     flex-direction: column;
     background-color: white;
     box-shadow: 0 1px 0 #16181b40;
-    margin-bottom: 8px;
     border-radius: 3px;
     .card-preview-header {
         background-position: 50%;
@@ -26,9 +25,7 @@
     }
     .card-details {
         padding: 6px 8px 6px;
-        // padding: 8px 6px 8px 0px;
         .label-bar-list {
-            // gap: 5px;
             .label-bar {
                 margin: 0 4px 4px 0;
                 border-radius: 5px;
@@ -53,7 +50,6 @@
             }
         }
         .card-preview-footer {
-            // padding: 8px 0px;
             flex-wrap: wrap;
             gap: 8px;
             .due-date-box {
@@ -79,7 +75,6 @@
                 gap: 5px;
             }
             .card-members-list {
-                // padding: 5px;
                 flex: 1 1;
                 justify-content: flex-end;
             }

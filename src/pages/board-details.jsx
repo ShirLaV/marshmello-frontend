@@ -26,6 +26,7 @@ class _BoardDetails extends Component {
     isAddPopOpen: false,
     quickCardEditor: {
       cardToEdit: null,
+      groupId: '',
     },
   };
   componentDidMount() {
@@ -49,9 +50,9 @@ class _BoardDetails extends Component {
     this.setState({ isCardLabelListOpen: !this.state.isCardLabelListOpen });
   };
 
-  toggleQuickCardEditor = (event, card) => {
+  onToggleQuickCardEditor = (event, card, groupId) => {
     event.stopPropagation();
-    this.setState({ quickCardEditor: {cardToEdit: card} });
+    this.setState({ quickCardEditor: { cardToEdit: card, groupId } });
   };
 
   toggleCardComplete = (ev, groupId, card) => {
@@ -59,6 +60,11 @@ class _BoardDetails extends Component {
     const cardToUpdate = { ...card };
     cardToUpdate.isComplete = !card.isComplete;
     this.props.onUpdateCard(cardToUpdate, groupId, this.props.board);
+  };
+
+  getLabel = (labelId) => {
+    const label = this.props.board.labels.find((label) => label.id === labelId);
+    return label;
   };
 
   handleOnDragEnd = (result) => {
@@ -90,9 +96,10 @@ class _BoardDetails extends Component {
           (group) => group.id === destination.droppableId
         ),
       };
-      if (destinationGroup.cards) destinationGroup.cards.splice(destination.index, 0, ...card);
-      else destinationGroup.cards=[card]
-      console.log('destinationGroup', destinationGroup)
+      if (destinationGroup.cards)
+        destinationGroup.cards.splice(destination.index, 0, ...card);
+      else destinationGroup.cards = [card];
+      console.log('destinationGroup', destinationGroup);
       boardToChange.groups = boardToChange.groups.map((currGroup) => {
         if (currGroup.id === source.droppableId) return sourceGroup;
         if (currGroup.id === destination.droppableId) return destinationGroup;
@@ -119,9 +126,8 @@ class _BoardDetails extends Component {
 
   render() {
     const { board } = this.props;
-    const { isCardLabelListOpen, isAddPopOpen, quickCardEditor } =
-      this.state;
-    if (!board) return <Loader />
+    const { isCardLabelListOpen, isAddPopOpen, quickCardEditor } = this.state;
+    if (!board) return <Loader />;
     return (
       <div className='board-details flex column'>
         <Route path='/board/:boardId/:groupId/:cardId' component={CardEdit} />
@@ -150,7 +156,8 @@ class _BoardDetails extends Component {
                         isCardLabelListOpen={isCardLabelListOpen}
                         toggleCardComplete={this.toggleCardComplete}
                         toggleGroupArchive={this.toggleGroupArchive}
-                        toggleQuickCardEditor={this.toggleQuickCardEditor}
+                        onToggleQuickCardEditor={this.onToggleQuickCardEditor}
+                        getLabel={this.getLabel}
                       />
                     )}
                     {provided.placeholder}
@@ -181,14 +188,22 @@ class _BoardDetails extends Component {
           </section>
         </DragDropContext>
 
-        {/* {quickCardEditor.cardToEdit && (
-          <div>
-            <div onClick={(event)=>this.toggleQuickCardEditor(event, null)}>
-              <OverlayScreen />
-            </div>
-            <QuickCardEditor card={quickCardEditor.cardToEdit} />
+        {quickCardEditor.cardToEdit && (
+          <QuickCardEditor
+            cardId={quickCardEditor.cardToEdit.id}
+            groupId={quickCardEditor.groupId}
+            getLabel={this.getLabel}
+            toggleCardComplete={this.toggleCardComplete}
+            isCardLabelListOpen={isCardLabelListOpen}
+          />
+        )}
+        {quickCardEditor.cardToEdit && (
+          <div
+            onClick={(event) => this.onToggleQuickCardEditor(event, null, '')}
+          >
+            <OverlayScreen />
           </div>
-        )} */}
+        )}
       </div>
     );
   }
