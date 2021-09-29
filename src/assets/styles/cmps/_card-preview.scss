@@ -26,17 +26,20 @@
     .card-details {
         padding: 6px 8px 6px;
         .label-bar-list {
+            flex-wrap: wrap;
             .label-bar {
                 margin: 0 4px 4px 0;
                 border-radius: 5px;
                 font-size: 0.8rem;
                 text-align: center;
+                padding: 0px 8px;
             }
             &.close {
                 .label-bar {
                     color: rgba(255, 255, 255, 0);
                     height: 8px;
-                    min-width: 40px;
+                    min-width: 20px;
+                    width: 40px;
                     transition: height .2s, min-width .2s linear .2s;
                 }
             }
@@ -44,7 +47,9 @@
                 .label-bar {
                     color: white;
                     height: 20px;
+                    // width: fit-content;
                     min-width: 60px;
+                    width: fit-content;
                     transition: color .2s linear 0.4s, min-width .2s, height .2s linear .2s;
                 }
             }

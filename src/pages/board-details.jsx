@@ -195,6 +195,7 @@ class _BoardDetails extends Component {
             toggleCardComplete={this.toggleCardComplete}
             isCardLabelListOpen={isCardLabelListOpen}
             onToggleQuickCardEditor={this.onToggleQuickCardEditor}
+            openCardEdit={this.openCardEdit}
           />
         )}
         {quickCardEditor.cardToEdit && (

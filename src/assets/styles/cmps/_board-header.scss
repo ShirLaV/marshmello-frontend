@@ -1,45 +1,39 @@
 .board-header {
-  background-color: transparent;
-  z-index: 2;
-  padding: 5px 15px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  .left-btns {
-    .board-title {
-
-      .nav-button {
-        width: fit-content;
-      }
-      > input {
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-        color: white;
-      }
-
-      .user-previews {
-        width: 100px;
-        display: flex;
-        flex-wrap: nowrap;
-        .user-avatar {
-            margin-inline-end: -50px;
-        }
-      }
-    }
-
+    background-color: transparent;
+    z-index: 2;
+    padding: 5px 15px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    .user-previews {
-      display: flex;
-      align-items: center;
-      margin: -2px;
-    }
-    .starred-btn {
-      &.starred {
-        color: gold;
-      }
+    justify-content: space-between;
+    .left-btns {
+        .board-title {
+            >input {
+                background-color: transparent;
+                border: none;
+                cursor: pointer;
+                color: white;
+                font-size: 18px;
+                font-weight: 700;
+                line-height: 32px;
+            }
+        }
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        .user-previews {
+            display: flex;
+            align-items: center;
+            margin: -2px;
+            // max-width: 128px;
+            &>* {
+                flex-basis: 25%;
+            }
+        }
+        .starred-btn {
+            &.starred {
+                color: gold;
+            }
+        }
     }
   }
   .right-btns {
@@ -52,5 +46,4 @@
         transform: translateX(-230%);
       }
     }
-  }
 }
