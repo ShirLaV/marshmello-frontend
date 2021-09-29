@@ -1,3 +1,18 @@
 .quick-card-editor {
     z-index: 2;
+    textarea {
+        background-color: inherit;
+        font-family: unset;
+        resize: none;
+        width: 100%;
+        height: 90px;
+        text-align: start;
+        &:focus {
+            border: none;
+            background-color: inherit;
+        }
+    }
+    .card-edit-btn {
+        margin-top: 8px;
+    }
 }

@@ -5,15 +5,16 @@ import { CardLabelBarList } from '../cmps/card-preview/card-label-bar-list.jsx';
 import { CardFooter } from '../cmps/card-preview/card-footer.jsx';
 import { cardEditService } from '../services/card-edit.service.js';
 import { Loader } from './shared/loader.jsx';
+import { onUpdateCard } from '../store/board.actions';
 
 class _QuickCardEditor extends Component {
   state = {
     card: null,
+    cardTitle: '',
   };
   componentDidMount() {
     const { cardId, groupId } = this.props;
     this.uploadCard(cardId, groupId);
-
   }
 
   componentDidUpdate(prevProps) {
@@ -25,22 +26,42 @@ class _QuickCardEditor extends Component {
 
   uploadCard = (cardId, groupId) => {
     const card = cardEditService.getCardById(cardId, groupId);
-    this.setState({ card });
+    this.setState({ card, cardTitle: card.title });
+  };
+
+  handleChange = ({ target: { name, value } }) => {
+    this.setState((prevState) => ({ ...prevState, [name]: value }));
+  };
+  handleFocus = (event) => {
+    event.target.select();
+  };
+  onSave = (event) => {
+    const cardToSave = { ...this.state.card };
+    cardToSave.title = this.state.cardTitle;
+    this.props.onUpdateCard(cardToSave, this.props.groupId, this.props.board);
+    this.props.onToggleQuickCardEditor(event, null, '')
   };
 
   render() {
-    const { card } = this.state;
+    const { card, cardTitle } = this.state;
     const {
-      cardId,
       groupId,
       getLabel,
       isCardLabelListOpen,
       toggleCardComplete,
+      position,
     } = this.props;
     if (!card) return <Loader />;
     return (
-      <div className='quick-card-editor'>
-        <div className='card-preview'>
+      <div
+        className='quick-card-editor'
+        style={{
+          position: 'fixed',
+          top: position.top,
+          left: position.left,
+        }}
+      >
+        <div className='card-preview' style={{ width: position.width }}>
           {card.style && <CardHeader cardStyle={card.style} />}
 
           <div className='card-details'>
@@ -54,7 +75,15 @@ class _QuickCardEditor extends Component {
               </div>
             )}
 
-            <p>{card.title}</p>
+            <textarea
+              className='clean-input'
+              type='text'
+              value={cardTitle}
+              name='cardTitle'
+              onChange={this.handleChange}
+              autoFocus
+              onFocus={this.handleFocus}
+            />
 
             <CardFooter
               card={card}
@@ -63,6 +92,7 @@ class _QuickCardEditor extends Component {
             />
           </div>
         </div>
+        <button onClick={this.onSave} className="card-edit-btn secondary">Save</button>
       </div>
     );
   }
@@ -74,4 +104,11 @@ function mapStateToProps(state) {
   };
 }
 
-export const QuickCardEditor = connect(mapStateToProps)(_QuickCardEditor);
+const mapDispatchToProps = {
+  onUpdateCard,
+};
+
+export const QuickCardEditor = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(_QuickCardEditor);
