@@ -21,6 +21,20 @@ class _CardEdit extends Component {
 
     componentDidMount() {
         document.addEventListener('mousedown', this.handleClick)
+        this.handleLoad()
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.board !== this.props.board) {
+            this.handleLoad()
+        }
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClick)
+    }
+
+    handleLoad = () => {
         let currCard
         let currGroup
         const { cardId, groupId } = this.props.match.params
@@ -30,10 +44,6 @@ class _CardEdit extends Component {
             currGroup = this.getDataById(cardId, groupId).currentGroup
         }
         this.setState({ currCard, currGroup })
-    }
-
-    componentWillUnmount() {
-        document.removeEventListener('mousedown', this.handleClick)
     }
 
     handleClick = e => {

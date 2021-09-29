@@ -110,6 +110,7 @@ export function onUpdateCard(cardToSave, groupId, board) {
     const cardIdx = group.cards.findIndex(card => card.id === cardToSave.id)
     group.cards.splice(cardIdx, 1, cardToSave)
     const groupAction = { type: 'UPDATE_GROUP', group }
+    console.log(groupAction);
     return onUpdateBoard(groupAction, board)
 }
 
@@ -135,8 +136,10 @@ export function onUpdateFilter(filterBy) {
 }
 
 export function onUpdateBoard(action, board, activity) {
+    console.log(action);
     return async (dispatch) => {
         const boardToSave = _getUpdatedBoard(action, board)
+        console.log(boardToSave);
         dispatch({
                 type: 'UPDATE_BOARD',
                 board: boardToSave
