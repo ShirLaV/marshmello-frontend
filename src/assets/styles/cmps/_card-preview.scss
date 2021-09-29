@@ -86,21 +86,27 @@
         }
     }
     .hover-edit-btn {
+        font-size: 16px;
         border-radius: 5px;
-        height: 20px;
-        background-color: rgba(235, 236, 240, 0.063);
+        width: 28px;
+        height: 28px;
+        color: #42526e;
+        background-color: #F4F5F7;
+        // background-color: rgba(235, 236, 240, 0.063);
         display: none;
         position: absolute;
-        top: 5px;
-        right: 5px;
+        top: 2px;
+        right: 2px;
     }
     &.card-preview:hover {
         background-color: #F4F5F7;
         cursor: pointer;
         .hover-edit-btn {
+            // background-color: #F4F5F7;
             display: block;
             &.hover-edit-btn:hover {
-                background-color: rgb(235, 236, 240);
+                color: #172b4d;
+                background-color: #ebecf0;
             }
         }
     }

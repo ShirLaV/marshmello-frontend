@@ -5,6 +5,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    color: #dfe0db3c;
     .left-btns {
         .board-title {
             >input {
@@ -35,15 +36,15 @@
             }
         }
     }
-  }
-  .right-btns {
+}
+
+.right-btns {
     display: flex;
     gap: 10px;
     // align-items: center;
-
     .dashboard-btn {
-      &.menu-open {
-        transform: translateX(-230%);
-      }
+        &.menu-open {
+            transform: translateX(-230%);
+        }
     }
 }
