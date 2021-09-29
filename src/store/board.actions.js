@@ -88,13 +88,13 @@ export function onAddBoard(board) {
     }
 }
 
-export function onAddCard(newCard, groupId, board) {
+export function onAddCard(newCard, groupId, board, activity) {
     const group = board.groups.find(group => group.id === groupId)
     newCard = {...newCard, createdAt: Date.now(), isComplete: false };
 
     group.cards = (group.cards) ? [...group.cards, newCard] : [newCard]
     const groupAction = { type: 'UPDATE_GROUP', group }
-    return onUpdateBoard(groupAction, board)
+    return onUpdateBoard(groupAction, board, activity)
 }
 
 export function onRemoveCard(cardId, groupId, board) {
@@ -135,8 +135,7 @@ export function onUpdateFilter(filterBy) {
     }
 }
 
-export function onUpdateBoard(action, board, activity) {
-    console.log(action);
+export function onUpdateBoard(action, board, activity = null) {
     return async (dispatch) => {
         const boardToSave = _getUpdatedBoard(action, board)
         console.log(boardToSave);
@@ -146,7 +145,7 @@ export function onUpdateBoard(action, board, activity) {
             })
             // console.log('Updated Board:', boardToSave);
         try {
-            await boardService.save(boardToSave, activity)
+            await boardService.save(boardToSave, activity = null)
             // showSuccessMsg('Board updated')
         } catch (err) {
             // showErrorMsg('Cannot update board')
