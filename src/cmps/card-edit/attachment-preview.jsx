@@ -1,8 +1,11 @@
 import React from 'react'
 import { cardEditService } from '../../services/card-edit.service'
 import { CgCreditCard } from 'react-icons/cg'
+import { connect } from 'react-redux'
+import { onUpdateCard } from '../../store/board.actions'
 
-export function AttachmentPreview({ attachment }) {
+
+function _AttachmentPreview({ attachment }) {
 
     const addedAt = cardEditService.getUploadTime(attachment.addedAt)
 
@@ -29,3 +32,16 @@ export function AttachmentPreview({ attachment }) {
         </div>
     )
 }
+
+
+const mapStateToProps = state => {
+    return {
+        board: state.boardModule.currBoard
+    }
+}
+
+const mapDispatchToProps = {
+    onUpdateCard
+}
+
+export const AttachmentPreview = connect(mapStateToProps, mapDispatchToProps)(_AttachmentPreview);

@@ -16,6 +16,7 @@ const _CardEditDueDate = ({ currCardId, onUpdateCard, board }) => {
     const time = cardEditService.getFormattedTime(dueDate)
 
     const getDueDateLabel = () => {
+        if((dueDate - Date.now()) < 0) return { title: 'Overdue', bgColor: '#eb5a46' }
         if (currCard.isComplete) return { title: 'Complete', bgColor: '#61bd4f' }
         if ((dueDate - Date.now()) <= (1000 * 60 * 60 * 24)) return { title: 'Due soon', bgColor: '#f2d600' }
         else return { title: '', bgColor: '' }
