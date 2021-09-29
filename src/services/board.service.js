@@ -41,23 +41,26 @@ async function remove(boardId) {
     // try {
     //     return httpService.delete(`board/${boardId}`)
     // } catch (err) {
-        //     console.log(`Front: Error deleting board with ID: ${boardId}`);
-        // }
-    }
-    
-    async function save(board, activity) {
-        if (board._id) {
-        const newActivity = {
-            id: utilService.makeId(),
-            txt: activity.txt,
-            createdBy: userService.getMiniUser(),
-            createdAt: Date.now(),
-            task: (activity.task) ? activity.task : ''
+    //     console.log(`Front: Error deleting board with ID: ${boardId}`);
+    // }
+}
+
+async function save(board, activity = null) {
+    if (board._id) {
+        if (activity) {
+
+            const newActivity = {
+                id: utilService.makeId(),
+                txt: activity.txt,
+                byMember: userService.getMiniUser(),
+                createdAt: Date.now(),
+                card: (activity.card) ? activity.card : ''
+            }
+            // console.log('Activity from service: ', newActivity)
+            board.activities.push(newActivity)
+            // console.log('Board activities from service: ', board.activities)
         }
-        console.log('Activity from service: ', newActivity)
-        board.activities.push(newActivity)
-        console.log('Board activities from service: ', board.activities)
-        
+
         return storageService.put(STORAGE_KEY, board)
         // return httpService.put(`board/${board._id}`, board)
     } else {
@@ -98,15 +101,15 @@ async function remove(boardId) {
                 title: "",
                 color: "#FF78CB"
             }
-        ],
-        members: [userService.getMiniUser()],
-        activities: []
+            ],
+            members: [userService.getMiniUser()],
+            activities: []
+        }
+
+        return storageService.post(STORAGE_KEY, boardToSave)
+        // const addedBoard = await httpService.post(`board`, boardToSave)
+        // return addedBoard
     }
-    
-    return storageService.post(STORAGE_KEY, boardToSave)
-    // const addedBoard = await httpService.post(`board`, boardToSave)
-    // return addedBoard
-}
 }
 
 // function subscribe(listener) {

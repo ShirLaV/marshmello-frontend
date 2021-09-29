@@ -7,6 +7,7 @@ import { BsArchiveFill } from 'react-icons/bs';
 import { BoardIcon } from './board-icon';
 import { SearchCards } from './search-cards';
 import { Archive } from './archive';
+import { ActivityList } from './activity-list';
 
 class _SideMenu extends React.Component {
     state = {
@@ -53,7 +54,7 @@ class _SideMenu extends React.Component {
                 )}
             </ul>
             <hr />
-            
+            <ActivityList />
         </div>
     }
 
