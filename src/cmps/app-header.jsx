@@ -29,14 +29,19 @@ class _AppHeader extends React.Component {
         this.props.setAddingBoard(value)
     }
 
+    setFavicon = () => {
+        const favicon = document.getElementById('favicon')
+        favicon.href = '../../public/favicon.ico'
+    }
+
     render() {
         const { user, isAddingBoard } = this.props
         return (
             <header className="app-header">
                 <nav className="nav-links">
                     <div className="left-links">
-                        <NavLink to="/"><button className="home-btn nav-button"><CgHome /></button></NavLink>
-                        <NavLink to="/board"><button className="boards-btn flex nav-button"><SiTrello /> Boards</button></NavLink>
+                        <NavLink to="/"><button onClick={() => this.setFavicon()} className="home-btn nav-button"><CgHome /></button></NavLink>
+                        <NavLink to="/board"><button onClick={() => this.setFavicon()} className="boards-btn flex nav-button"><SiTrello /> Boards</button></NavLink>
                     </div>
                     <NavLink className="logo" to="/"><SiTrello /> <span> Marshmello </span></NavLink>
                     <div className="right-links">
@@ -54,7 +59,7 @@ class _AppHeader extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        boards: state.boardModule.boards,
+        board: state.boardModule.currBoard,
         user: state.userModule.user,
         isAddingBoard: state.boardModule.isAddingBoard
     }

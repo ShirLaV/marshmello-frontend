@@ -27,6 +27,14 @@ class _BoardSelect extends React.Component {
         board.isStarred = !board.isStarred
         onUpdateBoard({ type: 'TOGGLE_STARRED', isStarred: board.isStarred }, board)
     }
+    setFavicon = (style) => {
+        const favicon = document.getElementById('favicon')
+        if (style.imgUrl) {
+            favicon.href = style.imgUrl
+        } else {
+            favicon.href = "../../public/favicon.ico"
+        }
+    }
 
     setAddBoard = () => {
         this.props.setAddingBoard(true)
@@ -39,11 +47,11 @@ class _BoardSelect extends React.Component {
             <div className="boards-select main-container">
                 <h2> <AiFillStar /> Starred Boards</h2>
                 <div className="starred-boards">
-                    <BoardList boards={this.getStarredBoards()} />
+                    <BoardList setFavicon={this.setFavicon} boards={this.getStarredBoards()} toggleStarredBoard={this.toggleStarredBoard} />
                 </div>
                 <h2> <SiTrello /> Workspace</h2>
                 <div className="workspace">
-                    <BoardList boards={boards} toggleStarredBoard={this.toggleStarredBoard} />
+                    <BoardList boards={boards} toggleStarredBoard={this.toggleStarredBoard} setFavicon={this.setFavicon} />
                     <div className="board-preview create-board-btn" onClick={() => this.setAddBoard()}>
                         <h4>Create New Board</h4>
                     </div>
