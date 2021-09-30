@@ -10,6 +10,7 @@ import { CardPreview } from './card-preview.jsx';
 import { GroupActions } from '../shared/popover-children/group-actions.jsx';
 import { AddBoardItem } from '../shared/add-board-item.jsx';
 import { DynamicPopover } from '../shared/dynamic-popover.jsx';
+import { activityTxtMap } from '../../services/activity.service.js';
 
 export class GroupPreview extends Component {
   state = {
@@ -48,6 +49,7 @@ export class GroupPreview extends Component {
     const group = this.props.group;
     group.title = this.state.groupTitle;
     const action = { type: 'UPDATE_GROUP', group };
+    // const activity = {txt: activityTxtMap.changeGroupTitle(newCard.title), card: newCard, groupId: this.props.groupId}
     this.props.updateBoard(action);
   };
 
