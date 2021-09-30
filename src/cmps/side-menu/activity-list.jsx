@@ -3,7 +3,7 @@ import { GrList } from 'react-icons/gr';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { MemberAvatar } from '../shared/member-avatar';
-// import { BoardPreview } from './board-preview';
+import Moment from 'react-moment'
 
 class _ActivityList extends React.Component {
 
@@ -14,6 +14,13 @@ class _ActivityList extends React.Component {
 
     render() {
         const { board } = this.props
+        if (board.activities.length === 0) return (<div className="activity">
+            <div className="activity-header">
+                <GrList />
+                <p>Activity</p>
+            </div>
+            <p>No Activities in this board yet</p>
+        </div>)
         return (
             <div className="activity">
                 <div className="activity-header">
@@ -25,9 +32,10 @@ class _ActivityList extends React.Component {
                         board.activities.map(activity =>
                             <li key={activity.id} className="activity-preview">
                                 <MemberAvatar member={activity.byMember} />
-                                <span>{activity.byMember.fullname} {activity.txt} 
-                                {activity.groupId && <Link to={`/board/${board._id}/${activity.groupId}/${activity.card.id}`}> {activity.card.title}</Link>}
-                                {activity.groupId && <p>to: {this.getGroupTitle(activity.groupId)}</p>}
+                                <span className="activity-text"><span className="user-fullname">{activity.byMember.fullname}</span> {activity.txt}
+                                    {activity.groupId && <Link to={`/board/${board._id}/${activity.groupId}/${activity.card.id}`}> {activity.card.title}</Link>}
+                                    {activity.groupId && <p>in list: {this.getGroupTitle(activity.groupId)}</p>}
+                                    <Moment className="publish-time" fromNow>{activity.createdAt}</Moment>
                                 </span>
                             </li>
                         )

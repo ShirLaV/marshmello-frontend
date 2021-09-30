@@ -15,6 +15,11 @@ import { OverlayScreen } from '../cmps/overlay-screen'
 
 
 class _AppHeader extends React.Component {
+
+    // componentDidMount() {
+
+    // }
+
     onLogin = (credentials) => {
         this.props.onLogin(credentials)
     }
