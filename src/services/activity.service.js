@@ -30,6 +30,9 @@ export const activityTxtMap = {
     },
     changeDescription: () => {
         return `Changed the description in card: `
+    },
+    changeGroupTitle: (groupName) => {
+        return `Changed the title in list: ${groupName}`
     }
 }
 

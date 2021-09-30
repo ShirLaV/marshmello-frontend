@@ -49,8 +49,8 @@ export class GroupPreview extends Component {
     const group = this.props.group;
     group.title = this.state.groupTitle;
     const action = { type: 'UPDATE_GROUP', group };
-    // const activity = {txt: activityTxtMap.changeGroupTitle(newCard.title), card: newCard, groupId: this.props.groupId}
-    this.props.updateBoard(action);
+    const activity = {txt: activityTxtMap.changeGroupTitle(group.title)}
+    this.props.updateBoard(action, activity);
   };
 
   blurFocus = (event) => {
