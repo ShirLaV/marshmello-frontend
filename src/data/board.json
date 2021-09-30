@@ -375,9 +375,7 @@
                 "cards": []
             }
         ],
-        "activities": [{
-
-        }]
+        "activities": []
     },
     {
         "_id": "b102",
@@ -525,8 +523,8 @@
             ],
             "style": {}
         }],
-        "activities": [{
+        "activities": [
 
-        }]
+        ]
     }
 ]

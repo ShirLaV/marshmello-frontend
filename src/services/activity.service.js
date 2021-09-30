@@ -15,6 +15,9 @@ export const activityTxtMap = {
     },
     changeBackground: () => {
         return `Changed the background of this board`
+    },
+    editCard: () => {
+        return `Edited card: `
     }
 }
 
