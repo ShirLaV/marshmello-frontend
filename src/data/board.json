@@ -376,18 +376,7 @@
             }
         ],
         "activities": [{
-            "id": "a101",
-            "txt": "Changed Color",
-            "createdAt": 154514,
-            "byMember": {
-                "_id": "u101",
-                "fullname": "Abi Abambi",
-                "imgUrl": "https://robohash.org/abi.png?set=set2"
-            },
-            "card": {
-                "id": "c101",
-                "title": "Replace Logo"
-            }
+
         }]
     },
     {
@@ -537,18 +526,7 @@
             "style": {}
         }],
         "activities": [{
-            "id": "a1024",
-            "txt": "Changed Color",
-            "createdAt": 154514,
-            "byMember": {
-                "_id": "u101",
-                "fullname": "Abi Abambi",
-                "imgUrl": "https://robohash.org/abi.png?set=set2"
-            },
-            "card": {
-                "id": "c101",
-                "title": "Replace Logo"
-            }
+
         }]
     }
 ]
