@@ -39,7 +39,7 @@ class _PopperCoverEdit extends Component {
         const { board, currCardId, onUpdateCard } = this.props
         const { currCard, groupId } = this.state
         currCard.style = null
-        onUpdateCard(currCardId, groupId, board)
+        onUpdateCard(currCard, groupId, board)
     }
 
     handleInitialSelect = () => {
