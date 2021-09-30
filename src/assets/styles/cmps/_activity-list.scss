@@ -14,8 +14,15 @@
       gap: 10px;
       padding: 10px 0;
       .activity-text {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
         .user-fullname {
           font-weight: 700;
+        }
+        .publish-time {
+          font-size: 12px;
+          font-weight: 100;
         }
       }
     }
