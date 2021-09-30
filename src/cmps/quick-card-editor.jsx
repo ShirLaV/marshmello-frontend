@@ -125,11 +125,11 @@ class _QuickCardEditor extends Component {
           >
             <CardEditAddToCardItem item={{ icon: MdLabelOutline, title: 'Edit labels', component: LabelList }}/>
           </div>
-          {/* <div
+          <div
             className='quick-editor-btn flex align-center'
           >
             <CardEditAddToCardItem item={{ icon: BiUser, title: 'Change members', component: MemberList }}/>
-          </div> */}
+          </div>
      
         </div>
       </div>
