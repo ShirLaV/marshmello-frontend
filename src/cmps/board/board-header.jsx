@@ -62,8 +62,8 @@ class _BoardHeader extends React.Component {
                     </button>
                     <button className={`starred-btn nav-button ${(board.isStarred) ? 'starred' : ''}`} onClick={() => this.toggleStarredBoard()}><AiOutlineStar /></button> |
                     <div className="user-previews">
-                        {board.members.map(member =>
-                            <MemberAvatar key={member._id} member={member} />
+                        {board.members.map((member, idx) =>
+                            <MemberAvatar key={member._id} member={member} style={{left: idx * -5}} />
                         )}
                     </div>
                     <div className='relative' ref={this.inviteRef}>
