@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 import { CgCreditCard } from 'react-icons/cg';
 import { MdLabelOutline } from 'react-icons/md'
 import { BiUser } from 'react-icons/bi'
+import { BsClock } from 'react-icons/bs'
 
+import { CardEditDate } from '../cmps/shared/popover-children/card-edit-date'
+import { PopperCoverEdit } from '../cmps/shared/popover-children/popper-cover-edit.jsx'
 import { CardHeader } from '../cmps/card-preview/card-header.jsx';
 import { CardLabelBarList } from '../cmps/card-preview/card-label-bar-list.jsx';
 import { CardFooter } from '../cmps/card-preview/card-footer.jsx';
@@ -131,6 +134,16 @@ class _QuickCardEditor extends Component {
             className='quick-editor-btn flex align-center'
           >
             <CardEditAddToCardItem item={{ icon: BiUser, title: 'Change members', component: MemberList }}/>
+          </div>
+          <div
+            className='quick-editor-btn flex align-center'
+          >
+            <CardEditAddToCardItem item={{ icon: CgCreditCard, title: 'Change cover', component: PopperCoverEdit  }}/>
+          </div>
+          <div
+            className='quick-editor-btn flex align-center'
+          >
+            <CardEditAddToCardItem item={{ icon: BsClock, title: 'Edit dates', component:  CardEditDate }}/>
           </div>
      
         </div>
