@@ -8,8 +8,8 @@ import { onUpdateCard } from '../../../store/board.actions'
 
 
 const _CardEditDate = ({ onUpdateCard, onClose }) => {
-    const [startDate, setStartDate] = useState(new Date())
-    const [endDate, setEndDate] = useState(null)
+    const [startDate] = useState(new Date())
+    const [endDate] = useState(null)
     const [dueDate, setDueDate] = useState(null)
 
     const onChange = (date) => {
