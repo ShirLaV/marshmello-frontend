@@ -26,9 +26,9 @@
             align-items: center;
             margin: -2px;
             // max-width: 128px;
-            &>* {
-                flex-basis: 25%;
-            }
+            // &>* {
+            //     flex-basis: 25%;
+            // }
         }
         .starred-btn {
             &.starred {

@@ -2,7 +2,7 @@
   .activity-header {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 23px;
     padding: 15px 5px;
     font-size: 14px;
     font-weight: 700;
@@ -13,12 +13,23 @@
       align-items: center;
       gap: 10px;
       padding: 10px 0;
+      
+      .member-avatar {
+        align-self: flex-start;
+      }
       .activity-text {
         display: flex;
         flex-wrap: wrap;
+        line-height: 1rem;
         gap: 5px;
         .user-fullname {
           font-weight: 700;
+        }
+        >p {
+          font-size: 13px;
+        }
+        >a {
+          text-decoration: underline;
         }
         .publish-time {
           font-size: 12px;
