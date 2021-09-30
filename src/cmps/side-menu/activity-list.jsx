@@ -30,18 +30,16 @@ class _ActivityList extends React.Component {
                 <ul className="activity-list clean-list" >
                     {
                         board.activities.map(activity =>
-                            <>
-                                <li key={activity.id} className="activity-preview">
-                                    <MemberAvatar member={activity.byMember} />
-                                    <div className="activity-text">
-                                        <span className="user-fullname">{activity.byMember.fullname} </span>
-                                        <p>{activity.txt}</p>
-                                        {activity.groupId && <Link to={`/board/${board._id}/${activity.groupId}/${activity.card.id}`}> {activity.card.title}</Link>}
-                                        {activity.groupId && <p>in list: {this.getGroupTitle(activity.groupId)}</p>}
-                                        <Moment className="publish-time" fromNow>{activity.createdAt}</Moment>
-                                    </div>
-                                </li>
-                            </>
+                            <li key={activity.id} className="activity-preview">
+                                <span className="member-avatar"><MemberAvatar member={activity.byMember} /></span>
+                                <div className="activity-text">
+                                    <span className="user-fullname">{activity.byMember.fullname} </span>
+                                    <p>{activity.txt}</p>
+                                    {activity.groupId && <Link to={`/board/${board._id}/${activity.groupId}/${activity.card.id}`}> {activity.card.title}</Link>}
+                                    {activity.groupId && <p>in list: {this.getGroupTitle(activity.groupId)}</p>}
+                                    <Moment className="publish-time" fromNow>{activity.createdAt}</Moment>
+                                </div>
+                            </li>
                         )
                     }
                 </ul>

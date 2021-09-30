@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { IoMdClose, IoMdList } from 'react-icons/io'
 import { connect } from 'react-redux'
+import { activityTxtMap } from '../../services/activity.service'
 import { cardEditService } from '../../services/card-edit.service'
 import { onUpdateCard } from '../../store/board.actions'
 
@@ -25,7 +26,8 @@ class _CardEditDescription extends Component {
     handleDescriptionChange = (card = this.state.currCard) => {
         const { board } = this.props
         const groupId = cardEditService.getGroupId(this.props.currCardId)
-        this.props.onUpdateCard(card, groupId, board)
+        const activity = {txt: activityTxtMap.changeDescription(), card: card, groupId: groupId}
+        this.props.onUpdateCard(card, groupId, board, activity)
     }
 
     handleInputChange = ({ target: { value } }) => {

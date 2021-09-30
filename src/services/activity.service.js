@@ -17,7 +17,19 @@ export const activityTxtMap = {
         return `Changed the background of this board`
     },
     editCard: () => {
-        return `Edited card: `
+        return `Edited card title: `
+    },
+    archiveList: (listName) => {
+        return `Archived the list: ${listName}`
+    },
+    completeCard: () => {
+        return `Marked the following card as complete: `
+    },
+    unCompleteCard: () => {
+        return `Marked the following card as incomplete: `
+    },
+    changeDescription: () => {
+        return `Changed the description in card: `
     }
 }
 

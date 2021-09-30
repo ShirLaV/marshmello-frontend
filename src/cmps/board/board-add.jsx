@@ -1,5 +1,6 @@
 import React, { createRef } from 'react'
 import { connect } from 'react-redux'
+import { history } from 'react-router-dom'
 
 import { onAddBoard, setAddingBoard } from '../../store/board.actions.js'
 
@@ -8,7 +9,7 @@ class _BoardAdd extends React.Component {
     state = {
         title: '',
         style: {
-            imgUrl: ''
+            imgUrl: 'https://images.pexels.com/photos/3683056/pexels-photo-3683056.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940'
         },
         chosenImgIdx: 5
     }
@@ -18,15 +19,15 @@ class _BoardAdd extends React.Component {
     componentDidMount() {
         document.addEventListener('mousedown', this.handleClick)
     }
-    
-    
+
+
     componentWillUnmount() {
         document.removeEventListener('mousedown', this.handleClick)
         this.props.setAddingBoard(false)
     }
-    
+
     handleClick = (ev) => {
-        if (this.targetRef.current.contains(ev.target) ) {
+        if (this.targetRef.current.contains(ev.target)) {
             // || element?.contains(ev.target)
             // inside click
             return
@@ -34,28 +35,37 @@ class _BoardAdd extends React.Component {
         // outside click 
         this.props.onClose()
     }
-    
+
     handleChange = (ev) => {
         const field = ev.target.name;
         const value = ev.target.value;
         this.setState({ ...this.state, [field]: value });
     }
-    
+
     handleImage = (ev, idx) => {
         ev.preventDefault()
         const imgSrc = ev.target.getAttribute('src')
         this.setState({ ...this.state, style: { imgUrl: imgSrc }, chosenImgIdx: idx })
     }
-    
-    addBoard = (ev) => {
+
+    addBoard = async (ev) => {
         ev.preventDefault()
         if (!this.state.title) return
-        this.props.onAddBoard(this.state)
+        await this.props.onAddBoard(this.state)
+        if (this.props.board) this.props.history.push(`/board/${this.props.board._id}`)
         this.props.setAddingBoard(false)
     }
-    
+
     render() {
-        const images = ['https://images.pexels.com/photos/1914982/pexels-photo-1914982.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', 'https://images.pexels.com/photos/844297/pexels-photo-844297.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', 'https://images.pexels.com/photos/3293148/pexels-photo-3293148.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', 'https://images.pexels.com/photos/911738/pexels-photo-911738.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', 'https://images.pexels.com/photos/3274903/pexels-photo-3274903.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', 'https://images.pexels.com/photos/3683056/pexels-photo-3683056.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', 'https://images.pexels.com/photos/2170473/pexels-photo-2170473.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', 'https://images.pexels.com/photos/2529973/pexels-photo-2529973.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', 'https://images.pexels.com/photos/1982485/pexels-photo-1982485.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940']
+        const images = ['https://images.pexels.com/photos/1914982/pexels-photo-1914982.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+            'https://images.pexels.com/photos/844297/pexels-photo-844297.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+            'https://images.pexels.com/photos/3293148/pexels-photo-3293148.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+            'https://images.pexels.com/photos/911738/pexels-photo-911738.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+            'https://images.pexels.com/photos/3274903/pexels-photo-3274903.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+            'https://images.pexels.com/photos/3683056/pexels-photo-3683056.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+            'https://images.pexels.com/photos/2170473/pexels-photo-2170473.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+            'https://images.pexels.com/photos/2529973/pexels-photo-2529973.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+            'https://images.pexels.com/photos/1982485/pexels-photo-1982485.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940']
         const { title, chosenImgIdx } = this.state
         return (
             <div className="board-add" ref={this.targetRef}>
@@ -77,7 +87,8 @@ class _BoardAdd extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        isAddingBoard: state.boardModule.isAddingBoard
+        isAddingBoard: state.boardModule.isAddingBoard,
+        board: state.boardModule.currBoard
     }
 }
 const mapDispatchToProps = {

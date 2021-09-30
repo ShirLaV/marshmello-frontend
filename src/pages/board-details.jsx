@@ -19,6 +19,7 @@ import { BoardHeader } from '../cmps/board/board-header.jsx';
 import { OverlayScreen } from '../cmps/overlay-screen.jsx';
 import { QuickCardEditor } from '../cmps/quick-card-editor.jsx';
 import { Loader } from '../cmps/shared/loader.jsx';
+import { activityTxtMap } from '../services/activity.service.js';
 
 class _BoardDetails extends Component {
   state = {
@@ -54,13 +55,14 @@ class _BoardDetails extends Component {
     event.stopPropagation();
     const parentElement = event.currentTarget.parentNode;
     var position = parentElement.getBoundingClientRect();
-    this.setState({ quickCardEditor: { cardToEdit: card, groupId, position  } });
+    this.setState({ quickCardEditor: { cardToEdit: card, groupId, position } });
   };
   toggleCardComplete = (ev, groupId, card) => {
     ev.stopPropagation();
     const cardToUpdate = { ...card };
     cardToUpdate.isComplete = !card.isComplete;
-    this.props.onUpdateCard(cardToUpdate, groupId, this.props.board);
+    const activity = (cardToUpdate.isComplete) ? {txt: activityTxtMap.completeCard(), card: cardToUpdate, groupId: groupId} : {txt: activityTxtMap.unCompleteCard(), card: cardToUpdate, groupId: groupId}
+    this.props.onUpdateCard(cardToUpdate, groupId, this.props.board, activity);
   };
   getLabel = (labelId) => {
     const label = this.props.board.labels.find((label) => label.id === labelId);
@@ -115,8 +117,9 @@ class _BoardDetails extends Component {
     groupToUpdate.isArchive = groupToUpdate.isArchive
       ? !groupToUpdate.isArchive
       : true;
+    const activity = { txt: activityTxtMap.archiveList(groupToUpdate.title) }
     const action = { type: 'UPDATE_GROUP', group: groupToUpdate };
-    this.props.onUpdateBoard(action, this.props.board);
+    this.props.onUpdateBoard(action, this.props.board, activity);
   };
 
   render() {
