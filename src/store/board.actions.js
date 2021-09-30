@@ -104,14 +104,14 @@ export function onRemoveCard(cardId, groupId, board) {
     return onUpdateBoard(groupAction, board)
 }
 
-export function onUpdateCard(cardToSave, groupId, board) {
+export function onUpdateCard(cardToSave, groupId, board, activity = null) {
     console.log('cardToSave', cardToSave);
     const group = board.groups.find(group => group.id === groupId)
     const cardIdx = group.cards.findIndex(card => card.id === cardToSave.id)
     group.cards.splice(cardIdx, 1, cardToSave)
     const groupAction = { type: 'UPDATE_GROUP', group }
     console.log(groupAction);
-    return onUpdateBoard(groupAction, board)
+    return onUpdateBoard(groupAction, board, activity)
 }
 
 export function onSetCardId(cardId) {

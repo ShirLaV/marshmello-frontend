@@ -1,18 +1,30 @@
 .activity {
-    .activity-header {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 15px 5px;
-      font-size: 14px;
-      font-weight: 700;
-    }
+  .activity-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 5px;
+    font-size: 14px;
+    font-weight: 700;
+  }
   .activity-list {
     .activity-preview {
       display: flex;
       align-items: center;
       gap: 10px;
       padding: 10px 0;
+      .activity-text {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        .user-fullname {
+          font-weight: 700;
+        }
+        .publish-time {
+          font-size: 12px;
+          font-weight: 100;
+        }
+      }
     }
   }
 }

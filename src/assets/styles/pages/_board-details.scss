@@ -1,4 +1,7 @@
 .board-details {
     min-height: 95vh;
     position: relative;
+    .overlay-screen {
+        z-index: 10;
+    }
 }

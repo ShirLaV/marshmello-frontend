@@ -14,6 +14,7 @@ import { onUpdateCard , onSetCardId} from '../store/board.actions';
 import {CardEditAddToCardItem} from '../cmps/card-edit/add-to-card/card-edit-add-to-card-item.jsx'
 import {LabelList} from '../cmps/shared/popover-children/label-list.jsx'
 import {MemberList} from '../cmps/shared/popover-children/member-list.jsx'
+import { activityTxtMap } from '../services/activity.service.js';
 
 class _QuickCardEditor extends Component {
   state = {
@@ -47,7 +48,8 @@ class _QuickCardEditor extends Component {
   onSave = (event) => {
     const cardToSave = { ...this.state.card };
     cardToSave.title = this.state.cardTitle;
-    this.props.onUpdateCard(cardToSave, this.props.groupId, this.props.board);
+    const activity = {txt: activityTxtMap.editCard(), card: cardToSave, groupId: this.props.groupId}
+    this.props.onUpdateCard(cardToSave, this.props.groupId, this.props.board, activity);
     this.props.onToggleQuickCardEditor(event, null, '');
   };
   openCard = (event) => {
