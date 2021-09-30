@@ -44,8 +44,8 @@ class _BoardDetails extends Component {
   openCardEdit = (groupId, cardId) => {
     this.props.history.push(`${this.props.board._id}/${groupId}/${cardId}`);
   };
-  updateBoard = (action) => {
-    this.props.onUpdateBoard(action, this.props.board);
+  updateBoard = (action, activity) => {
+    this.props.onUpdateBoard(action, this.props.board, activity);
   };
   toggleCardLabelList = (event) => {
     event.stopPropagation();

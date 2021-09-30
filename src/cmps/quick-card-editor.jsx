@@ -141,7 +141,7 @@ class _QuickCardEditor extends Component {
             <CardEditAddToCardItem item={{ icon: CgCreditCard, title: 'Change cover', component: PopperCoverEdit  }}/>
           </div>
           <div
-            className='quick-editor-btn flex align-center'
+            className='quick-editor-btn flex align-center datepicker'
           >
             <CardEditAddToCardItem item={{ icon: BsClock, title: 'Edit dates', component:  CardEditDate }}/>
           </div>

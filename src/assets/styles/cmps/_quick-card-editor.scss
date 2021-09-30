@@ -36,6 +36,18 @@
             color: #fff;
             // transform: translateX(5px);
         }
+        &.datepicker {
+            .card-edit-btn {
+                &.long {
+                    padding: 6px 12px;
+                }
+            }
+            .card-edit-btn:last-child {
+                &.long {
+                    color: #172b4d;
+                }
+            }
+        }
         // .popover-open {
         //     @at-root {
         //         #{$root} {
