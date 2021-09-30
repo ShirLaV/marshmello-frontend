@@ -19,7 +19,7 @@ function _CardEditAddToCardItem({ item, currCardId }) {
 
     return (
         <div>
-            {checkIfCover() && <div ref={itemRef} className={`relative ${isOpen ? 'popover-open' : ''}`}>
+            {<div ref={itemRef} className={`relative ${isOpen ? 'popover-open' : ''}`}>
                 <span onClick={() => setIsOpen(!isOpen)}>
                     <EditSidebarLabel Icon={item.icon} title={item.title} />
                 </span>
