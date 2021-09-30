@@ -96,17 +96,6 @@ class _CardEdit extends Component {
                         }
                     </div>}
 
-                    {/* <div ref={itemRef} className='relative'>
-                        <span onClick={() => setIsOpen(!isOpen)}>
-                            <EditSidebarLabel Icon={item.icon} title={item.title} />
-                        </span>
-                        {
-                            isOpen && <DynamicPopover onClose={() => setIsOpen(false)} title={item.title} ref={itemRef}>
-                                <InnerPopperCmp onClose={() => setIsOpen(false)} />
-                            </DynamicPopover>
-                        }
-                    </div> */}
-
                     <div className="card-edit-header card-title-container">
                         <span><CgCreditCard /></span>
                         <input className="title-input" type="text" value={currCard.title} name="title" onChange={this.handleInputChange} onBlur={() => this.handlePropertyChange()} />
@@ -121,7 +110,7 @@ class _CardEdit extends Component {
 
                             <CardEditDescription />
 
-                            {currCard.attachments?.length && <CardEditAttachment />}
+                            {currCard.attachments && currCard.attachments.length>0 && <CardEditAttachment />}
 
                             {currCard.checklists?.map(checklist => (
                                 <div key={checklist.id} className="checklists-container flex column">
