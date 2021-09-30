@@ -49,6 +49,7 @@ export const DynamicPopover = React.forwardRef(({ onClose, title, children }, pa
 
     const getLocation = () => {
         const rect = parentRef?.current?.getBoundingClientRect()
+        if (!rect) return
 
         const bottomCheck = window.innerHeight - (rect.bottom + dimensions.height) < 20
         const topCheck = window.innerHeight - (rect.bottom + dimensions.height) < 20
