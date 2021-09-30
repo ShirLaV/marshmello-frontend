@@ -63,6 +63,19 @@
 
     }
 
+    .react-datepicker__day--selected, .react-datepicker__day--keyboard-selected {
+        background-color: #42526e;
+        &.react-datepicker__day--today {
+            background-color: transparent;
+            color: black;
+            text-decoration: underline;
+            text-underline-position: under;
+            text-decoration-skip: ink;
+            color: #0052cc;
+
+        }
+    }
+
     .picker-btns {
         gap: rem(8px);
         margin-top: rem(12px);

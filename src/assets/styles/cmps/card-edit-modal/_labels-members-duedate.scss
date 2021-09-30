@@ -1,0 +1,102 @@
+.members-labels-container {
+    display: flex;
+    gap: 16px;
+    margin: 24px 0 24px 26px;
+    position: relative;
+    flex-wrap: wrap;
+
+    h3:not(.mini-user-fullname) {
+
+        &.small-title {
+            color: #5e6c84;
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 4px;
+            letter-spacing: .04em;
+            line-height: 20px;
+            text-transform: uppercase;
+        }
+    }
+
+    .members-container,
+    .lebels-container,
+    .due-date-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .labels {
+        flex-wrap: wrap;
+    }
+
+    .members,
+    .labels,
+    .due-date {
+        display: flex;
+        gap: 5px;
+    }
+
+    .due-date {
+        align-items: center;
+
+        input {
+            margin: 0;
+        }
+
+        .card-edit-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .due-date-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 2px;
+        }
+    }
+
+    .card-member {
+        border-radius: 50%;
+        height: 32px;
+        width: 32px;
+
+        &.add-member {
+            color: #42526e;
+            background-color: #091e420a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+        }
+    }
+
+    .card-label {
+        border-radius: 3px;
+        padding: 0 12px;
+        color: #fff;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: 600;
+
+        &.add-label {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #42526e;
+            background-color: #091e420a;
+        }
+    }
+}

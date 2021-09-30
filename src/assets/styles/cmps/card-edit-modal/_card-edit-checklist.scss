@@ -1,0 +1,45 @@
+.checklists-container {
+    margin-bottom: 24px;
+}
+
+.progress-percentage {
+    font-size: 11px;
+}
+
+.todo-item {
+    width: 100%;
+    display: flex;
+    position: relative;
+    margin-bottom: 8px;
+
+    &:hover {
+        background-color: #091e420a;
+
+        .remove-todo-icon {
+            display: block;
+        }
+    }
+
+    span {
+        font-size: 14px;
+        color: #172b4d;
+        cursor: pointer;
+
+        &.done {
+            text-decoration: line-through;
+        }
+    }
+
+    .remove-todo-icon {
+        display: none;
+        position: absolute;
+        right: 5px;
+        top: 0;
+        padding: 5px;
+    }
+}
+
+.add-todo-btn {
+    margin-left: 32px;
+    margin-top: 8px;
+}

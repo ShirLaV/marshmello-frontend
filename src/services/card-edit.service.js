@@ -102,8 +102,7 @@ const getFormattedTime = (timestamp) => {
         const day = date.getDate()
         return `${month} ${day} at 12:00 AM`
     }
-    if (timeLeft <= (1000 * 60 * 60 * 24)) return 'today at 12:00 AM'
-    else if (timeLeft <= (1000 * 60 * 60 * 48)) return 'tomorrow at 12:00 AM'
+    if (timeLeft <= (1000 * 60 * 60 * 24)) return 'tomorrow at 12:00 AM'
     const date = new Date(timestamp)
     const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
     const idx = date.getMonth()
@@ -140,6 +139,26 @@ const getUploadTime = (timestamp) => {
     }
 }
 
+const handleFileAdd = (url) => {
+    const cardId = store.getState().boardModule.currCardId
+    const board = store.getState().boardModule.currBoard
+    const groupId = getGroupId(cardId)
+    const card = getCardById(cardId, groupId)
+    if (!card.attachments) card.attachments = []
+    card.attachments.push({ url, title: 'Attachment', addedAt: Date.now() })
+    return [card, groupId, board]
+}
+
+const handleFileRemove = (fileId) => {
+    const cardId = store.getState().boardModule.currCardId
+    const board = store.getState().boardModule.currBoard
+    const groupId = getGroupId(cardId)
+    const card = getCardById(cardId, groupId)
+    const idx = card.attachments.findIndex(file => file.id === fileId)
+    card.attachments.splice(idx, 1)
+    return [card, groupId, board]
+}
+
 
 export const cardEditService = {
     handleChecklistChange,
@@ -149,5 +168,7 @@ export const cardEditService = {
     handleLabelChange,
     handleDueDateChange,
     getFormattedTime,
-    getUploadTime
+    getUploadTime,
+    handleFileAdd,
+    handleFileRemove
 }

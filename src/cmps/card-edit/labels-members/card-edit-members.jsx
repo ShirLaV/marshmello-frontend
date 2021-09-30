@@ -19,7 +19,7 @@ const _CardEditMembers = ({ currCardId }) => {
     return (
         <>
             {members?.length ? <div className="members-container">
-                <h3>MEMBERS</h3>
+                <h3 className="small-title">Members</h3>
                 <div className="members">
                     {members.map(member => <MembersContainerMemberPreview key={member._id} member={member} />)}
 

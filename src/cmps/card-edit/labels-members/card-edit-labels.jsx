@@ -19,7 +19,7 @@ const _CardEditLabels = ({ currCardId, board }) => {
     return (
         <>
             {labelIds?.length ? <div className="labels-container">
-                <h3>LABELS</h3>
+                <h3 className="small-title">Labels</h3>
                 <div className="labels">
                     {labels.map(label => <div key={label.id} className="card-label" style={{ backgroundColor: label.color }}>
                         {label.title || ''}

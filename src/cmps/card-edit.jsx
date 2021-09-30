@@ -21,6 +21,14 @@ class _CardEdit extends Component {
 
     componentDidMount() {
         document.addEventListener('mousedown', this.handleClick)
+        this.handleLoad()
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClick)
+    }
+
+    handleLoad = () => {
         let currCard
         let currGroup
         const { cardId, groupId } = this.props.match.params
@@ -30,10 +38,6 @@ class _CardEdit extends Component {
             currGroup = this.getDataById(cardId, groupId).currentGroup
         }
         this.setState({ currCard, currGroup })
-    }
-
-    componentWillUnmount() {
-        document.removeEventListener('mousedown', this.handleClick)
     }
 
     handleClick = e => {
@@ -97,7 +101,7 @@ class _CardEdit extends Component {
                             {currCard.attachments?.length && <CardEditAttachment />}
 
                             {currCard.checklists?.map(checklist => (
-                                <div key={checklist.id}>
+                                <div key={checklist.id} className="checklists-container flex column">
                                     <ChecklistEdit checklist={checklist} currCard={currCard} handlePropertyChange={this.handlePropertyChange} />
                                 </div>
                             ))}
