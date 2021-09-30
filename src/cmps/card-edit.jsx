@@ -110,7 +110,7 @@ class _CardEdit extends Component {
 
                             <CardEditDescription />
 
-                            {currCard.attachments && currCard.attachments.length>0 && <CardEditAttachment />}
+                            {currCard.attachments && currCard.attachments.length > 0 && <CardEditAttachment />}
 
                             {currCard.checklists?.map(checklist => (
                                 <div key={checklist.id} className="checklists-container flex column">

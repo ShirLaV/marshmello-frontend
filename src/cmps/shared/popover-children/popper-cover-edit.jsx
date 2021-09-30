@@ -67,7 +67,7 @@ class _PopperCoverEdit extends Component {
                     <div className="color-container flex">{colors.map((color, i) => <div key={i} className="cover-color-option" style={{ backgroundColor: color }} onClick={ev => this.handleClick(ev, color, 'color')}></div>)}</div>
                 </div>
 
-                {currCard.attachments && currCard.attachments.length && <div className="flex column">
+                {currCard.attachments && currCard.attachments.length > 0 && <div className="flex column">
                     <h4>Attachments</h4>
                     <div className="attachments-container flex">{currCard.attachments.map(a => <div key={a.id} className="cover-image-option" style={{ backgroundImage: `url(${a.url})` }} onClick={ev => this.handleClick(ev, a.url, 'img')}></div>)}</div>
                 </div>}

@@ -27,7 +27,7 @@ const _CardEditMembers = ({ currCardId }) => {
                         ref={addButtonRef}
                         className="card-member add-member relative"
                     >
-                        <div className="list-item-layover" onClick={() => setIsListOpen(!isListOpen)}></div>
+                        <div className="list-item-layover round" onClick={() => setIsListOpen(!isListOpen)}></div>
                         <AiOutlinePlus />
                         {isListOpen && <DynamicPopover onClose={() => setIsListOpen(false)} title={'Members'} ref={addButtonRef}>
                             <MemberList />

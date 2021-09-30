@@ -122,6 +122,14 @@
     position: absolute;
     inset: 0;
     cursor: pointer;
+
+    &.round {
+        border-radius: 50%;
+    }
+    &:hover {
+        background-color: rgba(122, 122, 122, 0.01);
+        // background-color: #dfe0db60;
+    }
 }
 
 .relative {
