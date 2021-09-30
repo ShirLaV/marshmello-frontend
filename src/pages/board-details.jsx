@@ -52,7 +52,6 @@ class _BoardDetails extends Component {
   };
   onToggleQuickCardEditor = (event, card, groupId) => {
     event.stopPropagation();
-    // console.log('event', event)
     const parentElement = event.currentTarget.parentNode;
     var position = parentElement.getBoundingClientRect();
     this.setState({ quickCardEditor: { cardToEdit: card, groupId, position  } });
@@ -70,7 +69,6 @@ class _BoardDetails extends Component {
   handleOnDragEnd = (result) => {
     const { destination, source, type } = result;
     if (!destination) return;
-    // console.log('hey')
     const boardToChange = { ...this.props.board };
     //group dragged -
     if (type === 'group') {
@@ -99,7 +97,6 @@ class _BoardDetails extends Component {
       if (destinationGroup.cards)
         destinationGroup.cards.splice(destination.index, 0, ...card);
       else destinationGroup.cards = [card];
-      console.log('destinationGroup', destinationGroup);
       boardToChange.groups = boardToChange.groups.map((currGroup) => {
         if (currGroup.id === source.droppableId) return sourceGroup;
         if (currGroup.id === destination.droppableId) return destinationGroup;

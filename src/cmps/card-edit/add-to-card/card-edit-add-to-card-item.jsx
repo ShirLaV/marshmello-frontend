@@ -7,7 +7,7 @@ export function CardEditAddToCardItem({ item }) {
     const itemRef = useRef()
     const InnerPopperCmp = useMemo(() => item.component, [item])
     return (
-        <div ref={itemRef} className='relative'>
+        <div ref={itemRef} className={`relative ${isOpen? 'popover-open' : ''}`}>
             <span onClick={() => setIsOpen(!isOpen)}>
                 <EditSidebarLabel Icon={item.icon} title={item.title} />
             </span>

@@ -19,6 +19,8 @@
         margin-top: 8px;
     }
     .quick-editor-btn {
+        $root: &;
+        width: fit-content;
         gap: 5px;
         background: #0009;
         border-radius: 3px;
@@ -34,6 +36,15 @@
             color: #fff;
             // transform: translateX(5px);
         }
+        // .popover-open {
+        //     @at-root {
+        //         #{$root} {
+        //             &:hover {
+        //                 transform: translateX(0);
+        //             }
+        //         }
+        //     }
+        // }
         .card-edit-btn {
             color: white;
             padding: unset;
@@ -41,15 +52,19 @@
             font-size: unset;
             line-height: unset;
         }
-        .btn-label-container {
-            gap: 5px;
-            align-items: center;
-        }
-        .dynamic-popover {
-            z-index: 21;
-        }
-        .popper-member-preview {
-            color: #172b4d;
-        }
     }
+    .btn-label-container {
+        gap: 5px;
+        align-items: center;
+    }
+    .dynamic-popover {
+        z-index: 21;
+    }
+    .popper-member-preview {
+        color: #172b4d;
+    }
+}
+
+.popover-open .quick-editor-btn:hover {
+    transform: translateX(0);
 }
