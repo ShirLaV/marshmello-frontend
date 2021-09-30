@@ -2,7 +2,7 @@ import Avatar from 'react-avatar';
 
 
 
-export function MemberAvatar({ member, size }) {
+export function MemberAvatar({ member, size, style = {} }) {
 
     function getSize() {
         switch (size) {
@@ -16,5 +16,5 @@ export function MemberAvatar({ member, size }) {
         }
     }
     // src={member.imgUrl}
-    return <Avatar name={member.fullname} src={member.imgUrl} size={getSize()} round />
+    return <Avatar name={member.fullname} src={member.imgUrl} size={getSize()} style={style} round />
 }
