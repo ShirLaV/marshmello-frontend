@@ -13,7 +13,7 @@ function _PopperMemberPreview({ member, currCardId, onUpdateCard }) {
         const card = cardEditService.getCardById(currCardId, groupId)
         const isMemberChecked = card.members?.find(m => m._id === member._id)
         setIsChecked(isMemberChecked)
-    }, [])
+    }, [currCardId, member._id])
 
     const handleMemberClick = () => {
         setIsChecked(!isChecked)

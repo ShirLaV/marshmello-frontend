@@ -10,14 +10,18 @@ import { CgCreditCard } from 'react-icons/cg'
 import { CardEditDescription } from './card-edit/card-edit-description'
 import { CardEditActivities } from './card-edit/card-edit-activities'
 import { CardEditAttachment } from './card-edit/card-edit-attachment'
+import { DynamicPopover } from './shared/dynamic-popover'
+import { PopperCoverEdit } from './shared/popover-children/popper-cover-edit'
 
 class _CardEdit extends Component {
     state = {
         currCard: null,
-        currGroup: null
+        currGroup: null,
+        isOpen: false
     }
 
     modalRef = React.createRef()
+    coverRef = React.createRef()
 
     componentDidMount() {
         document.addEventListener('mousedown', this.handleClick)
@@ -79,10 +83,29 @@ class _CardEdit extends Component {
                 <section className="card-edit" ref={this.modalRef}>
                     {currCard.style && <div className="card-edit-bg" style={bg}></div>}
                     <button className="close-modal-btn" onClick={() => this.props.history.goBack()}><IoMdClose /></button>
-                    {currCard.style && <button className="change-cover-btn" style={{ top: currCard.style.bgColor ? 76 : 118 }}>
-                        <span className="cover-icon"><TiCreditCard /></span>
-                        <span>Cover</span>
-                    </button>}
+
+                    {currCard.style && <div ref={this.coverRef} className="btn-wrapper relative" >
+                        <button className="change-cover-btn" onClick={() => this.setState({ isOpen: !this.state.isOpen })}>
+                            <span className="cover-icon"><TiCreditCard /></span>
+                            <span>Cover</span>
+                        </button>
+                        {
+                            this.state.isOpen && <DynamicPopover onClose={() => this.setState({ isOpen: false })} title="Cover" ref={this.coverRef}>
+                                <PopperCoverEdit onClose={() => this.setState({ isOpen: false })} />
+                            </DynamicPopover>
+                        }
+                    </div>}
+
+                    {/* <div ref={itemRef} className='relative'>
+                        <span onClick={() => setIsOpen(!isOpen)}>
+                            <EditSidebarLabel Icon={item.icon} title={item.title} />
+                        </span>
+                        {
+                            isOpen && <DynamicPopover onClose={() => setIsOpen(false)} title={item.title} ref={itemRef}>
+                                <InnerPopperCmp onClose={() => setIsOpen(false)} />
+                            </DynamicPopover>
+                        }
+                    </div> */}
 
                     <div className="card-edit-header card-title-container">
                         <span><CgCreditCard /></span>
