@@ -12,9 +12,11 @@
 
     .size-container {
         margin-bottom: 16px;
+
         .size-options {
             gap: 8px;
             margin-bottom: 4px;
+
             .size-option {
                 background-color: #7BC86C;
                 height: 62px;
@@ -30,6 +32,10 @@
                 position: relative;
                 width: 134px;
                 border: 1px solid rgba(9, 30, 66, 0.08);
+
+                &:hover {
+                    filter: saturate(85%) brightness(85%);
+                }
             }
         }
     }
@@ -38,6 +44,7 @@
         flex-wrap: wrap;
         gap: 6px;
         margin-bottom: 16px;
+
         .cover-color-option {
             margin: 0;
             border-radius: 3px;
@@ -45,7 +52,38 @@
             width: 50px;
             height: 32px;
             cursor: pointer;
+            &.selected {
+                box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0079bf;
+            }
+
+            &:hover {
+                filter: saturate(85%) brightness(85%);
+            }
         }
 
     }
+
+    .attachments-container {
+        .cover-image-option {
+            background-size: cover;
+            margin: 0;
+            border-radius: 3px;
+            background-repeat: no-repeat;
+            background-position: center;
+            box-shadow: none;
+            height: 48px;
+            width: 88px;
+            cursor: pointer;
+
+            &:hover {
+                filter: saturate(85%) brightness(85%);
+            }
+            &.selected {
+                box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0079bf;
+                // border: 2px solid #0079bf;
+            }
+        }
+    }
+
+   
 }

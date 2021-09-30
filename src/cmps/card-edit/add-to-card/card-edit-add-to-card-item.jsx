@@ -1,11 +1,22 @@
 import React, { useMemo, useRef, useState } from 'react'
 import { DynamicPopover } from '../../shared/dynamic-popover'
 import { EditSidebarLabel } from '../edit-sidebar-label'
+import { connect } from 'react-redux'
+import { cardEditService } from '../../../services/card-edit.service'
 
-export function CardEditAddToCardItem({ item }) {
+
+function _CardEditAddToCardItem({ item, currCardId }) {
     const [isOpen, setIsOpen] = useState(false)
     const itemRef = useRef()
     const InnerPopperCmp = useMemo(() => item.component, [item])
+
+    const groupId = cardEditService.getGroupId(currCardId)
+    const currCard = cardEditService.getCardById(currCardId, groupId)
+
+    const checkIfCover = () => {
+        return (item.title !== 'Cover') || (!currCard?.style?.bgColor && !currCard?.style?.imgUrl)
+    }
+
     return (
         <div ref={itemRef} className={`relative ${isOpen? 'popover-open' : ''}`}>
             <span onClick={() => setIsOpen(!isOpen)}>
@@ -19,3 +30,12 @@ export function CardEditAddToCardItem({ item }) {
         </div>
     )
 }
+
+const mapStateToProps = state => {
+    return {
+        board: state.boardModule.currBoard,
+        currCardId: state.boardModule.currCardId
+    }
+}
+
+export const CardEditAddToCardItem = connect(mapStateToProps, null)(_CardEditAddToCardItem);

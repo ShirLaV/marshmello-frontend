@@ -23,7 +23,7 @@ function _PopperLabelPreview({ label, currCardId, onUpdateCard }) {
 
     return (
         <div className="label-preview flex" onClick={handleLabelClick}>
-            <div className='list-item-layover'></div>
+            {/* <div className='list-item-layover'></div> */}
             <div className="label-preview flex">
                 <div className="popper-label " style={{ backgroundColor: label.color }}>
                     <span> {label.title || ''}</span>
