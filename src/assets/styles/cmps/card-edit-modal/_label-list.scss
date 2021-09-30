@@ -3,21 +3,23 @@
     .label-list {
         display: flex;
         flex-direction: column;
-        gap: rem(4px);
+        gap: 4px;
     }
     .label-preview {
         cursor: pointer;
         align-items: center;
-        gap: rem(4px);
+        gap: 4px;
         position: relative;
+        justify-content: space-between;
+        width: 100%;
 
         .icon-wrapper {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: rem(32px);
-            height: rem(32px);
-            border-radius: rem(3px);
+            width: 32px;
+            height: 32px;
+            border-radius: 3px;
 
             &:hover {
                 background-color: #091e4214;
@@ -25,20 +27,24 @@
         }
 
         .popper-label {
-            width: rem(244px);
-            height: rem(32px);
-            padding: rem(6px) rem(12px);
+            width: 244px;
+            height: 32px;
+            padding: 6px 12px;
             color: #fff;
-            font-size: rem(14px);
+            font-size: 14px;
             font-weight: 700;
             border-radius: 3px;
             display: flex;
             align-items: center;
             position: relative;
+            transition: padding 85ms,margin 85ms,box-shadow 85ms;
 
             .popper-label-check {
                 position: absolute;
                 right: 5px;
+            }
+            &:hover {
+                margin-left: 4px;
             }
         }
     }
