@@ -3,6 +3,7 @@ import { AiOutlineStar } from 'react-icons/ai'
 import { RiBarChartFill } from 'react-icons/ri'
 import { HiDotsHorizontal } from 'react-icons/hi'
 import { connect } from 'react-redux'
+import { activityTxtMap } from '../../services/activity.service'
 
 import { onUpdateBoard } from '../../store/board.actions.js'
 import { loadUsers } from '../../store/user.actions.js'
@@ -42,7 +43,8 @@ class _BoardHeader extends React.Component {
     onChangeBoardTitle = () => {
         const { board, onUpdateBoard } = this.props
         board.title = this.state.boardTitle
-        onUpdateBoard({ type: 'CHANGE_TITLE', title: board.title }, board)
+        const activity = {txt: activityTxtMap.renameBoard(board.title)}
+        onUpdateBoard({ type: 'CHANGE_TITLE', title: board.title }, board, activity)
     }
 
     toggleMenu = () => {

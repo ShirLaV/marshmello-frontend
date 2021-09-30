@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { activityTxtMap } from '../../services/activity.service';
 
 import { onUpdateBoard } from '../../store/board.actions'
 
@@ -9,7 +10,8 @@ class _ChangeBG extends React.Component {
         const { board, onUpdateBoard } = this.props
         const style = (backGround[0] === '#') ? { bgColor: backGround } : { imgUrl: backGround }
         // const style = (backGround[0] === '#') ? { bgColor: backGround } : { imgUrl: backGround }
-        onUpdateBoard({ type: "CHANGE_BOARD_STYLE", style }, board)
+      const activity = {txt: activityTxtMap.changeBackground()}
+        onUpdateBoard({ type: "CHANGE_BOARD_STYLE", style }, board, activity)
     }
 
     render() {
