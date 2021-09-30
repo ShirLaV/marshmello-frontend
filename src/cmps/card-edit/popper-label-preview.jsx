@@ -13,7 +13,7 @@ function _PopperLabelPreview({ label, currCardId, onUpdateCard }) {
         const card = cardEditService.getCardById(currCardId, groupId)
         const isLabelChecked = card.labelIds?.some(l => l === label.id)
         setIsChecked(isLabelChecked)
-    }, [])
+    }, [currCardId, label.id])
 
     const handleLabelClick = () => {
         setIsChecked(!isChecked)
