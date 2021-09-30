@@ -144,7 +144,7 @@ export function onUpdateBoard(action, board, activity = null) {
         })
         // console.log('Updated Board:', boardToSave);
         try {
-            await boardService.save(boardToSave, activity = null)
+            await boardService.save(boardToSave, activity)
             // showSuccessMsg('Board updated')
         } catch (err) {
             // showErrorMsg('Cannot update board')

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { MemberAvatar } from '../shared/member-avatar';
 import { onUpdateBoard } from '../../store/board.actions'
 import { IoCheckmarkSharp } from 'react-icons/io5'
+import { activityTxtMap } from '../../services/activity.service';
 
 class _InviteMembers extends React.Component {
 
@@ -23,7 +24,8 @@ class _InviteMembers extends React.Component {
         const memberIds = this.getMembersIds()
         const memberToAdd = { _id: user._id, fullname: user.fullname, imgUrl: user.imgUrl }
         if (memberIds.includes(memberToAdd._id)) return
-        onUpdateBoard({ type: 'ADD_BOARD_MEMBER', member: memberToAdd }, board)
+        const activity = {txt: activityTxtMap.inviteMember(user.fullname)}
+        onUpdateBoard({ type: 'ADD_BOARD_MEMBER', member: memberToAdd }, board, activity)
         console.log(board.members)
     }
 

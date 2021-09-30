@@ -48,19 +48,18 @@ async function remove(boardId) {
 async function save(board, activity = null) {
     if (board._id) {
         if (activity) {
-
             const newActivity = {
                 id: utilService.makeId(),
                 txt: activity.txt,
                 byMember: userService.getMiniUser(),
                 createdAt: Date.now(),
-                card: (activity.card) ? activity.card : ''
+                card: (activity.card) ? { id: activity.card.id, title: activity.card.title } : {},
+                groupId: (activity.groupId) ? activity.groupId : null
             }
             // console.log('Activity from service: ', newActivity)
-            board.activities.push(newActivity)
-            // console.log('Board activities from service: ', board.activities)
+            board.activities.unshift(newActivity)
+            console.log('Board activities from service: ', board.activities)
         }
-
         return storageService.put(STORAGE_KEY, board)
         // return httpService.put(`board/${board._id}`, board)
     } else {

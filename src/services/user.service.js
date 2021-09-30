@@ -94,7 +94,7 @@ function getMiniUser() {
 
 
 (async() => {
-    await login({ username: 'rick@sanchez.com' })
+    await login({ username: 'morty@smith.com' })
 })();
 //     await userService.signup({fullname: 'Master Adminov', username: 'admin', password:'123', score: 10000, isAdmin: true})
 //     await userService.signup({fullname: 'Muki G', username: 'muki', password:'123', score: 10000})

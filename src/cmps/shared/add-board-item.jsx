@@ -49,7 +49,7 @@ class _AddBoardItem extends React.Component {
       const newCard = {...newItem , isComplete: false };
       
       // ADD ACTIVITY
-      const activity = {txt: activityTxtMap.addCard(newCard.title), card: newCard}
+      const activity = {txt: activityTxtMap.addCard(newCard.title), card: newCard, groupId: this.props.groupId}
 
       this.props.onAddCard( newCard, this.props.groupId, this.props.board, activity);
     }
