@@ -3,6 +3,7 @@ export const utilService = {
     makeLorem,
     getRandomIntInclusive,
     delay,
+    debounce
     // handleChange
 }
 
@@ -16,6 +17,14 @@ function makeId(length = 6) {
 
     return txt;
 }
+
+function debounce(func, timeout = 300){
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => { func.apply(this, args); }, timeout);
+    };
+  }
 
 function makeLorem(size = 100) {
     var words = ['The sky', 'above', 'the port', 'was', 'the color of television', 'tuned', 'to', 'a dead channel', '.', 'All', 'this happened', 'more or less', '.', 'I', 'had', 'the story', 'bit by bit', 'from various people', 'and', 'as generally', 'happens', 'in such cases', 'each time', 'it', 'was', 'a different story', '.', 'It', 'was', 'a pleasure', 'to', 'burn'];
