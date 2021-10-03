@@ -54,16 +54,10 @@ export class GroupPreview extends Component {
   };
 
   blurFocus = (event) => {
-    // event.stopPropagation();
-    // document.activeElement.blur();
-    // event.target.parentNode.blur()
     event.target.blur()
-    // console.log('hey')
-    // console.log(event.target)
   };
 
   setFocus = (event) => {
-    // console.log('yay')
     event.target.focus();
   };
 
