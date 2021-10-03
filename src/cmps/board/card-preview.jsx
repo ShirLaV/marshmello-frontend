@@ -20,51 +20,59 @@ function _CardPreview({
   getLabel,
 }) {
   return (
-    <Draggable draggableId={card.id} index={index}>
-      {(provided) => {
-        return (
-          <li
-            ref={provided.innerRef}
-            {...provided.dragHandleProps}
-            {...provided.draggableProps}
-          >
-            <div
-              className='card-preview flex space-between'
-              onClick={() => openCardEdit(groupId, card.id)}
+    <div
+    className='card-wrapper'
+      style={{ display: card.isArchive ? 'none' : 'unset' }}
+    >
+      <Draggable draggableId={card.id} index={index}>
+        {(provided) => {
+          return (
+            <li
+              ref={provided.innerRef}
+              {...provided.dragHandleProps}
+              {...provided.draggableProps}
             >
-              <button
-                className='hover-edit-btn'
-                onClick={(event) => onToggleQuickCardEditor(event, card, groupId)}
+              <div
+                className='card-preview flex space-between'
+                
+                onClick={() => openCardEdit(groupId, card.id)}
               >
-                <HiOutlinePencil />
-              </button>
+                <button
+                  className='hover-edit-btn'
+                  onClick={(event) =>
+                    onToggleQuickCardEditor(event, card, groupId)
+                  }
+                >
+                  <HiOutlinePencil />
+                </button>
 
-              {card.style && <CardHeader cardStyle={card.style} />}
+                {card.style && <CardHeader cardStyle={card.style} />}
 
-              <div className='card-details'>
-                {card.labelIds && (
-                  <div onClick={toggleCardLabelList}>
-                    <CardLabelBarList
-                      labelIds={card.labelIds}
-                      getLabel={getLabel}
-                      isCardLabelListOpen={isCardLabelListOpen}
-                    />
-                  </div>
-                )}
+                <div className='card-details'>
+                  {card.labelIds && (
+                    <div onClick={toggleCardLabelList}>
+                      <CardLabelBarList
+                        labelIds={card.labelIds}
+                        getLabel={getLabel}
+                        isCardLabelListOpen={isCardLabelListOpen}
+                      />
+                    </div>
+                  )}
 
-                <p>{card.title}</p>
+                  <p>{card.title}</p>
 
-                <CardFooter
-                  card={card}
-                  groupId={groupId}
-                  toggleCardComplete={toggleCardComplete}
-                />
+                  <CardFooter
+                    card={card}
+                    groupId={groupId}
+                    toggleCardComplete={toggleCardComplete}
+                  />
+                </div>
               </div>
-            </div>
-          </li>
-        );
-      }}
-    </Draggable>
+            </li>
+          );
+        }}
+      </Draggable>
+      </div>
   );
 }
 

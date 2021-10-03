@@ -4,7 +4,7 @@ import { userService } from './user.service.js'
 import { httpService } from './http.service'
 
 const STORAGE_KEY = 'board'
-// const listeners = []
+    // const listeners = []
 
 export const boardService = {
     query,
@@ -29,7 +29,9 @@ async function query(filterByUser) {
 async function getById(boardId, filterBy) {
     // return storageService.get(STORAGE_KEY, boardId)
     try {
-        console.log('Filter last stop in front: ', filterBy)
+        if (typeof filterBy === 'object') {
+            filterBy = (new URLSearchParams(filterBy)).toString()
+        }
         const board = await httpService.get(`board/${boardId}`, filterBy)
         return board
     } catch (err) {
@@ -38,39 +40,39 @@ async function getById(boardId, filterBy) {
 }
 
 async function dashboardQuery(boardId) {
-    const chartsData = await storageService.dashboardQuery(STORAGE_KEY, boardId)
-    return chartsData
-    // try {
-    //     const chartsData = await httpService.get(`dashboard/${boardId}`)
-    //     return chartsData
-    // } catch (err) {
-    //     console.log('Front: Error loading chartsData', err)
-    // }
+    // const chartsData = await storageService.dashboardQuery(STORAGE_KEY, boardId)
+    // return chartsData
+    try {
+        const chartsData = await httpService.get(`board/dashboard/${boardId}`)
+        return chartsData
+    } catch (err) {
+        console.log('Front: Error loading chartsData', err)
+    }
 }
 
 
 async function remove(boardId) {
     return storageService.remove(STORAGE_KEY, boardId)
-    // try {
-    //     return httpService.delete(`board/${boardId}`)
-    // } catch (err) {
-    //     console.log(`Front: Error deleting board with ID: ${boardId}`);
-    // }
+        // try {
+        //     return httpService.delete(`board/${boardId}`)
+        // } catch (err) {
+        //     console.log(`Front: Error deleting board with ID: ${boardId}`);
+        // }
 }
 
 async function save(board, activity = null) {
     if (board._id) {
         if (activity) {
             const newActivity = {
-                txt: activity.txt,
-                id: utilService.makeId(),
-                byMember: userService.getMiniUser(),
-                card: (activity.card) ? { id: activity.card.id, title: activity.card.title } : {},
-                groupId: (activity.groupId) ? activity.groupId : null
-            }
-            // console.log('Activity from service: ', newActivity)
-            // board.activities.unshift(newActivity)
-            // console.log('Board activities from service: ', board.activities)
+                    txt: activity.txt,
+                    id: utilService.makeId(),
+                    byMember: userService.getMiniUser(),
+                    card: (activity.card) ? { id: activity.card.id, title: activity.card.title } : {},
+                    groupId: (activity.groupId) ? activity.groupId : null
+                }
+                // console.log('Activity from service: ', newActivity)
+                // board.activities.unshift(newActivity)
+                // console.log('Board activities from service: ', board.activities)
             return httpService.put(`board/${board._id}`, { board: board, activity: newActivity })
         } else {
             // return storageService.put(STORAGE_KEY, board)
@@ -78,12 +80,12 @@ async function save(board, activity = null) {
         }
     } else {
         const boardToSave = {
-            title: board.title,
-            style: board.style,
-            createdBy: userService.getMiniUser(),
-            members: [userService.getMiniUser()],
-        }
-        // return storageService.post(STORAGE_KEY, boardToSave)
+                title: board.title,
+                style: board.style,
+                createdBy: userService.getMiniUser(),
+                members: [userService.getMiniUser()],
+            }
+            // return storageService.post(STORAGE_KEY, boardToSave)
         const addedBoard = await httpService.post(`board`, boardToSave)
         return addedBoard
     }

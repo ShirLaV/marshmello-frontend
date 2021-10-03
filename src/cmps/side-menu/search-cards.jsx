@@ -6,6 +6,7 @@ import { MemberAvatar } from "../shared/member-avatar";
 
 import { onUpdateFilter, loadBoard } from "../../store/board.actions"
 import { withRouter } from "react-router";
+import { utilService } from "../../services/util.service";
 
 class _SearchCards extends React.Component {
     state = {
@@ -20,15 +21,17 @@ class _SearchCards extends React.Component {
         const { filterBy: currFilterBy } = this.props
         if (prevFilterBy !== currFilterBy) {
             this.updateUrlSearchParams(currFilterBy)
+            this.getFilteredBoard.bind(this)()
         }
     }
 
     componentWillUnmount() {
         this.props.onUpdateFilter({ txt: '', members: [], labels: [] })
+        this.updateUrlSearchParams(this.props.filterBy)
+        this.getFilteredBoard.bind(this)()
     }
 
     updateUrlSearchParams = (filterBy) => {
-        console.log('filterBy: ', filterBy)
         const { history, location } = this.props
         const urlSearchFilterBy = { ...filterBy }
         for (const key in urlSearchFilterBy) {
@@ -46,20 +49,38 @@ class _SearchCards extends React.Component {
         this.props.onUpdateFilter(filterBy)
     }
 
-    handleUserClick = (user) => {
-        if (this.props.filterBy.members.includes(user._id)) return
-        // const filterBy = { ...this.props.filterBy, members: [...this.state.filterBy.members, user] }
+    getFilteredBoard = utilService.debounce(() => {
+        const newFilterBy = { ...this.props.filterBy }
+        for (const key in newFilterBy) {
+            const currVal = newFilterBy[key]
+            if (!currVal || (Array.isArray(currVal) && !currVal.length)) delete newFilterBy[key]
+        }
+        this.props.loadBoard(this.props.match.params.boardId, newFilterBy)
+    }, 100)
 
-        const filterBy = { ...this.props.filterBy, members: [...this.props.filterBy.members, user._id] }
-        this.props.onUpdateFilter(filterBy)
+    handleUserClick = (user) => {
+        if (this.props.filterBy.members.includes(user._id)) {
+            const clickedIdx = this.props.filterBy.members.findIndex(member => member === user._id)
+            this.props.filterBy.members.splice(clickedIdx, 1)
+            const filterBy = { ...this.props.filterBy, members: [...this.props.filterBy.members] }
+            this.props.onUpdateFilter(filterBy)
+        } else {
+            const filterBy = { ...this.props.filterBy, members: [...this.props.filterBy.members, user._id] }
+            this.props.onUpdateFilter(filterBy)
+        }
     }
 
     handleLabelClick = (label) => {
-        if (this.props.filterBy.labels.includes(label.id)) return
-        const filterBy = { ...this.props.filterBy, labels: [...this.props.filterBy.labels, label.id] }
-        this.props.onUpdateFilter(filterBy)
+        if (this.props.filterBy.labels.includes(label.id)) {
+            const clickedIdx = this.props.filterBy.labels.findIndex(label => label === label)
+            this.props.filterBy.labels.splice(clickedIdx, 1)
+            const filterBy = { ...this.props.filterBy, labels: [...this.props.filterBy.labels] }
+            this.props.onUpdateFilter(filterBy)
+        } else {
+            const filterBy = { ...this.props.filterBy, labels: [...this.props.filterBy.labels, label.id] }
+            this.props.onUpdateFilter(filterBy)
+        }
     }
-
     render() {
         const { board } = this.props
         const { filterBy } = this.props
@@ -81,9 +102,7 @@ class _SearchCards extends React.Component {
                         </li>
                     )}
                 </ul>
-
                 <hr />
-
                 <ul className="member-list clean-list">
                     {board.members.map(member =>
                         <li className="user-preview" key={member._id} onClick={() => this.handleUserClick(member)} >
