@@ -21,6 +21,10 @@ class _AppHeader extends React.Component {
         isPopoverOpen: false
     }
 
+    componentDidMount() {
+        
+    }
+
     userMenuRef = React.createRef()
 
     onLogout = () => {
