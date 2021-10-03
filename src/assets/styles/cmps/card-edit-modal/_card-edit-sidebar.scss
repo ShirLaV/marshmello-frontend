@@ -1,5 +1,7 @@
 .sidebar {
     padding: 0 16px 8px 8px;
+    display: flex;
+    flex-direction: column;
 
     .btn-label-container {
         // padding: rem(6px) rem(12px) rem(6px) 0;
@@ -28,7 +30,19 @@
         }
     }
 
-    .actions {
+    .card-edit-actions {
         margin-top: 24px;
+    }
+}
+
+@include for-mobile-layout {
+    .sidebar {
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 24px;
+
+        .card-edit-actions {
+            margin-top: 0;
+        }
     }
 }

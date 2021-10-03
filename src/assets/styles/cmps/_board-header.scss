@@ -75,10 +75,41 @@
   display: flex;
   gap: 10px;
 
+  .members-btn {
+    display: none;
+  }
+
   // align-items: center;
   .dashboard-btn {
     &.menu-open {
       transform: translateX(-230%);
+    }
+  }
+}
+
+@include for-mobile-layout {
+  .board-header {
+    padding: 5px 8px;
+
+    .left-btns,
+    .right-btns {
+      gap: 5px;
+
+      .board-title {
+        >input {
+          max-width: 180px;
+          font-size: 16px;
+        }
+      }
+
+      .members-btn {
+        display: block;
+      }
+    }
+
+
+    .members-container {
+      display: none;
     }
   }
 }

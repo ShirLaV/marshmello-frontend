@@ -8,7 +8,7 @@ export class CardEditSidebar extends Component {
         return (
             <div className="sidebar">
                 <CardEditAddToCard />
-                <CardEditActions />
+                <CardEditActions goBack={this.props.goBack} />
             </div>
         )
     }

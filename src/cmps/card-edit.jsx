@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 import { CardEditSidebar } from './card-edit/card-edit-sidebar'
 import { LabelsMembers } from './card-edit/labels-members'
 import { ChecklistEdit } from './card-edit/checklist-edit'
-import { onUpdateCard, onSetCardId } from '../store/board.actions'
+import { onUpdateCard, onSetCardId, loadBoard } from '../store/board.actions'
 import { IoMdClose } from 'react-icons/io'
 import { TiCreditCard } from 'react-icons/ti'
 import { CgCreditCard } from 'react-icons/cg'
@@ -15,6 +15,8 @@ import { CardEditAttachment } from './card-edit/card-edit-attachment'
 import { DynamicPopover } from './shared/dynamic-popover'
 import { PopperCoverEdit } from './shared/popover-children/popper-cover-edit'
 import { OverlayScreen } from './overlay-screen'
+import { BsArchive } from 'react-icons/bs'
+import { Loader } from './shared/loader'
 
 class _CardEdit extends Component {
     state = {
@@ -35,10 +37,16 @@ class _CardEdit extends Component {
         document.removeEventListener('mousedown', this.handleClick)
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevProps.board !== this.props.board) this.handleLoad()
+    }
+
+
     handleLoad = () => {
         let currCard
         let currGroup
         const { cardId, groupId } = this.props.match.params
+        console.log('39', cardId);
         this.props.onSetCardId(cardId)
         if (this.props.board.groups) {
             currCard = this.getDataById(cardId, groupId).currentCard
@@ -77,10 +85,14 @@ class _CardEdit extends Component {
         if (currCard.style.imgUrl) return { background: `center / contain no-repeat url(${currCard.style.imgUrl})`, objectFit: 'cover', minHeight: 160, height: 160 }
     }
 
+    goBack = () => {
+        this.props.history.goBack()
+    }
+
     render() {
         const { currCard, currGroup } = this.state
         const {board} = this.props
-        if (!currCard) return <div>Loading...</div>
+        if (!currCard) return <Loader />
         const bg = this.checkCardBackground()
         return (
             <div className="edit-modal-container">
@@ -101,6 +113,11 @@ class _CardEdit extends Component {
                         }
                     </div>}
 
+                    {currCard.isArchive && <div className="archive-msg">
+                        <span><BsArchive /></span>
+                        <p>This card is archived</p>
+                    </div>}
+
                     <div className="card-edit-header card-title-container">
                         <span><CgCreditCard /></span>
                         <input className="title-input" type="text" value={currCard.title} name="title" onChange={this.handleInputChange} onBlur={() => this.handlePropertyChange()} />
@@ -108,7 +125,7 @@ class _CardEdit extends Component {
 
                     <div className="list-name-container"><p>in list <span className="list-name">{currGroup.title}</span></p></div>
 
-                    <div className="flex">
+                    <div className="card-edit-main-container flex">
                         <div className="card-edit-main">
 
                             <LabelsMembers />
@@ -127,7 +144,7 @@ class _CardEdit extends Component {
 
                         </div>
 
-                        <CardEditSidebar />
+                        <CardEditSidebar goBack={this.goBack} />
 
                     </div>
                 </section>

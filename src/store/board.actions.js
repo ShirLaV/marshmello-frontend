@@ -114,7 +114,6 @@ export function onUpdateCard(cardToSave, groupId, board, activity = null) {
     const cardIdx = group.cards.findIndex(card => card.id === cardToSave.id)
     group.cards.splice(cardIdx, 1, cardToSave)
     const groupAction = { type: 'UPDATE_GROUP', group }
-    console.log(groupAction);
     return onUpdateBoard(groupAction, board, activity)
 }
 
