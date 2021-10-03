@@ -1,12 +1,10 @@
 .group-wrapper {
     height: 100%;
-
     &.placeholder {
         border-color: #0000;
         border-radius: 3px;
         box-shadow: none;
     }
-
     .group-preview {
         max-height: 100%;
         border-radius: 3px;
@@ -15,72 +13,55 @@
         padding: 0 8px;
         background-color: #EBECF0;
         margin: 0 4px;
-
-
-
-
         .group-header {
             min-height: 40px;
             padding-inline-start: 8px;
-
             input {
                 height: 28px;
                 font-weight: 600;
                 cursor: pointer;
                 width: 100%;
                 border-radius: 3px;
-
                 &:focus {
                     border-color: #0079BF;
                     outline: 0 none;
                 }
             }
         }
-
         padding: 0 4px;
-
         .card-list {
             min-height: 0.1px;
             flex: 1 1 auto;
             padding: 0 4px;
             overflow-x: hidden;
             overflow-y: auto;
-
             li:not(:last-child) {
                 margin-bottom: 8px;
             }
-
             li:last-child {
                 margin-bottom: 1px;
             }
-
             &::-webkit-scrollbar {
                 width: 8px;
             }
-
             &::-webkit-scrollbar-thumb {
                 border-radius: 5px;
                 background-color: #bfc4ce;
             }
-
             &::-webkit-scrollbar-track {
                 border-radius: 5px;
                 margin-bottom: 2px;
                 background-color: #dadbe2;
             }
-
             .add-board-item {
                 width: 100%;
-
                 form {
                     padding-bottom: 8px;
-
                     textarea {
                         box-shadow: 0 1px 0 #16181b40;
                         min-height: 60px;
                         border: none;
                         outline: none;
-
                         &:focus {
                             border-color: none;
                             outline: 0 none;
@@ -89,11 +70,9 @@
                 }
             }
         }
-
         .group-footer {
             margin: 0 4px;
             min-height: 40px;
-
             .add-boarditem-btn {
                 color: #5e6c84;
                 border-radius: 3px;
@@ -102,7 +81,6 @@
                 flex: 1 0 auto;
                 height: unset;
                 gap: 5px;
-
                 i {
                     font-size: 1.2rem;
                 }

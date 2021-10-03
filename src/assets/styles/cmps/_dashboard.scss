@@ -23,11 +23,12 @@
         flex-wrap: wrap;
         margin-bottom: 60px;
         .stats {
-            width: 272px;
+            position: relative;
+            width: 200px;
             height: 100px;
             background: linear-gradient(90deg, rgb(182, 134, 194), rgb(213, 159, 226), rgb(236, 196, 247));
             border-radius: 3px;
-            margin: 0px 8px;
+            margin: 0px 20px;
             color: white;
             padding: 10px;
             h3 {
@@ -37,6 +38,9 @@
                 font-size: 50px;
                 font-weight: 600;
             }
+            i {
+                font-size: 70px;
+            }
         }
     }
     .charts {
@@ -45,5 +49,14 @@
         h1 {
             margin-bottom: 20px;
         }
+    }
+    .time-line-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        width: 50%;
+        height: 500px;
+        margin-top: 50px;
     }
 }

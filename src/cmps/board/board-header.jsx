@@ -95,7 +95,7 @@ class _BoardHeader extends React.Component {
     onMembersClose = () => this.setState({ isMembersOpen: false })
 
     render() {
-        const { board } = this.props
+        const { board, onToggleDashboard } = this.props
         const { boardTitle, isMenuOpen, isInviteOpen, numOfShownMembers, isMembersOpen } = this.state
         const members = this.getRemainingMembers()
         const extraMembersLength = this.getExtraMembersLength()
@@ -138,7 +138,7 @@ class _BoardHeader extends React.Component {
                 </div>
                 <div className="right-btns">
                     {!isMenuOpen && <>
-                        <button className={`dashboard-btn nav-button ${(isMenuOpen) ? 'menu-open' : ''}`}><RiBarChartFill /> {window.innerWidth > 1100 && <span>Dashboard</span>}</button>
+                        <button onClick={()=>onToggleDashboard(true)} className={`dashboard-btn nav-button ${(isMenuOpen) ? 'menu-open' : ''}`}><RiBarChartFill /> {window.innerWidth > 1100 && <span>Dashboard</span>}</button>
                         <button onClick={() => this.toggleMenu()} className="right-menu-btn nav-button"><HiDotsHorizontal /> {window.innerWidth > 1100 && <span>Show Menu</span>}</button>
                     </>}
                 </div>
