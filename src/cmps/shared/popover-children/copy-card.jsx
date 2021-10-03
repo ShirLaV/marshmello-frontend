@@ -4,12 +4,15 @@ import { cardEditService } from '../../../services/card-edit.service'
 import { onUpdateBoard } from '../../../store/board.actions'
 
 
-export function _MoveCard({ board, currCardId, onUpdateBoard, onClose }) {
+export function _CopyCard({ board, currCardId, onUpdateBoard, onClose }) {
+    const [currTitle, setCurrTitle] = useState('')
     const [currGroup, setCurrGroup] = useState(null)
     const [currPosition, setCurrPosition] = useState(null)
 
     useEffect(() => {
         const group = cardEditService.getGroupById(currCardId, board._id)
+        const card = cardEditService.getCardById(currCardId, group.id)
+        setCurrTitle(card.title)
         setCurrGroup(group)
         const idx = group.cards.findIndex(card => card.id === currCardId)
         setCurrPosition(idx + 1)
@@ -21,8 +24,9 @@ export function _MoveCard({ board, currCardId, onUpdateBoard, onClose }) {
             setCurrGroup(group)
             setCurrPosition(group.cards.length + 1)
         } else if (name === 'position') {
-            // setCurrPosition(currGroup.cards.length + 1)
             setCurrPosition(value)
+        } else if (name === 'title') {
+            setCurrTitle(value)
         }
     }
 
@@ -38,25 +42,23 @@ export function _MoveCard({ board, currCardId, onUpdateBoard, onClose }) {
     const handleSubmit = () => {
         const groupId = currGroup.id
         const idx = currPosition - 1
-        // const initialGroup = cardEditService.handleMoveCardFrom(currCardId)
-        // onUpdateBoard({ type: 'UPDATE_GROUP', group: initialGroup }, board)
-        const boardToChange = cardEditService.handleMoveCard(currCardId, groupId, idx)
+        const boardToChange = cardEditService.handleCopyCard(currCardId, groupId, idx, currTitle)
         onUpdateBoard({ type: '' }, boardToChange)
-        // onUpdateBoard({ type: 'UPDATE_GROUP', group: newGroup }, board)
-        // onUpdateBoard({ type: 'UPDATE_GROUP', initialGroup }, board, activity)
         onClose()
     }
 
     if (!currGroup) return null
     return (
-        <div className="move-card">
-            <h4>Select destination</h4>
+        <div className="copy-card">
+            <label>Title</label>
+            <textarea name="title" className="search-input" autoFocus value={currTitle} onChange={handleChange} />
 
+
+            <label>Copy to...</label>
             <div className="select-board">
                 <span className="label">Board</span>
                 <span className="select-value">{board.title}</span>
                 <select name="board" onChange={handleChange}>
-                    {/* {boards.map(item => <option key={item._id} value={item._id}>{item.title}</option>)} */}
                     <option value={board._id}>{board.title}</option>
                 </select>
             </div>
@@ -78,7 +80,7 @@ export function _MoveCard({ board, currCardId, onUpdateBoard, onClose }) {
                     </select>
                 </div>
             </div>
-            <button className="move-btn card-edit-btn secondary" onClick={handleSubmit}>Move</button>
+            <button className="copy-btn card-edit-btn secondary" onClick={handleSubmit}>Create card</button>
         </div>
     )
 }
@@ -95,4 +97,4 @@ const mapDispatchToProps = {
     onUpdateBoard
 }
 
-export const MoveCard = connect(mapStateToProps, mapDispatchToProps)(_MoveCard)
+export const CopyCard = connect(mapStateToProps, mapDispatchToProps)(_CopyCard)

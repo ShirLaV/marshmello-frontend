@@ -55,11 +55,11 @@ class _AppHeader extends React.Component {
                         <button className="nav-button" onClick={() => this.setAddBoard(true)}><AiOutlinePlus /></button>
                         <button className="nav-button"><AiOutlineBell /></button>
                         <MemberAvatar key={user._id} member={user} onClick={() => this.setState({ isPopoverOpen: !isPopoverOpen })} />
-                        <div className='relative' ref={this.userMenuRef}>
+                        {/* <div className='relative' ref={this.userMenuRef}>
                             {isPopoverOpen && <DynamicPopover onClose={() => this.setState({ isPopoverOpen: false })} title="Invite Members" ref={this.userMenuRef}>
                                 <InviteMembers />
                             </DynamicPopover>}
-                        </div>
+                        </div> */}
                     </div>
                 </nav>
                 {isAddingBoard && <BoardAdd onClose={() => this.setAddBoard(false)} />}

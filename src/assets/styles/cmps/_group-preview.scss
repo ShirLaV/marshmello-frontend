@@ -111,7 +111,7 @@
     }
 }
 
-@media (min-width: $narrow-breakpoint) {
+@media(max-width:800px) {
     .group-wrapper {
         .group-preview {
             margin: 0 8px;
