@@ -73,7 +73,6 @@
         border-radius: 7px;
       }
     }
-
   }
 
   .home-second-fold {
@@ -92,7 +91,6 @@
 
 @include for-mobile-layout {
   .home-page {
-
     h1 {
       font-size: 2.5rem;
     }
@@ -122,13 +120,11 @@
     .home-second-fold {
       gap: 20px;
       margin-top: 0;
-      
-      
+
       .second-fold-text {
         text-align: center;
         gap: 20px;
       }
     }
-
   }
 }

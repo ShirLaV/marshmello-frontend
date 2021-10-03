@@ -42,6 +42,19 @@ export function onLogin(credentials) {
     }
 }
 
+export function onGoogleLogin(tokenId) {
+    return async (dispatch) => {
+        try {
+            const user = await userService.googleLogin(tokenId)
+            dispatch({
+                type: 'SET_USER',
+                user
+            })
+        } catch (err) {
+            console.log('Cannot login', err)
+        }
+    }
+}
 
 export function onSignup(credentials) {
     return (dispatch) => {

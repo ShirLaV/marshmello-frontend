@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {Link} from 'react-router-dom'
 import { IoMdClose } from 'react-icons/io';
 import { BsCardText } from 'react-icons/bs';
 import { AiOutlineGroup } from 'react-icons/ai';
@@ -31,12 +32,13 @@ class _Dashboard extends Component {
     if (!chartsData) return <Loader />;
     return (
       <div className='dashboard-modal flex column align-center'>
+        <Link to={`/board/${board._id}`}>
         <button
           className='close-btn'
-          onClick={() => this.props.history.goBack()}
         >
           <IoMdClose />
         </button>
+        </Link>
         <div className='jeneral-statistics flex'>
           <div className='stats flex space-between'>
             <div>

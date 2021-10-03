@@ -1,9 +1,10 @@
 import React from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { connect } from 'react-redux'
+import { GoogleLogin } from 'react-google-login'
 
 // import { userService } from '../services/user.service'
-import { onLogin, onSignup, loadUsers } from '../store/user.actions'
+import { onLogin, onSignup, loadUsers, onGoogleLogin } from '../store/user.actions'
 import { Link } from 'react-router-dom'
 import { SiTrello } from 'react-icons/si'
 import svgRight from '../assets/img/login-svg-right.svg'
@@ -44,6 +45,16 @@ class _LoginSignup extends React.Component {
         return errors
     }
 
+    onSuccessGoogle = (res) => {
+        const { tokenId } = res
+        const { onGoogleLogin } = this.props
+        onGoogleLogin(tokenId)
+    }
+
+    onFailureGoogle = (res) => {
+        console.log('Login with google failed', res)
+    }
+
     onSubmit = (values) => {
         const { pageMode } = this.state
         const { onLogin, onSignup } = this.props
@@ -67,9 +78,19 @@ class _LoginSignup extends React.Component {
                             <ErrorMessage name="username" component="div" />
                             <Field type="password" placeholder="Enter password" name="password" autoComplete="off" />
                             <ErrorMessage name="password" component="div" />
-                            <button type="submit" className="login-signup-btn">Log in</button>
+                            <button type="submit" className="login-signup-btn nav-button" style={{color: '#172b4d'}}>Log in</button>
                         </Form>
                     </Formik>
+                    OR
+                    <br />
+                    <GoogleLogin
+                        className="google-login-btn flex align-center justify-center"
+                        clientId='640315421255-e4mv3dirnt2lbm4ati92b1euclri0j8d.apps.googleusercontent.com'
+                        buttonText='Continue with Google'
+                        onSuccess={this.onSuccessGoogle}
+                        onFailure={this.onFailureGoogle}
+                        cookiePolicy={'single_host_origin'}
+                    />
                     <hr />
                     <Link to="/signup">Sign up for an account</Link>
                 </div>}
@@ -84,7 +105,7 @@ class _LoginSignup extends React.Component {
                                 <ErrorMessage name="username" component="p" />
                                 <Field type="password" placeholder="Enter password" name="password" />
                                 <ErrorMessage name="password" component="p" />
-                                <button type="submit" className="login-signup-btn">Sign up</button>
+                                <button type="submit" className="login-signup-btn nav-button" style={{color: '#172b4d'}}>Sign up</button>
                             </Form>
                         </Formik>
                         <hr />
@@ -110,7 +131,8 @@ function mapStateToProps(state) {
 const mapDispatchToProps = {
     loadUsers,
     onLogin,
-    onSignup
+    onSignup,
+    onGoogleLogin
 }
 
 export const LoginSignup = connect(mapStateToProps, mapDispatchToProps)(_LoginSignup)
