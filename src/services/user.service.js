@@ -15,7 +15,8 @@ export const userService = {
     getById,
     remove,
     update,
-    getGueastUser
+    getGueastUser,
+    googleLogin
 }
 
 window.userService = userService
@@ -58,6 +59,16 @@ async function login(userCred) {
         // socketService.emit('set-user-socket', user._id);
     if (user) return _saveLocalUser(user)
 }
+
+async function googleLogin(tokenId) {
+    try {
+        const user = await httpService.post('auth/googlelogin', { tokenId })
+        if (user) return _saveLocalUser(user)
+    } catch (err) {
+        throw err
+    }
+}
+
 async function signup(userCred) {
     userCred.imgUrl = ''
     userCred.mentions = []
