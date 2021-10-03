@@ -4,64 +4,75 @@ import { userService } from './user.service.js'
 import { httpService } from './http.service'
 
 const STORAGE_KEY = 'board'
-// const listeners = []
+    // const listeners = []
 
 export const boardService = {
     query,
     getById,
     save,
     remove,
+    dashboardQuery
 }
 window.cs = boardService;
 
 
 async function query() {
     return storageService.query(STORAGE_KEY)
-    // try {
-    //     const boards = await httpService.get('board')
-    //     return boards
-    // } catch (err) {
-    //     console.log('Front: Error loading boards', err)
-    // }
+        // try {
+        //     const boards = await httpService.get('board')
+        //     return boards
+        // } catch (err) {
+        //     console.log('Front: Error loading boards', err)
+        // }
+}
+async function dashboardQuery(boardId) {
+    const chartsData = await storageService.dashboardQuery(STORAGE_KEY, boardId)
+    return chartsData
+        // try {
+        //     const chartsData = await httpService.get(`dashboard/${boardId}`)
+        //     return chartsData
+        // } catch (err) {
+        //     console.log('Front: Error loading chartsData', err)
+        // }
 }
 
 async function getById(boardId) {
     return storageService.get(STORAGE_KEY, boardId)
-    // try {
-    //     const board = await httpService.get(`board/${boardId}`)
-    //     return board
-    // } catch (err) {
-    //     console.log(`Front: Error loading board with ID: ${boardId}`, err)
+        // try {
+        //     const board = await httpService.get(`board/${boardId}`)
+        //     return board
+        // } catch (err) {
+        //     console.log(`Front: Error loading board with ID: ${boardId}`, err)
 
     // }
 }
 
 async function remove(boardId) {
     return storageService.remove(STORAGE_KEY, boardId)
-    // try {
-    //     return httpService.delete(`board/${boardId}`)
-    // } catch (err) {
-    //     console.log(`Front: Error deleting board with ID: ${boardId}`);
-    // }
+        // try {
+        //     return httpService.delete(`board/${boardId}`)
+        // } catch (err) {
+        //     console.log(`Front: Error deleting board with ID: ${boardId}`);
+        // }
 }
 
 async function save(board, activity = null) {
     if (board._id) {
         if (activity) {
             const newActivity = {
-                id: utilService.makeId(),
-                txt: activity.txt,
-                byMember: userService.getMiniUser(),
-                createdAt: Date.now(),
-                card: (activity.card) ? { id: activity.card.id, title: activity.card.title } : {},
-                groupId: (activity.groupId) ? activity.groupId : null
-            }
-            // console.log('Activity from service: ', newActivity)
+                    id: utilService.makeId(),
+                    txt: activity.txt,
+                    byMember: userService.getMiniUser(),
+                    createdAt: Date.now(),
+                    card: (activity.card) ? { id: activity.card.id, title: activity.card.title } : {},
+                    groupId: (activity.groupId) ? activity.groupId : null
+                }
+                // console.log('Activity from service: ', newActivity)
             board.activities.unshift(newActivity)
             console.log('Board activities from service: ', board.activities)
         }
         return storageService.put(STORAGE_KEY, board)
-        // return httpService.put(`board/${board._id}`, board)
+            // return httpService.put(`board/${board._id}`, board)
     } else {
         const boardToSave = {
             title: board.title,
@@ -71,43 +82,43 @@ async function save(board, activity = null) {
             createdBy: userService.getMiniUser(),
             groups: [],
             labels: [{
-                id: "l101",
-                title: "",
-                color: "#61bd4f"
-            },
-            {
-                id: "l102",
-                title: "",
-                color: "#FF9F1A"
-            },
-            {
-                id: "l103",
-                title: "",
-                color: "#eb5a46"
-            },
-            {
-                id: "l104",
-                title: "",
-                color: "#C377E0"
-            },
-            {
-                id: "l105",
-                title: "",
-                color: "#344563"
-            },
-            {
-                id: "l106",
-                title: "",
-                color: "#FF78CB"
-            }
+                    id: "l101",
+                    title: "",
+                    color: "#61bd4f"
+                },
+                {
+                    id: "l102",
+                    title: "",
+                    color: "#FF9F1A"
+                },
+                {
+                    id: "l103",
+                    title: "",
+                    color: "#eb5a46"
+                },
+                {
+                    id: "l104",
+                    title: "",
+                    color: "#C377E0"
+                },
+                {
+                    id: "l105",
+                    title: "",
+                    color: "#344563"
+                },
+                {
+                    id: "l106",
+                    title: "",
+                    color: "#FF78CB"
+                }
             ],
             members: [userService.getMiniUser()],
             activities: []
         }
 
         return storageService.post(STORAGE_KEY, boardToSave)
-        // const addedBoard = await httpService.post(`board`, boardToSave)
-        // return addedBoard
+            // const addedBoard = await httpService.post(`board`, boardToSave)
+            // return addedBoard
     }
 }
 

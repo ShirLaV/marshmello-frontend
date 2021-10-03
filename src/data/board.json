@@ -208,7 +208,7 @@
                         }, {
                             "_id": "u105",
                             "username": "jerry@smith.com",
-                            "fullname": "jerry123",
+                            "fullname": "Jerry Smith",
                             "imgUrl": "https://c.tenor.com/K5glSjkHrDkAAAAM/rick-and-morty-adult-swim.gif"
                         }],
                         "labelIds": ["l101", "l102"],

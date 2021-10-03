@@ -4,7 +4,8 @@ export const storageService = {
     post,
     put,
     remove,
-    postMany
+    postMany,
+    dashboardQuery
 }
 
 
@@ -15,15 +16,64 @@ function query(entityType, delay = 500) {
     var entities = JSON.parse(localStorage.getItem(entityType))
     if (!entities) {
         entities = (entityType === 'board') ? gBoards : gUsers;
-        _save(entityType,entities)
+        _save(entityType, entities)
     }
     return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                // reject('OOOOPs')
+                resolve(entities)
+            }, delay)
+        })
+        // return Promise.resolve(entities)
+}
+
+async function dashboardQuery(entityType, entityId, delay = 500) {
+    const boards = await query(entityType)
+    const board = boards.find(board => board._id === entityId)
+    const chartsData = {
+        groupsCount: 0,
+        cardsCount: 0,
+        tasksPerMemberMap: {},
+        tasksPerLabelMap: {}
+    };
+    if (board.members) {
+        board.members.forEach(member => {
+            chartsData.tasksPerMemberMap[member.fullname] = 0
+        })
+    }
+    if (board.labels) {
+        board.labels.forEach(label => {
+            chartsData.tasksPerLabelMap[label.title] = 0
+        })
+    }
+
+    if (board.groups) {
+        board.groups.forEach(group => {
+            if (!group.isArchive) {
+                chartsData.groupsCount = chartsData.groupsCount + 1
+                group.cards.forEach(card => {
+                    if (!card.isArchive) chartsData.cardsCount = chartsData.cardsCount + 1
+                    if (card.members) {
+                        card.members.forEach(member => {
+                            chartsData.tasksPerMemberMap[member.fullname]++;
+                        })
+                    }
+                    if (card.labelIds) {
+                        card.labelIds.forEach(labelId => {
+                            const label = _getLabel(board.labels, labelId);
+                            chartsData.tasksPerLabelMap[label.title]++
+                        })
+                    }
+                })
+            }
+        })
+    }
+
+    return new Promise((resolve, reject) => {
         setTimeout(() => {
-            // reject('OOOOPs')
-            resolve(entities)
+            resolve(chartsData)
         }, delay)
     })
-    // return Promise.resolve(entities)
 }
 
 // function queryUsers(entityType, delay = 500) {
@@ -90,9 +140,14 @@ function _makeId(length = 5) {
 function postMany(entityType, newEntities) {
     return query(entityType)
         .then(entities => {
-            newEntities = newEntities.map(entity => ({ ...entity, _id: _makeId() }))
+            newEntities = newEntities.map(entity => ({...entity, _id: _makeId() }))
             entities.push(...newEntities)
             _save(entityType, entities)
             return entities
         })
 }
+
+function _getLabel(labels, labelId) {
+    const label = labels.find((label) => label.id === labelId);
+    return label;
+};
