@@ -20,19 +20,17 @@ function _CardPreview({
   getLabel,
 }) {
   return (
-    // <div
-    // className='card-wrapper'
-    //   style={{ display: card.isArchive ? 'none' : 'unset' }}
-    // >
+    <div
+    className='card-wrapper'
+      style={{ display: card.isArchive ? 'none' : 'unset' }}
+    >
       <Draggable draggableId={card.id} index={index}>
         {(provided) => {
           return (
             <li
-          
               ref={provided.innerRef}
               {...provided.dragHandleProps}
               {...provided.draggableProps}
-              style={{ display: card.isArchive ? 'none' : '' }}
             >
               <div
                 className='card-preview flex space-between'
@@ -74,6 +72,7 @@ function _CardPreview({
           );
         }}
       </Draggable>
+      </div>
   );
 }
 

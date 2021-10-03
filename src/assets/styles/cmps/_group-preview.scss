@@ -35,11 +35,13 @@
             padding: 0 4px;
             overflow-x: hidden;
             overflow-y: auto;
-            li:not(:last-child) {
+            li {
                 margin-bottom: 8px;
             }
-            li:last-child {
-                margin-bottom: 1px;
+            .card-wrapper:last-child {
+                li {
+                    margin-bottom: 1px;
+                }
             }
             &::-webkit-scrollbar {
                 width: 8px;
