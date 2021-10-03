@@ -15,7 +15,7 @@ class _SideMenu extends React.Component {
     }
 
     _cmpsToRender = [{ id: 'c101', title: 'Change Background', icon: <BoardIcon />, component: ChangeBG },
-    { id: 'c102', title: 'Search Cards - Under Construction 🚧', icon: <BiSearch />, component: SearchCards },
+    { id: 'c102', title: 'Search Cards', icon: <BiSearch />, component: SearchCards },
     { id: 'c103', title: 'Archive - Under Construction 🚧', icon: <BsArchiveFill />, component: Archive }]
 
     componentWillUnmount() {
