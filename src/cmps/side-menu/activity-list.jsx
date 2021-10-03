@@ -7,6 +7,8 @@ import Moment from 'react-moment'
 
 class _ActivityList extends React.Component {
 
+    
+
     getGroupTitle = (groupId) => {
         const group = this.props.board.groups.find(group => group.id === groupId)
         return group.title

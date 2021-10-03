@@ -21,7 +21,6 @@ export function loadBoards(filterBy) {
 export function loadBoard(boardId, filterBy) {
     return async (dispatch) => {
         try {
-            console.log('Filter from actions: ', filterBy)
             const board = await boardService.getById(boardId, filterBy)
             document.body.style.background = board.style.bgColor ? board.style.bgColor : `url("${board.style.imgUrl}")`
             document.body.style.backgroundSize = 'cover'

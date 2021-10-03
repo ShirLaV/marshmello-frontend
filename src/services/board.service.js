@@ -29,7 +29,9 @@ async function query(filterByUser) {
 async function getById(boardId, filterBy) {
     // return storageService.get(STORAGE_KEY, boardId)
     try {
-        console.log('Filter last stop in front: ', filterBy)
+        if (typeof filterBy === 'object') {
+            filterBy = (new URLSearchParams(filterBy)).toString()
+        }
         const board = await httpService.get(`board/${boardId}`, filterBy)
         return board
     } catch (err) {
