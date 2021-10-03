@@ -1,6 +1,6 @@
 import React, { createRef } from 'react'
 import { connect } from 'react-redux'
-import { history } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
 import { onAddBoard, setAddingBoard } from '../../store/board.actions.js'
 
@@ -51,8 +51,8 @@ class _BoardAdd extends React.Component {
     addBoard = async (ev) => {
         ev.preventDefault()
         if (!this.state.title) return
-        await this.props.onAddBoard(this.state)
-        if (this.props.board) this.props.history.push(`/board/${this.props.board._id}`)
+        const addedBoard = await this.props.onAddBoard(this.state)
+        this.props.history.push(`/board/${addedBoard._id}`)
         this.props.setAddingBoard(false)
     }
 
@@ -70,7 +70,7 @@ class _BoardAdd extends React.Component {
         return (
             <div className="board-add" ref={this.targetRef}>
                 <form className="board-add-form" onSubmit={this.addBoard} style={{ backgroundImage: `url(${images[chosenImgIdx]})` }} >
-                    <input className={`board-title-input ${(title) ? 'editing' : ''}`} autoComplete="off" type="text" placeholder="Add board title" name="title" value={title} onChange={this.handleChange} />
+                    <input autoFocus className={`board-title-input ${(title) ? 'editing' : ''}`} autoComplete="off" type="text" placeholder="Add board title" name="title" value={title} onChange={this.handleChange} />
                     <button className={`create-btn ${(title) ? 'clickable' : ''}`} type="submit">Create Board</button>
                 </form>
                 <div className="images-container">
@@ -87,13 +87,12 @@ class _BoardAdd extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        isAddingBoard: state.boardModule.isAddingBoard,
-        board: state.boardModule.currBoard
+        isAddingBoard: state.boardModule.isAddingBoard
     }
 }
 const mapDispatchToProps = {
     onAddBoard,
     setAddingBoard
 }
-
-export const BoardAdd = connect(mapStateToProps, mapDispatchToProps)(_BoardAdd)
+const _BoardAddWithRouter = withRouter(_BoardAdd)
+export const BoardAdd = connect(mapStateToProps, mapDispatchToProps)(_BoardAddWithRouter)

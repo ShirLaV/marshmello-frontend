@@ -4,6 +4,7 @@ import { BsCheck } from 'react-icons/bs'
 import { onUpdateCard } from '../../store/board.actions'
 import { MemberAvatar } from '../shared/member-avatar'
 import { cardEditService } from '../../services/card-edit.service'
+import { activityTxtMap } from '../../services/activity.service'
 
 function _PopperMemberPreview({ member, currCardId, onUpdateCard }) {
     const [isChecked, setIsChecked] = useState(false)
@@ -18,7 +19,8 @@ function _PopperMemberPreview({ member, currCardId, onUpdateCard }) {
     const handleMemberClick = () => {
         setIsChecked(!isChecked)
         const res = cardEditService.handleMemberChange(member._id)
-        onUpdateCard(...res)
+        const activity = (isChecked) ? {txt: activityTxtMap.removeMemberFromCard(member.fullname), currCardId} : {txt: activityTxtMap.addMemberToCard(member.fullname), currCardId}
+        onUpdateCard(...res, activity)
     }
 
     return (

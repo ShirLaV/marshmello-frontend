@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { BiPencil } from 'react-icons/bi'
 import { BsCheck } from 'react-icons/bs'
 import { connect } from 'react-redux'
+import { activityTxtMap } from '../../services/activity.service'
 import { cardEditService } from '../../services/card-edit.service'
 import { onUpdateCard } from '../../store/board.actions'
 
@@ -18,7 +19,10 @@ function _PopperLabelPreview({ label, currCardId, onUpdateCard }) {
     const handleLabelClick = () => {
         setIsChecked(!isChecked)
         const res = cardEditService.handleLabelChange(label.id)
-        onUpdateCard(...res)
+        const groupId = cardEditService.getGroupId(currCardId)
+        // const activity = {txt: activityTxtMap.addLabel(label.title), groupId: groupId}
+        const activity = (isChecked) ? {txt: activityTxtMap.removeLabel(label.title), groupId: groupId} : {txt: activityTxtMap.addLabel(label.title), groupId: groupId}
+        onUpdateCard(...res, activity)
     }
 
     return (

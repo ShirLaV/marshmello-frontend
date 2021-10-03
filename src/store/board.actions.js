@@ -1,4 +1,6 @@
+import { activityTxtMap } from "../services/activity.service.js";
 import { boardService } from "../services/board.service.js";
+import { socketService } from "../services/socket.service.js";
 // import { userService } from "../services/user.service.js";
 // import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js';
 export function loadBoards(filterBy) {
@@ -16,10 +18,11 @@ export function loadBoards(filterBy) {
     }
 }
 
-export function loadBoard(boardId) {
+export function loadBoard(boardId, filterBy) {
     return async (dispatch) => {
         try {
-            const board = await boardService.getById(boardId)
+            console.log('Filter from actions: ', filterBy)
+            const board = await boardService.getById(boardId, filterBy)
             document.body.style.background = board.style.bgColor ? board.style.bgColor : `url("${board.style.imgUrl}")`
             document.body.style.backgroundSize = 'cover'
 
@@ -80,6 +83,8 @@ export function onAddBoard(board) {
                 type: 'ADD_BOARD',
                 board: savedBoard
             })
+            socketService.emit('update', true)
+            return savedBoard
             // showSuccessMsg('Board added')
         } catch (err) {
             // showErrorMsg('Cannot add board')
@@ -135,6 +140,17 @@ export function onUpdateFilter(filterBy) {
     }
 }
 
+export function outputUpdateBoard(action, board, activity) {
+    return async (dispatch) => {
+        const boardToSave = _getUpdatedBoard(action, board)
+        dispatch({
+            type: 'UPDATE_BOARD',
+            board: boardToSave
+        })
+
+    }
+}
+
 export function onUpdateBoard(action, board, activity = null) {
     return async (dispatch) => {
         const boardToSave = _getUpdatedBoard(action, board)
@@ -142,12 +158,12 @@ export function onUpdateBoard(action, board, activity = null) {
             type: 'UPDATE_BOARD',
             board: boardToSave
         })
-        // console.log('Updated Board:', boardToSave);
+
         try {
+            if (!action.type) action.board = board
+            socketService.emit('board-update', { action, activity })
             await boardService.save(boardToSave, activity)
-            // showSuccessMsg('Board updated')
         } catch (err) {
-            // showErrorMsg('Cannot update board')
             console.log('Cannot save board', err)
         }
     }

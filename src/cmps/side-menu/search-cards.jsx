@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 import { PopperLabelPreview } from "../card-edit/popper-label-preview";
 import { MemberAvatar } from "../shared/member-avatar";
 
-import { onUpdateFilter } from "../../store/board.actions"
+import { onUpdateFilter, loadBoard } from "../../store/board.actions"
+import { withRouter } from "react-router";
 
 class _SearchCards extends React.Component {
     state = {
@@ -15,25 +16,53 @@ class _SearchCards extends React.Component {
         }
     }
 
+    componentDidUpdate({ filterBy: prevFilterBy }) {
+        const { filterBy: currFilterBy } = this.props
+        if (prevFilterBy !== currFilterBy) {
+            this.updateUrlSearchParams(currFilterBy)
+        }
+    }
+
+    componentWillUnmount() {
+        this.props.onUpdateFilter({ txt: '', members: [], labels: [] })
+    }
+
+    updateUrlSearchParams = (filterBy) => {
+        console.log('filterBy: ', filterBy)
+        const { history, location } = this.props
+        const urlSearchFilterBy = { ...filterBy }
+        for (const key in urlSearchFilterBy) {
+            const currVal = urlSearchFilterBy[key]
+            if (!currVal || (Array.isArray(currVal) && !currVal.length)) delete urlSearchFilterBy[key]
+        }
+        const search = new URLSearchParams(urlSearchFilterBy)
+        history.replace(`${location.pathname}?${search.toString()}`)
+    }
+
     handleChange = (ev) => {
         const field = ev.target.name;
         const value = ev.target.value;
-        this.setState((prevState) => ({ ...prevState, filterBy: { ...prevState.filterBy, [field]: value } }), () => this.props.onUpdateFilter(this.state.filterBy))
+        const filterBy = { ...this.props.filterBy, [field]: value }
+        this.props.onUpdateFilter(filterBy)
     }
 
     handleUserClick = (user) => {
-        if (this.state.filterBy.members.includes(user)) return
-        this.setState((prevState) => ({ ...prevState, filterBy: { ...this.state.filterBy, members: [...this.state.filterBy.members, user] } }), () => this.props.onUpdateFilter(this.state.filterBy))
+        if (this.props.filterBy.members.includes(user._id)) return
+        // const filterBy = { ...this.props.filterBy, members: [...this.state.filterBy.members, user] }
+
+        const filterBy = { ...this.props.filterBy, members: [...this.props.filterBy.members, user._id] }
+        this.props.onUpdateFilter(filterBy)
     }
 
     handleLabelClick = (label) => {
-        if (this.state.filterBy.labels.includes(label)) return
-        this.setState((prevState) => ({ ...prevState, filterBy: { ...this.state.filterBy, labels: [...this.state.filterBy.labels, label] } }), () => this.props.onUpdateFilter(this.state.filterBy))
+        if (this.props.filterBy.labels.includes(label.id)) return
+        const filterBy = { ...this.props.filterBy, labels: [...this.props.filterBy.labels, label.id] }
+        this.props.onUpdateFilter(filterBy)
     }
 
     render() {
         const { board } = this.props
-        const { filterBy } = this.state
+        const { filterBy } = this.props
         return (
             <div className="search-cards">
                 <input className="search-input" type="text" onChange={this.handleChange} name="txt" value={filterBy.txt} autoFocus placeholder="Search..." />
@@ -48,7 +77,7 @@ class _SearchCards extends React.Component {
                                 <div className="label-color" style={{ backgroundColor: label.color }} ></div>
                                 <p>{label.title}</p>
                             </div>
-                            <span>{(filterBy.labels.includes(label)) ? <IoCheckmarkSharp /> : ''}</span>
+                            <span>{(filterBy.labels.includes(label.id)) ? <IoCheckmarkSharp /> : ''}</span>
                         </li>
                     )}
                 </ul>
@@ -62,7 +91,7 @@ class _SearchCards extends React.Component {
                                 <MemberAvatar member={member} />
                                 <span className="user-name">{member.fullname}</span>
                             </div>
-                            <span>{(filterBy.members.includes(member)) ? <IoCheckmarkSharp /> : ''}</span>
+                            <span>{(filterBy.members.includes(member._id)) ? <IoCheckmarkSharp /> : ''}</span>
                         </li>
                     )}
                 </ul>
@@ -80,7 +109,8 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-    onUpdateFilter
+    onUpdateFilter,
+    loadBoard
 }
 
-export const SearchCards = connect(mapStateToProps, mapDispatchToProps)(_SearchCards);
+export const SearchCards = connect(mapStateToProps, mapDispatchToProps)(withRouter(_SearchCards));

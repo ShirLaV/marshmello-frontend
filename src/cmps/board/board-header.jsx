@@ -55,6 +55,11 @@ class _BoardHeader extends React.Component {
         }
     }
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.board.title !== this.props.board.title) {
+            this.setState({ boardTitle: this.props.board.title })
+        }
+    }
 
     toggleStarredBoard = () => {
         const { board, onUpdateBoard } = this.props

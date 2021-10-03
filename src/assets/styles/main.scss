@@ -10,10 +10,10 @@
 @import "basics/forms";
 @import "basics/buttons";
 // Pages
-// @import "pages/home-page";
 @import "pages/board-details";
 @import "pages/boards-select";
 @import "pages/home-page";
+@import "pages/login-signup";
 // Components
 @import "cmps/group-list";
 @import "cmps/group-preview";
@@ -33,6 +33,7 @@
 @import "cmps/search-cards";
 @import "cmps/loader";
 @import "cmps/mini-user";
+@import "cmps/dashboard";
 @import "cmps/quick-card-editor";
 @import "cmps/activity-list";
 @import "cmps/card-edit-modal/card-edit-index";

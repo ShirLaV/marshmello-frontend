@@ -7,15 +7,18 @@ import { SiTrello } from 'react-icons/si'
 import { loadBoards, setAddingBoard, onUpdateBoard } from '../store/board.actions'
 import { OverlayScreen } from '../cmps/overlay-screen'
 import { Loader } from '../cmps/shared/loader'
-
+import { socketService } from '../services/socket.service'
+import { userService } from '../services/user.service'
 
 
 class _BoardSelect extends React.Component {
     state = {
     }
 
-    componentDidMount() {
-        this.props.loadBoards()
+    async componentDidMount() {
+        const user = userService.getMiniUser()
+        console.log(user)
+        await this.props.loadBoards(user)
     }
 
     getStarredBoards = () => {
@@ -26,6 +29,7 @@ class _BoardSelect extends React.Component {
         const { onUpdateBoard } = this.props
         board.isStarred = !board.isStarred
         onUpdateBoard({ type: 'TOGGLE_STARRED', isStarred: board.isStarred }, board)
+        socketService.emit('update', true)
     }
     setFavicon = (style) => {
         const favicon = document.getElementById('favicon')
@@ -66,7 +70,8 @@ function mapStateToProps(state) {
     return {
         boards: state.boardModule.boards,
         isAddingBoard: state.boardModule.isAddingBoard,
-        board: state.boardModule.currBoard
+        board: state.boardModule.currBoard,
+        user: state.userModule.user
     }
 }
 

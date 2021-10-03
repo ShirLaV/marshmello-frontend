@@ -1,8 +1,11 @@
 import React from 'react'
 import { SiTrello } from 'react-icons/si'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { onLogin } from '../store/user.actions'
 import heroImg from '../assets/img/hero.png'
 import productImg from '../assets/img/homepage-product.jpg'
+
 
 
 class _HomePage extends React.Component {
@@ -38,6 +41,11 @@ class _HomePage extends React.Component {
         }
     }
 
+    onGuestLogin = () => {
+        this.props.onLogin({username: 'rick@sanchez.com', password: 'rick123'})
+        this.props.history.push('/board')
+    }
+
     render() {
         const { isNavbarBG } = this.state
         return (
@@ -45,8 +53,8 @@ class _HomePage extends React.Component {
                 <header className={`home-header ${(isNavbarBG) ? 'bg-visible' : ''}`}>
                     <span className="logo"> <SiTrello /> Marshmello</span>
                     <div className="header-buttons">
-                        <button className="login-btn nav-button">Log in</button>
-                        <button className="signup-btn nav-button">Sign up</button>
+                        <Link to="/login"><button className="login-btn nav-button">Log in</button></Link>
+                        <Link to="/signup"><button className="signup-btn nav-button">Sign up</button></Link>
                     </div>
                 </header>
                 <div className="home-first-fold">
@@ -54,7 +62,7 @@ class _HomePage extends React.Component {
                         <h1>Marshmello helps teams move work forward.</h1>
                         <p>Collaborate, manage projects, and reach new productivity peaks.
                             From high rises to the home office, the way your team works is unique—accomplish it all with Marshmello.</p>
-                        <button className="cta-btn nav-button" onClick={() => { this.props.history.push('/board') }}>Get Started!</button>
+                        <button className="cta-btn nav-button" onClick={() => this.onGuestLogin()}>Get Started!</button>
                     </div>
                     <div className="first-fold-img">
                         <img src={heroImg} alt="hero" />
@@ -80,4 +88,8 @@ function mapStateToProps(state) {
     }
 }
 
-export const HomePage = connect(mapStateToProps)(_HomePage)
+const mapDispatchToProps = {
+    onLogin
+}
+
+export const HomePage = connect(mapStateToProps, mapDispatchToProps)(_HomePage)

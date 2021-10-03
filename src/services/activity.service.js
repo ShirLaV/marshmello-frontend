@@ -7,6 +7,9 @@ export const activityTxtMap = {
     addCard: () => {
         return `Added card:`
     },
+    socketUpdate: ()=>{
+        return 'UPDATE_BY_SOCKET'
+    },
     renameBoard: (boardName) => {
         return `Renamed this board to: ${boardName}`
     },
@@ -33,6 +36,21 @@ export const activityTxtMap = {
     },
     changeGroupTitle: (groupName) => {
         return `Changed the title in list: ${groupName}`
+    },
+    addMemberToCard: (memberName) => {
+        return `Added ${memberName} to a card`
+    },
+    removeMemberFromCard: (memberName) => {
+        return `Removed ${memberName} from a card`
+    },
+    addLabel: (labelName) => {
+        return `Added the label ${labelName} to a card`
+    },
+    removeLabel: (labelName) => {
+        return `Removed the label ${labelName} from a card`
+    },
+    addChecklist: (checklistName) => {
+        return `Added checklist ${checklistName} to a card`
     }
 }
 
