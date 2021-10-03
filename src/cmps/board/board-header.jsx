@@ -28,6 +28,12 @@ class _BoardHeader extends React.Component {
         this.props.loadUsers()
     }
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.board.title !== this.props.board.title) {
+            this.setState({ boardTitle: this.props.board.title })
+        }
+    }
+
     toggleStarredBoard = () => {
         const { board, onUpdateBoard } = this.props
         board.isStarred = !board.isStarred
@@ -43,7 +49,7 @@ class _BoardHeader extends React.Component {
     onChangeBoardTitle = () => {
         const { board, onUpdateBoard } = this.props
         board.title = this.state.boardTitle
-        const activity = {txt: activityTxtMap.renameBoard(board.title)}
+        const activity = { txt: activityTxtMap.renameBoard(board.title) }
         onUpdateBoard({ type: 'CHANGE_TITLE', title: board.title }, board, activity)
     }
 
@@ -63,7 +69,7 @@ class _BoardHeader extends React.Component {
                     <button className={`starred-btn nav-button ${(board.isStarred) ? 'starred' : ''}`} onClick={() => this.toggleStarredBoard()}><AiOutlineStar /></button> |
                     <div className="user-previews">
                         {board.members.map((member, idx) =>
-                            <MemberAvatar key={member._id} member={member} style={{left: idx * -5}} />
+                            <MemberAvatar key={member._id} member={member} style={{ left: idx * -5 }} />
                         )}
                     </div>
                     <div className='relative' ref={this.inviteRef}>
@@ -77,7 +83,7 @@ class _BoardHeader extends React.Component {
                     <button className={`dashboard-btn nav-button ${(isMenuOpen) ? 'menu-open' : ''}`}><RiBarChartFill /> Dashboard</button>
                     <button onClick={() => this.toggleMenu()} className="right-menu-btn nav-button"><HiDotsHorizontal /> Show Menu</button>
                 </div>
-                <SideMenu isMenuOpen={isMenuOpen} onClose={() => {this.toggleMenu()}} />
+                <SideMenu isMenuOpen={isMenuOpen} onClose={() => { this.toggleMenu() }} />
             </section>
         )
     }

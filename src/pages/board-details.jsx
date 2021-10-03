@@ -9,6 +9,7 @@ import {
   loadBoard,
   onUpdateBoard,
   onUpdateCard,
+  outputUpdateBoard,
   resetBoard,
 } from '../store/board.actions.js';
 
@@ -20,6 +21,8 @@ import { OverlayScreen } from '../cmps/overlay-screen.jsx';
 import { QuickCardEditor } from '../cmps/quick-card-editor.jsx';
 import { Loader } from '../cmps/shared/loader.jsx';
 import { activityTxtMap } from '../services/activity.service.js';
+import { socketService } from '../services/socket.service.js';
+import { userService } from '../services/user.service.js';
 
 class _BoardDetails extends Component {
   state = {
@@ -31,21 +34,29 @@ class _BoardDetails extends Component {
       position: {}
     },
   };
-  componentDidMount() {
-    const { boardId } = this.props.match.params;
-    this.loadBoard(boardId);
+  async componentDidMount() {
+    const { boardId } = this.props.match.params
+    const filterBy = this.props.location.search
+    console.log('from Board details: ', filterBy)
+    await this.loadBoard(boardId, filterBy)
+    socketService.emit('member-joined', boardId)
+    socketService.on('board-update', ({ action, activity }) => {
+      const boardToSend = action.board || this.props.board
+      this.props.outputUpdateBoard(action, boardToSend, activity)
+    })
   }
   componentWillUnmount() {
     this.props.resetBoard();
   }
-  loadBoard = (boardId) => {
-    this.props.loadBoard(boardId);
+  loadBoard = (boardId, filterBy) => {
+    this.props.loadBoard(boardId, filterBy);
   };
   openCardEdit = (groupId, cardId) => {
     this.props.history.push(`${this.props.board._id}/${groupId}/${cardId}`);
   };
   updateBoard = (action, activity) => {
-    this.props.onUpdateBoard(action, this.props.board, activity);
+    const updatedBoard = action.board || this.props.board
+    this.props.onUpdateBoard(action, updatedBoard, activity);
   };
   toggleCardLabelList = (event) => {
     event.stopPropagation();
@@ -61,7 +72,7 @@ class _BoardDetails extends Component {
     ev.stopPropagation();
     const cardToUpdate = { ...card };
     cardToUpdate.isComplete = !card.isComplete;
-    const activity = (cardToUpdate.isComplete) ? {txt: activityTxtMap.completeCard(), card: cardToUpdate, groupId: groupId} : {txt: activityTxtMap.unCompleteCard(), card: cardToUpdate, groupId: groupId}
+    const activity = (cardToUpdate.isComplete) ? { txt: activityTxtMap.completeCard(), card: cardToUpdate, groupId: groupId } : { txt: activityTxtMap.unCompleteCard(), card: cardToUpdate, groupId: groupId }
     this.props.onUpdateCard(cardToUpdate, groupId, this.props.board, activity);
   };
   getLabel = (labelId) => {
@@ -88,6 +99,7 @@ class _BoardDetails extends Component {
       sourceGroup.cards.splice(destination.index, 0, ...card);
       const action = { type: 'UPDATE_GROUP', group: sourceGroup };
       this.props.onUpdateBoard(action, boardToChange);
+
     }
     //card dragged to another group
     else {
@@ -105,6 +117,7 @@ class _BoardDetails extends Component {
         return currGroup;
       });
       this.props.onUpdateBoard({ type: '' }, boardToChange);
+
     }
   };
   onToggleAddPop = () => {
@@ -218,6 +231,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = {
   loadBoard,
   onUpdateBoard,
+  outputUpdateBoard,
   onUpdateCard,
   resetBoard,
 };

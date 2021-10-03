@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { cardEditService } from '../../../services/card-edit.service'
 import { onUpdateCard } from '../../../store/board.actions'
 import { connect } from 'react-redux'
+import { activityTxtMap } from '../../../services/activity.service'
 
 export function _PopoverChecklist({ onUpdateCard, onClose }) {
     const inputRef = useRef()
@@ -19,7 +20,8 @@ export function _PopoverChecklist({ onUpdateCard, onClose }) {
     const handleSubmit = (ev) => {
         ev.preventDefault()
         const res = cardEditService.handleChecklistChange('addChecklist', null, title)
-        onUpdateCard(...res)
+        const activity = {txt: activityTxtMap.addChecklist(title)}
+        onUpdateCard(...res, activity)
         setTitle('')
         onClose()
     }

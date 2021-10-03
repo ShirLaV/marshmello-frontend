@@ -1,0 +1,61 @@
+.login-signup-page {
+  height: 100vh;
+  background-color: rgb(248, 240, 248);
+  .login-signup-header {
+    color: rgb(197, 139, 197);
+    margin: auto;
+    font-size: 30px;
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    .logo-text {
+      color: #172b4d;
+    }
+  }
+
+  .login-signup {
+    text-align: center;
+    background-color: #fff;
+    border-radius: 3px;
+    max-width: 400px;
+    height: fit-content;
+    margin: 0 auto;
+    padding: 30px 40px;
+    gap: 15px;
+    background-color: #ffffff;
+    border-radius: 3px;
+    padding: 25px 40px;
+    box-shadow: rgb(0 0 0 / 10%) 0 0 10px;
+
+    input {
+      font-size: 14px;
+      background-color: #fafbfc;
+      border-radius: 3px;
+      border: 2px solid #dfe1e6;
+      height: 44px;
+      padding: 7px;
+      transition: background-color 0.2s ease-in-out 0s,
+        border-color 0.2s ease-in-out 0s;
+      margin-bottom: 17px;
+      outline: none;
+
+      &:focus {
+        background-color: #fff;
+        border: unset;
+        border: 2px solid #4c9aff;
+        box-shadow: 0 0 0;
+      }
+    }
+  }
+
+  .right-svg {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+  .left-svg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+}

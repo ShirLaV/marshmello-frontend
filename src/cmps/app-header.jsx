@@ -12,20 +12,17 @@ import { setAddingBoard } from '../store/board.actions'
 import { BoardAdd } from './board/board-add.jsx';
 import { MemberAvatar } from './shared/member-avatar.jsx';
 import { OverlayScreen } from '../cmps/overlay-screen'
+import { DynamicPopover } from './shared/dynamic-popover.jsx';
+import { InviteMembers } from './board/invite-members.jsx';
 
 
 class _AppHeader extends React.Component {
-
-    // componentDidMount() {
-
-    // }
-
-    onLogin = (credentials) => {
-        this.props.onLogin(credentials)
+    state = {
+        isPopoverOpen: false
     }
-    onSignup = (credentials) => {
-        this.props.onSignup(credentials)
-    }
+
+    userMenuRef = React.createRef()
+
     onLogout = () => {
         this.props.onLogout()
     }
@@ -41,6 +38,7 @@ class _AppHeader extends React.Component {
 
     render() {
         const { user, isAddingBoard } = this.props
+        const { isPopoverOpen } = this.state
         return (
             <header className="app-header">
                 <nav className="nav-links">
@@ -52,10 +50,15 @@ class _AppHeader extends React.Component {
                     <div className="right-links">
                         <button className="nav-button" onClick={() => this.setAddBoard(true)}><AiOutlinePlus /></button>
                         <button className="nav-button"><AiOutlineBell /></button>
-                        <MemberAvatar key={user._id} member={user} />
+                        <MemberAvatar key={user._id} member={user} onClick={() => this.setState({ isPopoverOpen: !isPopoverOpen })} />
+                        <div className='relative' ref={this.userMenuRef}>
+                            {isPopoverOpen && <DynamicPopover onClose={() => this.setState({ isPopoverOpen: false })} title="Invite Members" ref={this.userMenuRef}>
+                                <InviteMembers />
+                            </DynamicPopover>}
+                        </div>
                     </div>
                 </nav>
-                {isAddingBoard && <BoardAdd onClose={() => this.setAddBoard(false)}/>}
+                {isAddingBoard && <BoardAdd onClose={() => this.setAddBoard(false)} />}
                 {isAddingBoard && <OverlayScreen />}
             </header>
         )

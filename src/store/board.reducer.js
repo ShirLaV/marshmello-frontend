@@ -4,7 +4,11 @@ const initialState = {
     lastRemovedBoard: null,
     isAddingBoard: false,
     currCardId: null,
-    filterBy: {}
+    filterBy: {
+        txt: '',
+        members: [],
+        labels: []
+    }
 }
 
 export function boardReducer(state = initialState, action) {

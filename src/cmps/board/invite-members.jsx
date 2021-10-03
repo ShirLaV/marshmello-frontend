@@ -4,6 +4,7 @@ import { MemberAvatar } from '../shared/member-avatar';
 import { onUpdateBoard } from '../../store/board.actions'
 import { IoCheckmarkSharp } from 'react-icons/io5'
 import { activityTxtMap } from '../../services/activity.service';
+import { socketService } from '../../services/socket.service';
 
 class _InviteMembers extends React.Component {
 
@@ -24,7 +25,7 @@ class _InviteMembers extends React.Component {
         const memberIds = this.getMembersIds()
         const memberToAdd = { _id: user._id, fullname: user.fullname, imgUrl: user.imgUrl }
         if (memberIds.includes(memberToAdd._id)) return
-        const activity = {txt: activityTxtMap.inviteMember(user.fullname)}
+        const activity = { txt: activityTxtMap.inviteMember(user.fullname) }
         onUpdateBoard({ type: 'ADD_BOARD_MEMBER', member: memberToAdd }, board, activity)
         console.log(board.members)
     }
@@ -34,8 +35,6 @@ class _InviteMembers extends React.Component {
         const value = ev.target.value;
         this.setState({ ...this.state, [field]: value });
     }
-
-
 
     render() {
         const { search } = this.state

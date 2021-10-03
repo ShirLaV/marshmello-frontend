@@ -15,25 +15,25 @@ export const boardService = {
 window.cs = boardService;
 
 
-async function query() {
-    return storageService.query(STORAGE_KEY)
-    // try {
-    //     const boards = await httpService.get('board')
-    //     return boards
-    // } catch (err) {
-    //     console.log('Front: Error loading boards', err)
-    // }
+async function query(filterByUser) {
+    // return storageService.query(STORAGE_KEY)
+    try {
+        const boards = await httpService.get('board', filterByUser)
+        return boards
+    } catch (err) {
+        console.log('Front: Error loading boards', err)
+    }
 }
 
-async function getById(boardId) {
-    return storageService.get(STORAGE_KEY, boardId)
-    // try {
-    //     const board = await httpService.get(`board/${boardId}`)
-    //     return board
-    // } catch (err) {
-    //     console.log(`Front: Error loading board with ID: ${boardId}`, err)
-
-    // }
+async function getById(boardId, filterBy) {
+    // return storageService.get(STORAGE_KEY, boardId)
+    try {
+        console.log('Filter last stop in front: ', filterBy)
+        const board = await httpService.get(`board/${boardId}`, filterBy)
+        return board
+    } catch (err) {
+        console.log(`Front: Error loading board with ID: ${boardId}`, err)
+    }
 }
 
 async function remove(boardId) {
@@ -49,65 +49,30 @@ async function save(board, activity = null) {
     if (board._id) {
         if (activity) {
             const newActivity = {
-                id: utilService.makeId(),
                 txt: activity.txt,
+                id: utilService.makeId(),
                 byMember: userService.getMiniUser(),
-                createdAt: Date.now(),
                 card: (activity.card) ? { id: activity.card.id, title: activity.card.title } : {},
                 groupId: (activity.groupId) ? activity.groupId : null
             }
             // console.log('Activity from service: ', newActivity)
-            board.activities.unshift(newActivity)
-            console.log('Board activities from service: ', board.activities)
+            // board.activities.unshift(newActivity)
+            // console.log('Board activities from service: ', board.activities)
+            return httpService.put(`board/${board._id}`, { board: board, activity: newActivity })
+        } else {
+            // return storageService.put(STORAGE_KEY, board)
+            return httpService.put(`board/${board._id}`, { board: board, activity: null })
         }
-        return storageService.put(STORAGE_KEY, board)
-        // return httpService.put(`board/${board._id}`, board)
     } else {
         const boardToSave = {
             title: board.title,
-            createdAt: Date.now(),
-            style: (board.style) ? board.style : {},
-            isStarred: false,
+            style: board.style,
             createdBy: userService.getMiniUser(),
-            groups: [],
-            labels: [{
-                id: "l101",
-                title: "",
-                color: "#61bd4f"
-            },
-            {
-                id: "l102",
-                title: "",
-                color: "#FF9F1A"
-            },
-            {
-                id: "l103",
-                title: "",
-                color: "#eb5a46"
-            },
-            {
-                id: "l104",
-                title: "",
-                color: "#C377E0"
-            },
-            {
-                id: "l105",
-                title: "",
-                color: "#344563"
-            },
-            {
-                id: "l106",
-                title: "",
-                color: "#FF78CB"
-            }
-            ],
             members: [userService.getMiniUser()],
-            activities: []
         }
-
-        return storageService.post(STORAGE_KEY, boardToSave)
-        // const addedBoard = await httpService.post(`board`, boardToSave)
-        // return addedBoard
+        // return storageService.post(STORAGE_KEY, boardToSave)
+        const addedBoard = await httpService.post(`board`, boardToSave)
+        return addedBoard
     }
 }
 

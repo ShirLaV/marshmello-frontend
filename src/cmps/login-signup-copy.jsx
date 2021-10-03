@@ -69,7 +69,7 @@ export class LoginSignup extends React.Component {
                         {users.map(user => <option key={user._id} value={user.username}>{user.fullname}</option>)}
                     </select>
 
-                    {/* <input
+                    <input
                         type="text"
                         name="username"
                         value={username}
@@ -85,7 +85,7 @@ export class LoginSignup extends React.Component {
                         placeholder="Password"
                         onChange={this.handleChange}
                         required
-                    /> */}
+                    />
                     <button>Login!</button>
                 </form>}
 

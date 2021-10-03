@@ -37,7 +37,6 @@ export function onLogin(credentials) {
                 user
             })
         } catch (err) {
-            showErrorMsg('Cannot login')
             console.log('Cannot login', err)
         }
     }
@@ -54,7 +53,6 @@ export function onSignup(credentials) {
                 })
             })
             .catch(err => {
-                showErrorMsg('Cannot signup')
                 console.log('Cannot signup', err)
             })
 
@@ -69,7 +67,6 @@ export function onLogout() {
                 user: null
             }))
             .catch(err => {
-                showErrorMsg('Cannot logout')
                 console.log('Cannot logout', err)
             })
     }
