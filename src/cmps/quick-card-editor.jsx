@@ -70,6 +70,7 @@ class _QuickCardEditor extends Component {
       position,
     } = this.props;
     if (!card) return <Loader />;
+    console.log(card);
     return (
       <div
         className='quick-card-editor flex'

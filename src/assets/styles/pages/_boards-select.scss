@@ -24,3 +24,13 @@
     align-items: center;
   }
 }
+
+@include for-mobile-layout {
+  .boards-select {
+    margin-top: 0;
+
+    .workspace {
+      flex-direction: column;
+    }
+  }
+}

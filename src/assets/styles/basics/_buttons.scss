@@ -11,6 +11,7 @@
     color: white;
     border-radius: 3px;
     transition: all 0.3s;
+    min-width: fit-content;
     &:hover {
         background-color: #dfe0db60;
         // background-color: rgba(122, 122, 122, 0.205);

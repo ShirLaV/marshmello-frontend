@@ -86,6 +86,11 @@ const getCardById = (cardId, groupId) => {
     return group.cards.find(card => card.id === cardId)
 }
 
+const getGroupById = (cardId, boardId) => {
+    const board = store.getState().boardModule.boards.find(board => board._id === boardId)
+    return board.groups.find(group => group.cards.find(card => card.id === cardId))
+}
+
 const getGroupId = (cardId) => {
     const board = store.getState().boardModule.currBoard
     return board.groups.find(group => group.cards.find(card => card.id === cardId))?.id
@@ -159,6 +164,24 @@ const handleFileRemove = (fileId) => {
     return [card, groupId, board]
 }
 
+const handleMoveCardFrom = ({ initialBoardId, cardId, groupId, boardId, idx }) => {
+    // const initialBoard = store.getState().boardModule.boards.find(board => board._id === initialBoardId)
+    // const initialGroup = initialBoard.groups.find(group => group.cards.some(card => card.id === cardId))
+    // const initialCardIdx = initialGroup.findIndex(card => card.id === cardId)
+    // initialGroup.splice(initialCardIdx, 1)
+    // return [card, groupId, board]
+}
+
+const handleMoveCardTo = ({ initialBoardId, cardId, groupId, boardId, idx }) => {
+    // const newBoard = store.getState().boardModule.boards.find(board => board._id === boardId)
+    // let newGroup = newBoard.groups.find(group => group.id === groupId)
+    // const groupId = getGroupId(cardId)
+    // const card = getCardById(cardId, groupId)
+    // const rest = newGroup.splice(idx)
+    // newGroup.push(card)
+    // newGroup = [...newGroup, ...rest]
+}
+
 
 export const cardEditService = {
     handleChecklistChange,
@@ -170,5 +193,8 @@ export const cardEditService = {
     getFormattedTime,
     getUploadTime,
     handleFileAdd,
-    handleFileRemove
+    handleFileRemove,
+    getGroupById,
+    handleMoveCardFrom,
+    handleMoveCardTo
 }

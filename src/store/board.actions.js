@@ -171,6 +171,10 @@ function _getUpdatedBoard(action, board) {
             console.log('members from action: ', boardToSave.members)
             boardToSave.members = [...boardToSave.members, action.member]
             break;
+        case 'REMOVE_BOARD_MEMBER':
+            console.log('members from action: ', boardToSave.members)
+            boardToSave.members = [...boardToSave.members.filter(member => member._id !== action.memberId)]
+            break;
         case 'ADD_GROUP':
             boardToSave.groups = [...boardToSave.groups, action.group]
             break;

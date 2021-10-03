@@ -122,13 +122,16 @@
     position: absolute;
     inset: 0;
     cursor: pointer;
+    transition-duration: 85ms;
+    transition-property: background-color,border-color,box-shadow;
+    transition-timing-function: ease;
 
     &.round {
         border-radius: 50%;
     }
+
     &:hover {
-        background-color: rgba(122, 122, 122, 0.01);
-        // background-color: #dfe0db60;
+        background-color: #091e4214;
     }
 }
 

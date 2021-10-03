@@ -11,22 +11,50 @@ import { MemberAvatar } from '../shared/member-avatar.jsx'
 import { InviteMembers } from './invite-members.jsx'
 import { DynamicPopover } from '../shared/dynamic-popover.jsx'
 import { SideMenu } from '../side-menu/side-menu.jsx'
+import { BoardEditMembers } from '../shared/popover-children/board-edit-members'
 
 class _BoardHeader extends React.Component {
 
     state = {
-        isOpen: false,
+        isInviteOpen: false,
         rect: null,
         element: null,
         boardTitle: this.props.board.title,
-        isMenuOpen: false
+        isMenuOpen: false,
+        numOfShownMembers: 7,
+        isMembersOpen: false,
     }
 
     inviteRef = React.createRef()
+    membersRef = React.createRef()
 
     componentDidMount() {
+        window.addEventListener('resize', this.handleResize)
+        this.handleResize()
         this.props.loadUsers()
     }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleResize)
+    }
+
+    handleResize = () => {
+        const { numOfShownMembers } = this.state
+        if (window.innerWidth < 800) {
+            if (numOfShownMembers === 3) return
+            this.setState({ numOfShownMembers: 3 })
+
+        } else if (window.innerWidth > 800 && window.innerWidth < 1300) {
+            if (numOfShownMembers === 7) return
+            this.setState({ numOfShownMembers: 7 })
+
+        } else {
+            if (numOfShownMembers === 10) return
+            this.setState({ numOfShownMembers: 10 })
+
+        }
+    }
+
 
     toggleStarredBoard = () => {
         const { board, onUpdateBoard } = this.props
@@ -43,7 +71,7 @@ class _BoardHeader extends React.Component {
     onChangeBoardTitle = () => {
         const { board, onUpdateBoard } = this.props
         board.title = this.state.boardTitle
-        const activity = {txt: activityTxtMap.renameBoard(board.title)}
+        const activity = { txt: activityTxtMap.renameBoard(board.title) }
         onUpdateBoard({ type: 'CHANGE_TITLE', title: board.title }, board, activity)
     }
 
@@ -51,9 +79,22 @@ class _BoardHeader extends React.Component {
         this.setState((prevState) => ({ ...prevState, isMenuOpen: !this.state.isMenuOpen }))
     }
 
+    getRemainingMembers = () => {
+        const members = [...this.props.board.members]
+        members.splice(this.state.numOfShownMembers)
+        return members
+    }
+
+    getExtraMembersLength = () => (this.props.board.members.length - this.state.numOfShownMembers)
+
+    onMembersClose = () => this.setState({ isMembersOpen: false })
+
     render() {
         const { board } = this.props
-        const { boardTitle, isMenuOpen, isOpen } = this.state
+        const { boardTitle, isMenuOpen, isInviteOpen, numOfShownMembers, isMembersOpen } = this.state
+        const members = this.getRemainingMembers()
+        const extraMembersLength = this.getExtraMembersLength()
+
         return (
             <section className="board-header">
                 <div className="left-btns">
@@ -62,23 +103,42 @@ class _BoardHeader extends React.Component {
                     </button>
                     <button className={`starred-btn nav-button ${(board.isStarred) ? 'starred' : ''}`} onClick={() => this.toggleStarredBoard()}><AiOutlineStar /></button> |
                     <div className="user-previews">
-                        {board.members.map((member, idx) =>
-                            <MemberAvatar key={member._id} member={member} style={{left: idx * -5}} />
+                        {members.map((member, idx) =>
+                            <MemberAvatar key={member._id} member={member} style={{ left: idx * -5 }} />
+                        )}
+                        {extraMembersLength > 0 && (
+                            <div
+
+                                ref={this.membersRef}
+                            >
+                                <div className="list-item-layover round" style={{ transform: `translateX(${(members.length) * -5}px)` }} onClick={() => this.setState({ isMembersOpen: !isMembersOpen })}></div>
+                                <div
+                                    className="show-more-btn"
+                                    style={{ transform: `translateX(${(members.length) * -5}px)` }}
+                                >
+                                    {`+${extraMembersLength}`}
+                                </div>
+                                {isMembersOpen && <DynamicPopover onClose={() => this.setState({ isMembersOpen: false })} title="Members" ref={this.membersRef}>
+                                    <BoardEditMembers members={board.members.filter(member => member._id)} onClose={this.onMembersClose} />
+                                </DynamicPopover>}
+                            </div>
                         )}
                     </div>
                     <div className='relative' ref={this.inviteRef}>
-                        <button onClick={() => this.setState({ isOpen: !isOpen })} className="invite-btn nav-button">Invite</button>
-                        {isOpen && <DynamicPopover onClose={() => this.setState({ isOpen: false })} title="Invite Members" ref={this.inviteRef}>
+                        <button onClick={() => this.setState({ isInviteOpen: !isInviteOpen })} className="invite-btn nav-button">Invite</button>
+                        {isInviteOpen && <DynamicPopover onClose={() => this.setState({ isInviteOpen: false })} title="Invite Members" ref={this.inviteRef}>
                             <InviteMembers />
                         </DynamicPopover>}
                     </div>
                 </div>
                 <div className="right-btns">
-                    <button className={`dashboard-btn nav-button ${(isMenuOpen) ? 'menu-open' : ''}`}><RiBarChartFill /> Dashboard</button>
-                    <button onClick={() => this.toggleMenu()} className="right-menu-btn nav-button"><HiDotsHorizontal /> Show Menu</button>
+                    {!isMenuOpen && <>
+                        <button className={`dashboard-btn nav-button ${(isMenuOpen) ? 'menu-open' : ''}`}><RiBarChartFill /> {window.innerWidth > 1100 && <span>Dashboard</span>}</button>
+                        <button onClick={() => this.toggleMenu()} className="right-menu-btn nav-button"><HiDotsHorizontal /> {window.innerWidth > 1100 && <span>Show Menu</span>}</button>
+                    </>}
                 </div>
-                <SideMenu isMenuOpen={isMenuOpen} onClose={() => {this.toggleMenu()}} />
-            </section>
+                <SideMenu isMenuOpen={isMenuOpen} onClose={() => { this.toggleMenu() }} />
+            </section >
         )
     }
 }

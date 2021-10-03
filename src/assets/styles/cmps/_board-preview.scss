@@ -47,3 +47,9 @@
     }
   }
 }
+
+@include for-mobile-layout {
+  .board-preview {
+    width: 100%;
+  }
+}

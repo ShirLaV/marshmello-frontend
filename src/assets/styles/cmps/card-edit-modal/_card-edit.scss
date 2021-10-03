@@ -164,3 +164,12 @@
         }
     }
 }
+
+@include for-mobile-layout {
+    .edit-modal-container {
+        .card-edit {
+            width: 600px;
+            top: 15%;
+        }
+    }
+}

@@ -6,9 +6,18 @@
   align-items: center;
   justify-content: space-between;
   color: #dfe0db3c;
+  width: 100vw;
+  // flex-wrap: wrap;
+  // position: fixed;
+  // margin-bottom: 40px;
+
+  button {
+    font-size: 14px;
+  }
+
   .left-btns {
     .board-title {
-      > input {
+      >input {
         background-color: transparent;
         border: none;
         cursor: pointer;
@@ -18,16 +27,42 @@
         line-height: 32px;
       }
     }
+
+    .invite-btn {
+      position: relative;
+      right: 8px;
+    }
+
+    .show-more-btn {
+      width: 32px;
+      height: 32px;
+      background-color: #ebecf0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: none;
+      border-radius: 50%;
+      position: relative;
+      color: #172b4d;
+      font-size: 14px;
+      line-height: 20px;
+      padding: 6px 12px;
+      transition: background-color, border-color, box-shadow ease .085s;
+    }
+
     display: flex;
     align-items: center;
     gap: 10px;
+
     .user-previews {
       display: flex;
       align-items: center;
-      & > * {
+
+      &>* {
         position: relative;
       }
     }
+
     .starred-btn {
       &.starred {
         color: gold;
@@ -39,6 +74,7 @@
 .right-btns {
   display: flex;
   gap: 10px;
+
   // align-items: center;
   .dashboard-btn {
     &.menu-open {

@@ -89,3 +89,46 @@
     }
   }
 }
+
+@include for-mobile-layout {
+  .home-page {
+
+    h1 {
+      font-size: 2.5rem;
+    }
+
+    p {
+      font-size: 1.25rem;
+    }
+
+    .home-first-fold {
+      padding-top: 50px;
+      padding-bottom: 80px;
+      text-align: center;
+
+      .first-fold-text {
+        gap: 20px;
+
+        .cta-btn {
+          width: 100%;
+        }
+      }
+
+      .first-fold-img {
+        display: none;
+      }
+    }
+
+    .home-second-fold {
+      gap: 20px;
+      margin-top: 0;
+      
+      
+      .second-fold-text {
+        text-align: center;
+        gap: 20px;
+      }
+    }
+
+  }
+}

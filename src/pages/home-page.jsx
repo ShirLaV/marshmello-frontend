@@ -8,17 +8,25 @@ import productImg from '../assets/img/homepage-product.jpg'
 class _HomePage extends React.Component {
 
     state = {
-        isNavbarBG: false
+        isNavbarBG: false,
+        innerWidth: ''
     }
 
     componentDidMount() {
         window.addEventListener('scroll', this.changeHeaderStyle)
+        window.addEventListener('resize', this.handleResize)
+        this.handleResize()
         document.body.style.overflowY = 'scroll'
     }
 
     componentWillUnmount() {
         window.removeEventListener('scroll', this.changeHeaderStyle)
+        window.removeEventListener('resize', this.handleResize)
         document.body.style.overflowY = 'hidden'
+    }
+
+    handleResize = () => {
+        this.setState({ innerWidth: window.innerWidth })
     }
 
     changeHeaderStyle = () => {

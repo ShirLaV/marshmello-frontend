@@ -46,7 +46,7 @@ class _AppHeader extends React.Component {
                 <nav className="nav-links">
                     <div className="left-links">
                         <NavLink to="/"><button onClick={() => this.setFavicon()} className="home-btn nav-button"><CgHome /></button></NavLink>
-                        <NavLink to="/board"><button onClick={() => this.setFavicon()} className="boards-btn flex nav-button"><SiTrello /> Boards</button></NavLink>
+                        <NavLink to="/board"><button onClick={() => this.setFavicon()} className="boards-btn flex nav-button"><SiTrello /> <span>Boards</span></button></NavLink>
                     </div>
                     <NavLink className="logo" to="/"><SiTrello /> <span> Marshmello </span></NavLink>
                     <div className="right-links">

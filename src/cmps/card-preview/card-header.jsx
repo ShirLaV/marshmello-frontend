@@ -7,7 +7,7 @@ export function CardHeader({ cardStyle }) {
           style={{ backgroundColor: cardStyle.bgColor }}
         ></div>
       )}
-      {cardStyle.imgUrl && <img src={cardStyle.imgUrl} />}
+      {cardStyle.imgUrl && <div className="image-wrapper"><img src={cardStyle.imgUrl} /></div>}
     </div>
   );
 }

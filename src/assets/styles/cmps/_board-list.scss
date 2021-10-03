@@ -2,3 +2,10 @@
     gap: 20px;
     flex-wrap: wrap;
 }
+
+@include for-mobile-layout {
+    .board-list {
+        flex-direction: column;
+
+    }
+}
