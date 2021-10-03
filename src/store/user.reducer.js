@@ -2,7 +2,7 @@ import { userService } from '../services/user.service.js'
 
 
 const initialState = {
-    user: userService.getLoggedinUser(),
+    user: userService.getLoggedinUser() || userService.getGueastUser(),
     users: [],
     watchedUser: null
 }
