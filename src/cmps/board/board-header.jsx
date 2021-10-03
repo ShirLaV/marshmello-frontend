@@ -2,6 +2,7 @@ import React from 'react'
 import { AiOutlineStar } from 'react-icons/ai'
 import { RiBarChartFill } from 'react-icons/ri'
 import { HiDotsHorizontal } from 'react-icons/hi'
+import { FaUserAlt } from 'react-icons/fa'
 import { connect } from 'react-redux'
 import { activityTxtMap } from '../../services/activity.service'
 
@@ -107,7 +108,7 @@ class _BoardHeader extends React.Component {
                         <input className='clean-input' type='text' value={boardTitle} name='boardTitle' onFocus={this.handleFocus} onChange={this.handleChange} onBlur={this.onChangeBoardTitle} />
                     </button>
                     <button className={`starred-btn nav-button ${(board.isStarred) ? 'starred' : ''}`} onClick={() => this.toggleStarredBoard()}><AiOutlineStar /></button> |
-                    <div className="user-previews">
+                    <div className="members-container flex"><div className="user-previews">
                         {members.map((member, idx) =>
                             <MemberAvatar key={member._id} member={member} style={{ left: idx * -5 }} />
                         )}
@@ -129,15 +130,16 @@ class _BoardHeader extends React.Component {
                             </div>
                         )}
                     </div>
-                    <div className='relative' ref={this.inviteRef}>
-                        <button onClick={() => this.setState({ isInviteOpen: !isInviteOpen })} className="invite-btn nav-button">Invite</button>
-                        {isInviteOpen && <DynamicPopover onClose={() => this.setState({ isInviteOpen: false })} title="Invite Members" ref={this.inviteRef}>
-                            <InviteMembers />
-                        </DynamicPopover>}
-                    </div>
+                        <div className='relative' ref={this.inviteRef}>
+                            <button onClick={() => this.setState({ isInviteOpen: !isInviteOpen })} className="invite-btn nav-button">Invite</button>
+                            {isInviteOpen && <DynamicPopover onClose={() => this.setState({ isInviteOpen: false })} title="Invite Members" ref={this.inviteRef}>
+                                <InviteMembers />
+                            </DynamicPopover>}
+                        </div></div>
                 </div>
                 <div className="right-btns">
                     {!isMenuOpen && <>
+                        <button className="nav-button members-btn"><FaUserAlt /></button>
                         <button onClick={()=>onToggleDashboard(true)} className={`dashboard-btn nav-button ${(isMenuOpen) ? 'menu-open' : ''}`}><RiBarChartFill /> {window.innerWidth > 1100 && <span>Dashboard</span>}</button>
                         <button onClick={() => this.toggleMenu()} className="right-menu-btn nav-button"><HiDotsHorizontal /> {window.innerWidth > 1100 && <span>Show Menu</span>}</button>
                     </>}

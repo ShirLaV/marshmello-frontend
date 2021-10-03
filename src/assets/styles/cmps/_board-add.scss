@@ -74,3 +74,14 @@
         }
     }
 }
+
+@include for-mobile-layout {
+    .board-add {
+        width: 100%;
+        justify-content: space-between;
+        .board-add-form {
+            width: 250px;
+            margin-left: 5px;
+        }
+    }
+}
