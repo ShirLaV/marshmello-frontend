@@ -11,6 +11,7 @@ export const boardService = {
     getById,
     save,
     remove,
+    dashboardQuery
 }
 window.cs = boardService;
 
@@ -35,6 +36,18 @@ async function getById(boardId, filterBy) {
         console.log(`Front: Error loading board with ID: ${boardId}`, err)
     }
 }
+
+async function dashboardQuery(boardId) {
+    const chartsData = await storageService.dashboardQuery(STORAGE_KEY, boardId)
+    return chartsData
+    // try {
+    //     const chartsData = await httpService.get(`dashboard/${boardId}`)
+    //     return chartsData
+    // } catch (err) {
+    //     console.log('Front: Error loading chartsData', err)
+    // }
+}
+
 
 async function remove(boardId) {
     return storageService.remove(STORAGE_KEY, boardId)
@@ -75,6 +88,7 @@ async function save(board, activity = null) {
         return addedBoard
     }
 }
+
 
 // function subscribe(listener) {
 //     listeners.push(listener)

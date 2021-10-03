@@ -23,6 +23,7 @@ import { Loader } from '../cmps/shared/loader.jsx';
 import { activityTxtMap } from '../services/activity.service.js';
 import { socketService } from '../services/socket.service.js';
 import { userService } from '../services/user.service.js';
+import { Dashboard } from '../cmps/dashboard.jsx';
 
 class _BoardDetails extends Component {
   state = {
@@ -33,6 +34,7 @@ class _BoardDetails extends Component {
       groupId: '',
       position: {}
     },
+    // isDashboardOpen: false,
   };
   async componentDidMount() {
     const { boardId } = this.props.match.params
@@ -58,6 +60,15 @@ class _BoardDetails extends Component {
     const updatedBoard = action.board || this.props.board
     this.props.onUpdateBoard(action, updatedBoard, activity);
   };
+  
+  onToggleDashboard=(isOpen)=>{
+    if(isOpen){
+      this.props.history.push(`${this.props.board._id}/dashboard`);
+    } else {
+      this.props.history.goBack();
+    }
+    // this.setState({isDashboardOpen: isOpen})
+  }
   toggleCardLabelList = (event) => {
     event.stopPropagation();
     this.setState({ isCardLabelListOpen: !this.state.isCardLabelListOpen });
@@ -137,12 +148,14 @@ class _BoardDetails extends Component {
 
   render() {
     const { board } = this.props;
-    const { isCardLabelListOpen, isAddPopOpen, quickCardEditor } = this.state;
+    const { isDashboardOpen, isCardLabelListOpen, isAddPopOpen, quickCardEditor } = this.state;
     if (!board) return <Loader />;
     return (
       <div className='board-details flex column'>
+        <Route path='/board/:boardId/dashboard' component={Dashboard}/>
         <Route path='/board/:boardId/:groupId/:cardId' component={CardEdit} />
-        <BoardHeader />
+
+        <BoardHeader onToggleDashboard={this.onToggleDashboard}/>
 
         <DragDropContext onDragEnd={this.handleOnDragEnd}>
           <section className='group-list-container flex'>
@@ -218,6 +231,13 @@ class _BoardDetails extends Component {
             <OverlayScreen />
           </div>
         )}
+        {/* {isDashboardOpen && (
+          <div
+            onClick={() => this.onToggleDashboard(false)}
+          >
+            <OverlayScreen />
+          </div>
+        )} */}
       </div>
     );
   }
