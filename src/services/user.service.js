@@ -85,7 +85,7 @@ function getLoggedinUser() {
 }
 
 function getMiniUser() {
-    const fullUser = getLoggedinUser()
+    const fullUser = getLoggedinUser() || { _id: utilService.makeId(), fullname: 'Guest' }
     return { _id: fullUser._id, fullname: fullUser.fullname, imgUrl: fullUser.imgUrl }
 }
 

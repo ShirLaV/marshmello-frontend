@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import {Link} from 'react-router-dom'
+
 import { CardEditSidebar } from './card-edit/card-edit-sidebar'
 import { LabelsMembers } from './card-edit/labels-members'
 import { ChecklistEdit } from './card-edit/checklist-edit'
@@ -12,6 +14,7 @@ import { CardEditActivities } from './card-edit/card-edit-activities'
 import { CardEditAttachment } from './card-edit/card-edit-attachment'
 import { DynamicPopover } from './shared/dynamic-popover'
 import { PopperCoverEdit } from './shared/popover-children/popper-cover-edit'
+import { OverlayScreen } from './overlay-screen'
 
 class _CardEdit extends Component {
     state = {
@@ -76,13 +79,15 @@ class _CardEdit extends Component {
 
     render() {
         const { currCard, currGroup } = this.state
+        const {board} = this.props
         if (!currCard) return <div>Loading...</div>
         const bg = this.checkCardBackground()
         return (
             <div className="edit-modal-container">
+                <Link to={`/board/${board._id}`}><OverlayScreen /></Link>
                 <section className="card-edit" ref={this.modalRef}>
                     {currCard.style && <div className="card-edit-bg" style={bg}></div>}
-                    <button className="close-modal-btn" onClick={() => this.props.history.goBack()}><IoMdClose /></button>
+                    <Link to={`/board/${board._id}`}><button className="close-modal-btn"><IoMdClose /></button></Link>
 
                     {currCard.style && <div ref={this.coverRef} className="btn-wrapper relative" >
                         <button className="change-cover-btn" onClick={() => this.setState({ isOpen: !this.state.isOpen })}>
