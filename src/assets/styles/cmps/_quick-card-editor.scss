@@ -31,6 +31,7 @@
         padding: 6px 12px 6px 8px;
         text-decoration: none;
         transition: transform 85ms ease-in;
+        cursor: pointer;
         &:hover {
             background: #000c;
             color: #fff;
@@ -48,15 +49,6 @@
                 }
             }
         }
-        // .popover-open {
-        //     @at-root {
-        //         #{$root} {
-        //             &:hover {
-        //                 transform: translateX(0);
-        //             }
-        //         }
-        //     }
-        // }
         .card-edit-btn {
             color: white;
             padding: unset;
