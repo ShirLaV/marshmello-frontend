@@ -2,31 +2,33 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { CgCreditCard } from 'react-icons/cg';
-import { MdLabelOutline } from 'react-icons/md'
-import { BiUser } from 'react-icons/bi'
-import { BsClock } from 'react-icons/bs'
+import { MdLabelOutline } from 'react-icons/md';
+import { BiUser } from 'react-icons/bi';
+import { BsClock } from 'react-icons/bs';
+import { GoArchive } from 'react-icons/go';
 
-import { CardEditDate } from '../cmps/shared/popover-children/card-edit-date'
-import { PopperCoverEdit } from '../cmps/shared/popover-children/popper-cover-edit.jsx'
+import { CardEditDate } from '../cmps/shared/popover-children/card-edit-date';
+import { PopperCoverEdit } from '../cmps/shared/popover-children/popper-cover-edit.jsx';
 import { CardHeader } from '../cmps/card-preview/card-header.jsx';
 import { CardLabelBarList } from '../cmps/card-preview/card-label-bar-list.jsx';
 import { CardFooter } from '../cmps/card-preview/card-footer.jsx';
 import { cardEditService } from '../services/card-edit.service.js';
 import { Loader } from './shared/loader.jsx';
-import { onUpdateCard , onSetCardId} from '../store/board.actions';
-import {CardEditAddToCardItem} from '../cmps/card-edit/add-to-card/card-edit-add-to-card-item.jsx'
-import {LabelList} from '../cmps/shared/popover-children/label-list.jsx'
-import {MemberList} from '../cmps/shared/popover-children/member-list.jsx'
+import { onUpdateCard, onSetCardId } from '../store/board.actions';
+import { CardEditAddToCardItem } from '../cmps/card-edit/add-to-card/card-edit-add-to-card-item.jsx';
+import { LabelList } from '../cmps/shared/popover-children/label-list.jsx';
+import { MemberList } from '../cmps/shared/popover-children/member-list.jsx';
 import { activityTxtMap } from '../services/activity.service.js';
 
 class _QuickCardEditor extends Component {
   state = {
     card: null,
     cardTitle: '',
+    isArchive: false,
   };
   componentDidMount() {
     const { cardId, groupId } = this.props;
-    this.props.onSetCardId(cardId)
+    this.props.onSetCardId(cardId);
     this.uploadCard(cardId, groupId);
   }
 
@@ -51,13 +53,32 @@ class _QuickCardEditor extends Component {
   onSave = (event) => {
     const cardToSave = { ...this.state.card };
     cardToSave.title = this.state.cardTitle;
-    const activity = {txt: activityTxtMap.editCard(), card: cardToSave, groupId: this.props.groupId}
-    this.props.onUpdateCard(cardToSave, this.props.groupId, this.props.board, activity);
+    cardToSave.isArchive = this.state.isArchive;
+    const activity = {
+      txt: activityTxtMap.editCard(),
+      card: cardToSave,
+      groupId: this.props.groupId,
+    };
+    this.props.onUpdateCard(
+      cardToSave,
+      this.props.groupId,
+      this.props.board,
+      activity
+    );
     this.props.onToggleQuickCardEditor(event, null, '');
   };
   openCard = (event) => {
     this.props.onToggleQuickCardEditor(event, null, '');
     this.props.openCardEdit(this.props.groupId, this.props.cardId);
+  };
+  onArchiveCard = (event) => {
+    this.setState(
+      (prevState) => ({ ...prevState, isArchive: true }),
+      function () {
+        console.log('this state', this.state);
+        this.onSave(event);
+      }
+    );
   };
 
   render() {
@@ -70,7 +91,7 @@ class _QuickCardEditor extends Component {
       position,
     } = this.props;
     if (!card) return <Loader />;
-    console.log(card);
+    // console.log(card);
     return (
       <div
         className='quick-card-editor flex'
@@ -121,32 +142,56 @@ class _QuickCardEditor extends Component {
             onClick={this.openCard}
             className='quick-editor-btn flex align-center'
           >
-            <span className="quick-editor-btn-icon flex align-center">
+            <span className='quick-editor-btn-icon flex align-center'>
               <CgCreditCard />
             </span>
             <span>Open card</span>
           </button>
-          <div
-            className='quick-editor-btn flex align-center'
-          >
-            <CardEditAddToCardItem item={{ icon: MdLabelOutline, title: 'Edit labels', component: LabelList }}/>
+          <div className='quick-editor-btn flex align-center'>
+            <CardEditAddToCardItem
+              item={{
+                icon: MdLabelOutline,
+                title: 'Edit labels',
+                component: LabelList,
+              }}
+            />
+          </div>
+          <div className='quick-editor-btn flex align-center'>
+            <CardEditAddToCardItem
+              item={{
+                icon: BiUser,
+                title: 'Change members',
+                component: MemberList,
+              }}
+            />
+          </div>
+          <div className='quick-editor-btn flex align-center'>
+            <CardEditAddToCardItem
+              item={{
+                icon: CgCreditCard,
+                title: 'Change cover',
+                component: PopperCoverEdit,
+              }}
+            />
+          </div>
+          <div className='quick-editor-btn flex align-center datepicker'>
+            <CardEditAddToCardItem
+              item={{
+                icon: BsClock,
+                title: 'Edit dates',
+                component: CardEditDate,
+              }}
+            />
           </div>
           <div
             className='quick-editor-btn flex align-center'
+            onClick={this.onArchiveCard}
           >
-            <CardEditAddToCardItem item={{ icon: BiUser, title: 'Change members', component: MemberList }}/>
+            <span className='quick-editor-btn-icon flex align-center'>
+              <GoArchive />
+            </span>
+            <span>Archive</span>
           </div>
-          <div
-            className='quick-editor-btn flex align-center'
-          >
-            <CardEditAddToCardItem item={{ icon: CgCreditCard, title: 'Change cover', component: PopperCoverEdit  }}/>
-          </div>
-          <div
-            className='quick-editor-btn flex align-center datepicker'
-          >
-            <CardEditAddToCardItem item={{ icon: BsClock, title: 'Edit dates', component:  CardEditDate }}/>
-          </div>
-     
         </div>
       </div>
     );
@@ -161,7 +206,7 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
   onUpdateCard,
-  onSetCardId
+  onSetCardId,
 };
 
 export const QuickCardEditor = connect(

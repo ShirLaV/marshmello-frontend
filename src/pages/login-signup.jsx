@@ -10,6 +10,8 @@ import { SiTrello } from 'react-icons/si'
 import svgRight from '../assets/img/login-svg-right.svg'
 import svgLeft from '../assets/img/login-svg-left.svg'
 
+const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID
+
 class _LoginSignup extends React.Component {
 
     state = {
@@ -49,6 +51,7 @@ class _LoginSignup extends React.Component {
         const { tokenId } = res
         const { onGoogleLogin } = this.props
         onGoogleLogin(tokenId)
+        this.props.history.push('/board')
     }
 
     onFailureGoogle = (res) => {
@@ -85,7 +88,7 @@ class _LoginSignup extends React.Component {
                     <br />
                     <GoogleLogin
                         className="google-login-btn flex align-center justify-center"
-                        clientId='640315421255-e4mv3dirnt2lbm4ati92b1euclri0j8d.apps.googleusercontent.com'
+                        clientId={clientId}
                         buttonText='Continue with Google'
                         onSuccess={this.onSuccessGoogle}
                         onFailure={this.onFailureGoogle}
