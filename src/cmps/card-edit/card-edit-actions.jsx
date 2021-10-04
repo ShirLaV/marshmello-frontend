@@ -21,7 +21,7 @@ const _CardEditActions = ({ currCardId, board, onUpdateCard, goBack, onUpdateBoa
         const groupId = cardEditService.getGroupId(currCardId)
         const card = cardEditService.getCardById(currCardId, groupId)
         setIsArchive(card.isArchive || false)
-        
+
     }, [])
 
     const toggleArchive = () => {
@@ -40,20 +40,22 @@ const _CardEditActions = ({ currCardId, board, onUpdateCard, goBack, onUpdateBoa
         <div style={{ position: 'relative' }}>
             <div className="card-edit-actions">
                 <h3 className="sidebar-title">Actions</h3>
-                {actions.map((item, idx) => (
-                    <CardEditActionsItem key={item.title + idx} item={item} />
-                ))}
-                {!isArchive && <div onClick={toggleArchive}>
-                    <EditSidebarLabel Icon={GoArchive} title='Archive' />
-                </div>}
-                {isArchive && <>
-                    <div onClick={toggleArchive}>
-                        <EditSidebarLabel Icon={BsArrowCounterclockwise} title='Send to board' />
-                    </div>
-                    <div>
-                        <EditSidebarLabel Icon={AiOutlineMinus} title='Delete' />
-                    </div>
-                </>}
+                <div className="actions-container">
+                    {actions.map((item, idx) => (
+                        <CardEditActionsItem key={item.title + idx} item={item} />
+                    ))}
+                    {!isArchive && <div className="label-wrapper" onClick={toggleArchive}>
+                        <EditSidebarLabel Icon={GoArchive} title='Archive' />
+                    </div>}
+                    {isArchive && <>
+                        <div className="label-wrapper" onClick={toggleArchive}>
+                            <EditSidebarLabel Icon={BsArrowCounterclockwise} title='Send to board' />
+                        </div>
+                        <div className="label-wrapper">
+                            <EditSidebarLabel Icon={AiOutlineMinus} title='Delete' />
+                        </div>
+                    </>}
+                </div>
             </div>
         </div>
     )

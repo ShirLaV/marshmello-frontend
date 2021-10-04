@@ -1,0 +1,42 @@
+.label-edit {
+
+    .color-container {
+        gap: 9px;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+
+        .label-color-option {
+            width: 48px;
+            height: 32px;
+            cursor: pointer;
+            border-radius: 4px;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &:hover {
+                opacity: .8;
+            }
+        }
+    }
+
+    .btns-container {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        color: #fff;
+        margin-top: 16px;
+        
+        .save-btn {
+            color: #fff;
+            background-color: #0079bf;
+        }
+        
+        .delete-btn {
+            color: #fff;
+            background-color: #b04632;
+        }
+    }
+}

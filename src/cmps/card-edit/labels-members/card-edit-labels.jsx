@@ -4,9 +4,12 @@ import { AiOutlinePlus } from 'react-icons/ai'
 import { DynamicPopover } from '../../shared/dynamic-popover'
 import { LabelList } from '../../shared/popover-children/label-list'
 import { cardEditService } from '../../../services/card-edit.service'
+import { LabelEdit } from '../../shared/popover-children/label-edit'
 
 const _CardEditLabels = ({ currCardId, board }) => {
     const [isOpen, setIsOpen] = useState(false)
+    const [isEdit, setIsEdit] = useState(false)
+    const [color, setColor] = useState('')
     const addButtonRef = useRef()
 
     const getCardLabels = (labelIds) => (
@@ -16,6 +19,14 @@ const _CardEditLabels = ({ currCardId, board }) => {
     const groupId = cardEditService.getGroupId(currCardId)
     const labelIds = cardEditService.getCardById(currCardId, groupId).labelIds
     const labels = getCardLabels(labelIds)
+
+    const handleEdit = (color) => {
+        if (isEdit) setIsEdit(false)
+        else {
+            setColor(color)
+            setIsEdit(true)
+        }
+    }
     return (
         <>
             {labelIds?.length ? <div className="labels-container">
@@ -30,8 +41,8 @@ const _CardEditLabels = ({ currCardId, board }) => {
                     >
                         <div className="list-item-layover" onClick={() => setIsOpen(!isOpen)}></div>
                         <AiOutlinePlus />
-                        {isOpen && <DynamicPopover onClose={() => setIsOpen(false)} title={'Labels'} ref={addButtonRef}>
-                            <LabelList />
+                        {isOpen && <DynamicPopover handleEdit={handleEdit} onClose={() => setIsOpen(false)} title={'Labels'} ref={addButtonRef} isLabel={isEdit}>
+                            {!isEdit ? <LabelList handleEdit={handleEdit} onClose={() => setIsOpen(false)} /> : <LabelEdit handleEdit={handleEdit} color={color} onClose={() => setIsOpen(false)} />}
                         </DynamicPopover>}
                     </div>
                 </div>

@@ -40,13 +40,12 @@ class _InviteMembers extends React.Component {
         const { search } = this.state
         const { users } = this.props
         const memberIds = this.getMembersIds()
-        const filteredUsers = users.filter(user => !memberIds.includes(user._id))
 
         return (
             <div className="invite-members">
                 <input className="search-input" type="text" onChange={this.handleChange} name="search" value={search} autoFocus placeholder="Search..." />
                 <ul className="member-list clean-list">
-                    {filteredUsers.filter(user => user.fullname.includes(search)).map(user =>
+                    {users.filter(user => user.fullname.includes(search)).map(user =>
                         <li className="user-preview" key={user._id} onClick={() => this.inviteToBoard(user)} >
                             <div className="user-details">
                                 <MemberAvatar member={user} />

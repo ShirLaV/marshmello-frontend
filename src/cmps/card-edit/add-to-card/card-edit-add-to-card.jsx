@@ -16,9 +16,11 @@ export const CardEditAddToCard = () => (
     <div style={{ position: 'relative' }}>
         <div className="add-to-card">
             <h3 className="sidebar-title">Add to card</h3>
+            <div className="add-to-card-container">
             {addToCardItems.map((item, idx) => (
                 <CardEditAddToCardItem key={item.title + idx} item={item} />
             ))}
+            </div>
         </div>
     </div>
 )

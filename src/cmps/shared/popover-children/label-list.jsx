@@ -2,14 +2,14 @@ import React from 'react'
 import { PopperLabelPreview } from '../../card-edit/popper-label-preview'
 import { connect } from 'react-redux'
 
-function _LabelList({ board }) {
+function _LabelList({ board, handleEdit }) {
     const labels = board.labels
     return (
         <div className="label-list-container">
             <input className="search-input" type="text" autoFocus placeholder="Search labels..." />
             <h4>Labels</h4>
             <div className="flex column label-list">
-                {labels.map(label => <PopperLabelPreview key={label.id} label={label} />)}
+                {labels.map(label => <PopperLabelPreview key={label.id} label={label} handleEdit={handleEdit} />)}
             </div>
         </div>
     )

@@ -9,7 +9,7 @@ export function MembersContainerMemberPreview({ member }) {
     return (
         <div key={member._id} className="card-member relative" ref={userButtonRef}>
             <span style={{ cursor: 'pointer' }}>
-                <div className="list-item-layover" onClick={() => setIsPreviewOpen(!isPreviewOpen)}></div>
+                <div className="list-item-layover round" onClick={() => setIsPreviewOpen(!isPreviewOpen)}></div>
                 <MemberAvatar member={member} />
             </span>
             {isPreviewOpen && <DynamicPopover onClose={() => setIsPreviewOpen(false)} title={null} ref={userButtonRef}>

@@ -87,6 +87,30 @@
   }
 }
 
+@media screen and (max-width:940px) {
+  .board-header {
+    .right-btns {
+      .right-btn-txt {
+        display: none;
+      }
+    }
+  }
+}
+
+@media screen and (max-width:620px) {
+  .board-header {
+    .right-btns {
+      .members-btn {
+        display: block;
+      }
+    }
+
+    .members-container {
+      display: none;
+    }
+  }
+}
+
 @include for-mobile-layout {
   .board-header {
     padding: 5px 8px;
@@ -101,15 +125,6 @@
           font-size: 16px;
         }
       }
-
-      .members-btn {
-        display: block;
-      }
-    }
-
-
-    .members-container {
-      display: none;
     }
   }
 }

@@ -23,11 +23,13 @@ class _BoardHeader extends React.Component {
         boardTitle: this.props.board.title,
         isMenuOpen: false,
         numOfShownMembers: 7,
-        isMembersOpen: false,
+        isExtraMembersOpen: false,
+        isTotalMembersOpen: false
     }
 
     inviteRef = React.createRef()
     membersRef = React.createRef()
+    totalMembersRef = React.createRef()
 
     componentDidMount() {
         window.addEventListener('resize', this.handleResize)
@@ -93,11 +95,11 @@ class _BoardHeader extends React.Component {
 
     getExtraMembersLength = () => (this.props.board.members.length - this.state.numOfShownMembers)
 
-    onMembersClose = () => this.setState({ isMembersOpen: false })
+    onMembersClose = () => this.setState({ isExtraMembersOpen: false })
 
     render() {
         const { board, onToggleDashboard } = this.props
-        const { boardTitle, isMenuOpen, isInviteOpen, numOfShownMembers, isMembersOpen } = this.state
+        const { boardTitle, isMenuOpen, isInviteOpen, isExtraMembersOpen, isTotalMembersOpen } = this.state
         const members = this.getRemainingMembers()
         const extraMembersLength = this.getExtraMembersLength()
 
@@ -117,14 +119,14 @@ class _BoardHeader extends React.Component {
 
                                 ref={this.membersRef}
                             >
-                                <div className="list-item-layover round" style={{ transform: `translateX(${(members.length) * -5}px)` }} onClick={() => this.setState({ isMembersOpen: !isMembersOpen })}></div>
+                                <div className="list-item-layover round" style={{ transform: `translateX(${(members.length) * -5}px)` }} onClick={() => this.setState({ isExtraMembersOpen: !isExtraMembersOpen })}></div>
                                 <div
                                     className="show-more-btn"
                                     style={{ transform: `translateX(${(members.length) * -5}px)` }}
                                 >
                                     {`+${extraMembersLength}`}
                                 </div>
-                                {isMembersOpen && <DynamicPopover onClose={() => this.setState({ isMembersOpen: false })} title="Members" ref={this.membersRef}>
+                                {isExtraMembersOpen && <DynamicPopover onClose={() => this.setState({ isExtraMembersOpen: false })} title="Members" ref={this.membersRef}>
                                     <BoardEditMembers members={board.members.filter(member => member._id)} onClose={this.onMembersClose} />
                                 </DynamicPopover>}
                             </div>
@@ -139,9 +141,15 @@ class _BoardHeader extends React.Component {
                 </div>
                 <div className="right-btns">
                     {!isMenuOpen && <>
-                        <button className="nav-button members-btn"><FaUserAlt /></button>
-                        <button onClick={()=>onToggleDashboard(true)} className={`dashboard-btn nav-button ${(isMenuOpen) ? 'menu-open' : ''}`}><RiBarChartFill /> {window.innerWidth > 1100 && <span>Dashboard</span>}</button>
-                        <button onClick={() => this.toggleMenu()} className="right-menu-btn nav-button"><HiDotsHorizontal /> {window.innerWidth > 1100 && <span>Show Menu</span>}</button>
+                        <div className="relative" ref={this.totalMembersRef}>
+                            <button className="nav-button members-btn" onClick={() => this.setState({ isTotalMembersOpen: !isTotalMembersOpen })}><FaUserAlt /></button>
+                            {isTotalMembersOpen && <DynamicPopover onClose={() => this.setState({ isTotalMembersOpen: false })} title="Members" ref={this.totalMembersRef}>
+                                <InviteMembers />
+                            </DynamicPopover>}
+                        </div>
+
+                        <button onClick={() => onToggleDashboard(true)} className={`dashboard-btn nav-button ${(isMenuOpen) ? 'menu-open' : ''}`}><RiBarChartFill /> <span className="right-btn-txt">Dashboard</span></button>
+                        <button onClick={() => this.toggleMenu()} className="right-menu-btn nav-button"><HiDotsHorizontal /> <span className="right-btn-txt">Show Menu</span></button>
                     </>}
                 </div>
                 <SideMenu isMenuOpen={isMenuOpen} onClose={() => { this.toggleMenu() }} />

@@ -98,3 +98,11 @@
         }
     }
 }
+
+@include for-mobile-layout {
+    .group-wrapper {
+        .group-preview {
+            max-height: 80%; 
+        }
+    }
+}

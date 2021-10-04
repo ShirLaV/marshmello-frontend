@@ -4,7 +4,6 @@
     flex-direction: column;
 
     .btn-label-container {
-        // padding: rem(6px) rem(12px) rem(6px) 0;
         justify-content: flex-start;
         align-items: center;
         gap: 6px;
@@ -12,8 +11,8 @@
         font-size: 14px;
     }
 
-    .add-to-card,
-    .card-edit-actions {
+    .add-to-card-container,
+    .actions-container {
         display: flex;
         flex-direction: column;
         gap: 8px;
@@ -27,6 +26,7 @@
             letter-spacing: .04em;
             line-height: 20px;
             text-transform: uppercase;
+            margin-bottom: 8px;
         }
     }
 
@@ -35,14 +35,31 @@
     }
 }
 
-@include for-mobile-layout {
+@media screen and (max-width:780px) {
     .sidebar {
-        flex-direction: row;
         justify-content: space-between;
         margin-top: 24px;
 
+        h3 {
+            padding-left: 16px;
+        }
+
         .card-edit-actions {
-            margin-top: 0;
+            margin-top: 32px;
+        }
+
+        .add-to-card-container,
+        .actions-container {
+            padding-left: 10px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+
+            .sidebar-label {
+                width: 100%;
+                display: flex;
+                justify-content: flex-start;
+            }
         }
     }
 }

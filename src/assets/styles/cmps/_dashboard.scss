@@ -8,6 +8,7 @@
     z-index: 10;
     inset: 0;
     overflow-y: auto;
+
     .close-btn {
         color: white;
         position: absolute;
@@ -15,13 +16,16 @@
         right: 10px;
         font-size: 40px;
         transition: font-size .2s;
+
         &:hover {
             font-size: 45px;
         }
     }
+
     .jeneral-statistics {
         flex-wrap: wrap;
         margin-bottom: 60px;
+
         .stats {
             position: relative;
             width: 200px;
@@ -31,25 +35,31 @@
             margin: 0px 20px;
             color: white;
             padding: 10px;
+
             h3 {
                 font-size: 20px;
             }
+
             span {
                 font-size: 50px;
                 font-weight: 600;
             }
+
             i {
                 font-size: 70px;
             }
         }
     }
+
     .charts {
         gap: 30px;
         height: 50vh;
+
         h1 {
             margin-bottom: 20px;
         }
     }
+
     .time-line-container {
         display: flex;
         flex-direction: column;
@@ -59,4 +69,45 @@
         height: 500px;
         margin-top: 50px;
     }
+}
+
+@media screen and (max-width:740px) {
+    .dashboard-modal {
+        .jeneral-statistics {
+            .stats {
+                margin: 0 5px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width:620px) {
+    .dashboard-modal {
+        .jeneral-statistics {
+            flex-direction: column;
+            .stats {
+                margin: 5px 0;
+                width: 300px;
+            }
+        }
+        .time-line-container {
+            display: none;
+        }
+
+        .bar-chart-container {
+            max-height: 400px;
+            width: 100%;
+        }
+        .charts {
+            flex-direction: column;
+            margin-bottom: 16px;
+            gap: 60px;
+
+            h1 {
+                text-align: center;
+            }
+        }
+    }
+
+
 }

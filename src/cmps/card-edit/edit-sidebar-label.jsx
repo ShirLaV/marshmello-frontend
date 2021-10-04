@@ -6,9 +6,10 @@ export function EditSidebarLabel({ Icon, title }) {
         if (title === "Delete") return { backgroundColor: '#b04632', color: '#fff' }
         else return {}
     }
+
     return (
-        <div>
-            <button className="card-edit-btn sidebar-btn" style={{ position: 'relative', ...getStyle() }}>
+        <div className="label-container">
+            <button className="sidebar-label card-edit-btn sidebar-btn" style={{ position: 'relative', ...getStyle() }}>
                 <div className="list-item-layover"></div>
                 <div className="btn-label-container flex">
                     <Icon />

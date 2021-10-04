@@ -3,9 +3,9 @@
     flex-wrap: wrap;
 }
 
-@include for-mobile-layout {
+@media screen and(max-width:700px) {
     .board-list {
         flex-direction: column;
-
+width: 100%;
     }
 }

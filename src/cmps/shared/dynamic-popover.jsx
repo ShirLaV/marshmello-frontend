@@ -1,5 +1,7 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { IoMdClose } from 'react-icons/io'
+import { BsChevronLeft } from 'react-icons/bs'
+import { MdTranslate } from 'react-icons/md'
 
 /*
     How-to-use
@@ -16,8 +18,8 @@ import { IoMdClose } from 'react-icons/io'
        outside 
 */
 
-export const DynamicPopover = React.forwardRef(({ onClose, title, children }, parentRef) => {
-    const targetRef = useRef();
+export const DynamicPopover = React.forwardRef(({ onClose, title, children, isLabel, handleEdit }, parentRef) => {
+    const targetRef = useRef()
     const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
 
     useLayoutEffect(() => {
@@ -48,6 +50,7 @@ export const DynamicPopover = React.forwardRef(({ onClose, title, children }, pa
 
 
     const getLocation = () => {
+        if (window.innerWidth < 600) return { position: 'fixed', left: '50%', top: '20%', transform: 'translate(-50%)' }
         const rect = parentRef?.current?.getBoundingClientRect()
         if (!rect) return
 
@@ -74,8 +77,9 @@ export const DynamicPopover = React.forwardRef(({ onClose, title, children }, pa
             {title
                 ?
                 <div className="popover-header">
+                    {isLabel && <span className="back-btn" onClick={handleEdit}><BsChevronLeft /></span>}
                     <p>{title}</p>
-                    <span onClick={onClose}><IoMdClose /></span>
+                    <span className="close-btn" onClick={onClose}><IoMdClose /></span>
                 </div>
                 :
                 <div className="relative" style={{ height: 16 }}>

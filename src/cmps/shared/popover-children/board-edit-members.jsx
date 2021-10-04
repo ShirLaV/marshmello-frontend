@@ -47,3 +47,4 @@ const mapDispatchToProps = {
 }
 
 export const BoardEditMembers = connect(mapStateToProps, mapDispatchToProps)(_BoardEditMembers);
+ 

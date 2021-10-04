@@ -1,106 +1,110 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-
-import { CardEditSidebar } from './card-edit/card-edit-sidebar';
-import { LabelsMembers } from './card-edit/labels-members';
-import { ChecklistEdit } from './card-edit/checklist-edit';
-import { onUpdateCard, onSetCardId, loadBoard } from '../store/board.actions';
-import { IoMdClose } from 'react-icons/io';
-import { TiCreditCard } from 'react-icons/ti';
-import { CgCreditCard } from 'react-icons/cg';
-import { CardEditDescription } from './card-edit/card-edit-description';
-import { CardEditActivities } from './card-edit/card-edit-activities';
-import { CardEditAttachment } from './card-edit/card-edit-attachment';
-import { DynamicPopover } from './shared/dynamic-popover';
-import { PopperCoverEdit } from './shared/popover-children/popper-cover-edit';
-import { OverlayScreen } from './overlay-screen';
-import { BsArchive } from 'react-icons/bs';
-import { Loader } from './shared/loader';
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { CardEditSidebar } from './card-edit/card-edit-sidebar'
+import { LabelsMembers } from './card-edit/labels-members'
+import { ChecklistEdit } from './card-edit/checklist-edit'
+import { onUpdateCard, onSetCardId } from '../store/board.actions'
+import { IoMdClose } from 'react-icons/io'
+import { TiCreditCard } from 'react-icons/ti'
+import { CgCreditCard } from 'react-icons/cg'
+import { CardEditDescription } from './card-edit/card-edit-description'
+import { CardEditActivities } from './card-edit/card-edit-activities'
+import { CardEditAttachment } from './card-edit/card-edit-attachment'
+import { DynamicPopover } from './shared/dynamic-popover'
+import { PopperCoverEdit } from './shared/popover-children/popper-cover-edit'
+import { BsArchive } from 'react-icons/bs'
+import { Loader } from './shared/loader'
 
 class _CardEdit extends Component {
   state = {
     currCard: null,
     currGroup: null,
     isOpen: false,
-  };
+  }
 
-  modalRef = React.createRef();
-  coverRef = React.createRef();
+  modalRef = React.createRef()
+  coverRef = React.createRef()
 
   componentDidMount() {
-    this.handleLoad();
+    document.addEventListener('mousedown', this.handleClick)
+    this.handleLoad()
   }
 
   componentWillUnmount() {
+    document.removeEventListener('mousedown', this.handleClick)
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.board !== this.props.board) this.handleLoad();
+    if (prevProps.board !== this.props.board) this.handleLoad()
   }
 
   handleLoad = () => {
-    let currCard;
-    let currGroup;
-    const { cardId, groupId } = this.props.match.params;
-    console.log('39', cardId);
-    this.props.onSetCardId(cardId);
+    let currCard
+    let currGroup
+    const { cardId, groupId } = this.props.match.params
+    this.props.onSetCardId(cardId)
     if (this.props.board.groups) {
-      currCard = this.getDataById(cardId, groupId).currentCard;
-      currGroup = this.getDataById(cardId, groupId).currentGroup;
+      currCard = this.getDataById(cardId, groupId).currentCard
+      currGroup = this.getDataById(cardId, groupId).currentGroup
     }
-    this.setState({ currCard, currGroup });
-  };
+    this.setState({ currCard, currGroup })
+  }
+
+  handleClick = e => {
+    const { board } = this.props
+    if (!this.modalRef?.current?.contains(e.target)) {
+      this.props.history.push(`/board/${board._id}`)
+    }
+  }
 
   getDataById = (cardId, groupId) => {
-    const board = this.props.board;
-    const currentGroup = board.groups.find((group) => group.id === groupId);
-    const currentCard = currentGroup.cards.find((card) => card.id === cardId);
-    return { currentGroup, currentCard };
-  };
+    const board = this.props.board
+    const currentGroup = board.groups.find((group) => group.id === groupId)
+    const currentCard = currentGroup.cards.find((card) => card.id === cardId)
+    return { currentGroup, currentCard }
+  }
 
   handleInputChange = ({ target: { name, value } }) => {
-    this.setState({ currCard: { ...this.state.currCard, [name]: value } });
-  };
+    this.setState({ currCard: { ...this.state.currCard, [name]: value } })
+  }
 
   handlePropertyChange = (card = this.state.currCard) => {
-    const { board } = this.props;
-    const { groupId } = this.props.match.params;
-    this.props.onUpdateCard(card, groupId, board);
-  };
+    const { board } = this.props
+    const { groupId } = this.props.match.params
+    this.props.onUpdateCard(card, groupId, board)
+  }
 
   checkCardBackground = () => {
-    const { currCard } = this.state;
-    if (!currCard.style) return;
+    const { currCard } = this.state
+    if (!currCard.style) return
     if (currCard.style.bgColor)
       return {
         backgroundColor: currCard.style.bgColor,
         minHeight: 116,
         height: 116,
-      };
+      }
     if (currCard.style.imgUrl)
       return {
         background: `center / contain no-repeat url(${currCard.style.imgUrl})`,
         objectFit: 'cover',
         minHeight: 160,
         height: 160,
-      };
-  };
+      }
+  }
 
   goBack = () => {
-    this.props.history.goBack();
-  };
+    this.props.history.goBack()
+  }
 
   render() {
-    const { currCard, currGroup } = this.state;
-    const { board } = this.props;
-    if (!currCard) return <Loader />;
-    const bg = this.checkCardBackground();
+    const { currCard, currGroup } = this.state
+    const { board } = this.props
+    if (!currCard) return <Loader />
+    const bg = this.checkCardBackground()
     return (
       <div className='edit-modal-container'>
-        <Link to={`/board/${board._id}`}>
-          <OverlayScreen />
-        </Link>
+
         <section className='card-edit' ref={this.modalRef}>
           {currCard.style && <div className='card-edit-bg' style={bg}></div>}
           <Link to={`/board/${board._id}`}>
@@ -193,19 +197,19 @@ class _CardEdit extends Component {
           </div>
         </section>
       </div>
-    );
+    )
   }
 }
 
 const mapStateToProps = (state) => {
   return {
     board: state.boardModule.currBoard,
-  };
-};
+  }
+}
 
 const mapDispatchToProps = {
   onUpdateCard,
   onSetCardId,
-};
+}
 
-export const CardEdit = connect(mapStateToProps, mapDispatchToProps)(_CardEdit);
+export const CardEdit = connect(mapStateToProps, mapDispatchToProps)(_CardEdit)

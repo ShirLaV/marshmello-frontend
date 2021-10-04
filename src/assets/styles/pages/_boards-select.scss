@@ -25,12 +25,9 @@
   }
 }
 
-@include for-mobile-layout {
+@media screen and (max-width:700px) {
   .boards-select {
     margin-top: 0;
-
-    .workspace {
-      flex-direction: column;
-    }
+    overflow-x: hidden;
   }
 }
