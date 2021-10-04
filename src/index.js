@@ -1,24 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom'
-import { Provider } from 'react-redux'
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
 
-import {store} from './store/store'
-import {RootCmp} from './root-cmp';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import reportWebVitals from './reportWebVitals';
+
+import { store } from './store/store';
+import { RootCmp } from './root-cmp';
 import './assets/styles/main.scss';
 
-
-
 ReactDOM.render(
-<React.StrictMode>
+  <React.StrictMode>
     <Provider store={store}>
       <Router>
         <RootCmp />
-      </Router>
-    </Provider>
+      </Router>{' '}
+    </Provider>{' '}
   </React.StrictMode>,
   document.getElementById('root')
 );
+
+serviceWorkerRegistration.register();
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

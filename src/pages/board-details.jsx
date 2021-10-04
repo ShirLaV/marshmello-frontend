@@ -32,20 +32,20 @@ class _BoardDetails extends Component {
     quickCardEditor: {
       cardToEdit: null,
       groupId: '',
-      position: {}
+      position: {},
     },
     // isDashboardOpen: false,
   };
   async componentDidMount() {
-    const { boardId } = this.props.match.params
-    const filterBy = this.props.location.search
-    console.log('from Board details: ', filterBy)
-    await this.loadBoard(boardId, filterBy)
-    socketService.emit('member-joined', boardId)
+    const { boardId } = this.props.match.params;
+    const filterBy = this.props.location.search;
+    console.log('from Board details: ', filterBy);
+    await this.loadBoard(boardId, filterBy);
+    socketService.emit('member-joined', boardId);
     socketService.on('board-update', ({ action, activity }) => {
-      const boardToSend = action.board || this.props.board
-      this.props.outputUpdateBoard(action, boardToSend, activity)
-    })
+      const boardToSend = action.board || this.props.board;
+      this.props.outputUpdateBoard(action, boardToSend, activity);
+    });
   }
   componentWillUnmount() {
     this.props.resetBoard();
@@ -57,33 +57,47 @@ class _BoardDetails extends Component {
     this.props.history.push(`${this.props.board._id}/${groupId}/${cardId}`);
   };
   updateBoard = (action, activity) => {
-    const updatedBoard = action.board || this.props.board
+    const updatedBoard = action.board || this.props.board;
     this.props.onUpdateBoard(action, updatedBoard, activity);
   };
-  
-  onToggleDashboard=(isOpen)=>{
-    if(isOpen){
+
+  onToggleDashboard = (isOpen) => {
+    if (isOpen) {
       this.props.history.push(`${this.props.board._id}/dashboard`);
     } else {
       this.props.history.goBack();
     }
     // this.setState({isDashboardOpen: isOpen})
-  }
+  };
   toggleCardLabelList = (event) => {
     event.stopPropagation();
     this.setState({ isCardLabelListOpen: !this.state.isCardLabelListOpen });
   };
   onToggleQuickCardEditor = (event, card, groupId) => {
     event.stopPropagation();
-    const parentElement = event.currentTarget.parentNode;
-    var position = parentElement.getBoundingClientRect();
+    if (card) {
+      const parentElement = event.currentTarget.parentNode;
+      var position = parentElement.getBoundingClientRect();
+    } else {
+      const position= {}
+    }
     this.setState({ quickCardEditor: { cardToEdit: card, groupId, position } });
   };
   toggleCardComplete = (ev, groupId, card) => {
     ev.stopPropagation();
     const cardToUpdate = { ...card };
     cardToUpdate.isComplete = !card.isComplete;
-    const activity = (cardToUpdate.isComplete) ? { txt: activityTxtMap.completeCard(), card: cardToUpdate, groupId: groupId } : { txt: activityTxtMap.unCompleteCard(), card: cardToUpdate, groupId: groupId }
+    const activity = cardToUpdate.isComplete
+      ? {
+          txt: activityTxtMap.completeCard(),
+          card: cardToUpdate,
+          groupId: groupId,
+        }
+      : {
+          txt: activityTxtMap.unCompleteCard(),
+          card: cardToUpdate,
+          groupId: groupId,
+        };
     this.props.onUpdateCard(cardToUpdate, groupId, this.props.board, activity);
   };
   getLabel = (labelId) => {
@@ -110,7 +124,6 @@ class _BoardDetails extends Component {
       sourceGroup.cards.splice(destination.index, 0, ...card);
       const action = { type: 'UPDATE_GROUP', group: sourceGroup };
       this.props.onUpdateBoard(action, boardToChange);
-
     }
     //card dragged to another group
     else {
@@ -128,7 +141,6 @@ class _BoardDetails extends Component {
         return currGroup;
       });
       this.props.onUpdateBoard({ type: '' }, boardToChange);
-
     }
   };
   onToggleAddPop = () => {
@@ -141,21 +153,26 @@ class _BoardDetails extends Component {
     groupToUpdate.isArchive = groupToUpdate.isArchive
       ? !groupToUpdate.isArchive
       : true;
-    const activity = { txt: activityTxtMap.archiveList(groupToUpdate.title) }
+    const activity = { txt: activityTxtMap.archiveList(groupToUpdate.title) };
     const action = { type: 'UPDATE_GROUP', group: groupToUpdate };
     this.props.onUpdateBoard(action, this.props.board, activity);
   };
 
   render() {
     const { board } = this.props;
-    const { isDashboardOpen, isCardLabelListOpen, isAddPopOpen, quickCardEditor } = this.state;
+    const {
+      isDashboardOpen,
+      isCardLabelListOpen,
+      isAddPopOpen,
+      quickCardEditor,
+    } = this.state;
     if (!board) return <Loader />;
     return (
       <div className='board-details flex column'>
-        <Route path='/board/:boardId/dashboard' component={Dashboard}/>
+        <Route path='/board/:boardId/dashboard' component={Dashboard} />
         <Route path='/board/:boardId/:groupId/:cardId' component={CardEdit} />
 
-        <BoardHeader onToggleDashboard={this.onToggleDashboard}/>
+        <BoardHeader onToggleDashboard={this.onToggleDashboard} />
 
         <DragDropContext onDragEnd={this.handleOnDragEnd}>
           <section className='group-list-container flex'>
