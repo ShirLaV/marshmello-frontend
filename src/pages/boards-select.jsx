@@ -48,6 +48,7 @@ class _BoardSelect extends React.Component {
         const { boards, isAddingBoard } = this.props
         if (!boards) return <Loader />
         return (
+            <div className="board-select-wrapper">
             <div className="boards-select main-container">
                 <h2> <AiFillStar /> Starred Boards</h2>
                 <div className="starred-boards">
@@ -61,6 +62,7 @@ class _BoardSelect extends React.Component {
                     </div> */}
                 </div>
                 {isAddingBoard && <OverlayScreen />}
+            </div>
             </div>
         )
     }
