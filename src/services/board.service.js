@@ -11,7 +11,8 @@ export const boardService = {
     getById,
     save,
     remove,
-    dashboardQuery
+    dashboardQuery,
+    getArchivedCards
 }
 window.cs = boardService;
 
@@ -47,6 +48,16 @@ async function dashboardQuery(boardId) {
         return chartsData
     } catch (err) {
         console.log('Front: Error loading chartsData', err)
+    }
+}
+
+async function getArchivedCards(boardId) {
+    try {
+        const archivedCards = await httpService.get(`board/${boardId}/closed`)
+        console.log('archivedChards:', archivedCards)
+        return archivedCards
+    } catch (err) {
+        console.log('Front: Error loading archivedCards', err)
     }
 }
 
