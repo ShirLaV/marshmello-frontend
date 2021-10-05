@@ -75,16 +75,13 @@ class _BoardDetails extends Component {
   };
   onToggleQuickCardEditor = (event, card, groupId) => {
     event.stopPropagation();
-    if (card) {
-      const parentElement = event.currentTarget.parentNode;
-      var position = parentElement.getBoundingClientRect();
-    } else {
-      const position= {}
-    }
+    const parentElement = card ? event.currentTarget.parentNode : null;
+    const position = card ? parentElement.getBoundingClientRect() : {};
     this.setState({ quickCardEditor: { cardToEdit: card, groupId, position } });
   };
   toggleCardComplete = (ev, groupId, card) => {
     ev.stopPropagation();
+    if(card.isArchive) return;
     const cardToUpdate = { ...card };
     cardToUpdate.isComplete = !card.isComplete;
     const activity = cardToUpdate.isComplete
@@ -167,12 +164,13 @@ class _BoardDetails extends Component {
       quickCardEditor,
     } = this.state;
     if (!board) return <Loader />;
+    // console.log('groups', board.groups)
     return (
       <div className='board-details flex column'>
         <Route path='/board/:boardId/dashboard' component={Dashboard} />
         <Route path='/board/:boardId/:groupId/:cardId' component={CardEdit} />
 
-        <BoardHeader onToggleDashboard={this.onToggleDashboard} />
+        <BoardHeader onToggleDashboard={this.onToggleDashboard} toggleCardLabelList={this.toggleCardLabelList} toggleCardComplete={this.toggleCardComplete} isCardLabelListOpen={isCardLabelListOpen} getLabel={this.getLabel} openCardEdit={this.openCardEdit}/>
 
         <DragDropContext onDragEnd={this.handleOnDragEnd}>
           <section className='group-list-container flex'>

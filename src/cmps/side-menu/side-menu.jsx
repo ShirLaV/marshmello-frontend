@@ -16,7 +16,8 @@ class _SideMenu extends React.Component {
 
     _cmpsToRender = [{ id: 'c101', title: 'Change Background', icon: <BoardIcon />, component: ChangeBG },
     { id: 'c102', title: 'Search Cards', icon: <BiSearch />, component: SearchCards },
-    { id: 'c103', title: 'Archive - Under Construction 🚧', icon: <BsArchiveFill />, component: Archive }]
+    { id: 'c103', title: 'Archive', icon: <BsArchiveFill />, component: Archive }]
+    // { id: 'c103', title: 'Archive - Under Construction 🚧', icon: <BsArchiveFill />, component: Archive }]
 
     componentWillUnmount() {
         this.setState((prevState) => ({ ...prevState, currViewIdx: -1 }))
@@ -38,7 +39,8 @@ class _SideMenu extends React.Component {
     }
 
     /* priavte cmps */
-    _CurrView = (props) => {
+    _CurrView = () => {
+        const props= this.props
         const { component: Component } = this._cmpsToRender[this.state.currViewIdx]
         return <Component {...props} />
     }
@@ -59,7 +61,7 @@ class _SideMenu extends React.Component {
     }
 
     render() {
-        const { onClose } = this.props
+        const { onClose, toggleCardLabelList, isCardLabelListOpen, getLabel, toggleCardComplete, openCardEdit } = this.props
         const { currViewIdx } = this.state
         return (
             <div className={`side-menu ${(this.props.isMenuOpen) ? 'menu-open' : ''}`}>

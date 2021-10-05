@@ -35,6 +35,12 @@ export function CardFooter({card, groupId, toggleCardComplete}) {
             <CardChecklists checklists={card.checklists} />
         )}
 
+        {card.isArchive && (
+          <span>
+            Archived
+          </span>
+        )}
+
         {card.members && (
           <div className='card-members-list flex'>
             {card.members.map((member, index) => (
