@@ -8,36 +8,29 @@
     background-color: white;
     box-shadow: 0 1px 0 #16181b40;
     border-radius: 3px;
-
     .card-preview-header {
         background-position: 50%;
         background-repeat: no-repeat;
         background-size: cover;
         user-select: none;
-
         .image-wrapper {
             height: fit-content;
             width: 100%;
         }
-
         .header-color {
             border-top-left-radius: 3px;
             border-top-right-radius: 3px;
             height: 32px;
         }
-
         img {
             border-top-left-radius: 3px;
             border-top-right-radius: 3px;
         }
     }
-
     .card-details {
         padding: 6px 8px 6px;
-
         .label-bar-list {
             flex-wrap: wrap;
-
             .label-bar {
                 display: flex;
                 align-items: center;
@@ -48,7 +41,6 @@
                 text-align: center;
                 padding: 0px 8px;
             }
-
             &.close {
                 .label-bar {
                     color: rgba(255, 255, 255, 0);
@@ -58,7 +50,6 @@
                     transition: height .2s, min-width .2s linear .2s;
                 }
             }
-
             &.open {
                 .label-bar {
                     color: white;
@@ -69,116 +60,68 @@
                 }
             }
         }
-
         .card-preview-footer {
             flex-wrap: wrap;
             gap: 8px;
-
             .due-date-box {
                 gap: 5px;
                 padding: 0 5px;
                 border-radius: 5px;
                 color: white;
-
                 .check-icon {
                     display: none;
                 }
-
-                &:hover {
-                    &.due-date-box:hover {
-                        .clock-icon {
-                            display: none;
-                        }
-
-                        .check-icon {
-                            display: flex;
-                            align-items: center;
-                        }
+                &.due-date-box:hover {
+                    .clock-icon {
+                        display: none;
+                    }
+                    .check-icon {
+                        display: flex;
+                        align-items: center;
                     }
                 }
-
-                .attachment-box,
-                .checklist-box {
-                    gap: 5px;
-                }
-
-                .card-members-list {
-                    flex: 1 1;
-                    justify-content: flex-end;
-                }
             }
-        }
-
-        .hover-edit-btn {
-            display: none;
-            font-size: 16px;
-            border-radius: 5px;
-            width: 28px;
-            height: 28px;
-            color: #42526e;
-            background-color: #F4F5F7;
-            // background-color: rgba(235, 236, 240, 0.063);
-            display: none;
-            position: absolute;
-            top: 2px;
-            right: 2px;
-        }
-
-        &.card-preview:hover {
-            background-color: #F4F5F7;
-            cursor: pointer;
-
-            .hover-edit-btn {
-                // background-color: #F4F5F7;
-                // display: block;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                color: #42526e;
-
-                &.hover-edit-btn:hover {
-                    color: #172b4d;
-                    background-color: #ebecf0;
-                }
+            .attachment-box,
+            .checklist-box {
+                gap: 5px;
+            }
+            .card-members-list {
+                flex: 1 1;
+                justify-content: flex-end;
             }
         }
     }
+    .hover-edit-btn {
+        display: none;
+    }
+}
 
-    @media screen and (min-width:780px) {
-        .card-preview {
+@media screen and (min-width:780px) {
+    .card-preview {
+        cursor: pointer;
+
+        &:hover {
+            background-color: transparent;
             cursor: pointer;
+            .hover-edit-btn {
+                font-size: rem(16px);
+                border-radius: 5px;
+                width: 28px;
+                height: 28px;
+                color: #42526e;
+                background-color: #F4F5F7;
+                opacity: .8;
+                position: absolute;
+                top: 2px;
+                right: 2px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
 
-            &:hover {
-                &.card-preview:hover {
-                    background-color: transparent;
-                    cursor: pointer;
-                }
-
-                .hover-edit-btn {
-                    font-size: rem(16px);
-                    border-radius: 5px;
-                    width: 28px;
-                    height: 28px;
-                    color: #42526e;
-                    background-color: #F4F5F7;
-                    opacity: .8;
-                    position: absolute;
-                    top: 2px;
-                    right: 2px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-
-                    &:hover {
-                        color: #172b4d;
-                        background-color: #ebecf0;
-                        opacity: 1;
-                        display: none;
-
-                        &.hover-edit-btn:hover {
-                            display: none;
-                        }
-                    }
+                &:hover {
+                    color: #172b4d;
+                    background-color: #ebecf0;
+                    opacity: 1;
                 }
             }
         }
