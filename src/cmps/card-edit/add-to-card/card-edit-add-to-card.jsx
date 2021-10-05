@@ -11,6 +11,7 @@ import { PopoverAttachFile } from '../../shared/popover-children/popover-attach-
 import { CardEditAddToCardItem } from './card-edit-add-to-card-item'
 import { PopperCoverEdit } from '../../shared/popover-children/popper-cover-edit'
 import { CgCreditCard } from 'react-icons/cg'
+import { LabelEdit } from '../../shared/popover-children/label-edit'
 
 export const CardEditAddToCard = () => (
     <div style={{ position: 'relative' }}>
@@ -25,4 +26,4 @@ export const CardEditAddToCard = () => (
     </div>
 )
 
-const addToCardItems = [{ icon: BiUser, title: 'Members', component: MemberList }, { icon: MdLabelOutline, title: 'Labels', component: LabelList }, { icon: BsCardChecklist, title: 'Checklist', component: PopoverChecklist }, { icon: BsClock, title: 'Dates', component: CardEditDate }, { icon: FiPaperclip, title: 'Attachment', component: PopoverAttachFile }, { icon: CgCreditCard, title: 'Cover', component: PopperCoverEdit }]
+const addToCardItems = [{ icon: BiUser, title: 'Members', component: MemberList }, { icon: MdLabelOutline, title: 'Labels', component: LabelList, editComponent: LabelEdit }, { icon: BsCardChecklist, title: 'Checklist', component: PopoverChecklist }, { icon: BsClock, title: 'Dates', component: CardEditDate }, { icon: FiPaperclip, title: 'Attachment', component: PopoverAttachFile }, { icon: CgCreditCard, title: 'Cover', component: PopperCoverEdit }]

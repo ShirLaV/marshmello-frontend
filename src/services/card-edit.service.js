@@ -199,6 +199,16 @@ const handleRemoveCard = (cardId) => {
     // return board
 }
 
+const onAddComment = (txt) => {
+    const cardId = store.getState().boardModule.currCardId
+    const board = store.getState().boardModule.currBoard
+    const groupId = getGroupId(cardId)
+    const card = getCardById(cardId, groupId)
+    if (!card.comments) card.comments = []
+    card.comments.push({ id:utilService.makeId(), txt, addedAt: Date.now() })
+    return [card, groupId, board]
+}
+
 
 export const cardEditService = {
     handleChecklistChange,
@@ -215,5 +225,6 @@ export const cardEditService = {
     handleMoveCard,
     handleCopyCard,
     handleToggleArchive,
-    handleRemoveCard
+    handleRemoveCard,
+    onAddComment
 }

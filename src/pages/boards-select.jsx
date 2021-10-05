@@ -55,10 +55,10 @@ class _BoardSelect extends React.Component {
                 </div>
                 <h2> <SiTrello /> Workspace</h2>
                 <div className="workspace">
-                    <BoardList boards={boards} toggleStarredBoard={this.toggleStarredBoard} setFavicon={this.setFavicon} />
-                    <div className="board-preview create-board-btn" onClick={() => this.setAddBoard()}>
+                    <BoardList boards={boards} toggleStarredBoard={this.toggleStarredBoard} setFavicon={this.setFavicon} setAddBoard={this.setAddBoard} isWorkspace={true} />
+                    {/* <div className="board-preview create-board-btn" onClick={() => this.setAddBoard()}>
                         <h4>Create New Board</h4>
-                    </div>
+                    </div> */}
                 </div>
                 {isAddingBoard && <OverlayScreen />}
             </div>

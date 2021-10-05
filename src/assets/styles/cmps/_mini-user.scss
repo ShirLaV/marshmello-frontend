@@ -7,7 +7,7 @@
     h3 {
         color: #172b4d;
         cursor: pointer;
-        font-size: 16px;
+        font-size: rem(16px);
         line-height: 20px;
         font-weight: 600;
         text-transform: initial;
@@ -21,7 +21,7 @@
         color: #5e6c84;
         margin-bottom: 0;
         padding-bottom: 0;
-        font-size: 14px;
+        font-size: rem(14px);
         font-weight: 400;
         line-height: 20px;
     }

@@ -5,7 +5,7 @@
   .login-signup-header {
     color: rgb(197, 139, 197);
     margin: auto;
-    font-size: 30px;
+    font-size:rem (30px);
     gap: 10px;
     display: flex;
     align-items: center;
@@ -30,7 +30,7 @@
     box-shadow: rgb(0 0 0 / 10%) 0 0 10px;
 
     input {
-      font-size: 14px;
+      font-size: rem(14px);
       background-color: #fafbfc;
       border-radius: 3px;
       border: 2px solid #dfe1e6;

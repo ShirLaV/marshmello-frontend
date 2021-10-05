@@ -7,7 +7,6 @@
     inset: 0;
     overflow-y: auto;
     cursor: pointer;
-    height: fit-content;
     .card-edit {
         position: absolute;
         top: 46px;
@@ -24,6 +23,7 @@
         background-color: #f4f5f7;
         z-index: 40;
         border-radius: 2px;
+        cursor: auto;
 
         .archive-msg {
             background-color: #FDFAE5;
@@ -37,7 +37,7 @@
             gap: 16px;
 
             p {
-                font-size: 16px;
+                font-size: rem(16px);
                 line-height: 30px;
                 margin: 0;
             }
@@ -60,7 +60,7 @@
             width: 40px;
             border-radius: 50%;
             transition: background-color 85ms, color 85ms;
-            font-size: 32px;
+            font-size: rem(32px);
             padding: 10px;
 
             &:hover {
@@ -83,12 +83,12 @@
             border-radius: 3px;
             color: #172b4d;
             padding: 6px 12px 6px 6px;
-            font-size: 14px;
+            font-size: rem(14px);
             font-weight: 400;
             line-height: 20px;
 
             .cover-icon {
-                font-size: 18px;
+                font-size: rem(18px);
             }
 
             &:hover {
@@ -105,7 +105,7 @@
             padding: 0 8px 8px 16px;
 
             h3:not(.small-title) {
-                font-size: 16px;
+                font-size: rem(16px);
                 font-weight: 600;
             }
         }
@@ -146,7 +146,7 @@
             padding: 4px 8px;
             height: 33.333px;
             border-radius: 3px;
-            font-size: 20px;
+            font-size: rem(20px);
             font-weight: 600;
             line-height: 24px;
             transition: border .1s;
@@ -180,7 +180,7 @@
         .list-name-container {
             color: #5e6c84;
             margin: 0 0 8px 26px;
-            font-size: 14px;
+            font-size: rem(14px);
             font-weight: 400;
             line-height: 20px;
             padding-inline-start: 24px;

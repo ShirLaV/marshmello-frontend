@@ -14,100 +14,101 @@
         position: absolute;
         top: 10px;
         right: 10px;
-        font-size: 40px;
+        font-size: rem(40px);
         transition: font-size .2s;
 
         &:hover {
-            font-size: 45px;
+            font-size: rem(45px);
         }
     }
 
     .jeneral-statistics {
         flex-wrap: wrap;
         margin-bottom: 60px;
+        flex-direction: column;
 
         .stats {
             position: relative;
-            width: 200px;
             height: 100px;
             background: linear-gradient(90deg, rgb(182, 134, 194), rgb(213, 159, 226), rgb(236, 196, 247));
             border-radius: 3px;
-            margin: 0px 20px;
             color: white;
             padding: 10px;
 
+            margin: 5px 0;
+            width: 300px;
+
             h3 {
-                font-size: 20px;
+                font-size: rem(20px);
             }
 
             span {
-                font-size: 50px;
+                font-size: rem(50px);
                 font-weight: 600;
             }
 
             i {
-                font-size: 70px;
+                font-size: rem(70px);
             }
         }
     }
 
     .charts {
-        gap: 30px;
         height: 50vh;
+        flex-direction: column;
+        margin-bottom: 16px;
+        gap: 60px;
 
         h1 {
             margin-bottom: 20px;
+            text-align: center;
         }
     }
 
     .time-line-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        width: 50%;
-        height: 500px;
-        margin-top: 50px;
+        display: none;
+    }
+
+    .bar-chart-container {
+        max-height: 400px;
+        width: 100%;
     }
 }
 
-@media screen and (max-width:740px) {
+@media screen and (min-width:680px) {
     .dashboard-modal {
         .jeneral-statistics {
-            .stats {
-                margin: 0 5px;
-            }
-        }
-    }
-}
 
-@media screen and (max-width:620px) {
-    .dashboard-modal {
-        .jeneral-statistics {
-            flex-direction: column;
+            flex-direction: row;
+
             .stats {
-                margin: 5px 0;
-                width: 300px;
+                width: 200px;
+                margin: 0px 10px;
             }
         }
+
         .time-line-container {
-            display: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            width: 50%;
+            height: 500px;
+            margin-top: 50px;
         }
 
         .bar-chart-container {
-            max-height: 400px;
-            width: 100%;
+            max-height: unset;
+            width: unset;
         }
+
         .charts {
-            flex-direction: column;
-            margin-bottom: 16px;
-            gap: 60px;
+            flex-direction: row;
+            gap: 30px;
 
             h1 {
-                text-align: center;
+                text-align: left;
             }
         }
     }
-
-
 }

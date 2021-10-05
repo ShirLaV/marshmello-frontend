@@ -9,7 +9,7 @@
 
         &.small-title {
             color: #5e6c84;
-            font-size: 12px;
+            font-size: rem(12px);
             font-weight: 500;
             margin-bottom: 4px;
             letter-spacing: .04em;
@@ -88,7 +88,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 14px;
+        font-size: rem(14px);
         font-weight: 600;
         min-width: 40px;
 

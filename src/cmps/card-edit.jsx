@@ -98,6 +98,7 @@ class _CardEdit extends Component {
   }
 
   render() {
+    console.log(this.props.user);
     const { currCard, currGroup } = this.state
     const { board } = this.props
     if (!currCard) return <Loader />
@@ -190,7 +191,7 @@ class _CardEdit extends Component {
                 </div>
               ))}
 
-              <CardEditActivities />
+              <CardEditActivities member={this.props.user} />
             </div>
 
             <CardEditSidebar goBack={this.goBack} />
@@ -204,6 +205,7 @@ class _CardEdit extends Component {
 const mapStateToProps = (state) => {
   return {
     board: state.boardModule.currBoard,
+    user: state.userModule.user
   }
 }
 

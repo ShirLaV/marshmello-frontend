@@ -36,7 +36,7 @@
       line-height: 32px;
 
       >span {
-        font-size: 18px;
+        font-size: rem(18px);
         // font-size: rem(22px);
       }
 
@@ -60,11 +60,11 @@
 @include for-mobile-layout {
   .app-header {
     padding: 5px 8px;
+
     .boards-btn {
       span {
         display: none;
       }
     }
-    
   }
 }

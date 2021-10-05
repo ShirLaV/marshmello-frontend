@@ -1,0 +1,66 @@
+.comments-section {
+    .add-comment-container {
+        gap: 8px;
+        margin-top: 16px;
+        align-items: center;
+
+        .new-comment {
+            overflow: hidden;
+            overflow-wrap: break-word;
+            height: 20px;
+            // margin: -8px -12px;
+            // padding: 8px 12px;
+            // box-shadow: none;
+            box-shadow: 0 0px 5px 1px #dfe1e6;
+            background-color: #fff;
+            border-radius: 3px;
+            // box-sizing: initial;
+            min-height: 20px;
+            line-height: 20px;
+            transition-duration: 85ms;
+            transition-property: background-color, border-color, box-shadow;
+            transition-timing-function: ease;
+            transition-duration: 85ms;
+            transition-property: padding-bottom;
+            transition-timing-function: ease;
+            color: #172b4d;
+            font-size: 14px;
+            font-weight: 400;
+            height: 36px;
+
+            textarea {
+                resize: none;
+                border: 0;
+                outline: none;
+                overflow: hidden;
+                height: 100%;
+                padding: 8px 12px;
+            }
+
+            &:hover {
+                box-shadow: 2px 2px 5px 1px #dfe1e6;
+                cursor: pointer;
+            }
+
+            .save-comment-btn {
+                margin-left: 8px;
+                color: #a5adba;
+                cursor: not-allowed;
+
+                &:hover {
+                    background-color: #091e420a;
+                }
+
+                &.active {
+                    background-color: #0079bf;
+                    color: #fff;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: #026aa7;
+                    }
+                }
+            }
+        }
+    }
+}

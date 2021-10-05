@@ -1,5 +1,4 @@
 .card-preview {
-    cursor: pointer;
     max-width: 300px;
     min-height: 20px;
     position: relative;
@@ -26,7 +25,6 @@
         }
 
         img {
-            // height: fit-content;
             border-top-left-radius: 3px;
             border-top-right-radius: 3px;
         }
@@ -63,7 +61,6 @@
                 .label-bar {
                     color: white;
                     height: 20px;
-                    // width: fit-content;
                     min-width: 60px;
                     width: fit-content;
                     transition: color .2s linear 0.4s, min-width .2s, height .2s linear .2s;
@@ -85,7 +82,7 @@
                     display: none;
                 }
 
-                &.due-date-box:hover {
+                &:hover {
                     .clock-icon {
                         display: none;
                     }
@@ -110,54 +107,37 @@
     }
 
     .hover-edit-btn {
-
-        font-size: 16px;
-        border-radius: 5px;
-        width: 28px;
-        height: 28px;
-        color: #42526e;
-        background-color: #F4F5F7;
-        // background-color: rgba(235, 236, 240, 0.063);
         display: none;
-        position: absolute;
-        top: 2px;
-        right: 2px;
-    }
-
-    &.card-preview:hover {
-        background-color: #F4F5F7;
-        cursor: pointer;
-
-        .hover-edit-btn {
-            // background-color: #F4F5F7;
-            // display: block;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            color: #42526e;
-
-            &.hover-edit-btn:hover {
-                color: #172b4d;
-                background-color: #ebecf0;
-            }
-        }
     }
 }
 
-@media screen and (max-width:780px) {
+@media screen and (min-width:780px) {
     .card-preview {
+        cursor: pointer;
 
-        &.card-preview:hover {
+        &:hover {
             background-color: transparent;
             cursor: pointer;
 
             .hover-edit-btn {
-                display: none;
+                font-size: rem(16px);
+                border-radius: 5px;
+                width: 28px;
+                height: 28px;
+                color: #42526e;
+                background-color: #F4F5F7;
+                opacity: .8;
+                position: absolute;
+                top: 2px;
+                right: 2px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
 
-                &.hover-edit-btn:hover {
-                    display: none;
+                &:hover {
+                    color: #172b4d;
+                    background-color: #ebecf0;
+                    opacity: 1;
                 }
             }
         }

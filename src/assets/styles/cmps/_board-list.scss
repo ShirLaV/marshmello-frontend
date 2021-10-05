@@ -1,11 +1,13 @@
 .board-list {
     gap: 20px;
     flex-wrap: wrap;
+    flex-direction: column;
+    width: 100%;
 }
 
-@media screen and(max-width:700px) {
+@media screen and(min-width:700px) {
     .board-list {
-        flex-direction: column;
-width: 100%;
+        flex-direction: row;
+        width: unset;
     }
 }

@@ -1,7 +1,6 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { IoMdClose } from 'react-icons/io'
 import { BsChevronLeft } from 'react-icons/bs'
-import { MdTranslate } from 'react-icons/md'
 
 /*
     How-to-use

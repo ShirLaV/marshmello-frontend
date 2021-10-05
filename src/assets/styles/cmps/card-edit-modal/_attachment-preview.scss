@@ -13,7 +13,7 @@
     }
 
     .attachment-title {
-        font-size: 14px;
+        font-size: rem(14px);
         line-height: 20px;
         color: #172b4d;
         font-weight: 700;
@@ -34,7 +34,7 @@
         display: flex;
         gap: 3px;
         color: #5e6c84;
-        font-size: 14px;
+        font-size: rem(14px);
         font-weight: 400;
         line-height: 20px;
 
@@ -63,7 +63,7 @@
             text-decoration: underline;
             cursor: pointer;
             color: #5e6c84;
-            font-size: 14px;
+            font-size: rem(14px);
             font-weight: 400;
             line-height: 20px;
 
