@@ -13,9 +13,11 @@ export function BoardPreview({ board, toggleStarredBoard, setFavicon }) {
 
     return (
         <Link to={`/board/${board._id}`}><div onClick={() => setFavicon(board.style)} className="board-preview" style={(board.style.bgColor) ? { backgroundColor: `${board.style.bgColor}` } : { backgroundImage: `url(${board.style.imgUrl})` }}>
-            <div className="preview-content">
-                <h4 className="board-title">{board.title}</h4>
-                <button className={`star-btn ${(board.isStarred) ? 'starred' : ''}`} onClick={(ev) => toggleIsStarred(ev)}><AiOutlineStar /></button>
+            <div className="preview-screen">
+                <div className="preview-content">
+                    <h4 className="board-title">{board.title}</h4>
+                    <button className={`star-btn ${(board.isStarred) ? 'starred' : ''}`} onClick={(ev) => toggleIsStarred(ev)}><AiOutlineStar /></button>
+                </div>
             </div>
         </div></Link>
     )

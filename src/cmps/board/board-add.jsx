@@ -69,7 +69,7 @@ class _BoardAdd extends React.Component {
         const { title, chosenImgIdx } = this.state
         return (
             <div className="board-add" ref={this.targetRef}>
-                <form className="board-add-form" onSubmit={this.addBoard} style={{ backgroundImage: `url(${images[chosenImgIdx]})` }} >
+                <form className="board-add-form" onSubmit={this.addBoard} style={{background: '#000000', backgroundImage: `url(${images[chosenImgIdx]})` }} >
                     <input autoFocus className={`board-title-input ${(title) ? 'editing' : ''}`} autoComplete="off" type="text" placeholder="Add board title" name="title" value={title} onChange={this.handleChange} />
                     <button className={`create-btn ${(title) ? 'clickable' : ''}`} type="submit">Create Board</button>
                 </form>

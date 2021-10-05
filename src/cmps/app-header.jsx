@@ -7,22 +7,20 @@ import { SiTrello } from 'react-icons/si';
 
 
 // import routes from '../routes'
-import { onLogin, onLogout, onSignup, loadUsers, removeUser } from '../store/user.actions.js'
+import { onLogin, onLogout, onSignup, loadUsers, removeUser, loadAndWatchUser } from '../store/user.actions.js'
+import { userService } from '../services/user.service.js';
 import { setAddingBoard } from '../store/board.actions'
 import { BoardAdd } from './board/board-add.jsx';
 import { MemberAvatar } from './shared/member-avatar.jsx';
 import { OverlayScreen } from '../cmps/overlay-screen'
 import { DynamicPopover } from './shared/dynamic-popover.jsx';
-import { InviteMembers } from './board/invite-members.jsx';
+import { LoggedinUser } from './shared/popover-children/loggedin-user.jsx';
+import { Loader } from './shared/loader'
 
 
 class _AppHeader extends React.Component {
     state = {
         isPopoverOpen: false
-    }
-
-    componentDidMount() {
-        
     }
 
     userMenuRef = React.createRef()
@@ -43,6 +41,7 @@ class _AppHeader extends React.Component {
     render() {
         const { user, isAddingBoard } = this.props
         const { isPopoverOpen } = this.state
+        if (!user) return <Loader />
         return (
             <header className="app-header">
                 <nav className="nav-links">
@@ -54,12 +53,12 @@ class _AppHeader extends React.Component {
                     <div className="right-links">
                         <button className="nav-button" onClick={() => this.setAddBoard(true)}><AiOutlinePlus /></button>
                         <button className="nav-button"><AiOutlineBell /></button>
-                        <MemberAvatar key={user._id} member={user} onClick={() => this.setState({ isPopoverOpen: !isPopoverOpen })} />
-                        {/* <div className='relative' ref={this.userMenuRef}>
-                            {isPopoverOpen && <DynamicPopover onClose={() => this.setState({ isPopoverOpen: false })} title="Invite Members" ref={this.userMenuRef}>
-                                <InviteMembers />
+                        <div className='relative' ref={this.userMenuRef}>
+                            <button onClick={() => this.setState({ isPopoverOpen: !isPopoverOpen })}><MemberAvatar key={user._id} member={user} /></button>
+                            {isPopoverOpen && <DynamicPopover onClose={() => this.setState({ isPopoverOpen: false })} title="User Details" ref={this.userMenuRef}>
+                                <LoggedinUser member={user} onLogout={this.onLogout} />
                             </DynamicPopover>}
-                        </div> */}
+                        </div>
                     </div>
                 </nav>
                 {isAddingBoard && <BoardAdd onClose={() => this.setAddBoard(false)} />}

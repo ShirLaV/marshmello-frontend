@@ -88,13 +88,12 @@ class _LoginSignup extends React.Component {
                     <br />
                     <GoogleLogin
                         className="google-login-btn flex align-center justify-center"
-                        clientId={clientId}
+                        clientId='209268489709-ofnqpgb55aikiprlelkbiafntgld4mhg.apps.googleusercontent.com'
                         buttonText='Continue with Google'
                         onSuccess={this.onSuccessGoogle}
                         onFailure={this.onFailureGoogle}
                         cookiePolicy={'single_host_origin'}
                     />
-                    <hr />
                     <Link to="/signup">Sign up for an account</Link>
                 </div>}
                 {pageMode === 'signup' &&
@@ -111,7 +110,7 @@ class _LoginSignup extends React.Component {
                                 <button type="submit" className="login-signup-btn nav-button" style={{color: '#172b4d'}}>Sign up</button>
                             </Form>
                         </Formik>
-                        <hr />
+                        {/* <hr /> */}
                         <Link to="/login">Already have an account ? Log In</Link>
                     </div>}
                 <div className="right-svg">
