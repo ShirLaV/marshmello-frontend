@@ -8,6 +8,8 @@ import { CardHeader } from '../card-preview/card-header.jsx';
 import { CardLabelBarList } from '../card-preview/card-label-bar-list.jsx';
 import { CardFooter } from '../card-preview/card-footer.jsx';
 
+import {CardPreviewContent} from './card-preview-content.jsx'
+
 function _CardPreview({
   card,
   groupId,
@@ -21,8 +23,10 @@ function _CardPreview({
 }) {
   return (
     <div
-    className='card-wrapper'
-      style={{ display: card.isArchive ? 'none' : 'unset' }}
+      className='card-wrapper'
+      onClick={() => openCardEdit(groupId, card.id)}
+
+      // style={{ display: card.isArchive ? 'none' : 'unset' }}
     >
       <Draggable draggableId={card.id} index={index}>
         {(provided) => {
@@ -32,19 +36,30 @@ function _CardPreview({
               {...provided.dragHandleProps}
               {...provided.draggableProps}
             >
-              <div
+              <CardPreviewContent 
+                card={card}
+                groupId={groupId}
+                openCardEdit={openCardEdit}
+                isCardLabelListOpen={isCardLabelListOpen}
+                toggleCardLabelList={toggleCardLabelList}
+                toggleCardComplete={toggleCardComplete}
+                onToggleQuickCardEditor={onToggleQuickCardEditor}
+                getLabel={getLabel}
+              />
+              {/* <div
                 className='card-preview flex space-between'
-                
                 onClick={() => openCardEdit(groupId, card.id)}
               >
-                <button
-                  className='hover-edit-btn'
-                  onClick={(event) =>
-                    onToggleQuickCardEditor(event, card, groupId)
-                  }
-                >
-                  <HiOutlinePencil />
-                </button>
+                {!card.isArchive && (
+                  <button
+                    className='hover-edit-btn'
+                    onClick={(event) =>
+                      onToggleQuickCardEditor(event, card, groupId)
+                    }
+                  >
+                    <HiOutlinePencil />
+                  </button>
+                )}
 
                 {card.style && <CardHeader cardStyle={card.style} />}
 
@@ -67,12 +82,12 @@ function _CardPreview({
                     toggleCardComplete={toggleCardComplete}
                   />
                 </div>
-              </div>
+              </div> */}
             </li>
           );
         }}
       </Draggable>
-      </div>
+    </div>
   );
 }
 

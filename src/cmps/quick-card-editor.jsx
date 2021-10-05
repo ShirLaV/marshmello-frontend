@@ -14,7 +14,11 @@ import { CardLabelBarList } from '../cmps/card-preview/card-label-bar-list.jsx';
 import { CardFooter } from '../cmps/card-preview/card-footer.jsx';
 import { cardEditService } from '../services/card-edit.service.js';
 import { Loader } from './shared/loader.jsx';
-import { onUpdateCard, onSetCardId } from '../store/board.actions';
+import {
+  onUpdateCard,
+  onSetCardId,
+  onArchiveCard,
+} from '../store/board.actions';
 import { CardEditAddToCardItem } from '../cmps/card-edit/add-to-card/card-edit-add-to-card-item.jsx';
 import { LabelList } from '../cmps/shared/popover-children/label-list.jsx';
 import { MemberList } from '../cmps/shared/popover-children/member-list.jsx';
@@ -24,7 +28,7 @@ class _QuickCardEditor extends Component {
   state = {
     card: null,
     cardTitle: '',
-    isArchive: false,
+    // isArchive:false
   };
   componentDidMount() {
     const { cardId, groupId } = this.props;
@@ -53,7 +57,7 @@ class _QuickCardEditor extends Component {
   onSave = (event) => {
     const cardToSave = { ...this.state.card };
     cardToSave.title = this.state.cardTitle;
-    cardToSave.isArchive = this.state.isArchive;
+    // cardToSave.isArchive=this.state.isArchive
     const activity = {
       txt: activityTxtMap.editCard(),
       card: cardToSave,
@@ -72,13 +76,14 @@ class _QuickCardEditor extends Component {
     this.props.openCardEdit(this.props.groupId, this.props.cardId);
   };
   onArchiveCard = (event) => {
-    this.setState(
-      (prevState) => ({ ...prevState, isArchive: true }),
-      function () {
-        console.log('this state', this.state);
-        this.onSave(event);
-      }
-    );
+    const { groupId, board } = this.props;
+    const cardToSave = { ...this.state.card };
+    cardToSave.isArchive = true;
+    // console.log('cardToSave', cardToSave)
+    this.props.onArchiveCard(cardToSave, groupId, board);
+    this.props.onToggleQuickCardEditor(event, null, '');
+    // this.setState({isArchive: true},()=> this.onSave(event))
+    
   };
 
   render() {
@@ -207,6 +212,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = {
   onUpdateCard,
   onSetCardId,
+  onArchiveCard,
 };
 
 export const QuickCardEditor = connect(

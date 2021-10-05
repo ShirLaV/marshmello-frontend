@@ -1,0 +1,22 @@
+.archive {
+    .archived-cards-list {
+        width: 100%;
+        li {
+            width: 100%;
+            .card-preview {
+                font-weight: 400;
+                max-width: 100%;
+                &:hover {
+                    background-color: white;
+                    cursor: auto;
+                }
+            }
+            .archived-btns {
+                button {
+                    text-decoration: underline;
+                    color: #5e6c84;
+                }
+            }
+        }
+    }
+}

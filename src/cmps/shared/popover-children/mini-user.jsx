@@ -19,7 +19,7 @@ const _MiniUser = ({ member, onUpdateCard }) => {
                 <div>
                     <h3 className="mini-user-fullname">{member.fullname}</h3>
                     <p>{member.username}</p>
-                    <p>Edit profile info</p>
+                    {/* <p>Edit profile info</p> */}
                 </div>
             </div>
 

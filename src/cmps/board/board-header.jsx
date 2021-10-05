@@ -13,6 +13,7 @@ import { InviteMembers } from './invite-members.jsx'
 import { DynamicPopover } from '../shared/dynamic-popover.jsx'
 import { SideMenu } from '../side-menu/side-menu.jsx'
 import { BoardEditMembers } from '../shared/popover-children/board-edit-members'
+import { withRouter } from 'react-router'
 
 class _BoardHeader extends React.Component {
 
@@ -35,6 +36,7 @@ class _BoardHeader extends React.Component {
         window.addEventListener('resize', this.handleResize)
         this.handleResize()
         this.props.loadUsers()
+        if (this.props.location.search) this.setState({ isMenuOpen: true })
     }
 
     componentWillUnmount() {
@@ -98,7 +100,7 @@ class _BoardHeader extends React.Component {
     onMembersClose = () => this.setState({ isExtraMembersOpen: false })
 
     render() {
-        const { board, onToggleDashboard } = this.props
+        const { board, onToggleDashboard, toggleCardLabelList, isCardLabelListOpen, getLabel, toggleCardComplete, openCardEdit } = this.props
         const { boardTitle, isMenuOpen, isInviteOpen, isExtraMembersOpen, isTotalMembersOpen } = this.state
         const members = this.getRemainingMembers()
         const extraMembersLength = this.getExtraMembersLength()
@@ -152,7 +154,7 @@ class _BoardHeader extends React.Component {
                         <button onClick={() => this.toggleMenu()} className="right-menu-btn nav-button"><HiDotsHorizontal /> <span className="right-btn-txt">Show Menu</span></button>
                     </>}
                 </div>
-                <SideMenu isMenuOpen={isMenuOpen} onClose={() => { this.toggleMenu() }} />
+                <SideMenu isMenuOpen={isMenuOpen} onClose={() => { this.toggleMenu() }} isCardLabelListOpen={isCardLabelListOpen} toggleCardLabelList={toggleCardLabelList} getLabel={getLabel} openCardEdit={openCardEdit} toggleCardComplete={toggleCardComplete} />
             </section >
         )
     }
@@ -172,4 +174,4 @@ const mapDispatchToProps = {
 
 
 
-export const BoardHeader = connect(mapStateToProps, mapDispatchToProps)(_BoardHeader)
+export const BoardHeader = connect(mapStateToProps, mapDispatchToProps)(withRouter(_BoardHeader))

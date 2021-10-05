@@ -3,6 +3,8 @@ import { boardService } from "../services/board.service.js";
 import { socketService } from "../services/socket.service.js";
 // import { userService } from "../services/user.service.js";
 // import { showSuccessMsg, showErrorMsg } from '../services/event-bus.service.js';
+
+//BOARD
 export function loadBoards(filterBy) {
     return async(dispatch) => {
         try {
@@ -53,23 +55,30 @@ export function onRemoveBoard(boardId) {
             await boardService.remove(boardId)
             console.log('Deleted Succesfully!');
             dispatch({
-                    type: 'REMOVE_BOARD',
-                    boardId
-                })
-                // showSuccessMsg('Board removed')
+                type: 'REMOVE_BOARD',
+                boardId
+            })
         } catch (err) {
-            // showErrorMsg('Cannot remove board')
             console.log('Cannot remove board', err)
         }
     }
 }
 
-export function setAddingBoard(isAddingBoard) {
-    return (dispatch) => {
+export function onUpdateBoard(action, board, activity = null) {
+    return async(dispatch) => {
+        const boardToSave = _getUpdatedBoard(action, board)
         dispatch({
-            type: 'SET_ADDING_BOARD',
-            isAddingBoard: isAddingBoard
+            type: 'UPDATE_BOARD',
+            board: boardToSave
         })
+
+        try {
+            if (!action.type) action.board = board
+            socketService.emit('board-update', { action, activity })
+            await boardService.save(boardToSave, activity)
+        } catch (err) {
+            console.log('Cannot save board', err)
+        }
     }
 }
 
@@ -84,14 +93,22 @@ export function onAddBoard(board) {
             })
             socketService.emit('update', true)
             return savedBoard
-                // showSuccessMsg('Board added')
         } catch (err) {
-            // showErrorMsg('Cannot add board')
             console.log('Cannot add board', err)
         }
     }
 }
 
+export function setAddingBoard(isAddingBoard) {
+    return (dispatch) => {
+        dispatch({
+            type: 'SET_ADDING_BOARD',
+            isAddingBoard: isAddingBoard
+        })
+    }
+}
+
+//CARD
 export function onAddCard(newCard, groupId, board, activity) {
     const group = board.groups.find(group => group.id === groupId)
     newCard = {...newCard, createdAt: Date.now(), isComplete: false };
@@ -110,34 +127,56 @@ export function onRemoveCard(cardId, groupId, board) {
 
 export function onArchiveCard(cardToSave, groupId, board, activity = null) {
     return async(dispatch) => {
-        const group = board.groups.find(group => group.id === groupId)
-        const groupToStore = {...group }
+        const deepCopy = (item) => item
+        const group = deepCopy(board.groups.find(group => group.id === groupId))
         const cardIdx = group.cards.findIndex(card => card.id === cardToSave.id)
+        const groupToStore = deepCopy({...group, cards: [...group.cards.filter(card => cardToSave.id !== card.id)] })
         cardToSave.groupId = groupId;
         cardToSave.prevIndex = cardIdx;
+        // console.log('in action cardToSave', cardToSave)
         group.cards.splice(cardIdx, 1, cardToSave)
-        groupToStore.cards.splice(cardIdx, 1)
+            // console.log('group', group)
+            // groupToStore.cards.splice(cardIdx, 1)
         const boardToSave = {...board }
         const boardToStore = {...board }
-        boardToSave.groups = [...boardToSave.groups.map(currGroup => currGroup.id === group.id ? group : currGroup)]
-        boardToStore.groups = [...boardToStore.groups.map(currGroup => currGroup.id === groupToStore.id ? groupToStore : currGroup)]
-        dispatch({
-            type: 'UPDATE_BOARD',
-            board: boardToStore
-        })
+        boardToSave.groups = boardToSave.groups.map(currGroup => currGroup.id === group.id ? group : currGroup)
+        boardToStore.groups = boardToStore.groups.map(currGroup => currGroup.id === groupToStore.id ? groupToStore : currGroup)
+            // console.log('boardtosave', boardToSave)
         try {
             // socketService.emit('board-update', { action, activity })
             await boardService.save(boardToSave, activity)
+            dispatch({
+                type: 'UPDATE_BOARD',
+                board: boardToStore
+            })
         } catch (err) {
             console.log('Cannot save board', err)
         }
     }
 }
 
+// export function onUnArchiveCard(cardId, board){
+
+// }
+
+export function loadArchivedCards(boardId) {
+    return async(dispatch) => {
+        try {
+            const archivedCards = await boardService.getArchivedCards(boardId)
+            console.log('in actions', archivedCards)
+            return archivedCards;
+        } catch (err) {
+            console.log('Cannot load archived cards', err)
+        }
+    }
+}
+
+
 export function onUpdateCard(cardToSave, groupId, board, activity = null) {
     console.log('cardToSave', cardToSave);
     const group = board.groups.find(group => group.id === groupId)
     const cardIdx = group.cards.findIndex(card => card.id === cardToSave.id)
+    console.log('cardIdx: ', -1)
     group.cards.splice(cardIdx, 1, cardToSave)
     const groupAction = { type: 'UPDATE_GROUP', group }
     return onUpdateBoard(groupAction, board, activity)
@@ -188,23 +227,7 @@ board.lists.forEach((list)=>{
     })
 })
 */
-export function onUpdateBoard(action, board, activity = null) {
-    return async(dispatch) => {
-        const boardToSave = _getUpdatedBoard(action, board)
-        dispatch({
-            type: 'UPDATE_BOARD',
-            board: boardToSave
-        })
 
-        try {
-            if (!action.type) action.board = board
-            socketService.emit('board-update', { action, activity })
-            await boardService.save(boardToSave, activity)
-        } catch (err) {
-            console.log('Cannot save board', err)
-        }
-    }
-}
 
 function _getUpdatedBoard(action, board) {
     const boardToSave = {...board }

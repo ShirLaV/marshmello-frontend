@@ -1,4 +1,6 @@
 .card-preview {
+    cursor: pointer;
+    word-wrap: break-word;
     max-width: 300px;
     min-height: 20px;
     position: relative;
@@ -83,61 +85,100 @@
                 }
 
                 &:hover {
-                    .clock-icon {
-                        display: none;
-                    }
+                    &.due-date-box:hover {
+                        .clock-icon {
+                            display: none;
+                        }
 
-                    .check-icon {
-                        display: flex;
-                        align-items: center;
+                        .check-icon {
+                            display: flex;
+                            align-items: center;
+                        }
                     }
                 }
-            }
 
-            .attachment-box,
-            .checklist-box {
-                gap: 5px;
-            }
+                .attachment-box,
+                .checklist-box {
+                    gap: 5px;
+                }
 
-            .card-members-list {
-                flex: 1 1;
-                justify-content: flex-end;
+                .card-members-list {
+                    flex: 1 1;
+                    justify-content: flex-end;
+                }
+            }
+        }
+
+        .hover-edit-btn {
+            display: none;
+            font-size: 16px;
+            border-radius: 5px;
+            width: 28px;
+            height: 28px;
+            color: #42526e;
+            background-color: #F4F5F7;
+            // background-color: rgba(235, 236, 240, 0.063);
+            display: none;
+            position: absolute;
+            top: 2px;
+            right: 2px;
+        }
+
+        &.card-preview:hover {
+            background-color: #F4F5F7;
+            cursor: pointer;
+
+            .hover-edit-btn {
+                // background-color: #F4F5F7;
+                // display: block;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #42526e;
+
+                &.hover-edit-btn:hover {
+                    color: #172b4d;
+                    background-color: #ebecf0;
+                }
             }
         }
     }
 
-    .hover-edit-btn {
-        display: none;
-    }
-}
-
-@media screen and (min-width:780px) {
-    .card-preview {
-        cursor: pointer;
-
-        &:hover {
-            background-color: transparent;
+    @media screen and (min-width:780px) {
+        .card-preview {
             cursor: pointer;
 
-            .hover-edit-btn {
-                font-size: rem(16px);
-                border-radius: 5px;
-                width: 28px;
-                height: 28px;
-                color: #42526e;
-                background-color: #F4F5F7;
-                opacity: .8;
-                position: absolute;
-                top: 2px;
-                right: 2px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
+            &:hover {
+                &.card-preview:hover {
+                    background-color: transparent;
+                    cursor: pointer;
+                }
 
-                &:hover {
-                    color: #172b4d;
-                    background-color: #ebecf0;
-                    opacity: 1;
+                .hover-edit-btn {
+                    font-size: rem(16px);
+                    border-radius: 5px;
+                    width: 28px;
+                    height: 28px;
+                    color: #42526e;
+                    background-color: #F4F5F7;
+                    opacity: .8;
+                    position: absolute;
+                    top: 2px;
+                    right: 2px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    &:hover {
+                        color: #172b4d;
+                        background-color: #ebecf0;
+                        opacity: 1;
+                        display: none;
+
+                        &.hover-edit-btn:hover {
+                            display: none;
+                        }
+                    }
                 }
             }
         }
