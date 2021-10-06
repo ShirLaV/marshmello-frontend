@@ -99,9 +99,8 @@
 @media screen and (min-width:780px) {
     .card-preview {
         cursor: pointer;
-
         &:hover {
-            background-color: transparent;
+            background-color: #f4f5f7;
             cursor: pointer;
             .hover-edit-btn {
                 font-size: rem(16px);
@@ -117,7 +116,6 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-
                 &:hover {
                     color: #172b4d;
                     background-color: #ebecf0;

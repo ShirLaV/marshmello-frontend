@@ -136,6 +136,7 @@ export function onArchiveCard(cardToSave, groupId, board, activity = null) {
         // console.log('in action cardToSave', cardToSave)
         group.cards.splice(cardIdx, 1, cardToSave)
             // console.log('group', group)
+            // console.log('groupToStore', groupToStore)
             // groupToStore.cards.splice(cardIdx, 1)
         const boardToSave = {...board }
         const boardToStore = {...board }
