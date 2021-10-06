@@ -63,12 +63,12 @@ async function getArchivedCards(boardId) {
 
 
 async function remove(boardId) {
-    return storageService.remove(STORAGE_KEY, boardId)
-        // try {
-        //     return httpService.delete(`board/${boardId}`)
-        // } catch (err) {
-        //     console.log(`Front: Error deleting board with ID: ${boardId}`);
-        // }
+    // return storageService.remove(STORAGE_KEY, boardId)
+        try {
+            return httpService.delete(`board/${boardId}`)
+        } catch (err) {
+            console.log(`Front: Error deleting board with ID: ${boardId}`);
+        }
 }
 
 async function save(board, activity = null) {

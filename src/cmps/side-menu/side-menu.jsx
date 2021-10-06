@@ -9,6 +9,8 @@ import { SearchCards } from './search-cards';
 import { Archive } from './archive';
 import { ActivityList } from './activity-list';
 import { withRouter } from 'react-router'
+import { RemoveBoard } from './remove-board';
+import { HiOutlineTrash } from 'react-icons/hi';
 
 
 class _SideMenu extends React.Component {
@@ -18,7 +20,8 @@ class _SideMenu extends React.Component {
 
     _cmpsToRender = [{ id: 'c101', title: 'Change Background', icon: <BoardIcon />, component: ChangeBG },
     { id: 'c102', title: 'Search Cards', icon: <BiSearch />, component: SearchCards },
-    { id: 'c103', title: 'Archive', icon: <BsArchiveFill />, component: Archive }]
+    { id: 'c103', title: 'Archive', icon: <BsArchiveFill />, component: Archive },
+    { id: 'c104', title: 'Remove Board', icon: <HiOutlineTrash />, component: RemoveBoard }]
     // { id: 'c103', title: 'Archive - Under Construction 🚧', icon: <BsArchiveFill />, component: Archive }]
 
     componentDidMount() {

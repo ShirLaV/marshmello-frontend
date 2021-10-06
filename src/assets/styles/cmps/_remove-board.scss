@@ -1,0 +1,12 @@
+.remove-board {
+    text-align: center;
+    align-items: center;
+    gap: 10px;
+    .remove-btn {
+        background-color: rgba(255, 0, 0, 0.568);
+
+        &:hover {
+        background-color: rgb(255, 0, 0);
+        }
+    }
+}
