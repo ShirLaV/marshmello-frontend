@@ -67,6 +67,7 @@ export function onRemoveBoard(boardId) {
 export function onUpdateBoard(action, board, activity = null) {
     return async(dispatch) => {
         const boardToSave = _getUpdatedBoard(action, board)
+        console.log(boardToSave)
         dispatch({
             type: 'UPDATE_BOARD',
             board: boardToSave
@@ -118,47 +119,67 @@ export function onAddCard(newCard, groupId, board, activity) {
     return onUpdateBoard(groupAction, board, activity)
 }
 
-export function onRemoveCard(cardId, groupId, board) {
-    const group = board.groups.find(group => group.id === groupId)
-    group.cards = [...group.cards.filter(card => card.id !== cardId)]
+export function onRemoveCard(card, board) {
+    const boardToSave = {...board }
+    boardToSave.archivedCards = boardToSave.archivedCards.filter(archivedCard => archivedCard.id !== card.id)
+    return onUpdateBoard({}, boardToSave)
+}
+
+export function onArchiveCard(archivedCard, groupId, board, activity = null) {
+    const group = {...board.groups.find(group => group.id === groupId) }
+    const cardIdx = group.cards.findIndex(card => card.id === archivedCard.id)
+    const boardToSave = {...board }
+    archivedCard.groupId = groupId;
+    archivedCard.prevIndex = cardIdx;
+    // console.log('archivedCard in actions', archivedCard)
+    group.cards.splice(cardIdx, 1)
+        // delete boardToSave.archivedCards
+    boardToSave.archivedCards = boardToSave.archivedCards ? boardToSave.archivedCards : []
+    boardToSave.archivedCards.unshift(archivedCard)
     const groupAction = { type: 'UPDATE_GROUP', group }
-    return onUpdateBoard(groupAction, board)
+    return onUpdateBoard(groupAction, boardToSave, activity)
 }
 
-export function onArchiveCard(cardToSave, groupId, board, activity = null) {
-    return async(dispatch) => {
-        const deepCopy = (item) => item
-        const group = deepCopy(board.groups.find(group => group.id === groupId))
-        const cardIdx = group.cards.findIndex(card => card.id === cardToSave.id)
-        const groupToStore = deepCopy({...group, cards: [...group.cards.filter(card => cardToSave.id !== card.id)] })
-        cardToSave.groupId = groupId;
-        cardToSave.prevIndex = cardIdx;
-        // console.log('in action cardToSave', cardToSave)
-        group.cards.splice(cardIdx, 1, cardToSave)
-            // console.log('group', group)
-            // console.log('groupToStore', groupToStore)
-            // groupToStore.cards.splice(cardIdx, 1)
-        const boardToSave = {...board }
-        const boardToStore = {...board }
-        boardToSave.groups = boardToSave.groups.map(currGroup => currGroup.id === group.id ? group : currGroup)
-        boardToStore.groups = boardToStore.groups.map(currGroup => currGroup.id === groupToStore.id ? groupToStore : currGroup)
-            // console.log('boardtosave', boardToSave)
-        try {
-            // socketService.emit('board-update', { action, activity })
-            await boardService.save(boardToSave, activity)
-            dispatch({
-                type: 'UPDATE_BOARD',
-                board: boardToStore
-            })
-        } catch (err) {
-            console.log('Cannot save board', err)
-        }
+export function onUnArchiveCard(cardToSave, board, activity = null) {
+    const group = {...board.groups.find(group => group.id === cardToSave.groupId) }
+    if (group) {
+        const cardIdx = cardToSave.prevIndex
+        delete cardToSave.groupId
+        delete cardToSave.prevIndex
+        delete cardToSave.isArchive
+        group.cards.splice(cardIdx, 0, cardToSave)
     }
+    const boardToSave = {...board }
+    boardToSave.archivedCards = boardToSave.archivedCards.filter(archivedCard => archivedCard.id !== cardToSave.id)
+    const groupAction = { type: 'UPDATE_GROUP', group }
+    return onUpdateBoard(groupAction, boardToSave, activity)
 }
 
-// export function onUnArchiveCard(cardId, board){
-
+// export function onArchiveCard(cardToSave, groupId, board, activity = null) {
+//     return async(dispatch) => {
+//         const deepCopy = (item) => item
+//         const group = deepCopy(board.groups.find(group => group.id === groupId))
+//         const cardIdx = group.cards.findIndex(card => card.id === cardToSave.id)
+//         const groupToStore = deepCopy({...group, cards: [...group.cards.filter(card => cardToSave.id !== card.id)] })
+//         cardToSave.groupId = groupId;
+//         cardToSave.prevIndex = cardIdx;
+//         group.cards.splice(cardIdx, 1, cardToSave)
+//         const boardToSave = {...board }
+//         const boardToStore = {...board }
+//         boardToSave.groups = boardToSave.groups.map(currGroup => currGroup.id === group.id ? group : currGroup)
+//         boardToStore.groups = boardToStore.groups.map(currGroup => currGroup.id === groupToStore.id ? groupToStore : currGroup)
+//         try {
+//             await boardService.save(boardToSave, activity)
+//             dispatch({
+//                 type: 'UPDATE_BOARD',
+//                 board: boardToStore
+//             })
+//         } catch (err) {
+//             console.log('Cannot save board', err)
+//         }
+//     }
 // }
+
 
 export function loadArchivedCards(boardId) {
     return async(dispatch) => {
@@ -174,10 +195,10 @@ export function loadArchivedCards(boardId) {
 
 
 export function onUpdateCard(cardToSave, groupId, board, activity = null) {
-    console.log('cardToSave', cardToSave);
+    // console.log('cardToSave', cardToSave);
     const group = board.groups.find(group => group.id === groupId)
     const cardIdx = group.cards.findIndex(card => card.id === cardToSave.id)
-    console.log('cardIdx: ', -1)
+        // console.log('cardIdx: ', -1)
     group.cards.splice(cardIdx, 1, cardToSave)
     const groupAction = { type: 'UPDATE_GROUP', group }
     return onUpdateBoard(groupAction, board, activity)

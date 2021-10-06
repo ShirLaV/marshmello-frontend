@@ -19,7 +19,7 @@ export function TasksPerMemberChart({ tasksPerMemberMap, labelsColors }) {
     plugins: {
       legend: {
         labels: {
-          color: 'white',
+          color: 'black',
           padding: 10
         }
       },

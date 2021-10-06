@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { loadArchivedCards, onUpdateCard } from '../../store/board.actions.js';
+import { loadArchivedCards, onUpdateCard, onRemoveCard, onUnArchiveCard } from '../../store/board.actions.js';
 import { Loader } from '../shared/loader.jsx';
 import { CardPreviewContent } from '../board/card-preview-content.jsx';
 
@@ -13,25 +13,26 @@ class _Archive extends React.Component {
     this.loadArchivedCards();
   }
   componentDidUpdate(prevProps) {
-    if (prevProps.board !== this.props.board) {
+    if (prevProps.board.archivedCards !== this.props.board.archivedCards) {
       this.loadArchivedCards();
     }
   }
-  loadArchivedCards = async () => {
-    const boardId = this.props.board._id;
-    const archivedCards = await this.props.loadArchivedCards(boardId);
+  loadArchivedCards =  () => {
+    const {board} =this.props
+    const archivedCards = board.archivedCards ? board.archivedCards : [];
     this.setState({ archivedCards });
   };
+  // loadArchivedCards = async () => {
+  //   const boardId = this.props.board._id;
+  //   const archivedCards = await this.props.loadArchivedCards(boardId);
+  //   this.setState({ archivedCards });
+  // };
   onUnarchiveCard = (card) => {
-    delete card.isArchive;
-    this.props.onUpdateCard(card, card.groupId, this.props.board);
-    const archivedCards = [...this.state.archivedCards];
-    const cardIdx = archivedCards.findIndex(
-      (currCard) => card.id === currCard.id
-    );
-    archivedCards.splice(cardIdx, 1);
-    this.setState({ archivedCards });
+    this.props.onUnArchiveCard(card, this.props.board);
   };
+  onDeleteCard=(card)=>{
+    this.props.onRemoveCard(card, this.props.board)
+  }
   render() {
     const { archivedCards } = this.state;
     const {
@@ -41,6 +42,7 @@ class _Archive extends React.Component {
       toggleCardComplete,
       openCardEdit,
     } = this.props;
+    console.log('archivedCards in archive page', archivedCards)
     return (
       <div className='archive'>
         {!archivedCards && <Loader />}
@@ -65,7 +67,7 @@ class _Archive extends React.Component {
                     <button onClick={() => this.onUnarchiveCard(card)}>
                       Send to board
                     </button>
-                    <button>Delete</button>
+                    <button onClick={()=>this.onDeleteCard(card)}>Delete</button>
                   </div>
                 </li>
               );
@@ -84,6 +86,8 @@ function mapStateToProps(state) {
 }
 const mapDispatchToProps = {
   loadArchivedCards,
-  onUpdateCard
+  onUpdateCard,
+  onRemoveCard,
+  onUnArchiveCard
 };
 export const Archive = connect(mapStateToProps, mapDispatchToProps)(_Archive);
