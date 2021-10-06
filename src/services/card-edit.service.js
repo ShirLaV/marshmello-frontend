@@ -144,13 +144,13 @@ const getUploadTime = (timestamp) => {
     }
 }
 
-const handleFileAdd = (url) => {
+const handleFileAdd = (url, title = 'Attachment') => {
     const cardId = store.getState().boardModule.currCardId
     const board = store.getState().boardModule.currBoard
     const groupId = getGroupId(cardId)
     const card = getCardById(cardId, groupId)
     if (!card.attachments) card.attachments = []
-    card.attachments.push({ url, title: 'Attachment', addedAt: Date.now() })
+    card.attachments.push({ url, title, addedAt: Date.now() })
     return [card, groupId, board]
 }
 

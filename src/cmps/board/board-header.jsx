@@ -19,11 +19,9 @@ class _BoardHeader extends React.Component {
 
     state = {
         isInviteOpen: false,
-        rect: null,
-        element: null,
         boardTitle: this.props.board.title,
         isMenuOpen: false,
-        numOfShownMembers: 7,
+        numOfShownMembers: 5,
         isExtraMembersOpen: false,
         isTotalMembersOpen: false
     }
@@ -48,15 +46,9 @@ class _BoardHeader extends React.Component {
         if (window.innerWidth < 800) {
             if (numOfShownMembers === 3) return
             this.setState({ numOfShownMembers: 3 })
-
-        } else if (window.innerWidth > 800 && window.innerWidth < 1300) {
-            if (numOfShownMembers === 7) return
-            this.setState({ numOfShownMembers: 7 })
-
         } else {
-            if (numOfShownMembers === 10) return
-            this.setState({ numOfShownMembers: 10 })
-
+            if (numOfShownMembers === 5) return
+            this.setState({ numOfShownMembers: 5 })
         }
     }
 

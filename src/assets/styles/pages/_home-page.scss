@@ -43,6 +43,14 @@
       display: flex;
       gap: 10px;
 
+      button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: rem(16px);
+        font-weight: 600;
+      }
+
       .login-btn {
         background-color: transparent;
         color: #0065ff;
