@@ -16,6 +16,9 @@ export const activityTxtMap = {
     inviteMember: (memberName) => {
         return `Invited ${memberName} to this board`
     },
+    removeMember: (memberName) => {
+        return `Removed ${memberName} from this board`
+    },
     changeBackground: () => {
         return `Changed the background of this board`
     },

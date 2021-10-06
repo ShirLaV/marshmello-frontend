@@ -202,11 +202,50 @@ const handleRemoveCard = (cardId) => {
 const onAddComment = (txt) => {
     const cardId = store.getState().boardModule.currCardId
     const board = store.getState().boardModule.currBoard
+    const user = store.getState().userModule.user
     const groupId = getGroupId(cardId)
     const card = getCardById(cardId, groupId)
     if (!card.comments) card.comments = []
-    card.comments.push({ id:utilService.makeId(), txt, addedAt: Date.now() })
+    card.comments.unshift({ id: utilService.makeId(), author: user, txt, addedAt: Date.now() })
     return [card, groupId, board]
+}
+
+const handleCommentRemove = (commentId) => {
+    const cardId = store.getState().boardModule.currCardId
+    const board = store.getState().boardModule.currBoard
+    const groupId = getGroupId(cardId)
+    const card = getCardById(cardId, groupId)
+    const idx = card.comments.findIndex(comment => comment.id === commentId)
+    card.comments.splice(idx, 1)
+    return [card, groupId, board]
+}
+
+const getCommentTime = (timestamp) => {
+    const timePassed = Date.now() - timestamp
+    if (timePassed < (1000 * 60)) return 'a few seconds ago'
+    else if (timePassed < (1000 * 60 * 2)) return '1 minute ago'
+    else if (timePassed < 1000 * 60 * 60) {
+        const minutes = Math.floor(timePassed / 1000 / 60)
+        return `${minutes} minutes ago`
+    }
+    else if (timePassed < 1000 * 60 * 60 * 13) {
+        const hours = Math.floor(timePassed / 1000 / 60 / 60)
+        return `${hours} hours ago`
+    } else {
+        const date = new Date(timestamp)
+        const minutes = (date.getMinutes() < 10) ? `0${date.getMinutes()}` : date.getMinutes()
+        if (timePassed < 1000 * 60 * 60 * 24) {
+            return `today at ${date.getHours()}:${minutes} `
+        } else if (timePassed < 1000 * 60 * 60 * 48) {
+            return `yesterday at ${date.getHours()}:${minutes}`
+        } else {
+            const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+            const idx = date.getMonth()
+            const month = monthNames[idx]
+            const day = date.getDate()
+            return `${month} ${day} at ${date.getHours()}:${minutes}`
+        }
+    }
 }
 
 
@@ -226,5 +265,7 @@ export const cardEditService = {
     handleCopyCard,
     handleToggleArchive,
     handleRemoveCard,
-    onAddComment
+    onAddComment,
+    handleCommentRemove,
+    getCommentTime
 }

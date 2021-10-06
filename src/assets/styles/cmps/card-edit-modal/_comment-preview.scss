@@ -1,0 +1,48 @@
+.comments-container {
+    gap: 12px;
+    .comment-preview {
+        gap: 8px;
+        width: 100%;
+
+        .comment-info {
+            width: 100%;
+            gap: 4px;
+
+            .comment-data {
+                gap: 8px;
+                align-items: center;
+
+                .author-name {
+                    font-weight: 700;
+                }
+
+                .comment-time {
+                    color: #5e6c84;
+                    font-size: rem(12px);
+                }
+            }
+
+            .comment-txt {
+                height: 20px;
+                box-shadow: 0 0px 5px 1px #dfe1e6;
+                background-color: #fff;
+                border-radius: 3px;
+                min-height: 20px;
+                line-height: 20px;
+                color: #172b4d;
+                font-size: 14px;
+                font-weight: 400;
+                height: 36px;
+                padding: 8px 12px;
+                width: 100%;
+            }
+
+            .remove-btn {
+                text-decoration: underline;
+                color: #5e6c84;
+                cursor: pointer;
+                font-size: rem(12px);
+            }
+        }
+    }
+}

@@ -24,11 +24,16 @@ class _InviteMembers extends React.Component {
         // members.push({_id: user._id, fullname: user.fullname, imgUrl: user.imgUrl})
         const memberIds = this.getMembersIds()
         const memberToAdd = { _id: user._id, fullname: user.fullname, imgUrl: user.imgUrl }
-        if (memberIds.includes(memberToAdd._id)) return
+        if (memberIds.includes(memberToAdd._id)) {
+            const activity = { txt: activityTxtMap.removeMember(user.fullname) }
+            onUpdateBoard({ type: 'REMOVE_BOARD_MEMBER', memberId: user._id }, board, activity)
+            return
+        }
         const activity = { txt: activityTxtMap.inviteMember(user.fullname) }
         onUpdateBoard({ type: 'ADD_BOARD_MEMBER', member: memberToAdd }, board, activity)
         console.log(board.members)
     }
+
 
     handleChange = (ev) => {
         const field = ev.target.name;

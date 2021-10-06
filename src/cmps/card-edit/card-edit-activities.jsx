@@ -5,6 +5,7 @@ import { onUpdateCard } from '../../store/board.actions'
 import { MemberAvatar } from '../shared/member-avatar'
 import { connect } from 'react-redux'
 import { Loader } from '../shared/loader'
+import { CommentPreview } from './comment-preview'
 
 
 class _CardEditActivities extends Component {
@@ -30,8 +31,9 @@ class _CardEditActivities extends Component {
 
 
     handleChange = ({ target: { value } }) => {
+        this.setState({ commentTxt: value })
         if (value) this.setState({ isTxt: true })
-        else this.setState({ isTxt: false, commentTxt: value })
+        else this.setState({ isTxt: false })
     }
 
     handleClick = e => {
@@ -42,14 +44,18 @@ class _CardEditActivities extends Component {
         }
     }
 
-    handleSubmit = () => {
-        if (!this.state.isTxt) return
-        const res = cardEditService.onAddComment(this.state.commentTxt)
+    handleSubmit = (ev) => {
+        ev.stopPropagation()
+        const { isTxt, commentTxt } = this.state
+        const { onUpdateCard } = this.props
+        if (!isTxt) return
+        const res = cardEditService.onAddComment(commentTxt)
         onUpdateCard(...res)
+        this.setState({ isFocus: false, commentTxt: '' })
     }
 
     render() {
-        const { currCard, isFocus, isTxt } = this.state
+        const { currCard, isFocus, isTxt, commentTxt } = this.state
         const { member } = this.props
         if (!currCard) return <Loader />
         return (
@@ -65,14 +71,14 @@ class _CardEditActivities extends Component {
                 <div className="add-comment-container flex">
                     <MemberAvatar member={member} />
                     <div className="new-comment" ref={this.commentRef} style={{ width: '100%', height: isFocus ? 84 : 36, backgroundColor: '#fff' }} onClick={() => this.setState({ isFocus: true })}>
-                        <textarea placeholder="Write a comment..." style={{ width: '100%', height: isFocus ? '50%' : '100%' }} onChange={this.handleChange} />
+                        <textarea placeholder="Write a comment..." style={{ width: '100%', height: isFocus ? '50%' : '100%' }} onChange={this.handleChange} value={commentTxt} />
                         {isFocus && <button className={`save-comment-btn card-edit-btn ${isTxt ? 'active' : ''}`} onClick={this.handleSubmit}>Save</button>}
                     </div>
                 </div>
 
-                {/* {currCard.comments?.length > 0 && <div className="comments-container flex column">
+                {currCard.comments?.length > 0 && <div className="comments-container flex column">
                     {currCard.comments.map(comment => <CommentPreview key={comment.id} comment={comment} />)}
-                </div>} */}
+                </div>}
 
 
             </div>

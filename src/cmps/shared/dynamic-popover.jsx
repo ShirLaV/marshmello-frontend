@@ -33,46 +33,41 @@ export const DynamicPopover = React.forwardRef(({ onClose, title, children, isLa
     useEffect(() => {
         const handleClick = e => {
             const containerElement = targetRef.current
-            if (containerElement?.contains(e.target) || parentRef?.current?.contains(e.target)) {
-                // inside click
-                return
-            }
-            // outside click 
+            if (containerElement?.contains(e.target) || parentRef?.current?.contains(e.target)) return
             onClose()
         }
 
-        window.addEventListener("mouseup", handleClick);
+        window.addEventListener("mouseup", handleClick)
         return () => {
-            window.removeEventListener("mouseup", handleClick);
+            window.removeEventListener("mouseup", handleClick)
         }
     }, [onClose, parentRef])
 
 
     const getLocation = () => {
-        if (window.innerWidth < 600) return { position: 'fixed', left: '50%', top: '20%', transform: 'translate(-50%)' }
-        const rect = parentRef?.current?.getBoundingClientRect()
+        const rect = parentRef.current?.getBoundingClientRect()
         if (!rect) return
 
         const bottomCheck = window.innerHeight - (rect.bottom + dimensions.height) < 20
-        const topCheck = window.innerHeight - (rect.bottom + dimensions.height) < 20
+        const topCheck = rect.top - dimensions.height < 20
         const rightCheck = window.innerWidth - (rect.left + dimensions.width) < 100
-        const verticalCheck = bottomCheck && topCheck
 
         if (bottomCheck) {
             let bottom
-            if (verticalCheck) bottom = '-400%'
-            else if (topCheck) bottom = '-100%'
+            let top
+            if (topCheck) top = '-300%'
             else bottom = rect.height + 8
-            if (rightCheck) return { bottom, right: 0 }
-            else return { bottom, left: 0 }
+            if (rightCheck) return { bottom, top, right: 0 }
+            else return { bottom, top,  left: 0 }
         }
         if (rightCheck) return { top: rect.height + 8, right: 0 }
 
         return { left: 0, top: rect.height + 8 }
     }
-
+    
     return (
         <div ref={ref => targetRef.current = ref} className="dynamic-popover" style={{ position: 'absolute', ...getLocation() }}>
+            
             {title
                 ?
                 <div className="popover-header">
@@ -84,6 +79,7 @@ export const DynamicPopover = React.forwardRef(({ onClose, title, children, isLa
                 <div className="relative" style={{ height: 16 }}>
                     <span className="close-popover-icon" onClick={onClose}><IoMdClose /></span>
                 </div>}
+
             <div className="popover-content">
                 {children}
             </div>

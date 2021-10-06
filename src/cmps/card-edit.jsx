@@ -98,7 +98,6 @@ class _CardEdit extends Component {
   }
 
   render() {
-    console.log(this.props.user);
     const { currCard, currGroup } = this.state
     const { board } = this.props
     if (!currCard) return <Loader />

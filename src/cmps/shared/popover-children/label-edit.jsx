@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { AiOutlineCheck } from 'react-icons/ai'
 import { connect } from 'react-redux'
 import { cardEditService } from '../../../services/card-edit.service'
@@ -9,12 +9,19 @@ function _LabelEdit({ color, board, onUpdateBoard, onClose, handleEdit, onUpdate
     const [selectedColor, setSelectedColor] = useState(null)
     const [title, setTitle] = useState('')
 
+    const inputRef = useRef()
+
     useEffect(() => {
         setSelectedColor(color)
+        const label = board.labels.find(label => label.color === color)
+        setTitle(label?.title || '')
+        inputRef.current?.select()
     }, [])
 
     const handleClick = (ev) => {
         setSelectedColor(ev.target.dataset.color)
+        const label = board.labels.find(label => label.color === ev.target.dataset.color)
+        setTitle(label?.title || '')
     }
 
     const handleChange = ({ target: { value } }) => {
@@ -23,21 +30,25 @@ function _LabelEdit({ color, board, onUpdateBoard, onClose, handleEdit, onUpdate
 
     const handleSumbit = () => {
         const boardToSave = { ...board }
-        const label = boardToSave.labels.find(label => label.color === selectedColor)
+        let label = boardToSave.labels.find(label => label.color === selectedColor)
         if (label) label.title = title
         else {
-            boardToSave.labels.push({ id: utilService.makeId(), color: selectedColor, title })
+            label = { id: utilService.makeId(), color: selectedColor, title }
+            boardToSave.labels.push(label)
         }
         onUpdateBoard({ type: '' }, boardToSave)
         handleEdit()
         onClose()
+
+        const res = cardEditService.handleLabelChange(label.id)
+        onUpdateCard(...res)
     }
 
     return (
         <div className="label-edit">
             <div>
                 <label>Name</label>
-                <input className="search-input" onChange={handleChange} />
+                <input ref={inputRef} className="search-input" onChange={handleChange} value={title} />
             </div>
 
             <div>

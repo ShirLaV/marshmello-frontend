@@ -28,9 +28,9 @@ function _AttachmentPreview({ attachment, currCardId, board, onUpdateCard }) {
 
     return (
         <div className="attachment-preview flex">
-            <div className="image-container">
+            <a href={attachment.url} target="_blank"><div className="image-container">
                 <img src={attachment.url} alt={attachment.title} />
-            </div>
+            </div></a>
 
             <div className="right-section flex column">
                 <span className="attachment-title">{attachment.title}</span>
