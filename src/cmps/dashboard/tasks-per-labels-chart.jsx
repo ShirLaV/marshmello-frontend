@@ -11,7 +11,7 @@ export function TasksPerLabelChart({ tasksPerLabelMap, labelsColors }) {
         backgroundColor: labelsColors,
         borderWidth: 2,
         hoverOffset: 2,
-        fontColor: 'white'
+        fontColor: 'black'
       },
     ],
   };
@@ -22,19 +22,22 @@ export function TasksPerLabelChart({ tasksPerLabelMap, labelsColors }) {
       legend: {
         display: false,
         labels: {
-          fontColor: '#f00'
+          fontColor: 'black'
+          // fontColor: '#f00'
         }
       },
     },
     scales: {
       y: {
         ticks: {
-          color: 'white'
+          color: 'black'
+          // color: 'white'
         }
       },
       x: {
         ticks: {
-          color: 'white'
+          color: 'black'
+          // color: 'white'
         }
       }
     }

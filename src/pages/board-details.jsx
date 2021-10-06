@@ -164,7 +164,7 @@ class _BoardDetails extends Component {
       quickCardEditor,
     } = this.state;
     if (!board) return <Loader />;
-    // console.log('groups', board.groups)
+    if(board.archivedCards) console.log('board', board)
     return (
       <div className='board-details flex column'>
         <Route path='/board/:boardId/dashboard' component={Dashboard} />
