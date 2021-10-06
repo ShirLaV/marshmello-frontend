@@ -45,11 +45,11 @@ export function TasksPerDateChart({tasks}) {
       },
       verticalSeparator: {
         style: {
-          backgroundColor: "#fbf9f9"
+          backgroundColor: "#fbf9f9",
         },
         grip: {
           style: {
-            backgroundColor: "#b686c2"
+            backgroundColor: "#b686c2",
           }
         }
       }
@@ -62,12 +62,12 @@ export function TasksPerDateChart({tasks}) {
         }
       },
       task: {
-        showLabel: true,
+        showLabel: false,
         style: {
           backgroundColor: "#b686c2",
           borderRadius: 1,
           boxShadow: "2px 2px 8px #888888"
-        }
+                }
       }
     }
   };
@@ -77,27 +77,4 @@ export function TasksPerDateChart({tasks}) {
     </div>
   )
 }
-
-
-
-
-// import { GanttComponent, TaskFieldsModel } from '@syncfusion/ej2-react-gantt';
-
-// export function TasksPerDateChart({ tasks }) {
-//   const taskValues: TaskFieldsModel = {
-//     id: 'id',
-//     name: 'title',
-//     startDate: 'startDate',
-//     endDate: 'endDate',
-//   };
-//   return (
-//     <div style={{marginTop: '40px'}}>
-//       <GanttComponent
-//         dataSource={tasks}
-//         taskFields={taskValues}
-//         timelineSettings={{timelineViewMode:'day'}}
-//       ></GanttComponent>
-//     </div>
-//   );
-// }
 
