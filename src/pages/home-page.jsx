@@ -34,7 +34,7 @@ class _HomePage extends React.Component {
     }
 
     onGuestLogin = () => {
-        this.props.onLogin({username: 'rick@sanchez.com', password: 'rick123'})
+        this.props.onLogin({username: 'guest1', password: 'guest123'})
         this.props.history.push('/board')
     }
 

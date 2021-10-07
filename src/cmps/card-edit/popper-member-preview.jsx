@@ -7,6 +7,7 @@ import { cardEditService } from '../../services/card-edit.service';
 import { activityTxtMap } from '../../services/activity.service';
 import { socketService } from '../../services/socket.service';
 import { userService } from '../../services/user.service';
+import { utilService } from '../../services/util.service';
 
 function _PopperMemberPreview({
   member,
@@ -38,7 +39,8 @@ function _PopperMemberPreview({
     const board = res[2];
     const card = res[0];
     const mention = {
-      user: {id: user._id, fullname: user.fullname},
+      id: utilService.makeId(),
+      user,
       action: isChecked ? 'Removed' : 'Added',
       board: {boardId: board._id, title: board.title},
       card: {cardId: card.id, title: card.title},

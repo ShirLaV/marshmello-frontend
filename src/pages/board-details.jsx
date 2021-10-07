@@ -47,6 +47,15 @@ class _BoardDetails extends Component {
       this.props.outputUpdateBoard(action, boardToSend, activity);
     });
   }
+
+  async componentDidUpdate(prevProps) {
+    const { boardId } = this.props.match.params;
+    const filterBy = this.props.location.search;
+    if (prevProps.match.params.boardId !== boardId) {
+      await this.loadBoard(boardId, filterBy)
+    }
+  }
+
   componentWillUnmount() {
     this.props.resetBoard();
   }
@@ -81,20 +90,20 @@ class _BoardDetails extends Component {
   };
   toggleCardComplete = (ev, groupId, card) => {
     ev.stopPropagation();
-    if(card.isArchive) return;
+    if (card.isArchive) return;
     const cardToUpdate = { ...card };
     cardToUpdate.isComplete = !card.isComplete;
     const activity = cardToUpdate.isComplete
       ? {
-          txt: activityTxtMap.completeCard(),
-          card: cardToUpdate,
-          groupId: groupId,
-        }
+        txt: activityTxtMap.completeCard(),
+        card: cardToUpdate,
+        groupId: groupId,
+      }
       : {
-          txt: activityTxtMap.unCompleteCard(),
-          card: cardToUpdate,
-          groupId: groupId,
-        };
+        txt: activityTxtMap.unCompleteCard(),
+        card: cardToUpdate,
+        groupId: groupId,
+      };
     this.props.onUpdateCard(cardToUpdate, groupId, this.props.board, activity);
   };
   getLabel = (labelId) => {
@@ -164,13 +173,13 @@ class _BoardDetails extends Component {
       quickCardEditor,
     } = this.state;
     if (!board) return <Loader />;
-    if(board.archivedCards) console.log('board', board)
+    if (board.archivedCards) console.log('board', board)
     return (
       <div className='board-details flex column'>
         <Route path='/board/:boardId/dashboard' component={Dashboard} />
         <Route path='/board/:boardId/:groupId/:cardId' component={CardEdit} />
 
-        <BoardHeader onToggleDashboard={this.onToggleDashboard} toggleCardLabelList={this.toggleCardLabelList} toggleCardComplete={this.toggleCardComplete} isCardLabelListOpen={isCardLabelListOpen} getLabel={this.getLabel} openCardEdit={this.openCardEdit}/>
+        <BoardHeader onToggleDashboard={this.onToggleDashboard} toggleCardLabelList={this.toggleCardLabelList} toggleCardComplete={this.toggleCardComplete} isCardLabelListOpen={isCardLabelListOpen} getLabel={this.getLabel} openCardEdit={this.openCardEdit} />
 
         <DragDropContext onDragEnd={this.handleOnDragEnd}>
           <section className='group-list-container flex'>

@@ -13,9 +13,16 @@
         background-repeat: no-repeat;
         background-size: cover;
         user-select: none;
+        justify-content: end;
         .image-wrapper {
             height: fit-content;
             width: 100%;
+            .card-header-title {
+                min-height: 260px;
+                p {
+                    background: linear-gradient( 180deg, #ffffff00, rgba(255, 255, 255, 0.678), #fff);
+                }
+            }
         }
         .header-color {
             border-top-left-radius: 3px;
@@ -25,6 +32,22 @@
         img {
             border-top-left-radius: 3px;
             border-top-right-radius: 3px;
+        }
+        .card-header-title {
+            background-size: cover;
+            justify-content: end;
+            border-radius: 3px;
+            p {
+                overflow: visible;
+                font-size: 16px;
+                font-weight: 500;
+                line-height: 20px;
+                margin-bottom: 0;
+                padding-bottom: 8px;
+                padding: 6px 8px 6px;
+                border-bottom-left-radius: 3px;
+                border-bottom-right-radius: 3px;
+            }
         }
     }
     .card-details {
