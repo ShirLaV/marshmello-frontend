@@ -54,7 +54,7 @@ class _HomePage extends React.Component {
                         <h1>Marshmello helps teams move work forward.</h1>
                         <p>Collaborate, manage projects, and reach new productivity peaks.
                             From high rises to the home office, the way your team works is unique—accomplish it all with Marshmello.</p>
-                        <button className="cta-btn nav-button" onClick={() => this.onGuestLogin()}>Get Started!</button>
+                        <button className="cta-btn nav-button" onClick={() => this.onGuestLogin()}>Try Demo Version</button>
                     </div>
                     <div className="first-fold-img">
                         <img src={heroImg} alt="hero" />

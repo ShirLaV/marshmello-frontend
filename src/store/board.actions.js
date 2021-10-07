@@ -72,7 +72,6 @@ export function onUpdateBoard(action, board, activity = null) {
             type: 'UPDATE_BOARD',
             board: boardToSave
         })
-
         try {
             if (!action.type) action.board = board
             socketService.emit('board-update', { action, activity })
