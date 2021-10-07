@@ -1,29 +1,65 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { activityTxtMap } from '../../services/activity.service';
+import { unsplashService } from '../../services/unsplash.service';
 
 import { onUpdateBoard } from '../../store/board.actions'
 
 class _ChangeBG extends React.Component {
+    state = {
+        keyword: '',
+        pics: []
+    }
+
+    async componentDidMount() {
+        await this.getPics()
+    }
+
+    getPics = async () => {
+        try {
+            const pics = await unsplashService.getPreviewImgs('nature')
+            this.setState({ pics })
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    onSearch = async () => {
+        try {
+            const pics = await unsplashService.search(this.state.keyword)
+            this.setState({ pics })
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     setBoardBG = (backGround) => {
         const { board, onUpdateBoard } = this.props
         const style = (backGround[0] === '#') ? { bgColor: backGround } : { imgUrl: backGround }
         // const style = (backGround[0] === '#') ? { bgColor: backGround } : { imgUrl: backGround }
-      const activity = {txt: activityTxtMap.changeBackground()}
+        const activity = { txt: activityTxtMap.changeBackground() }
         onUpdateBoard({ type: "CHANGE_BOARD_STYLE", style }, board, activity)
     }
 
+    handleChange = ({ target }) => {
+        const { value } = target
+        this.setState({ keyword: value }, () => {
+            if (value.length >= 3) this.onSearch()
+            else if (value.length === 0) this.getPics()
+        })
+    }
+
     render() {
-        const images = ['https://images.pexels.com/photos/1914982/pexels-photo-1914982.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260', 'https://images.pexels.com/photos/844297/pexels-photo-844297.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', 'https://images.pexels.com/photos/3293148/pexels-photo-3293148.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', 'https://images.pexels.com/photos/911738/pexels-photo-911738.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', 'https://images.pexels.com/photos/3274903/pexels-photo-3274903.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', 'https://images.pexels.com/photos/3683056/pexels-photo-3683056.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', 'https://images.pexels.com/photos/2170473/pexels-photo-2170473.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', 'https://images.pexels.com/photos/2529973/pexels-photo-2529973.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', 'https://images.pexels.com/photos/1982485/pexels-photo-1982485.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940', 'https://images.pexels.com/photos/1408221/pexels-photo-1408221.jpeg?cs=srgb&dl=pexels-irina-iriser-1408221.jpg&fm=jpg']
         const colors = ['#82E0AA', '#F1948A', '#AAB7B8 ', '#C39BD3', '#85C1E9', '#F8C471']
 
+        const { keyword, pics } = this.state
         return (
             <div className="change-bg">
+                <input type="text" className="search-input" value={keyword} onChange={this.handleChange} placeholder="Search images" />
                 <div className="images">
-                    {images.map((image, idx) =>
-                        <div key={idx} className="img-container" onClick={() => this.setBoardBG(image)}>
-                            <img src={image} alt={image} />
+                    {pics.map(pic =>
+                        <div key={pic.id} className="img-container" onClick={() => this.setBoardBG(pic.full)}>
+                            <img src={pic.small} alt={pic.id} />
                         </div>
                     )}
                 </div>
