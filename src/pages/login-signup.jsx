@@ -37,7 +37,7 @@ class _LoginSignup extends React.Component {
             errors.username = 'Please use at least 6 characters'
         }
         if (values.password.length < 4) {
-            errors.password = 'Password too short'
+            errors.password = 'Password is too short'
         }
         if (!values.fullname) {
             errors.fullname = 'Required'
