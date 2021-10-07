@@ -1,18 +1,17 @@
-
 import { CardHeader } from '../card-preview/card-header.jsx';
 import { CardLabelBarList } from '../card-preview/card-label-bar-list.jsx';
 import { CardFooter } from '../card-preview/card-footer.jsx';
 import { HiOutlinePencil } from 'react-icons/hi';
 
 export function CardPreviewContent({
-    card,
-    groupId,
-    onToggleQuickCardEditor,
-    openCardEdit,
-    toggleCardComplete,
-    getLabel,
-    toggleCardLabelList,
-    isCardLabelListOpen
+  card,
+  groupId,
+  onToggleQuickCardEditor,
+  openCardEdit,
+  toggleCardComplete,
+  getLabel,
+  toggleCardLabelList,
+  isCardLabelListOpen,
 }) {
   return (
     <div
@@ -28,27 +27,29 @@ export function CardPreviewContent({
         </button>
       )}
 
-      {card.style && <CardHeader cardStyle={card.style} />}
+      {card.style && <CardHeader cardStyle={card.style} title={card.title} />}
 
-      <div className='card-details'>
-        {card.labelIds && (
-          <div onClick={toggleCardLabelList}>
-            <CardLabelBarList
-              labelIds={card.labelIds}
-              getLabel={getLabel}
-              isCardLabelListOpen={isCardLabelListOpen}
-            />
-          </div>
-        )}
+      {(!card.style || !card.style.isFull) && (
+        <div className='card-details'>
+          {card.labelIds && (
+            <div onClick={toggleCardLabelList}>
+              <CardLabelBarList
+                labelIds={card.labelIds}
+                getLabel={getLabel}
+                isCardLabelListOpen={isCardLabelListOpen}
+              />
+            </div>
+          )}
 
-        <p>{card.title}</p>
+          <p>{card.title}</p>
 
-        <CardFooter
-          card={card}
-          groupId={groupId}
-          toggleCardComplete={toggleCardComplete}
-        />
-      </div>
+          <CardFooter
+            card={card}
+            groupId={groupId}
+            toggleCardComplete={toggleCardComplete}
+          />
+        </div>
+      )}
     </div>
   );
 }

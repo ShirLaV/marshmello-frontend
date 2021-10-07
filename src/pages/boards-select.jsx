@@ -17,7 +17,7 @@ class _BoardSelect extends React.Component {
 
     async componentDidMount() {
         const user = userService.getMiniUser()
-        console.log(user)
+        // console.log(user)
         await this.props.loadBoards(user)
     }
 

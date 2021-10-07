@@ -10,7 +10,7 @@ export function loadUsers() {
             dispatch({ type: 'SET_USERS', users })
         } catch (err) {
             console.log('UserActions: err in loadUsers', err)
-        } 
+        }
         // finally {
         //     dispatch({ type: 'LOADING_DONE' })
         // }
@@ -103,3 +103,26 @@ export function loadAndWatchUser(userId) {
     }
 }
 
+export function onReceiveMention(mention) {
+    return async (dispatch) => {
+        userService.addMentionToStorage(mention)
+        dispatch({
+            type: 'ADD_MENTION',
+            mention
+        })
+    }
+}
+
+export function onUpdateUser(user) {
+    return async (dispatch) => {
+        try {
+            const updatedUser = await userService.update(user)
+            dispatch({
+                type: 'SET_USER',
+                user: updatedUser
+            })
+        } catch (err) {
+            console.log('cannot update user', err)
+        }
+    }
+}

@@ -13,10 +13,12 @@ export const userService = {
     getMiniUser,
     getUsers,
     getById,
-    remove,
+    // remove,
     update,
     getGueastUser,
-    googleLogin
+    googleLogin,
+    addUserMention,
+    addMentionToStorage
 }
 
 window.userService = userService
@@ -30,23 +32,23 @@ async function getUsers() {
 }
 
 async function getById(userId) {
-    const user = await storageService.get('user', userId)
-        // const user = await httpService.get(`user/${userId}`)
+    // const user = await storageService.get('user', userId)
+    const user = await httpService.get(`user/${userId}`)
     gWatchedUser = user;
     return user;
 }
 
-function remove(userId) {
-    return storageService.remove('user', userId)
-        // return httpService.delete(`user/${userId}`)
-}
+// function remove(userId) {
+//     return storageService.remove('user', userId)
+//         // return httpService.delete(`user/${userId}`)
+// }
 
 async function update(user) {
-    await storageService.put('user', user)
-        // user = await httpService.put(`user/${user._id}`, user)
-        // Handle case in which admin updates other user's details
-    if (getLoggedinUser()._id === user._id) _saveLocalUser(user)
-    return user;
+    // await storageService.put('user', user)
+    const updatedUser = await httpService.put(`user/${user._id}`, user)
+    // Handle case in which admin updates other user's details
+    if (getLoggedinUser()._id === user._id) _saveLocalUser(updatedUser)
+    return updatedUser;
 }
 
 async function login(userCred) {
@@ -56,7 +58,7 @@ async function login(userCred) {
     // return _saveLocalUser(user)
 
     const user = await httpService.post('auth/login', userCred)
-        // socketService.emit('set-user-socket', user._id);
+    // socketService.emit('set-user-socket', user._id);
     if (user) return _saveLocalUser(user)
 }
 
@@ -73,15 +75,21 @@ async function signup(userCred) {
     userCred.imgUrl = ''
     userCred.mentions = []
     userCred.boards = []
-        // const user = await storageService.post('user', userCred)
+    // const user = await storageService.post('user', userCred)
     const user = await httpService.post('auth/signup', userCred)
-        // socketService.emit('set-user-socket', user._id);
+    // socketService.emit('set-user-socket', user._id);
     return _saveLocalUser(user)
 }
 async function logout() {
     sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_USER)
-        // socketService.emit('unset-user-socket');
-        // return await httpService.post('auth/logout')
+    // socketService.emit('unset-user-socket');
+    // return await httpService.post('auth/logout')
+}
+
+async function addMentionToStorage(mention) {
+    const user = userService.getLoggedinUser()
+    user.mentions.unshift(mention)
+    _saveLocalUser(user)
 }
 
 
@@ -102,6 +110,10 @@ function getMiniUser() {
 
 function getGueastUser() {
     return { _id: utilService.makeId(), fullname: 'Guest' }
+}
+
+function addUserMention(userId, mention) {
+    httpService.put(`user/${userId}/mention`, mention)
 }
 
 
@@ -135,7 +147,7 @@ function getGueastUser() {
 // })();
 
 // This is relevant when backend is connected
-// (async () => {
-//     var user = getLoggedinUser()
-//     if (user) socketService.emit('set-user-socket', user._id)
-// })();
+(async () => {
+    var user = getLoggedinUser()
+    if (user) socketService.emit('set-user-socket', user._id)
+})();

@@ -63,11 +63,15 @@
         .card-preview-footer {
             flex-wrap: wrap;
             gap: 8px;
+            color: #6b778c;
+            // margin-top: 4px;
+            margin: 2px 0px;
             .due-date-box {
                 gap: 5px;
                 padding: 0 5px;
                 border-radius: 5px;
                 color: white;
+                height: 25px;
                 .check-icon {
                     display: none;
                 }
