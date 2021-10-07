@@ -6,13 +6,17 @@ export function CardHeader({ cardStyle, title }) {
           className='header-color'
           style={{ backgroundColor: cardStyle.bgColor }}
         >
-          {cardStyle.isFull && <p>{title}</p>}
+          {cardStyle.isFull && <div className='card-header-title'> <p>{title}</p></div>}
         </div>
       )}
       {cardStyle.imgUrl && (
-        <div className='image-wrapper'>
-          <img src={cardStyle.imgUrl} />
-          {cardStyle.isFull && <p>{title}</p>}
+        <div
+          className='image-wrapper'
+        >
+          {!cardStyle.isFull && <img src={cardStyle.imgUrl} />}
+          {cardStyle.isFull && <div className='card-header-title flex column'
+          style={{ backgroundImage: `url("${cardStyle.imgUrl}")` }}
+          ><p>{title}</p></div>}
         </div>
       )}
     </div>
