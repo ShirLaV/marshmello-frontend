@@ -110,7 +110,6 @@ class _BoardHeader extends React.Component {
                         )}
                         {extraMembersLength > 0 && (
                             <div
-
                                 ref={this.membersRef}
                             >
                                 <div className="list-item-layover round" style={{ transform: `translateX(${(members.length) * -5}px)` }} onClick={() => this.setState({ isExtraMembersOpen: !isExtraMembersOpen })}></div>

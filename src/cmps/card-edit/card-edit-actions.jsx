@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { BsArrowRight } from 'react-icons/bs'
 import { MdContentCopy } from 'react-icons/md'
-import { AiOutlineEye } from 'react-icons/ai'
 import { GoArchive } from 'react-icons/go'
 import { BsArrowCounterclockwise } from 'react-icons/bs'
 import { AiOutlineMinus } from 'react-icons/ai'
@@ -11,30 +10,35 @@ import { CardEditActionsItem } from './card-edit-actions-item'
 import { EditSidebarLabel } from './edit-sidebar-label'
 import { connect } from 'react-redux'
 import { cardEditService } from '../../services/card-edit.service'
-import { onUpdateBoard, onUpdateCard } from '../../store/board.actions'
+import { onArchiveCard, onUnArchiveCard, onRemoveCard } from '../../store/board.actions'
 
 
-const _CardEditActions = ({ currCardId, board, onUpdateCard, goBack, onUpdateBoard }) => {
+const _CardEditActions = ({ currCardId, board, onArchiveCard, onUnArchiveCard, onRemoveCard }) => {
     const [isArchive, setIsArchive] = useState(false)
+    const [groupId, setGroupId] = useState(null)
+    const [currCard, setCurrCard] = useState(null)
 
     useEffect(() => {
         const groupId = cardEditService.getGroupId(currCardId)
         const card = cardEditService.getCardById(currCardId, groupId)
         setIsArchive(card.isArchive || false)
-
+        setGroupId(groupId)
+        setCurrCard(card)
     }, [])
 
-    const toggleArchive = () => {
-        setIsArchive(!isArchive)
-        const res = cardEditService.handleToggleArchive(currCardId)
-        onUpdateCard(...res)
+    const handleArchiveCard = () => {
+        onArchiveCard(currCard, groupId, board)
+        setIsArchive(true)
     }
 
-    // const removeCard = () => {
-    //     const boardToSave = cardEditService.handleRemoveCard(currCardId)
-    //     onUpdateBoard({ type: '' }, boardToSave)
-    //     goBack()
-    // }
+    const handleUnArchiveCard = () => {
+        onUnArchiveCard(currCard, board)
+        setIsArchive(false)
+    }
+
+    const handleRemoveCard = () => {
+        onRemoveCard(currCard, board)
+    }
 
     return (
         <div style={{ position: 'relative' }}>
@@ -44,24 +48,25 @@ const _CardEditActions = ({ currCardId, board, onUpdateCard, goBack, onUpdateBoa
                     {actions.map((item, idx) => (
                         <CardEditActionsItem key={item.title + idx} item={item} />
                     ))}
-                    {!isArchive && <div className="label-wrapper" onClick={toggleArchive}>
-                        <EditSidebarLabel Icon={GoArchive} title='Archive' />
-                    </div>}
-                    {isArchive && <>
-                        <div className="label-wrapper" onClick={toggleArchive}>
-                            <EditSidebarLabel Icon={BsArrowCounterclockwise} title='Send to board' />
+                    {!isArchive ?
+                        <div className="label-wrapper" onClick={handleArchiveCard}>
+                            <EditSidebarLabel Icon={GoArchive} title='Archive' />
                         </div>
-                        <div className="label-wrapper">
-                            <EditSidebarLabel Icon={AiOutlineMinus} title='Delete' />
-                        </div>
-                    </>}
+                        : <>
+                            <div className="label-wrapper" onClick={handleUnArchiveCard}>
+                                <EditSidebarLabel Icon={BsArrowCounterclockwise} title='Send to board' />
+                            </div>
+                            <div className="label-wrapper" onClick={handleRemoveCard}>
+                                <EditSidebarLabel Icon={AiOutlineMinus} title='Delete' />
+                            </div>
+                        </>}
                 </div>
             </div>
         </div>
     )
 }
 
-const actions = [{ icon: BsArrowRight, title: 'Move', component: MoveCard }, { icon: MdContentCopy, title: 'Copy', component: CopyCard }, { icon: AiOutlineEye, title: 'Watch' }]
+const actions = [{ icon: BsArrowRight, title: 'Move', component: MoveCard }, { icon: MdContentCopy, title: 'Copy', component: CopyCard }]
 
 const mapStateToProps = state => {
     return {
@@ -71,8 +76,9 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    onUpdateCard,
-    onUpdateBoard
+    onArchiveCard,
+    onUnArchiveCard,
+    onRemoveCard
 }
 
 export const CardEditActions = connect(mapStateToProps, mapDispatchToProps)(_CardEditActions);

@@ -35,7 +35,7 @@ class _CardEdit extends Component {
     document.removeEventListener('mousedown', this.handleClick)
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (prevProps.board !== this.props.board) this.handleLoad()
   }
 
@@ -61,7 +61,8 @@ class _CardEdit extends Component {
   getDataById = (cardId, groupId) => {
     const board = this.props.board
     const currentGroup = board.groups.find((group) => group.id === groupId)
-    const currentCard = currentGroup.cards.find((card) => card.id === cardId)
+    let currentCard = currentGroup.cards.find((card) => card.id === cardId)
+    if (!currentCard) currentCard = this.props.board.archivedCards.find(card => card.id === cardId)
     return { currentGroup, currentCard }
   }
 
@@ -100,6 +101,7 @@ class _CardEdit extends Component {
   render() {
     const { currCard, currGroup } = this.state
     const { board } = this.props
+    console.log(board);
     if (!currCard) return <Loader />
     const bg = this.checkCardBackground()
     return (

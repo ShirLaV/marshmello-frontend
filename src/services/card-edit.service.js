@@ -150,7 +150,7 @@ const handleFileAdd = (url, title = 'Attachment') => {
     const groupId = getGroupId(cardId)
     const card = getCardById(cardId, groupId)
     if (!card.attachments) card.attachments = []
-    card.attachments.push({ url, title, addedAt: Date.now() })
+    card.attachments.push({ id: utilService.makeId(), url, title, addedAt: Date.now() })
     return [card, groupId, board]
 }
 
@@ -248,6 +248,17 @@ const getCommentTime = (timestamp) => {
     }
 }
 
+const handleAttachmentEdit = (attachmentId, title) => {
+    if (!attachmentId) return
+    const cardId = store.getState().boardModule.currCardId
+    const board = store.getState().boardModule.currBoard
+    const groupId = getGroupId(cardId)
+    const card = getCardById(cardId, groupId)
+    const attachment = card.attachments.find(attachment => attachment.id === attachmentId)
+    attachment.title = title
+    return [card, groupId, board]
+}
+
 
 export const cardEditService = {
     handleChecklistChange,
@@ -267,5 +278,6 @@ export const cardEditService = {
     handleRemoveCard,
     onAddComment,
     handleCommentRemove,
-    getCommentTime
+    getCommentTime,
+    handleAttachmentEdit
 }

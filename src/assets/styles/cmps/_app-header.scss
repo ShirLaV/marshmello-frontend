@@ -4,7 +4,8 @@
   width: 100vw;
   top: 0;
   background-color: rgba(177, 106, 195, 0.548);
-  padding: 5px 15px;
+
+  padding: 5px 8px;
 
   &+* {
     margin-top: 44px;
@@ -25,6 +26,10 @@
 
       .boards-btn {
         gap: 5px;
+
+        span {
+          display: none;
+        }
       }
     }
 
@@ -37,7 +42,6 @@
 
       >span {
         font-size: rem(18px);
-        // font-size: rem(22px);
       }
 
       &:hover {
@@ -57,13 +61,18 @@
   }
 }
 
-@include for-mobile-layout {
+@media screen and (min-width:620px) {
   .app-header {
-    padding: 5px 8px;
+    padding: 5px 15px;
 
-    .boards-btn {
-      span {
-        display: none;
+    .nav-links {
+      .left-links {
+
+        .boards-btn {
+          span {
+            display: block;
+          }
+        }
       }
     }
   }

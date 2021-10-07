@@ -1,13 +1,11 @@
 .group-list-container {
     position: relative;
     flex-grow: 1;
-    // height: 90vh;
     max-height: 100%;
+    overflow-y: hidden;
 
     .group-list-wrapper {
-        // height: 100%;
-        // padding: 10px;
-        padding: 0px 10px;
+        padding: 0;
         bottom: 0;
         left: 0;
         margin-bottom: 8px;
@@ -68,11 +66,13 @@
     }
 }
 
-@include for-mobile-layout {
+@media screen and (min-width:620px) {
     .group-list-container {
-        overflow-y: hidden;
+        overflow-y: auto;
+
         .group-list-wrapper {
-            padding: 0;
+            padding: 0px 10px;
+
         }
     }
 }

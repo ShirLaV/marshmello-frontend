@@ -8,20 +8,22 @@ class _PopperCoverEdit extends Component {
         currCard: null,
         groupId: null,
         selectedEl: null,
-        initialStyle: null
+        initialStyle: null,
+        currStyle: null,
+        selectedSize: 'half'
     }
 
     componentDidMount() {
         const { currCardId } = this.props
-        console.log(currCardId);
         const groupId = cardEditService.getGroupId(currCardId)
         const currCard = cardEditService.getCardById(currCardId, groupId)
-        console.log(currCard);
-        // if (currCard.style) {
-        //     if (currCard.style.bgColor) {
-
-        //     }
-        // }
+        if (currCard.style) {
+            if (currCard.style.isFull) {
+                this.setState({ selectedSize: (currCard.style.isFull) ? 'full' : 'half' })
+            }
+            if (currCard.style.bgColor) this.setState({ currStyle: { backgroundColor: currCard.style.bgColor } })
+            else if (currCard.style.imgUrl) this.setState({ currStyle: { backgroundImage: `url(${currCard.style.imgUrl})` } })
+        }
         this.setState({ currCard, groupId })
     }
 
@@ -29,35 +31,59 @@ class _PopperCoverEdit extends Component {
         ev.target.classList.add('selected')
         this.state.selectedEl?.classList.remove('selected')
         this.setState({ selectedEl: ev.target })
-        const { board, currCardId, onUpdateCard } = this.props
+        const { board, onUpdateCard } = this.props
         const { currCard, groupId } = this.state
+        this.setState({ currStyle: type === 'color' ? { backgroundColor: value } : { backgroundImage: `url(${value})` } })
         currCard.style = type === 'color' ? { bgColor: value } : { imgUrl: value }
         onUpdateCard(currCard, groupId, board)
     }
 
     handleCoverRemove = () => {
-        const { board, currCardId, onUpdateCard } = this.props
+        const { board, onUpdateCard } = this.props
         const { currCard, groupId } = this.state
         currCard.style = null
         onUpdateCard(currCard, groupId, board)
     }
 
-    handleInitialSelect = () => {
-
+    handleSizeChange = (size) => {
+        const { board, onUpdateCard } = this.props
+        const { currCard, groupId } = this.state
+        currCard.style.isFull = (size === 'full') ? true : false
+        this.setState({ selectedSize: size })
+        onUpdateCard(currCard, groupId, board)
     }
 
     render() {
-        const { currCard } = this.state
+        const { currCard, currStyle, selectedSize } = this.state
         if (!currCard) return ''
         const colors = ['#7bc86c', '#f5dd29', '#ffaf3f', '#ef7564', '#cd8de5', '#517dab', '#29cce5', '#6deca9', '#ff8ed4', '#172b4d']
+        console.log(currStyle);
         return (
             <section className="modal-cover-edit flex column">
 
                 <div className="size-container flex column">
                     <h4>Size</h4>
                     <div className="size-options flex">
-                        <div className="size-option"></div>
-                        <div className="size-option"></div>
+
+                        <div className={`size-option half ${selectedSize === 'half' ? 'selected' : ''}`} onClick={() => this.handleSizeChange('half')}>
+                            <div className="colored-half" style={currStyle}></div>
+                            <div className="line-wrapper-half">
+                                <div className="first-line"></div>
+                                <div className="second-line"></div>
+                                <div className="third-line flex">
+                                    <div className="first-fragment"></div>
+                                    <div className="second-fragment"></div>
+                                </div>
+                                <div className="circle"></div>
+                            </div>
+                        </div>
+
+                        <div className={`size-option full ${selectedSize === 'full' ? 'selected' : ''}`} data-size="full" onClick={() => this.handleSizeChange('full')} style={currStyle}>
+                            <div className="line-wrapper-full">
+                                <div className="first-line"></div>
+                                <div className="second-line"></div>
+                            </div>
+                        </div>
                     </div>
                     <button className="card-edit-btn" onClick={this.handleCoverRemove}>Remove cover</button>
                 </div>
