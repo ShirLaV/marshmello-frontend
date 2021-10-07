@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 
 import { Draggable, Droppable } from 'react-beautiful-dnd';
-
 import { BsThreeDots } from 'react-icons/bs';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { GrClose } from 'react-icons/gr';
 import { CardPreview } from './card-preview.jsx';
 
 import { GroupActions } from '../shared/popover-children/group-actions.jsx';
@@ -98,7 +96,6 @@ export class GroupPreview extends Component {
                   type='text'
                   value={groupTitle}
                   name='groupTitle'
-                  // onFocus={this.handleFocus}
                   onMouseDown={this.blurFocus}
                   onMouseUp={this.setFocus}
                   onChange={this.handleChange}
