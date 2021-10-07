@@ -1,50 +1,80 @@
-import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
-import { BsCheck } from 'react-icons/bs'
-import { onUpdateCard } from '../../store/board.actions'
-import { MemberAvatar } from '../shared/member-avatar'
-import { cardEditService } from '../../services/card-edit.service'
-import { activityTxtMap } from '../../services/activity.service'
+import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { BsCheck } from 'react-icons/bs';
+import { onUpdateCard } from '../../store/board.actions';
+import { onAddUserMention } from '../../store/user.actions';
+import { MemberAvatar } from '../shared/member-avatar';
+import { cardEditService } from '../../services/card-edit.service';
+import { activityTxtMap } from '../../services/activity.service';
 
-function _PopperMemberPreview({ member, currCardId, onUpdateCard }) {
-    const [isChecked, setIsChecked] = useState(false)
+function _PopperMemberPreview({
+  member,
+  currCardId,
+  onUpdateCard,
+  user,
+  onAddUserMention,
+}) {
+  const [isChecked, setIsChecked] = useState(false);
 
-    useEffect(() => {
-        const groupId = cardEditService.getGroupId(currCardId)
-        const card = cardEditService.getCardById(currCardId, groupId)
-        const isMemberChecked = card.members?.find(m => m._id === member._id)
-        setIsChecked(isMemberChecked)
-    }, [currCardId, member._id])
+  useEffect(() => {
+    const groupId = cardEditService.getGroupId(currCardId);
+    const card = cardEditService.getCardById(currCardId, groupId);
+    const isMemberChecked = card.members?.find((m) => m._id === member._id);
+    setIsChecked(isMemberChecked);
+  }, [currCardId, member._id]);
 
-    const handleMemberClick = () => {
-        setIsChecked(!isChecked)
-        const res = cardEditService.handleMemberChange(member._id)
-        const activity = (isChecked) ? {txt: activityTxtMap.removeMemberFromCard(member.fullname), currCardId} : {txt: activityTxtMap.addMemberToCard(member.fullname), currCardId}
-        onUpdateCard(...res, activity)
-    }
+  const handleMemberClick = () => {
+    setIsChecked(!isChecked);
+    const res = cardEditService.handleMemberChange(member._id);
+    const activity = isChecked
+      ? {
+          txt: activityTxtMap.removeMemberFromCard(member.fullname),
+          currCardId,
+        }
+      : { txt: activityTxtMap.addMemberToCard(member.fullname), currCardId };
+    onUpdateCard(...res, activity);
+    const boardId = res[2]._id;
+    const cardId = res[0].id;
+    const mention = {
+      id: user._id,
+      boardId,
+      cardId,
+    };
+    onAddUserMention(member._id, mention);
+  };
 
-    return (
-        <div className="popper-member-preview flex" onClick={handleMemberClick}>
-            <div className='list-item-layover'></div>
-            <div style={{ width: 32 }}>
-                <MemberAvatar member={member} />
-            </div>
-            <div className='popper-member-name'>
-                <p>{member.fullname}</p>
-            </div>
-            {isChecked && <div className='popper-member-check'><BsCheck /></div>}
+  return (
+    <div className='popper-member-preview flex' onClick={handleMemberClick}>
+      <div className='list-item-layover'></div>
+      <div style={{ width: 32 }}>
+        <MemberAvatar member={member} />
+      </div>
+      <div className='popper-member-name'>
+        <p>{member.fullname}</p>
+      </div>
+      {isChecked && (
+        <div className='popper-member-check'>
+          <BsCheck />
         </div>
-    )
+      )}
+    </div>
+  );
 }
 
-const mapStateToProps = state => {
-    return {
-        currCardId: state.boardModule.currCardId
-    }
-}
+const mapStateToProps = (state) => {
+  return {
+    currCardId: state.boardModule.currCardId,
+    user: state.userModule.user,
+  };
+};
 
 const mapDispatchToProps = {
-    onUpdateCard
-}
+  onUpdateCard,
+  onAddUserMention,
+  
+};
 
-export const PopperMemberPreview = connect(mapStateToProps, mapDispatchToProps)(_PopperMemberPreview);
+export const PopperMemberPreview = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(_PopperMemberPreview);

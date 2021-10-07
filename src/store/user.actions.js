@@ -10,7 +10,7 @@ export function loadUsers() {
             dispatch({ type: 'SET_USERS', users })
         } catch (err) {
             console.log('UserActions: err in loadUsers', err)
-        } 
+        }
         // finally {
         //     dispatch({ type: 'LOADING_DONE' })
         // }
@@ -29,7 +29,7 @@ export function removeUser(userId) {
 }
 
 export function onLogin(credentials) {
-    return async (dispatch) => {
+    return async(dispatch) => {
         try {
             const user = await userService.login(credentials)
             dispatch({
@@ -43,7 +43,7 @@ export function onLogin(credentials) {
 }
 
 export function onGoogleLogin(tokenId) {
-    return async (dispatch) => {
+    return async(dispatch) => {
         try {
             const user = await userService.googleLogin(tokenId)
             dispatch({
@@ -86,7 +86,7 @@ export function onLogout() {
 }
 
 export function loadAndWatchUser(userId) {
-    return async (dispatch) => {
+    return async(dispatch) => {
         try {
             const user = await userService.getById(userId);
             dispatch({ type: 'SET_WATCHED_USER', user })
@@ -103,3 +103,27 @@ export function loadAndWatchUser(userId) {
     }
 }
 
+export function onAddUserMention(userId, mention) {
+    return async(dispatch) => {
+        try {
+            userService.addUserMention(userId, mention);
+
+        } catch (err) {
+            console.log('Cannot add mention', err)
+        }
+    }
+}
+
+export function onUpdateUser(user) {
+    return async(dispatch) => {
+        try {
+            const updatedUser = await userService.update(user)
+            dispatch({
+                type: 'SET_USER',
+                user: updatedUser
+            })
+        } catch (err) {
+            console.log('cannot update user', err)
+        }
+    }
+}

@@ -39,7 +39,7 @@
                 margin-bottom: 8px;
             }
             .card-wrapper:last-child {
-                li {
+                li:not(.label-bar) {
                     margin-bottom: 1px;
                 }
             }
@@ -102,7 +102,7 @@
 @include for-mobile-layout {
     .group-wrapper {
         .group-preview {
-            max-height: 95%; 
+            max-height: 95%;
         }
     }
 }

@@ -28,7 +28,6 @@ class _QuickCardEditor extends Component {
   state = {
     card: null,
     cardTitle: '',
-    // isArchive:false
   };
   componentDidMount() {
     const { cardId, groupId } = this.props;
@@ -57,7 +56,6 @@ class _QuickCardEditor extends Component {
   onSave = (event) => {
     const cardToSave = { ...this.state.card };
     cardToSave.title = this.state.cardTitle;
-    // cardToSave.isArchive=this.state.isArchive
     const activity = {
       txt: activityTxtMap.editCard(),
       card: cardToSave,
@@ -78,12 +76,8 @@ class _QuickCardEditor extends Component {
   onArchiveCard = (event) => {
     const { groupId, board } = this.props;
     const cardToSave = { ...this.state.card };
-    cardToSave.isArchive = true;
-    // console.log('cardToSave', cardToSave)
     this.props.onArchiveCard(cardToSave, groupId, board);
     this.props.onToggleQuickCardEditor(event, null, '');
-    // this.setState({isArchive: true},()=> this.onSave(event))
-    
   };
 
   render() {
@@ -96,7 +90,6 @@ class _QuickCardEditor extends Component {
       position,
     } = this.props;
     if (!card) return <Loader />;
-    // console.log(card);
     return (
       <div
         className='quick-card-editor flex'
