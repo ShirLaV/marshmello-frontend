@@ -13,7 +13,8 @@ import {
   loadUsers,
   removeUser,
   loadAndWatchUser,
-  onUpdateUser,
+  onReceiveMention,
+  onUpdateUser
 } from '../store/user.actions.js';
 import { userService } from '../services/user.service.js';
 import { setAddingBoard } from '../store/board.actions';
@@ -24,31 +25,34 @@ import { DynamicPopover } from './shared/dynamic-popover.jsx';
 import { LoggedinUser } from './shared/popover-children/loggedin-user.jsx';
 import { Loader } from './shared/loader';
 import { socketService } from '../services/socket.service.js';
+import { Notifications } from './shared/popover-children/notifications.jsx';
 
 class _AppHeader extends React.Component {
   state = {
     // user: null,
-    isPopoverOpen: false,
+    isUserPopoverOpen: false,
+    isNotificationPopoverOpen: false
   };
 
   userMenuRef = React.createRef();
-  componentDidMount(){
-      //SOCKET ON
-    //   this.props.loadAndWatchUser(this.props.user._id)
-  };
-  //   componentDidUpdate(prevProps) {
-  //     // console.log('prevProps', prevProps.user);
-  //     // console.log('this.props', this.props.user);
-  //     if (this.props.user !== prevProps.user) {
-  //       console.log('updated');
-  //       this.loadUser();
-  //     }
-  //   }
+  notificationsRef = React.createRef();
 
-  //   loadUser = () => {
-  //     const user = this.props.user;
-  //     this.setState({ user });
-  //   };
+  componentDidMount() {
+    socketService.on('received-mention', this.props.onReceiveMention)
+  };
+
+  componentDidUpdate(prevProps) {
+    if (this.props.user !== prevProps.user) {
+      const { user } = this.props
+      socketService.emit('set-user-socket', user._id)
+    }
+  }
+
+  componentWillUnmount() {
+    socketService.off('received-mention', this.props.onReceiveMention)
+    //socketService.emit('unset-user-socket')
+  }
+
   onLogout = () => {
     this.props.onLogout();
   };
@@ -80,11 +84,12 @@ class _AppHeader extends React.Component {
       mention.isRead = true;
     });
     this.props.onUpdateUser(user);
+    this.setState({ isNotificationPopoverOpen: !this.state.isNotificationPopoverOpen })
   };
 
   render() {
     const { user, isAddingBoard } = this.props;
-    const { isPopoverOpen } = this.state;
+    const { isUserPopoverOpen, isNotificationPopoverOpen } = this.state;
     if (!user) return <Loader />;
     return (
       <header className='app-header'>
@@ -117,26 +122,37 @@ class _AppHeader extends React.Component {
             >
               <AiOutlinePlus />
             </button>
-            <button
-              onClick={this.markAllMentionsAsRead}
-              className='nav-button'
-              style={{
-                backgroundColor: this.getUnreadMentions(user.mentions)
-                  ? 'red'
-                  : '',
-              }}
-            >
-              <AiOutlineBell />
-            </button>
+            <div className='relative' ref={this.notificationsRef}>
+              <button
+                onClick={this.markAllMentionsAsRead}
+                className='nav-button'
+                style={{
+                  backgroundColor: this.getUnreadMentions(user.mentions)
+                    ? 'red'
+                    : '',
+                }}
+              >
+                <AiOutlineBell />
+              </button>
+              {isNotificationPopoverOpen && (
+                <DynamicPopover
+                  onClose={() => this.setState({ isNotificationPopoverOpen: false })}
+                  title='Notifications'
+                  ref={this.notificationsRef}
+                >
+                  <Notifications />
+                </DynamicPopover>
+              )}
+            </div>
             <div className='relative' ref={this.userMenuRef}>
               <button
-                onClick={() => this.setState({ isPopoverOpen: !isPopoverOpen })}
+                onClick={() => this.setState({ isUserPopoverOpen: !isUserPopoverOpen })}
               >
                 <MemberAvatar key={user._id} member={user} />
               </button>
-              {isPopoverOpen && (
+              {isUserPopoverOpen && (
                 <DynamicPopover
-                  onClose={() => this.setState({ isPopoverOpen: false })}
+                  onClose={() => this.setState({ isUserPopoverOpen: false })}
                   title='User Details'
                   ref={this.userMenuRef}
                 >
@@ -167,7 +183,8 @@ const mapDispatchToProps = {
   loadUsers,
   removeUser,
   setAddingBoard,
-  onUpdateUser,
+  onReceiveMention,
+  onUpdateUser
 };
 
 export const AppHeader = connect(

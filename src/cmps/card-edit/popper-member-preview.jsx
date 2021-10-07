@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { BsCheck } from 'react-icons/bs';
 import { onUpdateCard } from '../../store/board.actions';
-import { onAddUserMention } from '../../store/user.actions';
 import { MemberAvatar } from '../shared/member-avatar';
 import { cardEditService } from '../../services/card-edit.service';
 import { activityTxtMap } from '../../services/activity.service';
+import { socketService } from '../../services/socket.service';
+import { userService } from '../../services/user.service';
 
 function _PopperMemberPreview({
   member,
@@ -28,19 +29,24 @@ function _PopperMemberPreview({
     const res = cardEditService.handleMemberChange(member._id);
     const activity = isChecked
       ? {
-          txt: activityTxtMap.removeMemberFromCard(member.fullname),
-          currCardId,
-        }
+        txt: activityTxtMap.removeMemberFromCard(member.fullname),
+        currCardId,
+      }
       : { txt: activityTxtMap.addMemberToCard(member.fullname), currCardId };
     onUpdateCard(...res, activity);
-    const boardId = res[2]._id;
-    const cardId = res[0].id;
+    const groupId = res[1]
+    const board = res[2];
+    const card = res[0];
     const mention = {
-      id: user._id,
-      boardId,
-      cardId,
+      user: {id: user._id, fullname: user.fullname},
+      action: isChecked ? 'Removed' : 'Added',
+      board: {boardId: board._id, title: board.title},
+      card: {cardId: card.id, title: card.title},
+      groupId,
+      createdAt: Date.now()
     };
-    onAddUserMention(member._id, mention);
+    socketService.emit('send-mention', ({userId: member._id, mention}))
+    userService.addUserMention(member._id, mention)
   };
 
   return (
@@ -69,9 +75,8 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-  onUpdateCard,
-  onAddUserMention,
-  
+  onUpdateCard
+
 };
 
 export const PopperMemberPreview = connect(
