@@ -34,7 +34,7 @@ class _AppHeader extends React.Component {
   userMenuRef = React.createRef();
   componentDidMount(){
       //SOCKET ON
-      this.props.loadAndWatchUser(this.props.user._id)
+    //   this.props.loadAndWatchUser(this.props.user._id)
   };
   //   componentDidUpdate(prevProps) {
   //     // console.log('prevProps', prevProps.user);
