@@ -16,7 +16,7 @@ async function search(keyword) {
     const {results} = await query(keyword)
     return Promise.resolve(
         results.map(pic => {
-            return {id: pic.id, small: pic.urls.small, full: pic.urls.full}
+            return {id: pic.id, preview: pic.urls.small, full: pic.urls.full}
         })
     )
 }
@@ -25,7 +25,7 @@ async function getPreviewImgs(keyword) {
     const {results} = await query(keyword)
     return Promise.resolve(
         results.map(pic => {
-            return { id: pic.id, small: pic.urls.small, full: pic.urls.full }
+            return { id: pic.id, preview: pic.urls.small, full: pic.urls.full }
         })
     )
 }
