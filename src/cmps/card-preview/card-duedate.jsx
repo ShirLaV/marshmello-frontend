@@ -29,11 +29,11 @@ export function CardDueDate({ card, groupId, toggleCardComplete }) {
 
   return (
     <div
-      className='due-date-box flex align-center'
+      className='due-date-box badge flex align-center'
       style={getDueTimeStyle(card)}
       onClick={(event) => toggleCardComplete(event, groupId, card)}
     >
-      <span className='clock-icon flex align-center'>
+      <span className='clock-icon  flex align-center'>
         <FiClock />
       </span>
       <span className='check-icon'>
