@@ -128,7 +128,7 @@ class _AppHeader extends React.Component {
                 className='nav-button'
                 style={{
                   backgroundColor: this.getUnreadMentions(user.mentions)
-                    ? 'red'
+                    ? '#EF7564'
                     : '',
                 }}
               >

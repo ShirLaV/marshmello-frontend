@@ -59,7 +59,7 @@ class _ChangeBG extends React.Component {
                 <div className="images">
                     {pics.map(pic =>
                         <div key={pic.id} className="img-container" onClick={() => this.setBoardBG(pic.full)}>
-                            <img src={pic.small} alt={pic.id} />
+                            <img src={pic.preview} alt={pic.id} />
                         </div>
                     )}
                 </div>

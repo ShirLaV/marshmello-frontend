@@ -20,11 +20,17 @@ class _Notifications extends React.Component {
             <section className="notifications">
                 {(user.mentions && user.mentions.length > 0) ? user.mentions.map((mention, idx) =>
                     <div key={mention.id} className="user-mentions">
-                        <MemberAvatar member={mention.user} />
-                        <p>{mention.user.fullname} has {mention.action} you {(mention.action === 'Removed') ? 'from' : 'to'} card <Link to={`/board/${mention.board.boardId}/${mention.groupId}/${mention.card.cardId}`}> {mention.card.title} </Link > in board <Link to={`/board/${mention.board.boardId}`}>{mention.board.title}</Link>
-                        </p>
-                        <Moment className="publish-time" fromNow>{mention.createdAt}</Moment>
-                        <small onClick={() => this.markAsSeen(mention.id)}>Mark as seen</small>
+                        <div className="notification-text">
+                            <div className="notification-avatar">
+                                <MemberAvatar member={mention.user} />
+                            </div>
+                            <p><span className="username">{mention.user.fullname}</span> has {mention.action} you {(mention.action === 'Removed') ? 'from' : 'to'} card <Link to={`/board/${mention.board.boardId}/${mention.groupId}/${mention.card.cardId}`}><span className="card-title"> {mention.card.title} </span></Link > in board <Link to={`/board/${mention.board.boardId}`}><span className="board-title">{mention.board.title}</span></Link>
+                            </p>
+                        </div>
+                        <div className="notification-bottom">
+                            <Moment className="notification-time" fromNow>{mention.createdAt}</Moment>
+                            <small onClick={() => this.markAsSeen(mention.id)}>Mark as read</small>
+                        </div>
                     </div>
                 ) : <div>No notifications yet</div>}
             </section>

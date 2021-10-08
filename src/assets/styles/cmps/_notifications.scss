@@ -1,0 +1,33 @@
+.notifications {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  .user-mentions {
+    .notification-text {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      .notification-avatar {
+        min-width: 32px;
+        align-self: flex-start;
+        margin-top: 5px;
+      }
+      span {
+        font-weight: 600;
+      }
+      .username {
+        font-weight: 700;
+      }
+    }
+    .notification-bottom {
+        margin-inline-start: 37px;
+      .notification-time {
+        font-size: rem(12px);
+        margin-inline-end: 10px;
+      }
+      small {
+        cursor: pointer;
+      }
+    }
+  }
+}
