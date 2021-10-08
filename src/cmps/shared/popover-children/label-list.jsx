@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { PopperLabelPreview } from '../../card-edit/popper-label-preview'
 import { connect } from 'react-redux'
 
-function _LabelList({ board, handleEdit }) {
+function _LabelList({ board, onGoBack }) {
     const [labels, setLabels] = useState(board.labels)
 
     const handleChange = ({ target: { value } }) => {
@@ -15,7 +15,7 @@ function _LabelList({ board, handleEdit }) {
             <input className="search-input" type="text" autoFocus placeholder="Search labels..." onChange={handleChange} />
             <h4>Labels</h4>
             <div className="flex column label-list">
-                {labels.map(label => <PopperLabelPreview key={label.id} label={label} handleEdit={handleEdit} />)}
+                {labels.map(label => <PopperLabelPreview key={label.id} label={label} onGoBack={onGoBack} />)}
             </div>
         </div>
     )

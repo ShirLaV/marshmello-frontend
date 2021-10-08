@@ -123,7 +123,7 @@
     inset: 0;
     cursor: pointer;
     transition-duration: 85ms;
-    transition-property: background-color,border-color,box-shadow;
+    transition-property: background-color, border-color, box-shadow;
     transition-timing-function: ease;
 
     &.round {
@@ -137,6 +137,20 @@
 
 .relative {
     position: relative;
+}
+
+.pos- {
+    &relative {
+        position: relative;
+    }
+
+    &absolute {
+        position: absolute;
+    }
+
+    &fixed {
+        position: fixed;
+    }
 }
 
 // Media helpers

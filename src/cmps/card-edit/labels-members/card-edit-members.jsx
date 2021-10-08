@@ -25,7 +25,7 @@ const _CardEditMembers = ({ currCardId }) => {
 
                     <div
                         ref={addButtonRef}
-                        className="card-member add-member relative"
+                        className="card-member add-member pos-relative"
                     >
                         <div className="list-item-layover round" onClick={() => setIsListOpen(!isListOpen)}></div>
                         <AiOutlinePlus />

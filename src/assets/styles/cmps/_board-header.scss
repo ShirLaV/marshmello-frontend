@@ -21,14 +21,9 @@
         color: white;
         font-weight: 700;
         line-height: 32px;
-        // max-width: 180px;
+        max-width: 190px;
         font-size: rem(16px);
       }
-    }
-
-    .invite-btn {
-      position: relative;
-      right: 8px;
     }
 
     .show-more-btn {
@@ -71,7 +66,7 @@
   }
 
   .left-btns {
-    gap: 5px;
+    gap: 9px;
   }
 
   .members-container {
@@ -80,7 +75,7 @@
 
   .right-btns {
     display: flex;
-    gap: 5px;
+    gap: 8px;
 
     .right-btn-txt {
       display: none;
@@ -98,6 +93,18 @@
   }
 }
 
+@media screen and (min-width:400px) {
+  .board-header {
+    .left-btns {
+      .board-title {
+        >input {
+          max-width: unset;
+        }
+      }
+    }
+  }
+}
+
 @media screen and (min-width:580px) {
   .board-header {
     .members-container {
@@ -105,10 +112,16 @@
     }
 
     .right-btns {
+      gap: 5px;
 
       .members-btn {
         display: none;
       }
+    }
+
+    .left-btns {
+      gap: 5px;
+
     }
   }
 }

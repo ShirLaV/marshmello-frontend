@@ -37,12 +37,12 @@ const _CardEditLabels = ({ currCardId, board }) => {
                     </div>)}
                     <div
                         ref={addButtonRef}
-                        className="card-label add-label relative"
+                        className="card-label add-label pos-relative"
                     >
                         <div className="list-item-layover" onClick={() => setIsOpen(!isOpen)}></div>
                         <AiOutlinePlus />
-                        {isOpen && <DynamicPopover handleEdit={handleEdit} onClose={() => setIsOpen(false)} title={'Labels'} ref={addButtonRef} isLabel={isEdit}>
-                            {!isEdit ? <LabelList handleEdit={handleEdit} onClose={() => setIsOpen(false)} /> : <LabelEdit handleEdit={handleEdit} color={color} onClose={() => setIsOpen(false)} />}
+                        {isOpen && <DynamicPopover onGoBack={handleEdit} onClose={() => setIsOpen(false)} title={'Labels'} ref={addButtonRef} isMultiView={isEdit}>
+                            {!isEdit ? <LabelList onGoBack={handleEdit} onClose={() => setIsOpen(false)} /> : <LabelEdit onGoBack={handleEdit} color={color} onClose={() => setIsOpen(false)} />}
                         </DynamicPopover>}
                     </div>
                 </div>

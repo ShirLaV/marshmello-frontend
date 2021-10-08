@@ -42,7 +42,7 @@ const _CardEditActions = ({ currCardId, board, onArchiveCard, onUnArchiveCard, o
     }
 
     return (
-        <div style={{ position: 'relative' }}>
+        <div className="pos-relative">
             <div className="card-edit-actions">
                 <h3 className="sidebar-title">Actions</h3>
                 <div className="actions-container">

@@ -30,13 +30,13 @@ function _CardEditAddToCardItem({ item, currCardId }) {
 
     return (
         <div className="label-wrapper">
-            {checkIfCover() && <div ref={itemRef} className={`relative ${isOpen ? 'popover-open' : ''}`}>
+            {checkIfCover() && <div ref={itemRef} className={`pos-relative ${isOpen ? 'popover-open' : ''}`}>
                 <span onClick={() => setIsOpen(!isOpen)}>
                     <EditSidebarLabel Icon={item.icon} title={item.title} />
                 </span>
                 {
-                    isOpen && Boolean(item.editComponent) && <DynamicPopover handleEdit={handleEdit} onClose={() => setIsOpen(false)} title={item.title} ref={itemRef} isLabel={isEdit}>
-                        {isEdit ? <EditComponent color={color} handleEdit={handleEdit} onClose={() => setIsOpen(false)} /> : <InnerPopperCmp handleEdit={handleEdit} onClose={() => setIsOpen(false)} />}
+                    isOpen && Boolean(item.editComponent) && <DynamicPopover onGoBack={handleEdit} onClose={() => setIsOpen(false)} title={item.title} ref={itemRef} isMultiView={isEdit}>
+                        {isEdit ? <EditComponent color={color} onGoBack={handleEdit} onClose={() => setIsOpen(false)} /> : <InnerPopperCmp onGoBack={handleEdit} onClose={() => setIsOpen(false)} />}
                     </DynamicPopover>
                 }
                 {

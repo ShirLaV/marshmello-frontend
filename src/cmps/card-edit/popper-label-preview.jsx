@@ -6,7 +6,7 @@ import { activityTxtMap } from '../../services/activity.service'
 import { cardEditService } from '../../services/card-edit.service'
 import { onUpdateCard } from '../../store/board.actions'
 
-function _PopperLabelPreview({ label, currCardId, onUpdateCard, handleEdit }) {
+function _PopperLabelPreview({ label, currCardId, onUpdateCard, onGoBack }) {
     const [isChecked, setIsChecked] = useState(false)
 
     useEffect(() => {
@@ -33,7 +33,7 @@ function _PopperLabelPreview({ label, currCardId, onUpdateCard, handleEdit }) {
                     <span> {label.title || ''}</span>
                     {isChecked && <div className='popper-label-check'><BsCheck /></div>}
                 </div>
-                <div className="icon-wrapper" onClick={() => handleEdit(label.color)}><BiPencil /></div>
+                <div className="icon-wrapper" onClick={() => onGoBack(label.color)}><BiPencil /></div>
             </div>
         </div>
     )

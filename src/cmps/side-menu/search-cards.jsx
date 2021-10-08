@@ -25,13 +25,10 @@ class _SearchCards extends React.Component {
         if (search && searchHasFilter) {
             const txt = params.get('txt') || ''
             const members = params.get('members')?.split(',') || []
-            console.log('members: ', members);
             const labels = params.get('labels')?.split(',') || []
-            console.log('labels: ', labels);
             this.props.onUpdateFilter({ txt, members, labels })
             this.updateUrlSearchParams(this.props.filterBy)
 
-            console.log('filterBy from search cards: ', this.props.filterBy)
         } else {
             this.props.onUpdateFilter({ txt: '', members: [], labels: [] })
             this.updateUrlSearchParams(this.props.filterBy)

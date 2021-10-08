@@ -15,7 +15,7 @@
 
         .size-options {
             gap: 8px;
-            margin-bottom: 4px;
+            margin-bottom: 12px;
 
             .size-option {
                 height: 62px;
@@ -129,53 +129,54 @@
 
         }
     }
-}
 
-.color-container {
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 16px;
 
-    .cover-color-option {
-        margin: 0;
-        border-radius: 3px;
-        box-shadow: none;
-        width: 50px;
-        height: 32px;
-        cursor: pointer;
+    .color-container {
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-bottom: 16px;
 
-        &.selected {
-            box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0079bf;
+        .cover-color-option {
+            margin: 0;
+            border-radius: 3px;
+            box-shadow: none;
+            width: 50px;
+            height: 32px;
+            cursor: pointer;
+
+            &.selected {
+                box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0079bf;
+            }
+
+            &:hover {
+                filter: saturate(85%) brightness(85%);
+            }
         }
 
-        &:hover {
-            filter: saturate(85%) brightness(85%);
-        }
     }
 
-}
+    .attachments-container {
+        gap: 8px;
+        flex-wrap: wrap;
 
-.attachments-container {
-    gap: 8px;
-    flex-wrap: wrap;
+        .cover-image-option {
+            background-size: cover;
+            margin: 0;
+            border-radius: 3px;
+            background-repeat: no-repeat;
+            background-position: center;
+            box-shadow: none;
+            height: 48px;
+            width: 88px;
+            cursor: pointer;
 
-    .cover-image-option {
-        background-size: cover;
-        margin: 0;
-        border-radius: 3px;
-        background-repeat: no-repeat;
-        background-position: center;
-        box-shadow: none;
-        height: 48px;
-        width: 88px;
-        cursor: pointer;
+            &:hover {
+                filter: saturate(85%) brightness(85%);
+            }
 
-        &:hover {
-            filter: saturate(85%) brightness(85%);
-        }
-
-        &.selected {
-            box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0079bf;
+            &.selected {
+                box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #0079bf;
+            }
         }
     }
 }
