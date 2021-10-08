@@ -17,7 +17,7 @@ class _ChangeBG extends React.Component {
 
     getPics = async () => {
         try {
-            const pics = await unsplashService.getPreviewImgs('nature')
+            const pics = await unsplashService.getPreviewImgs('hills')
             this.setState({ pics })
         } catch (err) {
             console.log(err)
