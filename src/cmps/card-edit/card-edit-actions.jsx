@@ -13,7 +13,7 @@ import { cardEditService } from '../../services/card-edit.service'
 import { onArchiveCard, onUnArchiveCard, onRemoveCard } from '../../store/board.actions'
 
 
-const _CardEditActions = ({ currCardId, board, onArchiveCard, onUnArchiveCard, onRemoveCard }) => {
+const _CardEditActions = ({ currCardId, board, onArchiveCard, onUnArchiveCard, onRemoveCard, goBack }) => {
     const [isArchive, setIsArchive] = useState(false)
     const [groupId, setGroupId] = useState(null)
     const [currCard, setCurrCard] = useState(null)
@@ -29,6 +29,7 @@ const _CardEditActions = ({ currCardId, board, onArchiveCard, onUnArchiveCard, o
     const handleArchiveCard = () => {
         onArchiveCard(currCard, groupId, board)
         setIsArchive(true)
+        goBack()
     }
 
     const handleUnArchiveCard = () => {

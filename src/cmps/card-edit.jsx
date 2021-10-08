@@ -95,13 +95,13 @@ class _CardEdit extends Component {
   }
 
   goBack = () => {
-    this.props.history.goBack()
+    const { board } = this.props
+    this.props.history.push(`/board/${board._id}`)
   }
 
   render() {
     const { currCard, currGroup } = this.state
     const { board } = this.props
-    console.log(board);
     if (!currCard) return <Loader />
     const bg = this.checkCardBackground()
     return (
