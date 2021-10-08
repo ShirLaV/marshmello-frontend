@@ -103,7 +103,7 @@ export class GroupPreview extends Component {
                 />
 
                 <div
-                  className='relative'
+                  className='pos-relative'
                   ref={this.groupEditRef}
                   onClick={() =>
                     this.setState({ isPopoverOpen: !isPopoverOpen })

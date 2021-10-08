@@ -21,6 +21,7 @@ import {
 } from '../store/board.actions';
 import { CardEditAddToCardItem } from '../cmps/card-edit/add-to-card/card-edit-add-to-card-item.jsx';
 import { LabelList } from '../cmps/shared/popover-children/label-list.jsx';
+import { LabelEdit } from '../cmps/shared/popover-children/label-edit.jsx';
 import { MemberList } from '../cmps/shared/popover-children/member-list.jsx';
 import { activityTxtMap } from '../services/activity.service.js';
 
@@ -149,8 +150,9 @@ class _QuickCardEditor extends Component {
             <CardEditAddToCardItem
               item={{
                 icon: MdLabelOutline,
-                title: 'Edit labels',
+                title: 'Labels',
                 component: LabelList,
+                editComponent: LabelEdit
               }}
             />
           </div>

@@ -7,7 +7,7 @@ export function MembersContainerMemberPreview({ member }) {
     const [isPreviewOpen, setIsPreviewOpen] = useState(false)
     const userButtonRef = useRef()
     return (
-        <div key={member._id} className="card-member relative" ref={userButtonRef}>
+        <div key={member._id} className="card-member pos-relative" ref={userButtonRef}>
             <span style={{ cursor: 'pointer' }}>
                 <div className="list-item-layover round" onClick={() => setIsPreviewOpen(!isPreviewOpen)}></div>
                 <MemberAvatar member={member} />

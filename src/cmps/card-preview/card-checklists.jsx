@@ -14,7 +14,7 @@ export function CardChecklists({ checklists }) {
     return doneTodosCount + '/' + todosCount;
   };
   return (
-    <div className='checklist-box flex align-center'>
+    <div className='checklist-box badge flex align-center'>
       <BsCheckBox />
       <span>{getChecklistStr()}</span>
     </div>

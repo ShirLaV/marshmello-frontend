@@ -122,7 +122,7 @@ class _AppHeader extends React.Component {
             >
               <AiOutlinePlus />
             </button>
-            <div className='relative' ref={this.notificationsRef}>
+            <div className='pos-relative' ref={this.notificationsRef}>
               <button
                 onClick={this.markAllMentionsAsRead}
                 className='nav-button'
@@ -144,8 +144,8 @@ class _AppHeader extends React.Component {
                 </DynamicPopover>
               )}
             </div>
-            <div className='relative' ref={this.userMenuRef}>
-              <button
+            <div className='pos-relative' ref={this.userMenuRef}>
+              <button className='user-btn'
                 onClick={() => this.setState({ isUserPopoverOpen: !isUserPopoverOpen })}
               >
                 <MemberAvatar key={user._id} member={user} />

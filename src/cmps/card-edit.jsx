@@ -116,7 +116,7 @@ class _CardEdit extends Component {
           </Link>
 
           {currCard.style && (
-            <div ref={this.coverRef} className='btn-wrapper relative'>
+            <div ref={this.coverRef} className='btn-wrapper pos-relative'>
               <button
                 className='change-cover-btn'
                 onClick={() => this.setState({ isOpen: !this.state.isOpen })}

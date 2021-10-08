@@ -5,7 +5,7 @@ import { cardEditService } from '../../../services/card-edit.service'
 import { utilService } from '../../../services/util.service'
 import { onUpdateBoard, onUpdateCard } from '../../../store/board.actions'
 
-function _LabelEdit({ color, board, onUpdateBoard, onClose, handleEdit, onUpdateCard }) {
+function _LabelEdit({ color, board, onUpdateBoard, onClose, onGoBack, onUpdateCard }) {
     const [selectedColor, setSelectedColor] = useState(null)
     const [title, setTitle] = useState('')
 
@@ -37,7 +37,7 @@ function _LabelEdit({ color, board, onUpdateBoard, onClose, handleEdit, onUpdate
             boardToSave.labels.push(label)
         }
         onUpdateBoard({ type: '' }, boardToSave)
-        handleEdit()
+        onGoBack()
         onClose()
 
         const res = cardEditService.handleLabelChange(label.id)

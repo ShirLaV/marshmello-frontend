@@ -80,6 +80,11 @@
       left: 50%;
       transform: translateX(-50%);
       width: 300px;
+      text-align: center;
+
+      img {
+        width: 75%;
+      }
     }
   }
 }

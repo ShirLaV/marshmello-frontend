@@ -43,7 +43,7 @@ function _AttachmentPreview({ attachment, currCardId, board, onUpdateCard }) {
                     <span>Comment</span>-
                     <span onClick={onRemoveAttachment}>Delete</span>-
 
-                    <div ref={editRef} className="relative">
+                    <div ref={editRef} className="pos-relative">
                         <div className="list-item-layover" onClick={() => setIsEditOpen(!isEditOpen)}></div>
                         <span>Edit</span>
                         {isEditOpen && <DynamicPopover onClose={() => setIsEditOpen(false)} title={'Edit attachment'} ref={editRef}>

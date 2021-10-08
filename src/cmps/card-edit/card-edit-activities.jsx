@@ -6,6 +6,7 @@ import { MemberAvatar } from '../shared/member-avatar'
 import { connect } from 'react-redux'
 import { Loader } from '../shared/loader'
 import { CommentPreview } from './comment-preview'
+import { CardEditActivityPreview } from './card-edit-activity-preview'
 
 
 class _CardEditActivities extends Component {
@@ -13,15 +14,18 @@ class _CardEditActivities extends Component {
         isFocus: false,
         isTxt: false,
         commentTxt: '',
-        currCard: null
+        currCard: null,
+        activities: []
     }
 
     commentRef = React.createRef()
 
     componentDidMount() {
         document.addEventListener('mousedown', this.handleClick)
-        const groupId = cardEditService.getGroupId(this.props.currCardId)
-        const currCard = cardEditService.getCardById(this.props.currCardId, groupId)
+        const { currCardId } = this.props
+        const groupId = cardEditService.getGroupId(currCardId)
+        const currCard = cardEditService.getCardById(currCardId, groupId)
+        this.getCardActivities()
         this.setState({ currCard })
     }
 
@@ -29,6 +33,12 @@ class _CardEditActivities extends Component {
         document.removeEventListener('mousedown', this.handleClick)
     }
 
+    getCardActivities = () => {
+        const { board, currCardId } = this.props
+        const activities = board.activities
+        const cardActivities = activities.filter(activity => activity.card.id === currCardId)
+        this.setState({ activities: cardActivities })
+    }
 
     handleChange = ({ target: { value } }) => {
         this.setState({ commentTxt: value })
@@ -55,9 +65,11 @@ class _CardEditActivities extends Component {
     }
 
     render() {
-        const { currCard, isFocus, isTxt, commentTxt } = this.state
+        const { currCard, isFocus, isTxt, commentTxt, activities } = this.state
         const { member } = this.props
         if (!currCard) return <Loader />
+        // console.log(this.props.board.activities);
+        console.log(activities);
         return (
             <div className="comments-section">
                 <section className="flex space-between">
@@ -67,6 +79,8 @@ class _CardEditActivities extends Component {
                     </div>
                     <button className="card-edit-btn">Show details</button>
                 </section>
+
+                {/* {!!activities && activities.map(a => <CardEditActivityPreview key={a.id} activity={a} />)} */}
 
                 <div className="add-comment-container flex">
                     <MemberAvatar member={member} />

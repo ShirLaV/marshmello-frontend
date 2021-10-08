@@ -103,7 +103,7 @@ class _BoardHeader extends React.Component {
                     <button className="board-title nav-button">
                         <input className='clean-input' type='text' value={boardTitle} name='boardTitle' onFocus={this.handleFocus} onChange={this.handleChange} onBlur={this.onChangeBoardTitle} />
                     </button>
-                    <button className={`starred-btn nav-button ${(board.isStarred) ? 'starred' : ''}`} onClick={() => this.toggleStarredBoard()}><AiOutlineStar /></button> |
+                    <button className={`starred-btn nav-button ${(board.isStarred) ? 'starred' : ''}`} onClick={() => this.toggleStarredBoard()}><AiOutlineStar /></button>
                     <div className="members-container flex"><div className="user-previews">
                         {members.map((member, idx) =>
                             <MemberAvatar key={member._id} member={member} style={{ left: idx * -5 }} />
@@ -125,8 +125,8 @@ class _BoardHeader extends React.Component {
                             </div>
                         )}
                     </div>
-                        <div className='relative' ref={this.inviteRef}>
-                            <button onClick={() => this.setState({ isInviteOpen: !isInviteOpen })} className="invite-btn nav-button">Invite</button>
+                        <div className='pos-relative' ref={this.inviteRef}>
+                            <button onClick={() => this.setState({ isInviteOpen: !isInviteOpen })} className="invite-btn nav-button pos-relative" style={{ transform: `translateX(${(members.length -2) * -5}px)` }}>Invite</button>
                             {isInviteOpen && <DynamicPopover onClose={() => this.setState({ isInviteOpen: false })} title="Invite Members" ref={this.inviteRef}>
                                 <InviteMembers />
                             </DynamicPopover>}
@@ -134,7 +134,7 @@ class _BoardHeader extends React.Component {
                 </div>
                 <div className="right-btns">
                     {!isMenuOpen && <>
-                        <div className="relative" ref={this.totalMembersRef}>
+                        <div className="pos-relative" ref={this.totalMembersRef}>
                             <button className="nav-button members-btn" onClick={() => this.setState({ isTotalMembersOpen: !isTotalMembersOpen })}><FaUserAlt /></button>
                             {isTotalMembersOpen && <DynamicPopover onClose={() => this.setState({ isTotalMembersOpen: false })} title="Members" ref={this.totalMembersRef}>
                                 <InviteMembers />

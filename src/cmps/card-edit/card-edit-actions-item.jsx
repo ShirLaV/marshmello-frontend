@@ -10,7 +10,7 @@ export function CardEditActionsItem({ item }) {
 
     return (
         <div className="label-wrapper">
-            <div ref={itemRef} className={`relative ${isOpen ? 'popover-open' : ''}`}>
+            <div ref={itemRef} className={`pos-relative ${isOpen ? 'popover-open' : ''}`}>
                 <span onClick={() => setIsOpen(!isOpen)}>
                     <EditSidebarLabel Icon={item.icon} title={item.title} />
                 </span>
