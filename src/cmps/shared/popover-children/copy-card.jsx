@@ -16,7 +16,7 @@ export function _CopyCard({ board, currCardId, onUpdateBoard, onClose }) {
         setCurrGroup(group)
         const idx = group.cards.findIndex(card => card.id === currCardId)
         setCurrPosition(idx + 1)
-    }, [board])
+    }, [board, currCardId])
 
     const handleChange = ({ target: { name, value } }) => {
         if (name === 'group') {

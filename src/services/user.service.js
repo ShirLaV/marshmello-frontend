@@ -1,9 +1,12 @@
-import { storageService } from './async-storage.service'
+// import { storageService } from './async-storage.service'
 import { httpService } from './http.service'
-import { socketService, SOCKET_EVENT_USER_UPDATED } from './socket.service'
+import { 
+    socketService, 
+    // SOCKET_EVENT_USER_UPDATED 
+} from './socket.service'
 import { utilService } from './util.service';
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
-var gWatchedUser = null;
+// var gWatchedUser = null;
 
 export const userService = {
     login,
@@ -34,7 +37,7 @@ async function getUsers() {
 async function getById(userId) {
     // const user = await storageService.get('user', userId)
     const user = await httpService.get(`user/${userId}`)
-    gWatchedUser = user;
+    // gWatchedUser = user;
     return user;
 }
 

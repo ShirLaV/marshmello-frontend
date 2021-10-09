@@ -32,7 +32,7 @@ function _AttachmentPreview({ attachment, currCardId, board, onUpdateCard }) {
 
     return (
         <div className="attachment-preview flex">
-            <a href={attachment.url} target="_blank"><div className="image-container">
+            <a href={attachment.url} target="_blank" rel="noreferrer"><div className="image-container">
                 <img src={attachment.url} alt={attachment.title} />
             </div></a>
 

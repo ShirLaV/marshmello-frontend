@@ -22,7 +22,6 @@ import { QuickCardEditor } from '../cmps/quick-card-editor.jsx';
 import { Loader } from '../cmps/shared/loader.jsx';
 import { activityTxtMap } from '../services/activity.service.js';
 import { socketService } from '../services/socket.service.js';
-import { userService } from '../services/user.service.js';
 import { Dashboard } from '../cmps/dashboard.jsx';
 
 class _BoardDetails extends Component {
@@ -167,13 +166,11 @@ class _BoardDetails extends Component {
   render() {
     const { board } = this.props;
     const {
-      isDashboardOpen,
       isCardLabelListOpen,
       isAddPopOpen,
       quickCardEditor,
     } = this.state;
     if (!board) return <Loader />;
-    if (board.archivedCards) console.log('board', board)
     return (
       <div className='board-details flex column'>
         <Route path='/board/:boardId/dashboard' component={Dashboard} />

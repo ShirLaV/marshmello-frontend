@@ -13,9 +13,9 @@ export function CardHeader({ cardStyle, title }) {
         <div
           className='image-wrapper'
         >
-          {!cardStyle.isFull && <img src={cardStyle.imgUrl} />}
+          {!cardStyle.isFull && <img src={cardStyle.imgUrl} alt='card-bg' />}
           {cardStyle.isFull && <div className='card-header-title flex column'
-          style={{ backgroundImage: `url("${cardStyle.imgUrl}")` }}
+            style={{ backgroundImage: `url("${cardStyle.imgUrl}")` }}
           ><p>{title}</p></div>}
         </div>
       )}

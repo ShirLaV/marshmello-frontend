@@ -2,11 +2,10 @@ import { connect } from 'react-redux';
 
 import { Draggable } from 'react-beautiful-dnd';
 
-import { HiOutlinePencil } from 'react-icons/hi';
-
-import { CardHeader } from '../card-preview/card-header.jsx';
-import { CardLabelBarList } from '../card-preview/card-label-bar-list.jsx';
-import { CardFooter } from '../card-preview/card-footer.jsx';
+// import { HiOutlinePencil } from 'react-icons/hi';
+// import { CardHeader } from '../card-preview/card-header.jsx';
+// import { CardLabelBarList } from '../card-preview/card-label-bar-list.jsx';
+// import { CardFooter } from '../card-preview/card-footer.jsx';
 
 import {CardPreviewContent} from './card-preview-content.jsx'
 

@@ -10,23 +10,18 @@ const handleChecklistChange = (type, checklistId, value, newVal) => {
         const checklist = card.checklists.find(checklist => checklist.id === checklistId)
         if (type === 'addTodo') {
             checklist.todos.push(value)
-
         } else if (type === 'markTodo') {
             const todo = checklist.todos.find(todo => todo.id === value)
             todo.isDone = !todo.isDone
-
         } else if (type === 'removeTodo') {
             const idx = checklist.todos.findIndex(todo => todo.id === value)
             checklist.todos.splice(idx, 1)
-
         } else if (type === 'changeTitle') {
             const todo = checklist.todos.find(todo => todo.id === value)
             todo.title = newVal
-
         } else if (type === 'removeChecklist') {
             const idx = card.checklists.findIndex(checklist => checklist.id === checklistId)
             card.checklists.splice(idx, 1)
-
         }
     } else {
         if (type === 'addChecklist') {
@@ -34,7 +29,6 @@ const handleChecklistChange = (type, checklistId, value, newVal) => {
             card.checklists.push({ id: utilService.makeId(), title: value, todos: [] })
         }
     }
-
     return [card, groupId, board]
 }
 
@@ -46,12 +40,12 @@ const handleMemberChange = (memberId) => {
 
     if (!card.members) card.members = []
     const isMemberExist = card?.members?.some(member => member._id === memberId)
-    if (isMemberExist) card = { ...card, members: card?.members.filter(member => member._id !== memberId) }
-    else {
+    if (isMemberExist) {
+        card = { ...card, members: card?.members.filter(member => member._id !== memberId) }
+    } else {
         const memberToAdd = board.members.find(member => member._id === memberId)
         card.members.push(memberToAdd)
     }
-
     return [card, groupId, board]
 }
 

@@ -4,7 +4,7 @@ import { cardEditService } from '../../../services/card-edit.service'
 import { onUpdateBoard } from '../../../store/board.actions'
 
 
-export function _MoveCard({ board, currCardId, onUpdateBoard, onClose }) {
+export function _MoveCard({ board, currCardId, onUpdateBoard, onClose, goBack }) {
     const [currGroup, setCurrGroup] = useState(null)
     const [currPosition, setCurrPosition] = useState(null)
 
@@ -13,7 +13,7 @@ export function _MoveCard({ board, currCardId, onUpdateBoard, onClose }) {
         setCurrGroup(group)
         const idx = group.cards.findIndex(card => card.id === currCardId)
         setCurrPosition(idx + 1)
-    }, [board])
+    }, [board, currCardId])
 
     const handleChange = ({ target: { name, value } }) => {
         if (name === 'group') {
@@ -21,7 +21,6 @@ export function _MoveCard({ board, currCardId, onUpdateBoard, onClose }) {
             setCurrGroup(group)
             setCurrPosition(group.cards.length + 1)
         } else if (name === 'position') {
-            // setCurrPosition(currGroup.cards.length + 1)
             setCurrPosition(value)
         }
     }
@@ -38,13 +37,9 @@ export function _MoveCard({ board, currCardId, onUpdateBoard, onClose }) {
     const handleSubmit = () => {
         const groupId = currGroup.id
         const idx = currPosition - 1
-        // const initialGroup = cardEditService.handleMoveCardFrom(currCardId)
-        // onUpdateBoard({ type: 'UPDATE_GROUP', group: initialGroup }, board)
         const boardToChange = cardEditService.handleMoveCard(currCardId, groupId, idx)
         onUpdateBoard({ type: '' }, boardToChange)
-        // onUpdateBoard({ type: 'UPDATE_GROUP', group: newGroup }, board)
-        // onUpdateBoard({ type: 'UPDATE_GROUP', initialGroup }, board, activity)
-        onClose()
+        goBack()
     }
 
     if (!currGroup) return null

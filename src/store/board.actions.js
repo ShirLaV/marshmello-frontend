@@ -1,4 +1,4 @@
-import { activityTxtMap } from "../services/activity.service.js";
+// import { activityTxtMap } from "../services/activity.service.js";
 import { boardService } from "../services/board.service.js";
 import { socketService } from "../services/socket.service.js";
 // import { userService } from "../services/user.service.js";
@@ -255,6 +255,8 @@ function _getUpdatedBoard(action, board) {
             break
         case 'REMOVE_GROUP':
             boardToSave.groups = [...boardToSave.groups.filter(currGroup => currGroup.id !== action.group.id)]
+            break
+        default:
             break
     }
     return boardToSave;

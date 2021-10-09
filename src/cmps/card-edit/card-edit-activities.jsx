@@ -6,7 +6,7 @@ import { MemberAvatar } from '../shared/member-avatar'
 import { connect } from 'react-redux'
 import { Loader } from '../shared/loader'
 import { CommentPreview } from './comment-preview'
-import { CardEditActivityPreview } from './card-edit-activity-preview'
+// import { CardEditActivityPreview } from './card-edit-activity-preview'
 
 
 class _CardEditActivities extends Component {
@@ -65,11 +65,10 @@ class _CardEditActivities extends Component {
     }
 
     render() {
-        const { currCard, isFocus, isTxt, commentTxt, activities } = this.state
+        const { currCard, isFocus, isTxt, commentTxt } = this.state
         const { member } = this.props
         if (!currCard) return <Loader />
-        // console.log(this.props.board.activities);
-        console.log(activities);
+
         return (
             <div className="comments-section">
                 <section className="flex space-between">

@@ -10,7 +10,7 @@ import { SiTrello } from 'react-icons/si'
 import svgRight from '../assets/img/login-svg-right.svg'
 import svgLeft from '../assets/img/login-svg-left.svg'
 
-const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID
+// const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID
 
 class _LoginSignup extends React.Component {
 

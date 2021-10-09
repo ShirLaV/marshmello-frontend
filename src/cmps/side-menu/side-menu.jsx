@@ -70,7 +70,7 @@ class _SideMenu extends React.Component {
     }
 
     render() {
-        const { onClose, toggleCardLabelList, isCardLabelListOpen, getLabel, toggleCardComplete, openCardEdit } = this.props
+        const { onClose } = this.props
         const { currViewIdx } = this.state
         return (
             <div className={`side-menu ${(this.props.isMenuOpen) ? 'menu-open' : ''}`}>

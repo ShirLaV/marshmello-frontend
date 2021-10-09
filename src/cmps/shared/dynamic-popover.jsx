@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState, useLayoutEffect } from 'react'
 import { PopoverHeader } from './popover-header'
 
 /*
@@ -19,50 +19,47 @@ import { PopoverHeader } from './popover-header'
 export const DynamicPopover = React.forwardRef(({ onClose, title, children, isMultiView, onGoBack }, parentRef) => {
     const targetRef = useRef()
     const contentRef = useRef()
+    const { current: breakpoints } = useRef({
+        MOBILE: '(max-width: 500px)',
+        NARROW: '(min-width: 500px)'
+    })
     const [location, setLocation] = useState({
         top: null,
         bottom: null,
         right: null,
         left: null
     })
-
-    useEffect(() => {
-        getLocation({
-            width: targetRef.current?.offsetWidth,
-            height: targetRef.current?.offsetHeight
-        })
-
-        const handleClick = e => {
-            const containerElement = targetRef.current
-            const parentElement = parentRef.current
-            if (containerElement?.contains(e.target) || parentElement?.contains(e.target)) return
-            onClose()
+    
+    const setDynamicStyles = useCallback((rect, breakpoint) => {
+        const { MOBILE, NARROW } = breakpoints
+        switch (breakpoint) {
+            case MOBILE:
+                const targetEl = targetRef.current
+                targetEl.classList.remove('pos-absolute')
+                targetEl.classList.add('pos-fixed')
+                targetEl.style.top = `${(rect.bottom + 8)}px`
+                targetEl.style.left = '50%'
+                targetEl.style.transform = 'translateX(-50%)'
+                break;
+            case NARROW:
+                break;
+            default:
+                break;
         }
+    }, [breakpoints])
 
-        window.addEventListener("mouseup", handleClick)
-        window.addEventListener("resize", getLocation)
-
-        return () => {
-            window.removeEventListener("mouseup", handleClick)
-            window.removeEventListener("resize", getLocation)
-        }
-    }, [parentRef])
-
-
-    const getLocation = ({ width, height }) => {
+    const getLocation = useCallback(({ width, height }) => {
         const rect = parentRef.current?.getBoundingClientRect()
         if (!rect) return
         let left, right, top, bottom
         const rightCheck = window.innerWidth - (rect.left + width) < 20
-        const leftCheck = rect.right - width < 20
         const isOverflowY = (window.innerHeight - height - 45) < 0
-        if (window.innerWidth < 500) {
-            const parentEl = targetRef.current
-            parentEl.classList.remove('pos-absolute')
-            parentEl.classList.add('pos-fixed')
-            parentEl.style.top = `${(rect.bottom + 8)}px`
-            parentEl.style.left = '50%'
-            parentEl.style.transform = 'translateX(-50%)'
+
+        const currBreakpoint = Object.values(breakpoints).find(currBp => {
+            return window.matchMedia(currBp).matches
+        })
+        if (currBreakpoint !== breakpoints.NARROW) {
+            setDynamicStyles(rect, currBreakpoint)
             return
         }
 
@@ -72,19 +69,45 @@ export const DynamicPopover = React.forwardRef(({ onClose, title, children, isMu
         if (isOverflowY) {
             contentRef.current.style.maxHeight = `${window.innerHeight - rect.bottom - 60}px`
         } else {
-
             const maxHeight = (height) ? 350 : (window.innerHeight - rect.bottom - 60)
-
             if (contentRef.current) contentRef.current.style.maxHeight = `${maxHeight}px`
         }
-        setLocation({ top, bottom, right, left })
-    }
-    
+        return { top, bottom, right, left }
+    }, [breakpoints, parentRef, setDynamicStyles])
+
+    const handleLocationChange = useCallback(() => {
+        const location = getLocation({
+            width: targetRef.current?.offsetWidth,
+            height: targetRef.current?.offsetHeight
+        })
+        if (location) setLocation(location)
+    }, [getLocation])
+
+    useLayoutEffect(() => {
+        handleLocationChange()
+    }, [handleLocationChange])
+
+    useEffect(() => {
+        const handleClick = e => {
+            const containerElement = targetRef.current
+            const parentElement = parentRef.current
+            if (containerElement?.contains(e.target) || parentElement?.contains(e.target)) return
+            onClose()
+        }
+
+        window.addEventListener("mouseup", handleClick)
+        window.addEventListener("resize", handleLocationChange)
+
+        return () => {
+            window.removeEventListener("mouseup", handleClick)
+            window.removeEventListener("resize", handleLocationChange)
+        }
+    }, [handleLocationChange, onClose, parentRef])
 
     return (
-        <div ref={ref => targetRef.current = ref} className="dynamic-popover pos-absolute" style={{ ...location }}>
+        <div ref={targetRef} className="dynamic-popover pos-absolute" style={{ ...location }}>
 
-            <PopoverHeader title={title || null} isMultiView={isMultiView} onGoBack={onGoBack} onClose={onClose} />
+            <PopoverHeader title={title} isMultiView={isMultiView} onGoBack={onGoBack} onClose={onClose} />
 
             <div className="popover-content" ref={contentRef}>
                 {children}

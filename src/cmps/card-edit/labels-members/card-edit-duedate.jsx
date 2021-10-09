@@ -5,7 +5,6 @@ import { cardEditService } from '../../../services/card-edit.service'
 import { BsChevronDown } from 'react-icons/bs'
 import { CardEditDate } from '../../shared/popover-children/card-edit-date'
 import { onUpdateCard } from '../../../store/board.actions'
-import { socketService } from '../../../services/socket.service'
 
 const _CardEditDueDate = ({ currCardId, onUpdateCard, board }) => {
     const [isOpen, setIsOpen] = useState(false)

@@ -3,7 +3,7 @@ import { DynamicPopover } from '../shared/dynamic-popover'
 import { EditSidebarLabel } from '../card-edit/edit-sidebar-label'
 
 
-export function CardEditActionsItem({ item }) {
+export function CardEditActionsItem({ item, goBack }) {
     const [isOpen, setIsOpen] = useState(false)
     const itemRef = useRef()
     const InnerPopperCmp = useMemo(() => item.component, [item])
@@ -16,7 +16,7 @@ export function CardEditActionsItem({ item }) {
                 </span>
                 {
                     isOpen && <DynamicPopover onClose={() => setIsOpen(false)} title={item.title} ref={itemRef}>
-                        <InnerPopperCmp onClose={() => setIsOpen(false)} />
+                        <InnerPopperCmp onClose={() => setIsOpen(false)} goBack={goBack} />
                     </DynamicPopover>
                 }
             </div>

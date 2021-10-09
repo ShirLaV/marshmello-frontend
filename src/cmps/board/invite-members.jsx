@@ -4,7 +4,6 @@ import { MemberAvatar } from '../shared/member-avatar';
 import { onUpdateBoard } from '../../store/board.actions'
 import { IoCheckmarkSharp } from 'react-icons/io5'
 import { activityTxtMap } from '../../services/activity.service';
-import { socketService } from '../../services/socket.service';
 
 class _InviteMembers extends React.Component {
 

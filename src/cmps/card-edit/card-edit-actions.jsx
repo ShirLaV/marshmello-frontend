@@ -24,7 +24,7 @@ const _CardEditActions = ({ currCardId, board, onArchiveCard, onUnArchiveCard, o
         setIsArchive(card.isArchive || false)
         setGroupId(groupId)
         setCurrCard(card)
-    }, [])
+    }, [currCardId])
 
     const handleArchiveCard = () => {
         onArchiveCard(currCard, groupId, board)
@@ -47,7 +47,7 @@ const _CardEditActions = ({ currCardId, board, onArchiveCard, onUnArchiveCard, o
                 <h3 className="sidebar-title">Actions</h3>
                 <div className="actions-container">
                     {actions.map((item, idx) => (
-                        <CardEditActionsItem key={item.title + idx} item={item} />
+                        <CardEditActionsItem key={item.title + idx} item={item} goBack={goBack} />
                     ))}
                     {!isArchive ?
                         <div className="label-wrapper" onClick={handleArchiveCard}>

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { onUpdateBoard, onUpdateCard, onAddCard } from '../../store/board.actions.js';
 
 import { IoMdClose } from 'react-icons/io'
-import { GrClose } from 'react-icons/gr';
+// import { GrClose } from 'react-icons/gr';
 import { utilService } from '../../services/util.service';
 import { activityTxtMap } from '../../services/activity.service.js'
 

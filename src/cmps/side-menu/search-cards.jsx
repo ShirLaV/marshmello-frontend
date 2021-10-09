@@ -1,7 +1,6 @@
 import React from "react";
 import { IoCheckmarkSharp } from "react-icons/io5";
 import { connect } from "react-redux";
-import { PopperLabelPreview } from "../card-edit/popper-label-preview";
 import { MemberAvatar } from "../shared/member-avatar";
 
 import { onUpdateFilter, loadBoard } from "../../store/board.actions"

@@ -2,7 +2,7 @@ import React from 'react'
 import { BsChevronLeft } from 'react-icons/bs'
 import { IoMdClose } from 'react-icons/io'
 
-export const PopoverHeader = ({ title, isMultiView, onClose, onGoBack }) => {
+export const PopoverHeader = React.memo(({ title, isMultiView, onClose, onGoBack }) => {
     return (
         <>
             {title
@@ -18,4 +18,5 @@ export const PopoverHeader = ({ title, isMultiView, onClose, onGoBack }) => {
                 </div>}
         </>
     )
-}
+})
+

@@ -12,11 +12,11 @@ import {
   onSignup,
   loadUsers,
   removeUser,
-  loadAndWatchUser,
+  // loadAndWatchUser,
   onReceiveMention,
   onUpdateUser
 } from '../store/user.actions.js';
-import { userService } from '../services/user.service.js';
+// import { userService } from '../services/user.service.js';
 import { setAddingBoard } from '../store/board.actions';
 import { BoardAdd } from './board/board-add.jsx';
 import { MemberAvatar } from './shared/member-avatar.jsx';

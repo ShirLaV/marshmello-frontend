@@ -31,8 +31,8 @@ class _ActivityList extends React.Component {
                 </div>
                 <ul className="activity-list clean-list" >
                     {
-                        board.activities.map(activity =>
-                            <li key={activity.id} className="activity-preview">
+                        board.activities.map((activity, idx) =>
+                            <li key={`${activity.createdAt}${idx}`} className="activity-preview">
                                 <span className="member-avatar"><MemberAvatar member={activity.byMember} /></span>
                                 <div className="activity-text">
                                     <span className="user-fullname">{activity.byMember.fullname} </span>

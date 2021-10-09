@@ -16,7 +16,7 @@ function _LabelEdit({ color, board, onUpdateBoard, onClose, onGoBack, onUpdateCa
         const label = board.labels.find(label => label.color === color)
         setTitle(label?.title || '')
         inputRef.current?.select()
-    }, [])
+    }, [board.labels, color])
 
     const handleClick = (ev) => {
         setSelectedColor(ev.target.dataset.color)
