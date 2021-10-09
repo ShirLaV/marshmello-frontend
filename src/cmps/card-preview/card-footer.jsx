@@ -20,7 +20,7 @@ export function CardFooter({ card, groupId, toggleCardComplete }) {
         <GrTextAlignFull title={'This card has a description'} />
       )}
 
-      {card.comments && (
+      {card.comments && card.comments.length>0 && (
         <div className='comments-box badge flex align-center'>
           <span className='flex align-center'>
             <FaRegComment />
