@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { CgHome } from 'react-icons/cg';
-import { AiOutlinePlus, AiOutlineBell } from 'react-icons/ai';
 import { SiTrello } from 'react-icons/si';
 
 // import routes from '../routes'
@@ -26,6 +25,9 @@ import { LoggedinUser } from './shared/popover-children/loggedin-user.jsx';
 import { Loader } from './shared/loader';
 import { socketService } from '../services/socket.service.js';
 import { Notifications } from './shared/popover-children/notifications.jsx';
+import { FaRegBell } from 'react-icons/fa';
+import { GoPlus } from 'react-icons/go';
+import { VscHome } from 'react-icons/vsc';
 
 class _AppHeader extends React.Component {
   state = {
@@ -100,7 +102,7 @@ class _AppHeader extends React.Component {
                 onClick={() => this.setFavicon()}
                 className='home-btn nav-button'
               >
-                <CgHome />
+                <VscHome />
               </button>
             </NavLink>
             <NavLink to='/board'>
@@ -120,7 +122,7 @@ class _AppHeader extends React.Component {
               className='nav-button'
               onClick={() => this.setAddBoard(true)}
             >
-              <AiOutlinePlus />
+              <GoPlus />
             </button>
             <div className='pos-relative' ref={this.notificationsRef}>
               <button
@@ -132,7 +134,7 @@ class _AppHeader extends React.Component {
                     : '',
                 }}
               >
-                <AiOutlineBell />
+                <FaRegBell />
               </button>
               {isNotificationPopoverOpen && (
                 <DynamicPopover

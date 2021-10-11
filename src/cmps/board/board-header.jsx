@@ -142,7 +142,7 @@ class _BoardHeader extends React.Component {
                         </div>
 
                         <button onClick={() => onToggleDashboard(true)} className={`dashboard-btn nav-button ${(isMenuOpen) ? 'menu-open' : ''}`}><RiBarChartFill /> <span className="right-btn-txt">Dashboard</span></button>
-                        <button onClick={() => this.toggleMenu()} className="right-menu-btn nav-button"><HiDotsHorizontal /> <span className="right-btn-txt">Show Menu</span></button>
+                        <button onClick={() => this.toggleMenu()} className="right-menu-btn nav-button"><HiDotsHorizontal /> <span className="right-btn-txt">Show menu</span></button>
                     </>}
                 </div>
                 <SideMenu isMenuOpen={isMenuOpen} onClose={() => { this.toggleMenu() }} isCardLabelListOpen={isCardLabelListOpen} toggleCardLabelList={toggleCardLabelList} getLabel={getLabel} openCardEdit={openCardEdit} toggleCardComplete={toggleCardComplete} />
