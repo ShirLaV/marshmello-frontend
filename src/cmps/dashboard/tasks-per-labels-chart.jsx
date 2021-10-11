@@ -11,7 +11,7 @@ export function TasksPerLabelChart({ tasksPerLabelMap, labelsColors }) {
         backgroundColor: labelsColors,
         borderWidth: 2,
         hoverOffset: 2,
-        fontColor: 'black'
+        fontColor: 'black',
       },
     ],
   };
@@ -22,33 +22,33 @@ export function TasksPerLabelChart({ tasksPerLabelMap, labelsColors }) {
       legend: {
         display: false,
         labels: {
-          fontColor: 'black'
+          fontColor: 'black',
           // fontColor: '#f00'
-        }
+        },
       },
     },
     scales: {
       y: {
         ticks: {
-          color: 'black'
+          color: 'black',
           // color: 'white'
-        }
+        },
       },
       x: {
         ticks: {
-          color: 'black'
+          color: 'black',
           // color: 'white'
-        }
-      }
-    }
+        },
+      },
+    },
   };
 
   return (
-    <div className='chart bar-chart-container' style={{ maxHeight: 400 }}>
+    <div className='bar-chart-container'>
       <h1>Tasks per Label</h1>
-      <Bar data={data} height={null}
-        width={null}
-        options={options} />
+      <div className="video-ratio">
+        <Bar data={data} options={options} />
+      </div>
     </div>
   );
 }

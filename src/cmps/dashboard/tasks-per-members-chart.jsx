@@ -11,7 +11,7 @@ export function TasksPerMemberChart({ tasksPerMemberMap, labelsColors }) {
         data: Object.values(tasksPerMemberMap),
         backgroundColor: labelsColors,
         borderWidth: 2,
-        hoverOffset: 2
+        hoverOffset: 2,
       },
     ],
   };
@@ -21,15 +21,17 @@ export function TasksPerMemberChart({ tasksPerMemberMap, labelsColors }) {
         labels: {
           color: 'black',
           padding: 10
-        }
+        },
       },
-    } ,
+    },
   };
 
   return (
-    <div className='chart'>
+    <div className='chart-container'>
       <h1>Tasks per Member</h1>
-      <Pie data={data} options={options} />
+      <div className='chart-wrapper square-ratio'>
+        <Pie data={data} options={options} />
+      </div>
     </div>
   );
 }
