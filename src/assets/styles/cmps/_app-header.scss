@@ -1,83 +1,73 @@
 .app-header {
-  position: fixed;
-  z-index: 5;
-  width: 100vw;
-  top: 0;
-  background-color: rgba(177, 106, 195, 0.548);
-
-  padding: 5px 8px;
-
-  &+* {
-    margin-top: 44px;
-  }
-
-  .nav-button {
-    font-weight: 700;
-  }
-
-  .nav-links {
-    display: flex;
-    justify-content: space-between;
-
-    .left-links {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-
-      .boards-btn {
-        gap: 5px;
-
-        span {
-          display: none;
-        }
-      }
+    position: fixed;
+    z-index: 5;
+    width: 100vw;
+    top: 0;
+    background-color: rgba(177, 106, 195, 0.548);
+    padding: 5px 8px;
+    &+* {
+        margin-top: 44px;
     }
-
-    .logo {
-      text-decoration: none;
-      color: rgba(255, 255, 255, 0.466);
-      transition: all 0.3s;
-      font-weight: 700;
-      line-height: 32px;
-
-      >span {
-        font-size: rem(18px);
-      }
-
-      &:hover {
-        color: rgb(255, 255, 255);
-      }
-    }
-
-    .right-links {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-    }
-
     .nav-button {
-      font-weight: 700;
+        font-weight: 700;
     }
-  }
-
-  .user-btn {
-    padding: 0;
-  }
+    .nav-links {
+        display: flex;
+        justify-content: space-between;
+        .left-links {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            .home-btn {
+                svg {
+                    font-size: 17px;
+                }
+            }
+            .boards-btn {
+                gap: 5px;
+                span {
+                    display: none;
+                }
+            }
+        }
+        .logo {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.466);
+            transition: all 0.3s;
+            font-weight: 700;
+            line-height: 32px;
+            >span {
+                font-size: rem(18px);
+            }
+            &:hover {
+                color: rgb(255, 255, 255);
+            }
+        }
+        .right-links {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+        .nav-button {
+            font-weight: 700;
+        }
+    }
+    .user-btn {
+        padding: 0;
+    }
 }
 
 @media screen and (min-width:620px) {
-  .app-header {
-    padding: 5px 15px;
-
-    .nav-links {
-      .left-links {
-
-        .boards-btn {
-          span {
-            display: block;
-          }
+    .app-header {
+        padding: 5px 15px;
+        .nav-links {
+            .left-links {
+                .boards-btn {
+                    span {
+                        display: block;
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }
