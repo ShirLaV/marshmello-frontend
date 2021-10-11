@@ -1,5 +1,5 @@
 .group-wrapper {
-    height: 100%;
+    height: calc(100% - 20px);
     &.placeholder {
         border-color: #0000;
         border-radius: 3px;

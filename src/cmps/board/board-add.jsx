@@ -62,14 +62,15 @@ class _BoardAdd extends React.Component {
             'https://images.pexels.com/photos/3293148/pexels-photo-3293148.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
             'https://images.pexels.com/photos/911738/pexels-photo-911738.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
             'https://images.pexels.com/photos/3274903/pexels-photo-3274903.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-            'https://images.pexels.com/photos/3683056/pexels-photo-3683056.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+            'https://images.pexels.com/photos/142497/pexels-photo-142497.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
             'https://images.pexels.com/photos/2170473/pexels-photo-2170473.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
             'https://images.pexels.com/photos/2529973/pexels-photo-2529973.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
             'https://images.pexels.com/photos/1982485/pexels-photo-1982485.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940']
         const { title, chosenImgIdx } = this.state
         return (
             <div className="board-add" ref={this.targetRef}>
-                <form className="board-add-form" onSubmit={this.addBoard} style={{background: '#000000', backgroundImage: `url(${images[chosenImgIdx]})` }} >
+                <form className="board-add-form" onSubmit={this.addBoard} style={{backgroundImage: `url(${images[chosenImgIdx]})` }} >
+                {/* <form className="board-add-form" onSubmit={this.addBoard} style={{background: '#000000', backgroundImage: `url(${images[chosenImgIdx]})` }} > */}
                     <input autoFocus className={`board-title-input ${(title) ? 'editing' : ''}`} autoComplete="off" type="text" placeholder="Add board title" name="title" value={title} onChange={this.handleChange} />
                     <button className={`create-btn ${(title) ? 'clickable' : ''}`} type="submit">Create Board</button>
                 </form>
