@@ -1,0 +1,13 @@
+{
+    "name": "Marshmello",
+    "short_name": "Marshmello",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#fff",
+    "description": "",
+    "icons": [{
+        "src": "assets/img/logo.png",
+        "sizes": "48x48",
+        "type": "image/png"
+    }]
+}

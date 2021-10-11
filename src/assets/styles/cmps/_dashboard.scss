@@ -1,7 +1,7 @@
 .dashboard-modal {
     color: black;
     padding: 20px 0px;
-    background-color: #ffffffee;
+    background-color: #fffffff6;
     width: 100%;
     height: 100vh;
     position: fixed;
@@ -28,31 +28,54 @@
         margin-top: 30px;
         .stats {
             position: relative;
-            // height: 15vh;
             height: 150px;
-            background: linear-gradient(90deg, rgb(182, 134, 194), rgb(213, 159, 226), rgb(236, 196, 247));
             border-radius: 3px;
             color: white;
-            padding: 10px;
+            padding: 10px 40px;
             margin: 5px 0;
-            // width: 30%;
+            align-items: center;
             h3 {
-                font-size: rem(40px);
+                font-size: rem(23px);
             }
             span {
-                font-size: rem(60px);
+                font-size: rem(50px);
                 font-weight: 600;
+                line-height: inherit;
             }
             i {
-                font-size: rem(100px);
+                font-size: rem(70px);
+            }
+            &:nth-child(1) {
+                background-color: #7BC86C;
+            }
+            &:nth-child(2) {
+                background-color: #517DAB;
+            }
+            &:nth-child(3) {
+                background-color: #FFAF3F;
+            }
+            &:nth-child(4) {
+                background-color: #EF7564;
             }
         }
     }
     .charts {
-        height: 55vh;
         flex-direction: column;
         margin-bottom: 16px;
         gap: 60px;
+        justify-content: space-evenly;
+        width: 100%;
+        .chart {
+            background-color: white;
+            width: 100%;
+            padding: 20px;
+            box-shadow: 1px 1px 13px -1px rgb(0 0 0 / 25%);
+            border-radius: 3px;
+            .chart-wrapper {
+                margin: auto;
+                width: 50%;
+            }
+        }
         h1 {
             margin-bottom: 20px;
             text-align: center;
@@ -67,80 +90,15 @@
     }
 }
 
-// .dashboard-modal {
-//     color: white;
-//     padding: 87px 0px;
-//     background-color: #000000bd;
-//     width: 100%;
-//     height: 100vh;
-//     position: fixed;
-//     z-index: 10;
-//     inset: 0;
-//     overflow-y: auto;
-//     .close-btn {
-//         color: white;
-//         position: absolute;
-//         top: 10px;
-//         right: 10px;
-//         font-size: rem(40px);
-//         transition: font-size .2s;
-//         &:hover {
-//             font-size: rem(45px);
-//         }
-//     }
-//     .jeneral-statistics {
-//         flex-wrap: wrap;
-//         margin-bottom: 60px;
-//         flex-direction: column;
-//         .stats {
-//             position: relative;
-//             height: 100px;
-//             background: linear-gradient(90deg, rgb(182, 134, 194), rgb(213, 159, 226), rgb(236, 196, 247));
-//             border-radius: 3px;
-//             color: white;
-//             padding: 10px;
-//             margin: 5px 0;
-//             width: 300px;
-//             h3 {
-//                 font-size: rem(20px);
-//             }
-//             span {
-//                 font-size: rem(50px);
-//                 font-weight: 600;
-//             }
-//             i {
-//                 font-size: rem(70px);
-//             }
-//         }
-//     }
-//     .charts {
-//         height: 50vh;
-//         flex-direction: column;
-//         margin-bottom: 16px;
-//         gap: 60px;
-//         h1 {
-//             margin-bottom: 20px;
-//             text-align: center;
-//         }
-//     }
-//     .time-line-container {
-//         display: none;
-//     }
-//     .bar-chart-container {
-//         max-height: 400px;
-//         width: 100%;
-//     }
-// }
 @media screen and (min-width:680px) {
     .dashboard-modal {
         .jeneral-statistics {
             flex-direction: row;
             .stats {
-                // width: 200px;
-                width: 30%;
-                height: 15vh;
+                width: 20%;
                 margin: 0px 10px;
                 margin-bottom: 30px;
+                padding: 10px 35px;
             }
         }
         .time-line-container {
@@ -148,10 +106,9 @@
             flex-direction: column;
             justify-content: flex-start;
             align-items: center;
-            width: 94%;
-            // width: 50%;
+            width: 83.5%;
             flex-grow: 1;
-            margin-top: 50px;
+            margin-top: 25px;
         }
         .bar-chart-container {
             max-height: unset;
@@ -159,8 +116,11 @@
         }
         .charts {
             flex-direction: row;
-            // gap: 30px;
-            gap: 200px;
+            justify-content: center;
+            gap: 25px;
+            .chart {
+                width: 41%;
+            }
             h1 {
                 text-align: left;
             }
