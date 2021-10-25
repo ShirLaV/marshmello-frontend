@@ -148,6 +148,13 @@
     p {
       font-size: 1.25rem;
     }
+    .home-header {
+      .header-buttons {
+        button {
+          font-size: rem(14px);
+        }
+      }
+    }
 
     .home-first-fold {
       padding-top: 50px;
