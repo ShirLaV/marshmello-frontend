@@ -17,7 +17,6 @@ class _BoardSelect extends React.Component {
 
     async componentDidMount() {
         const user = userService.getMiniUser()
-        // console.log(user)
         await this.props.loadBoards(user)
     }
 
@@ -57,9 +56,6 @@ class _BoardSelect extends React.Component {
                 <h2> <SiTrello /> Workspace</h2>
                 <div className="workspace">
                     <BoardList boards={boards} toggleStarredBoard={this.toggleStarredBoard} setFavicon={this.setFavicon} setAddBoard={this.setAddBoard} isWorkspace={true} />
-                    {/* <div className="board-preview create-board-btn" onClick={() => this.setAddBoard()}>
-                        <h4>Create New Board</h4>
-                    </div> */}
                 </div>
                 {isAddingBoard && <OverlayScreen />}
             </div>

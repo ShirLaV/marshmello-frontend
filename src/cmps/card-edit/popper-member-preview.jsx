@@ -14,7 +14,6 @@ function _PopperMemberPreview({
   currCardId,
   onUpdateCard,
   user,
-  onAddUserMention,
 }) {
   const [isChecked, setIsChecked] = useState(false);
 

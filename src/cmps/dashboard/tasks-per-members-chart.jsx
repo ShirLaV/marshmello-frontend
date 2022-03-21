@@ -1,8 +1,6 @@
 import { Pie } from 'react-chartjs-2';
 
 export function TasksPerMemberChart({ tasksPerMemberMap, labelsColors }) {
-  console.log('tasksPerMemberMap', tasksPerMemberMap);
-  // console.log('Object.keys(tasksPerMemberMap)', Object.keys(tasksPerMemberMap))
   const data = {
     labels: Object.keys(tasksPerMemberMap),
     datasets: [

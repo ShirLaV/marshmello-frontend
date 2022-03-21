@@ -1,9 +1,7 @@
 import React from 'react'
 import { MemberAvatar } from '../member-avatar'
 import { connect } from 'react-redux'
-// import { onUpdateCard } from '../../../store/board.actions'
 import { onLogout } from '../../../store/user.actions'
-// import { cardEditService } from '../../../services/card-edit.service'
 import { withRouter } from 'react-router'
 
 class _LoggedinUser extends React.Component {

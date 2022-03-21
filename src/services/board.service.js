@@ -1,10 +1,6 @@
-// import { storageService } from './async-storage.service.js'
 import { utilService } from './util.service.js'
 import { userService } from './user.service.js'
 import { httpService } from './http.service'
-
-// const STORAGE_KEY = 'board'
-    // const listeners = []
 
 export const boardService = {
     query,
@@ -81,9 +77,6 @@ async function save(board, activity = null) {
                     card: (activity.card) ? { id: activity.card.id, title: activity.card.title } : {},
                     groupId: (activity.groupId) ? activity.groupId : null
                 }
-                // console.log('Activity from service: ', newActivity)
-                // board.activities.unshift(newActivity)
-                // console.log('Board activities from service: ', board.activities)
             return httpService.put(`board/${board._id}`, { board: board, activity: newActivity })
         } else {
             // return storageService.put(STORAGE_KEY, board)
@@ -101,21 +94,3 @@ async function save(board, activity = null) {
         return addedBoard
     }
 }
-
-
-// function subscribe(listener) {
-//     listeners.push(listener)
-// }
-
-// function _notifySubscribersBoardsChanged(boards) {
-//     console.log('Notifying Listeners');
-//     listeners.forEach(listener => listener(boards))
-// }
-
-// window.addEventListener('storage', () => {
-//     console.log('Storage Changed from another Browser!');
-//     query()
-//         .then(boards => {
-//             _notifySubscribersCarsChanged(boards)
-//         }) 
-// })

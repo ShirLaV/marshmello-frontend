@@ -1,11 +1,9 @@
 import React from 'react';
 import { IoIosArrowBack, IoMdClose } from 'react-icons/io';
-import { BiSearch } from 'react-icons/bi';
 import { connect } from 'react-redux';
 import { ChangeBG } from './change-bg';
 import { BsArchiveFill } from 'react-icons/bs';
 import { BoardIcon } from './board-icon';
-import { SearchCards } from './search-cards';
 import { Archive } from './archive';
 import { ActivityList } from './activity-list';
 import { withRouter } from 'react-router'
@@ -19,10 +17,8 @@ class _SideMenu extends React.Component {
     }
 
     _cmpsToRender = [{ id: 'c101', title: 'Change Background', icon: <BoardIcon />, component: ChangeBG },
-    // { id: 'c102', title: 'Search Cards', icon: <BiSearch />, component: SearchCards },
     { id: 'c103', title: 'Archive', icon: <BsArchiveFill />, component: Archive },
     { id: 'c104', title: 'Remove Board', icon: <HiOutlineTrash />, component: RemoveBoard }]
-    // { id: 'c103', title: 'Archive - Under Construction 🚧', icon: <BsArchiveFill />, component: Archive }]
 
     componentDidMount() {
         if (this.props.location.search) this.setState((prevState) => ({ ...prevState, currViewIdx: 1 }))
@@ -39,7 +35,6 @@ class _SideMenu extends React.Component {
     getViewById = () => {
         const { currViewIdx } = this.state
         const currView = this._cmpsToRender[currViewIdx]
-        console.log('selected view: ', currView)
         return currView.component
     }
 

@@ -36,7 +36,6 @@ class _ChangeBG extends React.Component {
     setBoardBG = (backGround) => {
         const { board, onUpdateBoard } = this.props
         const style = (backGround[0] === '#') ? { bgColor: backGround } : { imgUrl: backGround }
-        // const style = (backGround[0] === '#') ? { bgColor: backGround } : { imgUrl: backGround }
         const activity = { txt: activityTxtMap.changeBackground() }
         onUpdateBoard({ type: "CHANGE_BOARD_STYLE", style }, board, activity)
     }

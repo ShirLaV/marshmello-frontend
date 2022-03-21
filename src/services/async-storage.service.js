@@ -20,11 +20,9 @@ function query(entityType, delay = 500) {
     }
     return new Promise((resolve, reject) => {
             setTimeout(() => {
-                // reject('OOOOPs')
                 resolve(entities)
             }, delay)
         })
-        // return Promise.resolve(entities)
 }
 
 async function dashboardQuery(entityType, entityId, delay = 500) {
@@ -75,19 +73,6 @@ async function dashboardQuery(entityType, entityId, delay = 500) {
         }, delay)
     })
 }
-
-// function queryUsers(entityType, delay = 500) {
-//     var entities = JSON.parse(localStorage.getItem(entityType)) || gUsers;
-
-//     return new Promise((resolve, reject) => {
-//             setTimeout(() => {
-//                 // reject('OOOOPs')
-//                 resolve(entities)
-//             }, delay)
-//         })
-//         // return Promise.resolve(entities)
-// }
-
 
 function get(entityType, entityId) {
     return query(entityType)

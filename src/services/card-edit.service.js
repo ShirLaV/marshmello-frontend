@@ -190,7 +190,6 @@ const handleRemoveCard = (cardId) => {
     const board = { ...store.getState().boardModule.currBoard }
     const group = board.groups.find(group => group.cards.some(card => card.id === cardId))
     group.cards = group.cards.filter(card => card.id !== cardId)
-    // return board
 }
 
 const onAddComment = (txt) => {

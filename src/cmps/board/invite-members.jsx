@@ -19,8 +19,6 @@ class _InviteMembers extends React.Component {
 
     inviteToBoard = (user) => {
         const { board, onUpdateBoard } = this.props
-        // const members = board.members
-        // members.push({_id: user._id, fullname: user.fullname, imgUrl: user.imgUrl})
         const memberIds = this.getMembersIds()
         const memberToAdd = { _id: user._id, fullname: user.fullname, imgUrl: user.imgUrl }
         if (memberIds.includes(memberToAdd._id)) {

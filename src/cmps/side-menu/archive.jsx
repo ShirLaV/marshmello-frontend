@@ -22,11 +22,7 @@ class _Archive extends React.Component {
     const archivedCards = board.archivedCards ? board.archivedCards : [];
     this.setState({ archivedCards });
   };
-  // loadArchivedCards = async () => {
-  //   const boardId = this.props.board._id;
-  //   const archivedCards = await this.props.loadArchivedCards(boardId);
-  //   this.setState({ archivedCards });
-  // };
+ 
   onUnarchiveCard = (card) => {
     this.props.onUnArchiveCard(card, this.props.board);
   };

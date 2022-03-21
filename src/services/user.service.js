@@ -2,11 +2,9 @@
 import { httpService } from './http.service'
 import { 
     socketService, 
-    // SOCKET_EVENT_USER_UPDATED 
 } from './socket.service'
 import { utilService } from './util.service';
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
-// var gWatchedUser = null;
 
 export const userService = {
     login,
@@ -16,7 +14,6 @@ export const userService = {
     getMiniUser,
     getUsers,
     getById,
-    // remove,
     update,
     getGueastUser,
     googleLogin,
@@ -37,14 +34,8 @@ async function getUsers() {
 async function getById(userId) {
     // const user = await storageService.get('user', userId)
     const user = await httpService.get(`user/${userId}`)
-    // gWatchedUser = user;
     return user;
 }
-
-// function remove(userId) {
-//     return storageService.remove('user', userId)
-//         // return httpService.delete(`user/${userId}`)
-// }
 
 async function update(user) {
     // await storageService.put('user', user)
@@ -56,7 +47,6 @@ async function update(user) {
 
 async function login(userCred) {
     // const users = await storageService.query('user')
-    // console.log('users: ', users)
     // const user = users.find(user => user.username.toLocaleLowerCase() === userCred.username.toLocaleLowerCase())
     // return _saveLocalUser(user)
 

@@ -69,23 +69,6 @@ export class LoginSignup extends React.Component {
                         {users.map(user => <option key={user._id} value={user.username}>{user.fullname}</option>)}
                     </select>
 
-                    {/* <input
-                        type="text"
-                        name="username"
-                        value={username}
-                        placeholder="Username"
-                        onChange={this.handleChange}
-                        required
-                        autoFocus
-                    />
-                    <input
-                        type="password"
-                        name="password"
-                        value={password}
-                        placeholder="Password"
-                        onChange={this.handleChange}
-                        required
-                    /> */}
                     <button>Login!</button>
                 </form>}
 

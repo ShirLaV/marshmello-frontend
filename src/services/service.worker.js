@@ -6,18 +6,12 @@ console.log('Service Worker Registered!');
 self.addEventListener('install', event => {
 
     console.log('Installing service worker...');
-    // var count = 0;
-
-    // setInterval(()=>{
-    //     console.log('Service Worker Ping', ++count);
-    // }, 1000)
-
+ 
     const urlsToCache = [
         '/',
         'index.js',
         'assets/img/homepage-product.jpg',
         'assets/img/hero.png',
-        // 'https://fonts.gstatic.com/s/barrio/v1/qC9DkIiXyrH5oRNKaVpE0g.woff2'
     ];
     event.waitUntil(
         caches.open('my-cache1').then(cache => {

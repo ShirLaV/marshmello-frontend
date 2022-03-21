@@ -4,7 +4,6 @@ export const utilService = {
     getRandomIntInclusive,
     delay,
     debounce
-    // handleChange
 }
 
 function makeId(length = 6) {
@@ -47,8 +46,4 @@ function delay(ms = 1500) {
         setTimeout(resolve, ms)
     })
 }
-
-// function handleChange({ target: { name, value, type } }) {
-//     this.setState(prevState => ({ ...prevState, [name]: value }))
-// }
 

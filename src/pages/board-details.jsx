@@ -33,12 +33,10 @@ class _BoardDetails extends Component {
       groupId: '',
       position: {},
     },
-    // isDashboardOpen: false,
   };
   async componentDidMount() {
     const { boardId } = this.props.match.params;
     const filterBy = this.props.location.search;
-    console.log('from Board details: ', filterBy);
     await this.loadBoard(boardId, filterBy);
     socketService.emit('member-joined', boardId);
     socketService.on('board-update', ({ action, activity }) => {
@@ -75,7 +73,6 @@ class _BoardDetails extends Component {
     } else {
       this.props.history.goBack();
     }
-    // this.setState({isDashboardOpen: isOpen})
   };
   toggleCardLabelList = (event) => {
     event.stopPropagation();
@@ -252,13 +249,7 @@ class _BoardDetails extends Component {
             <OverlayScreen />
           </div>
         )}
-        {/* {isDashboardOpen && (
-          <div
-            onClick={() => this.onToggleDashboard(false)}
-          >
-            <OverlayScreen />
-          </div>
-        )} */}
+       
       </div>
     );
   }

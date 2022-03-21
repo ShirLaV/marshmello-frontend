@@ -57,7 +57,6 @@ class _PopperCoverEdit extends Component {
         const { currCard, currStyle, selectedSize } = this.state
         if (!currCard) return ''
         const colors = ['#7bc86c', '#f5dd29', '#ffaf3f', '#ef7564', '#cd8de5', '#517dab', '#29cce5', '#6deca9', '#ff8ed4', '#172b4d']
-        console.log(currStyle);
         return (
             <section className="modal-cover-edit flex column">
 

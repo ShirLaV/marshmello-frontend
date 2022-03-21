@@ -30,7 +30,6 @@ class _Dashboard extends Component {
   render() {
     const { chartsData } = this.state;
     const { board } = this.props;
-    console.log('chartsDate', chartsData);
     if (!chartsData) return <Loader />;
     return (
       <div className='dashboard-modal flex column align-center'>

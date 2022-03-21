@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-// import { IoMdClose } from 'react-icons/io'
 import { connect } from 'react-redux'
 import { cardEditService } from '../../services/card-edit.service'
 import { onUpdateCard } from '../../store/board.actions'

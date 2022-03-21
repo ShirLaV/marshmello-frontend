@@ -51,7 +51,6 @@ export function _MoveCard({ board, currCardId, onUpdateBoard, onClose, goBack })
                 <span className="label">Board</span>
                 <span className="select-value">{board.title}</span>
                 <select name="board" onChange={handleChange}>
-                    {/* {boards.map(item => <option key={item._id} value={item._id}>{item.title}</option>)} */}
                     <option value={board._id}>{board.title}</option>
                 </select>
             </div>

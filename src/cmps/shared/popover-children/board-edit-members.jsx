@@ -14,7 +14,6 @@ const _BoardEditMembers = ({ members, board, onUpdateBoard, onClose }) => {
     },[onClose])
 
     const removeFromBoard = (memberId) => {
-        // const activity = {txt: activityTxtMap.inviteMember(user.fullname)}
         onUpdateBoard({ type: 'REMOVE_BOARD_MEMBER', memberId: memberId }, board)
     }
 

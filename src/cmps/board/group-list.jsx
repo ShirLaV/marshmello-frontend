@@ -1,4 +1,3 @@
-// import React, { Component } from 'react';
 
 import { GroupPreview } from './group-preview.jsx';
 

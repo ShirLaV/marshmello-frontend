@@ -23,7 +23,6 @@ export function TasksPerLabelChart({ tasksPerLabelMap, labelsColors }) {
         display: false,
         labels: {
           fontColor: 'black',
-          // fontColor: '#f00'
         },
       },
     },
@@ -31,13 +30,11 @@ export function TasksPerLabelChart({ tasksPerLabelMap, labelsColors }) {
       y: {
         ticks: {
           color: 'black',
-          // color: 'white'
         },
       },
       x: {
         ticks: {
           color: 'black',
-          // color: 'white'
         },
       },
     },

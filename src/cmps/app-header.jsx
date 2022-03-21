@@ -1,21 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { CgHome } from 'react-icons/cg';
 import { SiTrello } from 'react-icons/si';
 
-// import routes from '../routes'
 import {
   onLogin,
   onLogout,
   onSignup,
   loadUsers,
   removeUser,
-  // loadAndWatchUser,
   onReceiveMention,
   onUpdateUser
 } from '../store/user.actions.js';
-// import { userService } from '../services/user.service.js';
 import { setAddingBoard } from '../store/board.actions';
 import { BoardAdd } from './board/board-add.jsx';
 import { MemberAvatar } from './shared/member-avatar.jsx';
@@ -31,7 +27,6 @@ import { VscHome } from 'react-icons/vsc';
 
 class _AppHeader extends React.Component {
   state = {
-    // user: null,
     isUserPopoverOpen: false,
     isNotificationPopoverOpen: false
   };
@@ -52,7 +47,6 @@ class _AppHeader extends React.Component {
 
   componentWillUnmount() {
     socketService.off('received-mention', this.props.onReceiveMention)
-    //socketService.emit('unset-user-socket')
   }
 
   onLogout = () => {
@@ -79,7 +73,6 @@ class _AppHeader extends React.Component {
   };
 
   markAllMentionsAsRead = () => {
-    // const user = {...this.props.user};
     const { user } = this.props;
     const { mentions } = user;
     mentions.forEach((mention) => {

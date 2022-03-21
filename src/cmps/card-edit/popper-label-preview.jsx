@@ -20,14 +20,12 @@ function _PopperLabelPreview({ label, currCardId, onUpdateCard, onGoBack }) {
         setIsChecked(!isChecked)
         const res = cardEditService.handleLabelChange(label.id)
         const groupId = cardEditService.getGroupId(currCardId)
-        // const activity = {txt: activityTxtMap.addLabel(label.title), groupId: groupId}
         const activity = (isChecked) ? { txt: activityTxtMap.removeLabel(label.title), groupId: groupId } : { txt: activityTxtMap.addLabel(label.title), groupId: groupId }
         onUpdateCard(...res, activity)
     }
 
     return (
         <div className="label-preview flex" >
-            {/* <div className='list-item-layover'></div> */}
             <div className="label-preview flex" >
                 <div className="popper-label " style={{ backgroundColor: label.color }} onClick={handleLabelClick}>
                     <span> {label.title || ''}</span>

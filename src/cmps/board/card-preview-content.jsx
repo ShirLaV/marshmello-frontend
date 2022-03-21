@@ -7,7 +7,6 @@ export function CardPreviewContent({
   card,
   groupId,
   onToggleQuickCardEditor,
-  openCardEdit,
   toggleCardComplete,
   getLabel,
   toggleCardLabelList,
@@ -16,7 +15,6 @@ export function CardPreviewContent({
   return (
     <div
       className='card-preview flex space-between'
-      // onClick={() => openCardEdit(groupId, card.id)}
     >
       {!card.isArchive && (
         <button

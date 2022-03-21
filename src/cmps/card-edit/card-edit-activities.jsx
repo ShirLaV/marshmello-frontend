@@ -6,7 +6,6 @@ import { MemberAvatar } from '../shared/member-avatar'
 import { connect } from 'react-redux'
 import { Loader } from '../shared/loader'
 import { CommentPreview } from './comment-preview'
-// import { CardEditActivityPreview } from './card-edit-activity-preview'
 
 
 class _CardEditActivities extends Component {
@@ -78,8 +77,6 @@ class _CardEditActivities extends Component {
                     </div>
                     <button className="card-edit-btn">Show details</button>
                 </section>
-
-                {/* {!!activities && activities.map(a => <CardEditActivityPreview key={a.id} activity={a} />)} */}
 
                 <div className="add-comment-container flex">
                     <MemberAvatar member={member} />

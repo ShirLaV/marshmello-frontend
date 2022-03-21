@@ -34,7 +34,6 @@ const _CardEditDate = ({ onUpdateCard, onClose }) => {
                 onChange={onChange}
                 startDate={startDate}
                 endDate={endDate}
-                // selectsRange
                 inline
                 formatWeekDay={nameOfDay => nameOfDay.substr(0, 3)}
             />
